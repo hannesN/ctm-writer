@@ -1,0 +1,231 @@
+== Functionality ==
+
+This section wants to give a short overview about the core functionality of the CTM writer implementation on the one hand and explain their algorithm on the other hand.
+
+=== Serialize an instance of tmapi.org.core.TopicMap ===
+
+The core functionality of the writer is to serialize the topic map instance using the CTM syntax. The writer will be transform any information item of the given topic map to a CTM pattern, which will be written to a user-defined output stream. 
+
+The exported patterns will be valid in context of the current CTM standard.
+
+At first step the CTM header will be created, which specify the current version of the used CTM standard and some encoding information. 
+
+-------------------------------------
+%encoding "UTF-8"
+%version 1.0
+-------------------------------------
+
+At the second step the internal processor exports all defined prefixes to the CTM file. Prefixes are used in the CTM document to replace absolute IRI by relative IRIs using QNames to reduce the overhead of repeating IRI parts.
+
+-------------------------------------
+# prefixes
+%prefix ontopedia  <http://psi.ontopedia.net/>
+%prefix xtm  <http://www.topicmaps.org/xtm/1.0/>
+%prefix xsd  <http://www.w3.org/2001/XMLSchema#>
+-------------------------------------
+
+The next step will be exporting the template definitions. Templates can be used to represent some frequently used definitions of topics or associations based on ontology knowledge.
+
+-------------------------------------
+# template definitions
+def template-association-has-voice ($voice-type,  $character)
+	has-voice (
+	 	 voice-type : $voice-type,
+	 	 character : $character
+	)
+end
+-------------------------------------
+
+The last step will be create a specific topic block for each topic contained by the given topic map and an association block for each association item. The writer will be detect automatically matching templates an reduce the given topic block by using template-invocations.
+
+-------------------------------------
+# topic definitions
+ballet  
+	 isa artform;
+	 -  "Ballet";
+	 -  "Ballett" @norwegian;
+	 <ontopedia:Ballet>.
+-------------------------------------
+
+After all the created CTM stream will be written to the given output stream.
+
+=== Defining prefixes ===
+
+The writer provides the functionality to define prefixes which will be used to reduce the base part of IRIs used as subject-identifier, subject-locator or item-identifiers. The writer will detect automatically the matching IRIs and try to reduce them by replacing the prefix part with its QName.
+
+=== Defining templates and detecting adaptive information items ===
+
+The writer provides the possibility to define CTM templates. This templates can be used to reduce the overhead caused by ontology overhead of topic items. Templates can be defined by using the *Template* class and adding some entries representing the content of this template. As an alternitive it is possible to define template in CTM and import the CTM file.
+
+During the process of serialization the internal processor tries to detect the set of adaptive templates for a topic item or an association item. The topic block will be reduced by using template-invocations instead of the normal topic-tail-definition. In the case of association items, the normal association block will be replaced by the template-invocation.
+
+=== Automatic template detection ===
+
+The template detection algorithm is a powerful tool to detect ontology intersections between topic items. The algorithm currently works only on topic items of the same type.
+
+A ontology intersection is defined as a multiple use of topic tails in the context of different topic items and will be detect dependent from the tail-type. 
+
+.A CTM snippet of the composer Puccini without template detection
+---------------------------------------
+puccini isa composer;
+    - "Puccini, Giacomo";
+    - "Giacomo Puccini" @normal;
+    - "Puccini" @short-name;
+    article: <http://en.wikipedia.org/wiki/Giacomo_Puccini>;
+    article: <http://www.ontopia.net/topicmaps/examples/opera/occurs/snl/puccini.htm> @snl, web;
+    bibref: """Budden, Julian: "Puccini: His Life and Works", Oxford University Press (Oxford, 2002)""";
+    bibref: """Sadie, Stanley (ed): "Puccini and His Operas", Macmillan (London, 2000)""";
+    date-of-birth: "1858-12-22";
+    date-of-death: "1924-11-29";
+    gallery: <http://localhost:8080/operamap/occurs/puccini-gallery.htm> @local;
+    illustration: <http://localhost:8080/operamap/occurs/composer/puccini.gif> @local;
+    sound-clip: <http://www.puccini.it/files/vocepucc.wav> @italian, puccini-study-centre, web;
+    webpage: <http://www.operone.de/komponist/puccini.html> @web;
+    webpage: <http://localhost:8080/operamap/occurs/hnh-puccini.htm> @local, naxos;
+    webpage: <http://www.naxos.com/composer/btm.asp?fullname=Puccini, Giacomo> @naxos, web;
+    webpage: <http://www.r-ds.com/opera/pucciniana/gallery.htm> @r-ds, web;
+    website: <http://www.landofpuccini.com>;
+    website: <http://www.puccini.it> @italian, puccini-study-centre, web;
+    <ontopedia:Puccini>.
+---------------------------------------
+
+.A CTM snippet of the composer Puccini with template detection
+---------------------------------------
+puccini  
+	template-topic-composer("1924-11-29","1858-12-22",<http://en.wikipedia.org/wiki/Giacomo_Puccini>,<http://localhost:8080/operamap/occurs/composer/puccini.gif>,<http://www.r-ds.com/opera/pucciniana/gallery.htm>,"Giacomo Puccini","Giacomo Puccini","Puccini");
+	 isa composer;
+	 -  "Puccini, Giacomo";
+	 sound-clip :  <http://www.puccini.it/files/vocepucc.wav> @puccini-study-centre,  italian,  web;
+	 article :  <http://www.ontopia.net/topicmaps/examples/opera/occurs/snl/puccini.htm> @snl,  web;
+	 webpage :  <http://www.naxos.com/composer/btm.asp?fullname=Puccini, Giacomo> @web,  naxos;
+	 website :  <http://www.puccini.it> @puccini-study-centre,  italian,  web;
+	 bibref :  "Sadie, Stanley (ed): 'Puccini and His Operas', Macmillan (London, 2000)";
+	 bibref :  "Budden, Julian: 'Puccini: His Life and Works', Oxford University Press (Oxford, 2002)";
+	 webpage :  <http://localhost:8080/operamap/occurs/hnh-puccini.htm> @local,  naxos;
+	 website :  <http://www.landofpuccini.com>;
+	 gallery :  <http://localhost:8080/operamap/occurs/puccini-gallery.htm> @local;
+	 webpage :  <http://www.operone.de/komponist/puccini.html> @web;
+	 <ontopedia:Puccini>.
+---------------------------------------
+
+==== ontology intersection in topic blocks ====
+
+Two name definitions are overlapping only if their type, their scope and their variants are equal. The value has no relevance.
+---------------------------------------
+topicA <o:topic_a>
+	- "Topic A" @theme.
+		
+topicB <o:topic_b>
+	- "Topic B" @theme.	
+--------------------------------------- 
+======================================
+These name definitions are equal because the have the same type, in this case the default-name-type of the TMDM. They also have the same scope defined by the "theme" topic and they havn't any variants, so the two name definitions are overlapping.
+======================================
+
+Two occurrence definitions are overlapping only if their type, data-type and their scope are equal. The value has no relevance.
+---------------------------------------
+topicA <o:topic_a>
+	- age: "10"^^xsd:integer @theme.
+		
+topicB <o:topic_b>
+	- age: "11"^^xsd:integer @theme.	
+--------------------------------------- 
+======================================
+These occurrence definitions are equal because the have the same type ( the age topic ) and the same data-type ( xsd:integer ). They also have the same scope defined by the "theme" topic, so the two occurrence definitions are overlapping.
+======================================
+
+Two super-type-relations are overlapping only if the use the same topic as type;
+---------------------------------------
+topicA <o:topic_a>
+	ako topic.
+		
+topicB <o:topic_b>
+	ako topic.	
+--------------------------------------- 
+======================================
+These super-type-relations are equal because the use the same type.
+======================================
+
+Two instance-relations are overlapping only if the use the same topic as type;
+---------------------------------------
+topicA <o:topic_a>
+	isa topic.
+		
+topicB <o:topic_b>
+	isa topic.	
+--------------------------------------- 
+======================================
+These instance-relations are equal because the use the same type.
+======================================
+
+Over all the processor creates a set of template candidates which are ordered by the number of contained definitions, so the candidate with the most contained definitions will be preferred. Each candidate will be checked against the relevance threshold defined by the property *writer.features.templateDetection.relevanceThreshold*. The relevance of a candidate will be calculate by the number of potential and adaptive topic items.
+
+==== ontology intersection in association blocks ====
+
+Two association definitions are equal only if they have the same type and contains the same role-types. The player have to relevance.
+---------------------------------------
+
+associationA ( roleA : playerA , roleB : playerB )
+
+associationA ( roleA : playerC , roleB : playerD )
+--------------------------------------- 
+
+======================================
+These association definitions have the same type, in this case "associationA", and also contains the two role type "roleA" and "roleB". Because of that the association definitions are overlapping and can be marked as template candidate.
+======================================
+
+=== Automatic template merging ===
+
+The template merging algorithm is a powerful tool, which provides the functionality of detect overlapping templates. In this case the algorithm use the same ontology interpretation algorithm like the template detection algorithm. 
+
+At the first step the algorithm tries to detect the intersection between defined templates and mark them as potential merging candidates. After all the marked candidates will be checked against the minimum count of overlapping templates defined by the property *writer.features.templateMerger.threshold*. The detected candidates will be extract as a template definition and the dependent content of the template definitions will be replaced by a template-invocation. 
+
+.A template definition of composer without template merging
+---------------------------------------
+def template-topic-composer ($topic,  $date-of-death,  $date-of-birth,  $article,  $illustration,  $webpage,  $name,  $name2,  $name3)
+	 $topic
+		 isa composer;
+		 date-of-death :  $date-of-death;
+		 date-of-birth :  $date-of-birth;
+		 article :  $article;
+		 illustration :  $illustration @local;
+		 webpage :  $webpage;
+		 -  $name @normal;
+		 -  $name2;
+		 -  $name3 @short-name.
+end
+---------------------------------------
+
+.A template definition of composer with template merging
+---------------------------------------
+def template-topic-composer ($topic,  $date-of-death,  $date-of-birth,  $article,  $illustration,  $webpage,  $name,  $name2,  $name3)
+	 $topic
+		 isa composer;
+		 article :  $article;
+		 illustration :  $illustration @local;
+		 webpage :  $webpage;
+		 template-topic-composer-invoc($topic,  $date-of-death,  $date-of-birth, $name,  $name2,  $name3).
+end
+---------------------------------------
+
+=== Automatic prefix detection ===
+
+The prefix detection algorithm is a powerful tool which extract frequently used prefixes of IRIs. The algorithm extract all IRIs used as item-identifiers, subject-identifiers or subject-locators. For each IRI the algorithm extracts every possible prefix and store them as candidates and count the matching IRIs. The candidates will be ordered by length, so the longer prefixes will be prefered. As last step the prefix detection algorithm will be generate a QName for detected prefixes, because of that it extract some part information of the prefix IRI, like the second level domain or the path information. If there is a name collision, a number will be attached. During the serialization process the stored and user-defined prefixes will be used to transform every matching IRI to relative IRIs.
+
+.A template snippet containing a topic block without prefix detection
+---------------------------------------
+antioch  
+	 isa city;
+	 -  "Antioch";
+	 <http://psi.ontopedia.net/Antioch>.
+---------------------------------------
+
+.A template snippet containing a topic block with prefix detection
+---------------------------------------
+%prefix ontopedia  <http://psi.ontopedia.net/>
+
+antioch  
+	 isa city;
+	 -  "Antioch";
+	 <ontopedia:Antioch>.
+---------------------------------------
