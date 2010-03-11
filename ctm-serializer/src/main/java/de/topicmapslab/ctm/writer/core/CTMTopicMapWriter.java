@@ -11,7 +11,10 @@ package de.topicmapslab.ctm.writer.core;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.HashSet;
 
+import org.tmapi.core.Construct;
 import org.tmapi.core.TopicMap;
 import org.tmapix.io.TopicMapWriter;
 
@@ -189,6 +192,48 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 */
 	public void setPrefix(final String namespace, final String prefix) {
 		this.prefixHandler.setPrefix(namespace, prefix);
+	}
+
+	/**
+	 * Serialize the given topic map to CTM and write it into the given
+	 * {@link OutputStream}.
+	 * 
+	 * @param constructs
+	 *            a collection containing all constructs to serialize
+	 * @throws Exception
+	 *             thrown if serialization failed.
+	 */
+	public void write(Construct... constructs) throws IOException {
+		Collection<Construct> constructs_ = new HashSet<Construct>();
+		for ( Construct c : constructs){
+			constructs_.add(c);
+		}
+		write(constructs_);
+	}
+	
+	/**
+	 * Serialize the given topic map to CTM and write it into the given
+	 * {@link OutputStream}.
+	 * 
+	 * @param constructs
+	 *            a collection containing all constructs to serialize
+	 * @throws Exception
+	 *             thrown if serialization failed.
+	 */
+	public void write(Collection<Construct> constructs) throws IOException {
+		CTMBuffer buffer = new CTMBuffer();
+
+		try {
+			serializer.serialize(constructs, buffer);
+		} catch (SerializerException e) {
+			throw new IOException("Serialization failed, because of "
+					+ e.getLocalizedMessage());
+		}
+
+		PrintWriter writer = new PrintWriter(outputStream);
+		writer.write(buffer.getBuffer().toString());
+		writer.flush();
+		writer.close();
 	}
 
 }

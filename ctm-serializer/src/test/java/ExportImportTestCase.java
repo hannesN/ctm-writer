@@ -61,6 +61,7 @@ public class ExportImportTestCase extends TestCase {
 				+ "writer.features.templateMerger.enabled = false";
 		CTMTopicMapWriter writer = new CTMTopicMapWriter(
 				new FileOutputStream(file), "www.topicmapslab.de", line);
+
 		writer.setPrefix("tml", "http://www.topicmapslab.de/");
 		writer.write(topicMap);
 		final String qname = "ctm";
@@ -71,9 +72,9 @@ public class ExportImportTestCase extends TestCase {
 		if (!file2.exists()) {
 			file2.createNewFile();
 		}
-		org.tinytim.mio.CTMTopicMapWriter writer2 = new org.tinytim.mio.CTMTopicMapWriter(
-				new FileOutputStream(file2), "www.topicmapslab.de");
-		writer2.write(topicMap);
+//		org.tinytim.mio.CTMTopicMapWriter writer2 = new org.tinytim.mio.CTMTopicMapWriter(
+//				new FileOutputStream(file2), "www.topicmapslab.de");
+//		writer2.write(topicMap);
 		
 		System.out.println("Import from CTM...");
 		

@@ -95,9 +95,13 @@ public class LittleExportImportTestCase extends TestCase {
 						topicMap
 								.createLocator("http://www.w3.org/2001/XMLSchema#string"),
 						theme);
-		instanceA.createOccurrence(occType, "äüößÜÄÖ€@âéè", topicMap
-				.createLocator("http://www.w3.org/2001/XMLSchema#string"),
-				theme);
+		instanceA
+				.createOccurrence(
+						occType,
+						"äüößÜÄÖ€@âéè",
+						topicMap
+								.createLocator("http://www.w3.org/2001/XMLSchema#string"),
+						theme);
 		occ.setReifier(reifierOcc);
 
 		Topic reifierName = topicMap.createTopicByItemIdentifier(topicMap
@@ -200,14 +204,14 @@ public class LittleExportImportTestCase extends TestCase {
 
 	public void testFallback() throws Exception {
 		TopicMap tm = topicMapSystem.createTopicMap("http://fallback-test");
-		Topic t = tm.createTopic();		
+		Topic t = tm.createTopic();
 
 		Locator l = tm.createLocator(TMDMIdentifier.KIND_OF_TYPE);
 		Topic assType = tm.getTopicBySubjectIdentifier(l);
 		if (assType == null) {
 			assType = tm.createTopicBySubjectIdentifier(l);
 		}
-		
+
 		Association a = tm.createAssociation(assType);
 		l = tm.createLocator(TMDMIdentifier.SUPERTYPE_ROLE);
 		Topic supert = tm.getTopicBySubjectIdentifier(l);
@@ -221,20 +225,32 @@ public class LittleExportImportTestCase extends TestCase {
 			subt = tm.createTopicBySubjectIdentifier(l);
 		}
 		a.createRole(subt, t);
-		
+
 		File file = new File("src/test/resources/ctm.ctm");
 		if (!file.exists()) {
 			file.createNewFile();
 		}
-//		final String line = "writer.features.export.itemidentifier = true, "
-//				+ "writer.features.prefixDetection.enabled = true, "
-//				+ "writer.features.templateDetection.enabled = false, "
-//				+ "writer.features.templateDetection.topicTemplates = false , "
-//				+ "writer.features.templateDetection.associationTemplates = false, "
-//				+ "writer.features.templateMerger.enabled = false";
+		// final String line = "writer.features.export.itemidentifier = true, "
+		// + "writer.features.prefixDetection.enabled = true, "
+		// + "writer.features.templateDetection.enabled = false, "
+		// + "writer.features.templateDetection.topicTemplates = false , "
+		// + "writer.features.templateDetection.associationTemplates = false, "
+		// + "writer.features.templateMerger.enabled = false";
 		de.topicmapslab.ctm.writer.core.CTMTopicMapWriter writer = new de.topicmapslab.ctm.writer.core.CTMTopicMapWriter(
-				new FileOutputStream(file), "www.topicmapslab.de");//, line);
+				new FileOutputStream(file), "www.topicmapslab.de");// , line);
 		writer.write(tm);
+
+	}
+
+	public void testbla() throws Exception {
+		File file = new File("src/test/resources/ctm.ctm");
+
+		TopicMap tm = TopicMapSystemFactory.newInstance().newTopicMapSystem()
+				.createTopicMap("http://de.topicmapslab/tmql4j/blablub");
+
+		org.tmapix.io.CTMTopicMapReader reader = new org.tmapix.io.CTMTopicMapReader(
+				tm, file);
+		reader.read();
 
 	}
 }
