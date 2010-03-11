@@ -53,17 +53,17 @@ public class TemplateMergerTestCase extends TestCase {
 	 * Test method for
 	 * {@link de.topicmapslab.ctm.writer.templates.TemplateMerger#mergeTemplates(java.util.Set)}
 	 * .
+	 * @deprecated
 	 */
 	public final void testMergeTemplates() throws Exception {
-		CTMTopicMapWriterProperties properties = new CTMTopicMapWriterProperties();
-		TemplateDetection detection = new TemplateDetection(properties,new CTMIdentity(), topicMap);
-		for (Template template : new TemplateMerger(properties).mergeTemplates(detection
-				.tryToDetectTemplates())) {
-			CTMBuffer buffer = new CTMBuffer();
-			new TemplateSerializer(template).serialize(buffer);
-			System.out.println(buffer.getBuffer().toString());
-		}
-
+//		CTMTopicMapWriterProperties properties = new CTMTopicMapWriterProperties();
+//		TemplateDetection detection = new TemplateDetection(properties,new CTMIdentity(), topicMap);
+//		for (Template template : new TemplateMerger(properties).mergeTemplates(detection
+//				.tryToDetectTemplates())) {
+//			CTMBuffer buffer = new CTMBuffer();
+//			new TemplateSerializer(template).serialize(buffer);
+//			System.out.println(buffer.getBuffer().toString());
+//		}
 	}
 
 }

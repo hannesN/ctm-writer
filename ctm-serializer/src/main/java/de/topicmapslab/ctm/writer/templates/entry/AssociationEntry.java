@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -99,16 +99,16 @@ public class AssociationEntry implements IEntry {
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
 		buffer.appendLine(true, ctmIdentity
-				.generateItemIdentifier(properties,getAssociationType()).toString(), BRO);
+				.getMainIdentifier(properties,getAssociationType()).toString(), BRO);
 		boolean first = true;
 		for (RoleEntry entry : roleEntries) {
 			if (!first) {
 				buffer.appendLine(COMMA);
 			}
 			buffer.append(TABULATOR, TABULATOR, ctmIdentity
-					.generateItemIdentifier(properties,entry.roleType).toString(), COLON,
+					.getMainIdentifier(properties,entry.roleType).toString(), COLON,
 					entry.topicOrVariable instanceof Topic ? ctmIdentity
-							.generateItemIdentifier(properties,(Topic) entry.topicOrVariable).toString()
+							.getMainIdentifier(properties,(Topic) entry.topicOrVariable).toString()
 							: entry.topicOrVariable.toString());
 			first = false;
 		}
@@ -217,7 +217,7 @@ public class AssociationEntry implements IEntry {
 				if (entry.getTopicOrVariable().startsWith("$")) {
 					Role role = association.getRoles(entry.roleType).iterator()
 							.next();
-					arguments.add(ctmIdentity.generateItemIdentifier(properties,role
+					arguments.add(ctmIdentity.getMainIdentifier(properties,role
 							.getPlayer()).toString());
 				}
 			}

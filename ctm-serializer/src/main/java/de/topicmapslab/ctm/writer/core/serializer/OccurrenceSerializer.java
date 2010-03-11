@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -64,7 +64,7 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 		/*
 		 * begin occurrence-definition block
 		 */
-		buffer.append(true, TABULATOR, ctmIdentity.generateItemIdentifier(
+		buffer.append(true, TABULATOR, ctmIdentity.getMainIdentifier(
 				properties, occurrence.getType()).toString(), COLON, WHITESPACE);
 
 		/*
@@ -119,7 +119,7 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 			String value, Object datatype, Topic type, CTMBuffer buffer)
 			throws SerializerException {
 
-		buffer.append(true, TABULATOR, ctmIdentity.generateItemIdentifier(
+		buffer.append(true, TABULATOR, ctmIdentity.getMainIdentifier(
 				properties, type).toString(), COLON, WHITESPACE);
 
 		/*

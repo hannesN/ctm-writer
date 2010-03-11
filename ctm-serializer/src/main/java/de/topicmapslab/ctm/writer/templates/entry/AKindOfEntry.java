@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -71,7 +71,7 @@ public class AKindOfEntry extends EntryImpl {
 		// buffer.appendTailLine(true, TABULATOR, AKO, CTMIdentity
 		// .getPrefixedIdentity(type));
 		buffer.appendTailLine(true, TABULATOR, AKO, ctmIdentity
-				.generateItemIdentifier(properties,type).toString());
+				.getMainIdentifier(properties,type).toString());
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class AKindOfEntry extends EntryImpl {
 		}
 
 		List<String> arguments = new LinkedList<String>();
-		arguments.add(ctmIdentity.generateItemIdentifier(properties,type).toString());
+		arguments.add(ctmIdentity.getMainIdentifier(properties,type).toString());
 		affectedConstructs.add(type);
 
 		return arguments;

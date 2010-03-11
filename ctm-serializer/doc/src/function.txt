@@ -53,6 +53,8 @@ After all the created CTM stream will be written to the given output stream.
 
 The writer provides the functionality to define prefixes which will be used to reduce the base part of IRIs used as subject-identifier, subject-locator or item-identifiers. The writer will detect automatically the matching IRIs and try to reduce them by replacing the prefix part with its QName.
 
+By using the 'setProperty' function of the CTM topic map writer instance, the user can add own prefixes.
+
 === Defining templates and detecting adaptive information items ===
 
 The writer provides the possibility to define CTM templates. This templates can be used to reduce the overhead caused by ontology overhead of topic items. Templates can be defined by using the *Template* class and adding some entries representing the content of this template. As an alternitive it is possible to define template in CTM and import the CTM file.

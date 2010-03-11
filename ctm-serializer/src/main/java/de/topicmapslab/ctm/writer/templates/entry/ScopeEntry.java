@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -122,7 +122,7 @@ public class ScopeEntry {
 				buffer.append(COMMA, WHITESPACE);
 			}
 			// buffer.append(SCOPE, CTMIdentity.getPrefixedIdentity(theme));
-			buffer.append(ctmIdentity.generateItemIdentifier(properties, theme).toString());
+			buffer.append(ctmIdentity.getMainIdentifier(properties, theme).toString());
 		}
 
 		for (String variable : variables) {

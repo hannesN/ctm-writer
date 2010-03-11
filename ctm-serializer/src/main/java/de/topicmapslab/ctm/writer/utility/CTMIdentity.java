@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -12,13 +12,18 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXBEGIN;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
 import static de.topicmapslab.ctm.writer.utility.TMDMIdentifier.TMDM_IDENTIFIERS;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.tmapi.core.Locator;
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.common.tools.URIEncoder;
 import de.topicmapslab.common.tools.prefix.core.Prefixer;
+import de.topicmapslab.ctm.writer.core.PrefixHandler;
 import de.topicmapslab.ctm.writer.core.serializer.PrefixesSerializer;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
@@ -38,16 +43,22 @@ public class CTMIdentity {
 	 * internal cache to store the first identifier generated for a topic
 	 */
 	private Map<Topic, CTMMainIdentifier> idMap;
-	
+
+	private final PrefixHandler prefixHandler;
+
 	/**
-	 * // TODO change me
-	 * method to generate a CTM item-identifier for the given
-	 * {@link Topic} which can be used as variable name at CTM templates. At
-	 * first the method {@link CTMIdentity#getPrefixedIdentity(Topic)} is
-	 * called, to extract a prefixed identifier. Then the identifier is split to
-	 * extract the relative URI part, before a optional dot and after the last
-	 * slash. At last step all underscores are replaced by hyphens and the
-	 * string will be transformed to lower case.
+	 * base constructor
+	 * 
+	 * @param prefixHandler
+	 *            the prefix handler
+	 */
+	public CTMIdentity(final PrefixHandler prefixHandler) {
+		this.prefixHandler = prefixHandler;
+	}
+
+	/**
+	 * Returns the main identifier used to identify the topic map construct in
+	 * the CTM file.
 	 * 
 	 * @param properties
 	 *            the internal {@link CTMTopicMapWriterProperties}
@@ -57,76 +68,43 @@ public class CTMIdentity {
 	 * @return the generated CTM item-identifier
 	 * @throws NoIdentityException
 	 */
-	public CTMMainIdentifier generateItemIdentifier(
+	public CTMMainIdentifier getMainIdentifier(
 			final CTMTopicMapWriterProperties properties, Topic topic)
 			throws NoIdentityException {
 
-		if (idMap==null)
+		if (idMap == null)
 			idMap = new HashMap<Topic, CTMMainIdentifier>();
-		
-		CTMMainIdentifier prefixedIdentity = getPrefixedIdentity(properties, topic);
-		
-		
+
+		CTMMainIdentifier prefixedIdentity = getPrefixedIdentity(properties,
+				topic);
+
 		idMap.put(topic, prefixedIdentity);
-		
-//		/*
-//		 * extract relative URI part after QName
-//		 */
-//		if (prefixedIdentity.lastIndexOf(":") != -1) {
-//			prefixedIdentity = prefixedIdentity.substring(prefixedIdentity
-//					.lastIndexOf(":") + 1);
-//		}
-//		/*
-//		 * extract part after last slash
-//		 */
-//		if (prefixedIdentity.lastIndexOf("/") != -1) {
-//			prefixedIdentity = prefixedIdentity.substring(prefixedIdentity
-//					.lastIndexOf("/") + 1);
-//		}
-//		/*
-//		 * extract part before first dot
-//		 */
-//		if (prefixedIdentity.indexOf(".") != -1) {
-//			prefixedIdentity = prefixedIdentity.substring(0, prefixedIdentity
-//					.indexOf("."));
-//		}
-//
-//		/*
-//		 * extract part after last hash
-//		 */
-//		if (prefixedIdentity.indexOf("#") != -1) {
-//			prefixedIdentity = prefixedIdentity.substring(prefixedIdentity
-//					.lastIndexOf("#") + 1);
-//		}
-//		/*
-//		 * replace all underscores by hyphen and transform to lower case
-//		 */
-//		prefixedIdentity = prefixedIdentity.toLowerCase().replaceAll("_", "-");
-//		prefixedIdentity = prefixedIdentity.replaceAll("\\(", "");
-//		prefixedIdentity = prefixedIdentity.replaceAll("\\)", "");
-//
-//		if (prefixedIdentity.matches("[0-9].*")) {
-//			prefixedIdentity = "I" + prefixedIdentity;
-//		}
 
 		return prefixedIdentity;
 	}
-	
+
 	public final String getEscapedCTMIdentity(final String identity,
 			final Locator locator) {
+
+		String id = identity;
 		
-		String id = identity.replaceAll(" ", "%22");
-		if ( (!identity.equals(locator.toExternalForm())) 
-			&& (identity.contains(":")) ) {
-			return id;
+		try {
+			id = URIEncoder.encodeURI(id, "UTF-8");
+		} catch (UnsupportedEncodingException e) {			
+			e.printStackTrace();
 		}
+		
+		if ((!identity.equals(locator.toExternalForm()))
+				&& (identity.contains(":")) && !id.contains("%") && !id.contains(",")) {
+			return id;
+		}		
 		return PREFIXBEGIN + id + PREFIXEND;
 	}
 
 	/**
-	 * method to transform the given locator to a prefixed CTM identity.
-	 * Method is calling {@link Prefixer#toPrefixedIri(String, java.util.Map)}
-	 * with arguments {@link Locator#toExternalForm()} and
+	 * method to transform the given locator to a prefixed CTM identity. Method
+	 * is calling {@link Prefixer#toPrefixedIri(String, java.util.Map)} with
+	 * arguments {@link Locator#toExternalForm()} and
 	 * {@link PrefixesSerializer#knownPrefixes}
 	 * 
 	 * @param locator
@@ -134,14 +112,14 @@ public class CTMIdentity {
 	 * @return the prefixed identifier.
 	 */
 	public String getPrefixedIdentity(Locator locator) {
-		return Prefixer.toPrefixedIri(locator.toExternalForm(),
-				PrefixesSerializer.knownPrefixes);
+		return Prefixer.toPrefixedIri(locator.toExternalForm(), prefixHandler
+				.getPrefixMap());
 	}
 
 	/**
-	 * method to transform the given topic to a prefixed CTM identity.
-	 * Method is calling {@link Prefixer#toPrefixedIri(String, java.util.Map)))}
-	 * with arguments {@link Locator#toExternalForm()} and
+	 * method to transform the given topic to a prefixed CTM identity. Method is
+	 * calling {@link Prefixer#toPrefixedIri(String, java.util.Map)))} with
+	 * arguments {@link Locator#toExternalForm()} and
 	 * {@link PrefixesSerializer#knownPrefixes}
 	 * 
 	 * 
@@ -158,18 +136,19 @@ public class CTMIdentity {
 			final CTMTopicMapWriterProperties properties, Topic topic)
 			throws NoIdentityException {
 		CTMMainIdentifier identifier = getIdentity(properties, topic);
-		
-		String iri = Prefixer.toPrefixedIri(identifier.getIdentifier(), PrefixesSerializer.knownPrefixes);
-		
+
+		String iri = Prefixer.toPrefixedIri(identifier.getIdentifier(),
+				prefixHandler.getPrefixMap());
+
 		identifier.setIdentifier(iri);
 		return identifier;
 	}
 
 	/**
-	 * method to extract one identity of the given topic. The method is
-	 * looking for subject-identifier, subject-locator and item-identifier. The
-	 * method ignores default TMDM identifiers and internal identifiers of the
-	 * topic maps engine.
+	 * method to extract one identity of the given topic. The method is looking
+	 * for subject-identifier, subject-locator and item-identifier. The method
+	 * ignores default TMDM identifiers and internal identifiers of the topic
+	 * maps engine.
 	 * 
 	 * @param properties
 	 *            the internal {@link CTMTopicMapWriterProperties}
@@ -197,7 +176,8 @@ public class CTMIdentity {
 			 * check if subject-identifier is a default TMDM identifier
 			 */
 			if (!TMDM_IDENTIFIERS.contains(locator.toExternalForm())) {
-				return new CTMMainIdentifier(locator.toExternalForm(), IdentifierType.SUBJECT_IDENTIFIER);
+				return new CTMMainIdentifier(prefixHandler, locator
+						.toExternalForm(), IdentifierType.SUBJECT_IDENTIFIER);
 			}
 			/*
 			 * store as fall-back
@@ -212,7 +192,8 @@ public class CTMIdentity {
 		 */
 		if (!topic.getSubjectLocators().isEmpty()) {
 			Locator locator = topic.getSubjectLocators().iterator().next();
-			return new CTMMainIdentifier(locator.toExternalForm(), IdentifierType.SUBJECT_LOCATOR);
+			return new CTMMainIdentifier(prefixHandler, locator
+					.toExternalForm(), IdentifierType.SUBJECT_LOCATOR);
 		}
 
 		/*
@@ -220,7 +201,8 @@ public class CTMIdentity {
 		 */
 		for (Locator locator : topic.getItemIdentifiers()) {
 			if (!isSystemItemIdentifier(properties, locator)) {
-				return new CTMMainIdentifier(locator.toExternalForm(), IdentifierType.ITEM_IDENTIFIER);
+				return new CTMMainIdentifier(prefixHandler, locator
+						.toExternalForm(), IdentifierType.ITEM_IDENTIFIER);
 			}
 			/*
 			 * store as fall-back
@@ -234,15 +216,16 @@ public class CTMIdentity {
 		 * topic has only the auto generated
 		 */
 		if (fallback != null) {
-			return new CTMMainIdentifier(fallback.toExternalForm(), IdentifierType.SUBJECT_IDENTIFIER);
+			return new CTMMainIdentifier(prefixHandler, fallback
+					.toExternalForm(), IdentifierType.SUBJECT_IDENTIFIER);
 		}
 
 		throw new NoIdentityException("topic has no identity.");
 	}
 
 	/**
-	 * method to check if the given locator is an internal locator
-	 * created by the topic map engine. Method is calling
+	 * method to check if the given locator is an internal locator created by
+	 * the topic map engine. Method is calling
 	 * {@link CTMIdentity#isSystemItemIdentifier(String, CTMTopicMapWriterProperties)
 	 * )} with the argument {@link Locator#toExternalForm()}.
 	 * 
@@ -259,8 +242,8 @@ public class CTMIdentity {
 	}
 
 	/**
-	 * method to check if the given locator is an internal locator
-	 * created by the topic map engine.
+	 * method to check if the given locator is an internal locator created by
+	 * the topic map engine.
 	 * 
 	 * @param properties
 	 *            the internal {@link CTMTopicMapWriterProperties}

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -433,7 +433,7 @@ public class OccurrenceEntry extends EntryImpl {
 		 * generate variable name
 		 */
 		String variable = "$"
-				+ ctmIdentity.generateItemIdentifier(properties, type);
+				+ ctmIdentity.getMainIdentifier(properties, type);
 		/*
 		 * set CTM identity of data-type
 		 */

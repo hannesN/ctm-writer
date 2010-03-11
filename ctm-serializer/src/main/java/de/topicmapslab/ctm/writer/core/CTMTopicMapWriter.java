@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -44,7 +44,15 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 */
 	private final TopicMapSerializer serializer;
 
+	/**
+	 * the property instance
+	 */
 	private final CTMTopicMapWriterProperties properties;
+
+	/**
+	 * the prefix handler
+	 */
+	private final PrefixHandler prefixHandler;
 
 	/**
 	 * constructor
@@ -79,7 +87,8 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 		this.outputStream = outputStream;
 		this.baseURI = baseURI;
 		this.properties = new CTMTopicMapWriterProperties();
-		this.serializer = new TopicMapSerializer(properties);		
+		this.prefixHandler = new PrefixHandler();
+		this.serializer = new TopicMapSerializer(properties, prefixHandler);
 		if (propertyLine != null) {
 			this.properties.parse(propertyLine);
 		}
@@ -156,6 +165,30 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 */
 	public void setProperty(final String key, final String value) {
 		this.properties.setProperty(key, value);
+	}
+
+	/**
+	 * Get the prefix IRI for the given name-space identifier.
+	 * 
+	 * @param namespace
+	 *            the identifier
+	 * @return the prefix IRI or <code>null</code> if no prefix is registered
+	 *         for given name-space
+	 */
+	public String getPrefix(final String namespace) {
+		return prefixHandler.getPrefix(namespace);
+	}
+
+	/**
+	 * Register a new prefix definition.
+	 * 
+	 * @param namespace
+	 *            the name-space
+	 * @param prefix
+	 *            the prefix IRI
+	 */
+	public void setPrefix(final String namespace, final String prefix) {
+		this.prefixHandler.setPrefix(namespace, prefix);
 	}
 
 }

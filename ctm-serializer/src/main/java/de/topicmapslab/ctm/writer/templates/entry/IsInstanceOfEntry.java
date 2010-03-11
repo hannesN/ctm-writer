@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -66,7 +66,7 @@ public class IsInstanceOfEntry extends EntryImpl {
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
 		buffer.appendTailLine(true, TABULATOR, ISA, ctmIdentity
-				.generateItemIdentifier(properties, type).toString());
+				.getMainIdentifier(properties, type).toString());
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class IsInstanceOfEntry extends EntryImpl {
 		 */
 		if (isDependentFromVariable()) {
 			Topic type = topic.getTypes().iterator().next();
-			arguments.add(ctmIdentity.generateItemIdentifier(properties, type).toString());
+			arguments.add(ctmIdentity.getMainIdentifier(properties, type).toString());
 			affectedConstructs.add(type);
 
 		}

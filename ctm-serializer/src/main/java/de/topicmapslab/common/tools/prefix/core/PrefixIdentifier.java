@@ -1,4 +1,4 @@
-/** 
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -218,19 +218,41 @@ public class PrefixIdentifier {
 			/*
 			 * split IRI of the locator to prefixes
 			 */
-			PrefixerTokenizer tokenizer = new PrefixerTokenizer(locator);
-			for (String candidate : tokenizer.getTokens()) {
-				/*
-				 * check if prefix is already known
-				 */
-				Integer count = candidates.get(candidate);
-				if (count == null) {
-					count = 1;
-				} else {
-					count++;
-				}
-				candidates.put(candidate, count);
+			
+			String iri = locator.toExternalForm();
+			int indexHash = iri.lastIndexOf("#");
+			int indexSlash = iri.lastIndexOf("/");
+						
+			if ( indexHash > indexSlash ){
+				iri = iri.substring(0,indexHash+1);
+			}else if ( indexHash < indexSlash ){
+				iri = iri.substring(0,indexSlash+1);
 			}
+			
+			/*
+			 * check if prefix is already known
+			 */
+			Integer count = candidates.get(iri);
+			if (count == null) {
+				count = 1;
+			} else {
+				count++;
+			}
+			candidates.put(iri, count);
+			
+//			PrefixerTokenizer tokenizer = new PrefixerTokenizer(locator);
+//			for (String candidate : tokenizer.getTokens()) {
+//				/*
+//				 * check if prefix is already known
+//				 */
+//				Integer count = candidates.get(candidate);
+//				if (count == null) {
+//					count = 1;
+//				} else {
+//					count++;
+//				}
+//				candidates.put(candidate, count);
+//			}
 		}
 
 		return candidates;

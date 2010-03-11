@@ -147,7 +147,7 @@ public class LittleExportImportTestCase extends TestCase {
 	}
 
 	public void testExportImport() throws Exception {
-		File file = new File("C:\\tmp/ctm.ctm");
+		File file = new File("src/test/resources/ctm.ctm");
 		if (!file.exists()) {
 			file.createNewFile();
 		}
@@ -161,7 +161,7 @@ public class LittleExportImportTestCase extends TestCase {
 				new FileOutputStream(file), "www.topicmapslab.de", line);
 		writer.write(topicMap);
 
-		File file2 = new File("C:\\tmp/ctm-mio.ctm");
+		File file2 = new File("src/test/resources/ctm-mio.ctm");
 		if (!file2.exists()) {
 			file2.createNewFile();
 		}
@@ -222,7 +222,7 @@ public class LittleExportImportTestCase extends TestCase {
 		}
 		a.createRole(subt, t);
 		
-		File file = new File("C:\\tmp/ctm.ctm");
+		File file = new File("src/test/resources/ctm.ctm");
 		if (!file.exists()) {
 			file.createNewFile();
 		}

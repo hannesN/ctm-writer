@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -57,8 +57,8 @@ public class RoleSerializer implements ISerializer<Role> {
 	public boolean serialize(Role role, CTMBuffer buffer)
 			throws SerializerException {
 
-		buffer.append(true, ctmIdentity.generateItemIdentifier(properties,role.getType()).toString(),
-				COLON, ctmIdentity.generateItemIdentifier(properties,role.getPlayer()).toString());
+		buffer.append(true, ctmIdentity.getMainIdentifier(properties,role.getType()).toString(),
+				COLON, ctmIdentity.getMainIdentifier(properties,role.getPlayer()).toString());
 
 		new ReifiableSerializer(properties, ctmIdentity).serialize(role, buffer);
 

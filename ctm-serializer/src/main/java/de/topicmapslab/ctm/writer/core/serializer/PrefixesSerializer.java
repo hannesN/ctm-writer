@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -13,13 +13,13 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXBEGIN;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.tmapi.core.TopicMap;
 
 import de.topicmapslab.common.tools.prefix.core.PrefixIdentifier;
+import de.topicmapslab.ctm.writer.core.PrefixHandler;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
@@ -37,9 +37,19 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class PrefixesSerializer implements ISerializer<TopicMap> {
 
 	/**
-	 * map of all known prefixes
+	 * the prefix handler
 	 */
-	public static final Map<String, String> knownPrefixes = new HashMap<String, String>();
+	private final PrefixHandler prefixHandler;
+
+	/**
+	 * constructor
+	 * 
+	 * @param prefixHandler
+	 *            the prefix handler of the CTM writer
+	 */
+	public PrefixesSerializer(PrefixHandler prefixHandler) {
+		this.prefixHandler = prefixHandler;
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -51,8 +61,8 @@ public class PrefixesSerializer implements ISerializer<TopicMap> {
 		/*
 		 * try to identify all prefixes of the topic map
 		 */
-		Map<String, String> prefixes = PrefixIdentifier.prefixMap(topicMap);		
-		
+		Map<String, String> prefixes = PrefixIdentifier.prefixMap(topicMap);
+
 		/*
 		 * iterate over entries
 		 */
@@ -61,14 +71,13 @@ public class PrefixesSerializer implements ISerializer<TopicMap> {
 			 * add to buffer
 			 */
 			buffer.append(true, PREFIX, prefix.getKey(), WHITESPACE);
-			buffer.appendLine(false, PREFIXBEGIN, prefix.getValue(),PREFIXEND);			
+			buffer.appendLine(false, PREFIXBEGIN, prefix.getValue(), PREFIXEND);
+			/*
+			 * store known prefix
+			 */
+			prefixHandler.setPrefix(prefix.getKey(), prefix.getValue());
 			result = true;
 		}
-
-		/*
-		 * store known prefixes
-		 */
-		knownPrefixes.putAll(prefixes);		
 		return result;
 	}
 

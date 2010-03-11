@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -98,7 +98,7 @@ public class TopicSerializer implements ISerializer<Topic> {
 		
 		
 		buffer.appendLine(
-				getCtmIdentity().generateItemIdentifier(properties, topic).toString(),
+				getCtmIdentity().getMainIdentifier(properties, topic).toString(),
 				WHITESPACE);
 
 		/*
@@ -153,7 +153,7 @@ public class TopicSerializer implements ISerializer<Topic> {
 			if (affectedConstructs.contains(locator)) {
 				continue;
 			}
-			if (locator.toExternalForm().equals(ctmIdentity.generateItemIdentifier(properties, topic).getIdentifier())) {
+			if (locator.toExternalForm().equals(ctmIdentity.getMainIdentifier(properties, topic).getIdentifier())) {
 				continue;
 			}
 			

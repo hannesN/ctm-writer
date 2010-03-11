@@ -2,17 +2,18 @@
 
 Now we want to define our own prefixes and want to add them to the internal prefix store of the CTM writer. Of course we can also use the automatic prefix detection algorithm, but sometimes the generate QNames are not equal to our interest or there are a prefix which will not be detected.
 
-We will need two information for each prefix to define it. The first parameter "qname" represents the prefix and will be used for transformation of the absolute IRI to a relative IRI. The second information are the prefix itself, which has to be a valid absolute IRI in context of the RFC 3987.
+We will need two information for each prefix to define it. The first parameter 'namespace' represents the prefix and will be used for transformation of the absolute IRI to a relative IRI. The second information are the prefix itself, which has to be a valid absolute IRI in context of the RFC 3987.
 
-The prefixes are stored in a internal Map and will be handled by a special serialization class, called PrefixSerializer.
+The prefixes are stored in a internal Map and will be handled by a special class called 'PrefixHandler'. An instance of the handler can not access directly because it will be encapsulated by the CTM topic map writer instance.
 
 
 ------------------------------------------
-1: 	final String qname = "tml";
+1: 	final String namespace = "tml";
 2:	final String iri = "http://www.topicmapslab.de/";
-3:	PrefixesSerializer.knownPrefixes.put(qname, iri);
+3:	CTMTopicMapWriter writer = new CTMTopicMapWriter( new FileOutputStream(file), "www.topicmapslab.de", line);
+4:	writer.setPrefix(namespace, iri);
 ------------------------------------------
 
 ==========================================
-As we describe, we have to define our two parameters at first. In line 1 we define the QName value and set them to the value "tml". In the second line we define the real IRI of our prefix and set them to "http://www.topicmapslab.de/". The last slash can be removed, because it will be added automatically if no slash or hex is postponed. The last operation to do is to call the handler class and add the prefix definition, as you can see in line 3.
+As we describe, we have to define our two parameters at first. In line 1 we define the QName value and set them to the value "tml". In the second line we define the real IRI of our prefix and set them to "http://www.topicmapslab.de/". The last slash can be removed, because it will be added automatically if no slash or hex is postponed. The last operation to do is to call the 'setPrefix' method of the CTM topic map writer instance to add the prefix definition, as you can see in line 4.
 ==========================================

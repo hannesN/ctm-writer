@@ -1,4 +1,4 @@
-/** 
+/* 
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -83,24 +83,7 @@ public class CTMTopicMapWriterProperties extends Properties {
 	 * containing a decimal number greater than 1.
 	 */
 	public static final String FEATURE_TEMPLATEMERGER_THRESHOLD = "writer.features.templateMerger.threshold";
-//
-//	/**
-//	 * singleton instance
-//	 */
-//	private static CTMTopicMapWriterProperties properties;
 
-//	/**
-//	 * Create and load properties if not initialized before and return the
-//	 * instance.
-//	 * 
-//	 * @return the instance of properties
-//	 */
-//	public static CTMTopicMapWriterProperties getProperties() {
-//		if (properties == null) {
-//			properties = new CTMTopicMapWriterProperties();
-//		}
-//		return properties;
-//	}
 
 	/**
 	 * Constructor to load the property-file CTM-writer.properties

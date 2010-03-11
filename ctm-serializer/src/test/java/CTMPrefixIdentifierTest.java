@@ -1,18 +1,13 @@
 import java.io.File;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import org.tmapi.core.Locator;
-import org.tmapi.core.Topic;
 import org.tmapi.core.TopicMap;
 import org.tmapi.core.TopicMapSystem;
 import org.tmapi.core.TopicMapSystemFactory;
 import org.tmapix.io.LTMTopicMapReader;
 
 import de.topicmapslab.common.tools.prefix.core.PrefixIdentifier;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * TMQL4J - Javabased TMQL Engine
@@ -67,13 +62,16 @@ public class CTMPrefixIdentifierTest extends TestCase {
 		System.out.println(PrefixIdentifier.prefixMap(topicMap));
 	}
 
+	@Deprecated
 	public void testGenereateIdentity() throws Exception {
-		CTMTopicMapWriterProperties properties = new CTMTopicMapWriterProperties();
-		Locator locator = topicMap
-				.createLocator("http://iso.bnla.deun/#2001en-(city)");
-		Topic t = topicMap.createTopicBySubjectIdentifier(locator);
-		final String iri = new CTMIdentity().generateItemIdentifier(properties, t).toString();
-		Assert.assertEquals("I2001en-city", iri);
-		System.out.println(iri);
+		// CTMTopicMapWriterProperties properties = new
+		// CTMTopicMapWriterProperties();
+		// Locator locator = topicMap
+		// .createLocator("http://iso.bnla.deun/#2001en-(city)");
+		// Topic t = topicMap.createTopicBySubjectIdentifier(locator);
+		// final String iri = new
+		// CTMIdentity().generateItemIdentifier(properties, t).toString();
+		// Assert.assertEquals("I2001en-city", iri);
+		// System.out.println(iri);
 	}
 }

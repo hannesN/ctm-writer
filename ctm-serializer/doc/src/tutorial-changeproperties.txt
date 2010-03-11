@@ -59,12 +59,10 @@ The internal representation of feature strings are realized by a property class,
 5:		+ "writer.features.templateDetection.associationTemplates = true, "
 6:		+ "writer.features.templateMerger.enabled = false";
 7:			
-8:  CTMTopicMapWriterProperties properties = CTMTopicMapWriterProperties.getProperties();
-9:	properties.setEnginePrefix("urn:ontopia");
-10:	properties.enableAssociationTemplateDetection(true);
-11:	properties.parse(line);
+8:	CTMTopicMapWriter writer = new CTMTopicMapWriter( new FileOutputStream(file), "www.topicmapslab.de", line);
+9:	writer.setProperty(CTMTopicMapWriterProperties.IDENTITY_ENGINEPREFIX,"urn:ontopia");
 ----------------------------------------
 
 =======================================
-The line 1 until line 6 we define a property string, which contains a comma separated list of key-value-pairs. In the 8. line we try to get the singleton instance of the property class and changing the engine prefix to "urn:ontopia" in line 9. In the last line we calling the special parse()-method to set all properties we represented by the property string. 
+The line 1 until line 6 we define a property string, which contains a comma separated list of key-value-pairs. In the 9. line we try to set the property describing the engine prefix to "urn:ontopia".
 =======================================

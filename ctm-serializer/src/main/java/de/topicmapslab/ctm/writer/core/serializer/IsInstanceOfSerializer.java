@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -91,7 +91,7 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 			 */
 			if (!affectedConstructs.contains(type)) {
 				buffer.appendTailLine(true, TABULATOR, ISA, ctmIdentity
-						.generateItemIdentifier(properties, type).toString());
+						.getMainIdentifier(properties, type).toString());
 				returnValue = true;
 			}
 		}
@@ -166,7 +166,7 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 					// .getPrefixedIdentity(typePlayers.iterator().next()
 					// .getPlayer()));
 					buffer.appendTailLine(true, TABULATOR, ISA, ctmIdentity
-							.generateItemIdentifier(properties, typePlayers
+							.getMainIdentifier(properties, typePlayers
 									.iterator().next().getPlayer()).toString());
 				}
 			}

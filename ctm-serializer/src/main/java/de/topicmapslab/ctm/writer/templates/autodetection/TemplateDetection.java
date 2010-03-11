@@ -1,4 +1,4 @@
-/** 
+/* 
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -249,7 +249,7 @@ public class TemplateDetection {
 		 * create a template for the given type
 		 */
 		Template template = new Template("template-topic-"
-				+ ctmIdentity.generateItemIdentifier(properties, type));
+				+ ctmIdentity.getMainIdentifier(properties, type));
 
 		/*
 		 * add instance-property-entry to the template
@@ -417,7 +417,7 @@ public class TemplateDetection {
 		 * create a template for the given type
 		 */
 		Template template = new Template("template-association-"
-				+ ctmIdentity.generateItemIdentifier(properties, type));
+				+ ctmIdentity.getMainIdentifier(properties, type));
 
 		Set<RoleEntry> roleEntries = new HashSet<RoleEntry>();
 

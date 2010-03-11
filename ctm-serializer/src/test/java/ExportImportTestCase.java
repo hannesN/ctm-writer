@@ -10,7 +10,6 @@ import org.tmapi.core.TopicMapSystemFactory;
 import org.tmapix.io.LTMTopicMapReader;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
-import de.topicmapslab.ctm.writer.core.serializer.PrefixesSerializer;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.templates.Template;
 
@@ -50,7 +49,7 @@ public class ExportImportTestCase extends TestCase {
 	}
 
 	public void testExportImport() throws Exception {
-		File file = new File("C:\\tmp/ctm-opera.ctm");
+		File file = new File("src/test/resources/ctm-opera.ctm");
 		if (!file.exists()) {
 			file.createNewFile();
 		}
@@ -60,35 +59,38 @@ public class ExportImportTestCase extends TestCase {
 				+ "writer.features.templateDetection.topicTemplates = false , "
 				+ "writer.features.templateDetection.associationTemplates = false, "
 				+ "writer.features.templateMerger.enabled = false";
-		de.topicmapslab.ctm.writer.core.CTMTopicMapWriter writer = new de.topicmapslab.ctm.writer.core.CTMTopicMapWriter(
+		CTMTopicMapWriter writer = new CTMTopicMapWriter(
 				new FileOutputStream(file), "www.topicmapslab.de", line);
+		writer.setPrefix("tml", "http://www.topicmapslab.de/");
 		writer.write(topicMap);
 		final String qname = "ctm";
 		final String baseLocator = "http://www.isotopicmaps.org/ctm/";
-		PrefixesSerializer.knownPrefixes.put(qname, baseLocator);
+		writer.setPrefix(qname, baseLocator);
 
-		 File file2 = new File("C:\\tmp/ctm-mio.ctm");
-		 if (!file2.exists()) {
-		 file2.createNewFile();
-		 }
-		 org.tinytim.mio.CTMTopicMapWriter writer2 = new
-		 org.tinytim.mio.CTMTopicMapWriter(
-		 new FileOutputStream(file2), "www.topicmapslab.de");
-		 writer2.write(topicMap);
-
+		File file2 = new File("src/test/resources/ctm-mio.ctm");
+		if (!file2.exists()) {
+			file2.createNewFile();
+		}
+		org.tinytim.mio.CTMTopicMapWriter writer2 = new org.tinytim.mio.CTMTopicMapWriter(
+				new FileOutputStream(file2), "www.topicmapslab.de");
+		writer2.write(topicMap);
+		
 		System.out.println("Import from CTM...");
-		TopicMap reimport = topicMapSystem
-				.createTopicMap("http://de.topicmapslab/tmql4j/tests/reimport");
-
+		
 		CTMTopicMapReader reader = new CTMTopicMapReader(file);
 
 		reader.read();
+		
+		TopicMap reimport = topicMapSystem
+				.createTopicMap("http://de.topicmapslab/tmql4j/tests/reimport");
 
-		 org.tmapix.io.CTMTopicMapReader reader2 = new
-		 org.tmapix.io.CTMTopicMapReader(reimport, file2);
-		 reader2.read();
+		org.tmapix.io.CTMTopicMapReader reader2 = new org.tmapix.io.CTMTopicMapReader(
+				reimport, file);
+		reader2.read();
 
 		System.out.println("finished");
+		
+		
 
 	}
 
@@ -106,7 +108,7 @@ public class ExportImportTestCase extends TestCase {
 				+ "writer.features.templateDetection.associationTemplates = true, "
 				+ "writer.features.templateMerger.enabled = false";
 		final CTMTopicMapWriter writer = new CTMTopicMapWriter(outputStream,
-				baseURI, line);		
+				baseURI, line);
 		writer.write(topicMap);
 
 		CTMTopicMapWriterProperties properties = new CTMTopicMapWriterProperties();
@@ -158,20 +160,18 @@ public class ExportImportTestCase extends TestCase {
 		// */
 		// template.add(templateEntry);
 
-//		/*
-//		 * the file containing template definitions
-//		 */
-//		final File file = new File("template.ctm");
-//		/*
-//		 * read all templates from file
-//		 */
-//		Set<Template> templates = Template.fromCTM(file);
-		
+		// /*
+		// * the file containing template definitions
+		// */
+		// final File file = new File("template.ctm");
+		// /*
+		// * read all templates from file
+		// */
+		// Set<Template> templates = Template.fromCTM(file);
 
 		writer.addTemplate(template);
 
 		System.out.println(template);
-		
-		
+
 	}
 }

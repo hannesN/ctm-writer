@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -83,7 +83,7 @@ public class ReifierEntry {
 			// buffer.append(REIFIER, CTMIdentity
 			// .getPrefixedIdentity((Topic) reifierOrVariable));
 			buffer.append(REIFIER, ctmIdentity
-					.generateItemIdentifier(properties,(Topic) reifierOrVariable).toString());
+					.getMainIdentifier(properties,(Topic) reifierOrVariable).toString());
 		} else {
 			buffer.append(REIFIER, reifierOrVariable.toString());
 		}

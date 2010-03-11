@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -374,7 +374,7 @@ public class NameEntry extends EntryImpl {
 		 */
 		String variable = "$";
 		try {
-			variable += ctmIdentity.generateItemIdentifier(properties, type);
+			variable += ctmIdentity.getMainIdentifier(properties, type);
 		} catch (NoIdentityException e) {
 			/*
 			 * could happens if name-type is a TMDM-default-type

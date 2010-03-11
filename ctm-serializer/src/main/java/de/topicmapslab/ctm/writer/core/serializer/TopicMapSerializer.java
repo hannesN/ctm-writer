@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -19,6 +19,7 @@ import org.tmapi.core.Association;
 import org.tmapi.core.Topic;
 import org.tmapi.core.TopicMap;
 
+import de.topicmapslab.ctm.writer.core.PrefixHandler;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
@@ -60,15 +61,22 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	 * properties for CTM topic map writer
 	 */
 	private final CTMTopicMapWriterProperties properties;
-	
+
 	/**
 	 * identity utility (cache and generator)
 	 */
 	private final CTMIdentity ctmIdentity;
 
-	public TopicMapSerializer(CTMTopicMapWriterProperties properties) {
+	/**
+	 * the prefix handler
+	 */
+	private final PrefixHandler prefixHandler;
+
+	public TopicMapSerializer(CTMTopicMapWriterProperties properties,
+			PrefixHandler prefixHandler) {
 		this.properties = properties;
-		this.ctmIdentity = new CTMIdentity();
+		this.prefixHandler = prefixHandler;
+		this.ctmIdentity = new CTMIdentity(prefixHandler);		
 	}
 
 	/**
@@ -107,7 +115,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		 * add reification of topic map if exists
 		 */
 		CTMBuffer ctmBuffer = new CTMBuffer();
-		if (new ReifiableSerializer(properties, ctmIdentity).serialize(topicMap, ctmBuffer)) {
+		if (new ReifiableSerializer(properties, ctmIdentity).serialize(
+				topicMap, ctmBuffer)) {
 			buffer.appendCommentLine("reifier of the topicmap");
 			buffer.appendLine(ctmBuffer);
 			buffer.appendLine();
@@ -120,7 +129,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		if (properties.isPrefixDetectionEnabled()) {
 			buffer.appendCommentLine("prefixes");
 			buffer.appendLine();
-			if (new PrefixesSerializer().serialize(topicMap, prefixBuffer)) {
+			if (new PrefixesSerializer(prefixHandler).serialize(topicMap,
+					prefixBuffer)) {
 				buffer.appendLine(prefixBuffer);
 			}
 			buffer.appendLine();
@@ -135,7 +145,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		 * try to auto-detect templates if properties is enabled
 		 */
 		if (properties.isTemplateDetectionEnabled()) {
-			TemplateDetection detection = new TemplateDetection(properties, ctmIdentity, topicMap);
+			TemplateDetection detection = new TemplateDetection(properties,
+					ctmIdentity, topicMap);
 			templates.addAll(detection.tryToDetectTemplates());
 		}
 
@@ -230,8 +241,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			 * generate only for non TMDM types
 			 */
 			ctmIdentity.getIdentity(properties, topic);
-			new TopicSerializer(properties, getAdaptiveTemplates(topic), ctmIdentity)
-					.serialize(topic, ctmBuffer);
+			new TopicSerializer(properties, getAdaptiveTemplates(topic),
+					ctmIdentity).serialize(topic, ctmBuffer);
 			buffer.appendLine(ctmBuffer);
 			return true;
 		} catch (NoIdentityException e) {

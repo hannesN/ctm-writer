@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html
  * 
@@ -76,7 +76,7 @@ public class NameSerializer implements ISerializer<Name> {
 			 */
 			// buffer.append(false, CTMIdentity
 			// .getPrefixedIdentity(name.getType()), COLON);
-			buffer.append(false, ctmIdentity.generateItemIdentifier(properties,
+			buffer.append(false, ctmIdentity.getMainIdentifier(properties,
 					name.getType()).toString(), WHITESPACE, COLON, WHITESPACE);
 		} catch (NoIdentityException e) {
 			// VOID
@@ -157,7 +157,7 @@ public class NameSerializer implements ISerializer<Name> {
 		try {
 			// buffer.append(false, CTMIdentity.getPrefixedIdentity(type),
 			// COLON);
-			buffer.append(false, ctmIdentity.generateItemIdentifier(properties,
+			buffer.append(false, ctmIdentity.getMainIdentifier(properties,
 					type).toString(), COLON);
 		} catch (NoIdentityException e) {
 		} catch (NullPointerException e) {
