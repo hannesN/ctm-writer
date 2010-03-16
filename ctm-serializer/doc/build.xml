@@ -3,7 +3,7 @@
 	<property file="build.properties"/>
 	
 	<property name="asciidoc" value="${dir.lib}/asciidoc/asciidoc.py" />
-	<property name="filename" value="doc" />
+	<property name="filename" value="index" />
 	<property name="src" value="src/main.txt" />
 	<property name="doc" value="doc" />
 	<property name="doc.html" value="${doc}/html" />

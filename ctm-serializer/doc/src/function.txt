@@ -94,7 +94,9 @@ puccini isa composer;
 .A CTM snippet of the composer Puccini with template detection
 ---------------------------------------
 puccini  
-	template-topic-composer("1924-11-29","1858-12-22",<http://en.wikipedia.org/wiki/Giacomo_Puccini>,<http://localhost:8080/operamap/occurs/composer/puccini.gif>,<http://www.r-ds.com/opera/pucciniana/gallery.htm>,"Giacomo Puccini","Giacomo Puccini","Puccini");
+	template-topic-composer("1924-11-29","1858-12-22",<http://en.wikipedia.org/wiki/Giacomo_Puccini>,
+							<http://localhost:8080/operamap/occurs/composer/puccini.gif>,
+							<http://www.r-ds.com/opera/pucciniana/gallery.htm>,"Giacomo Puccini","Giacomo Puccini","Puccini");
 	 isa composer;
 	 -  "Puccini, Giacomo";
 	 sound-clip :  <http://www.puccini.it/files/vocepucc.wav> @puccini-study-centre,  italian,  web;
