@@ -18,13 +18,12 @@ import java.util.Set;
 import org.tmapi.core.Occurrence;
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.core.serializer.DatatypeAwareSerializer;
 import de.topicmapslab.ctm.writer.core.serializer.OccurrenceSerializer;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
-import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
+import de.topicmapslab.ctm.writer.templates.entry.base.ScopedEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class representing a template-entry definition of an occurrence-entry.
@@ -33,12 +32,12 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
  * @email krosse@informatik.uni-leipzig.de
  * 
  */
-public class OccurrenceEntry extends EntryImpl {
+public class OccurrenceEntry extends ScopedEntry {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 	/**
 	 * the occurrence type
 	 */
@@ -47,52 +46,27 @@ public class OccurrenceEntry extends EntryImpl {
 	 * the data-type defined as {@link Topic} or {@link String}
 	 */
 	private final Object datatypeAsTopicOrString;
-	/**
-	 * the scope entry
-	 */
-	private final ScopeEntry scopeEntry;
-	/**
-	 * the reifier entry
-	 */
-	private final ReifierEntry reifierEntry;
-	
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
 
 	/**
 	 * constructor
 	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link OccurrenceEntry#OccurrenceEntry(CTMTopicMapWriterProperties,String, Topic, Object, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param valueOrVariable
 	 *            the value or variable definition of the template-entry
 	 * @param type
 	 *            the type of the occurrence
 	 */
-	public OccurrenceEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type) {
-		this(properties, ctmIdentity, valueOrVariable, type, null, null, null);
+	protected OccurrenceEntry(CTMTopicMapWriter writer, String valueOrVariable,
+			final Topic type) {
+		this(writer, valueOrVariable, type, null);
 	}
 
 	/**
 	 * constructor
 	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link OccurrenceEntry#OccurrenceEntry(CTMTopicMapWriterProperties,String, Topic, Object, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param valueOrVariable
 	 *            the value or variable definition of the template-entry
 	 * @param type
@@ -101,187 +75,27 @@ public class OccurrenceEntry extends EntryImpl {
 	 *            the data-type of the occurrence, given as a {@link Topic} or a
 	 *            {@link String}
 	 */
-	public OccurrenceEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type,
-			final Object datatypeAsTopicOrString) {
-		this(properties, ctmIdentity, valueOrVariable, type, datatypeAsTopicOrString, null,
-				null);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link OccurrenceEntry#OccurrenceEntry(CTMTopicMapWriterProperties,String, Topic, Object, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param type
-	 *            the type of the occurrence
-	 * @param datatypeAsTopicOrString
-	 *            the data-type of the occurrence, given as a {@link Topic} or a
-	 *            {@link String}
-	 * @param scopeEntry
-	 *            a scope entry
-	 */
-	public OccurrenceEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type,
-			final Object datatypeAsTopicOrString, final ScopeEntry scopeEntry) {
-		this(properties, ctmIdentity, valueOrVariable, type, datatypeAsTopicOrString,
-				scopeEntry, null);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link OccurrenceEntry#OccurrenceEntry(CTMTopicMapWriterProperties,String, Topic, Object, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param type
-	 *            the type of the occurrence
-	 * @param datatypeAsTopicOrString
-	 *            the data-type of the occurrence, given as a {@link Topic} or a
-	 *            {@link String}
-	 * @param reifierEntry
-	 *            a reifier entry
-	 */
-	public OccurrenceEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type,
-			final Object datatypeAsTopicOrString,
-			final ReifierEntry reifierEntry) {
-		this(properties, ctmIdentity, valueOrVariable, type, datatypeAsTopicOrString, null,
-				reifierEntry);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link OccurrenceEntry#OccurrenceEntry(CTMTopicMapWriterProperties,String, Topic, Object, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param type
-	 *            the type of the occurrence
-	 * @param scopeEntry
-	 *            a scope entry
-	 */
-	public OccurrenceEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type,
-			final ScopeEntry scopeEntry) {
-		this(properties, ctmIdentity, valueOrVariable, type, null, scopeEntry, null);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link OccurrenceEntry#OccurrenceEntry(CTMTopicMapWriterProperties,String, Topic, Object, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param type
-	 *            the type of the occurrence
-	 * @param reifierEntry
-	 *            a reifier entry
-	 */
-	public OccurrenceEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type,
-			final ReifierEntry reifierEntry) {
-		this(properties, ctmIdentity, valueOrVariable, type, null, null, reifierEntry);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link OccurrenceEntry#OccurrenceEntry(CTMTopicMapWriterProperties,String, Topic, Object, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param type
-	 *            the type of the occurrence
-	 * @param scopeEntry
-	 *            a scope entry
-	 * @param reifierEntry
-	 *            a reifier entry
-	 */
-	public OccurrenceEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type,
-			final ScopeEntry scopeEntry, final ReifierEntry reifierEntry) {
-		this(properties, ctmIdentity, valueOrVariable, type, null, scopeEntry, reifierEntry);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param type
-	 *            the type of the occurrence
-	 * @param datatypeAsTopicOrString
-	 *            the data-type of the occurrence, given as a {@link Topic} or a
-	 *            {@link String}
-	 * @param scopeEntry
-	 *            a scope entry
-	 * @param reifierEntry
-	 *            a reifier entry
-	 */
-	public OccurrenceEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type,
-			final Object datatypeAsTopicOrString, final ScopeEntry scopeEntry,
-			final ReifierEntry reifierEntry) {
+	protected OccurrenceEntry(CTMTopicMapWriter writer, String valueOrVariable,
+			final Topic type, final Object datatypeAsTopicOrString) {
 		super(valueOrVariable);
-		this.type = type;
+		this.writer = writer;
 		this.datatypeAsTopicOrString = datatypeAsTopicOrString;
-		this.scopeEntry = scopeEntry;
-		this.reifierEntry = reifierEntry;
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+		this.type = type;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
-		OccurrenceSerializer.serialize(properties, ctmIdentity, getValueOrVariable(),
+		OccurrenceSerializer.serialize(writer, getValueOrVariable(),
 				datatypeAsTopicOrString, type, buffer);
-		if (scopeEntry != null) {
+		if (getScopeEntry() != null) {
 			buffer.append(WHITESPACE);
-			scopeEntry.serialize(buffer);
+			getScopeEntry().serialize(buffer);
 		}
-		if (reifierEntry != null) {
+		if (getReifierEntry() != null) {
 			buffer.append(WHITESPACE);
-			reifierEntry.serialize(buffer);
+			getReifierEntry().serialize(buffer);
 		}
 		buffer.appendTailLine();
 	}
@@ -297,7 +111,7 @@ public class OccurrenceEntry extends EntryImpl {
 			result = !occurrences.isEmpty();
 		} else {
 			for (Occurrence occurrence : occurrences) {
-				final String reference = ctmIdentity
+				final String reference = writer.getCtmIdentity()
 						.getPrefixedIdentity(occurrence.getDatatype());
 				if (datatypeAsTopicOrString instanceof Topic
 						&& datatypeAsTopicOrString.equals(occurrence
@@ -308,13 +122,13 @@ public class OccurrenceEntry extends EntryImpl {
 					result = true;
 				}
 
-				if (result && scopeEntry != null) {
+				if (result && getScopeEntry() != null) {
 					result = occurrence.getScope().containsAll(
-							Arrays.asList(scopeEntry.getThemes()));
+							Arrays.asList(getScopeEntry().getThemes()));
 				}
 
-				if (result && reifierEntry != null) {
-					result = reifierEntry.getReifier().equals(
+				if (result && getReifierEntry() != null) {
+					result = getReifierEntry().getReifier().equals(
 							occurrence.getReifier());
 				}
 
@@ -349,7 +163,8 @@ public class OccurrenceEntry extends EntryImpl {
 			/*
 			 * extract values and transform by type
 			 */
-			arguments.add(DatatypeAwareSerializer.toArgument(properties, ctmIdentity, occurrence));
+			arguments.add(DatatypeAwareSerializer
+					.toArgument(writer, occurrence));
 			/*
 			 * add affected construct
 			 */
@@ -389,8 +204,8 @@ public class OccurrenceEntry extends EntryImpl {
 			throws SerializerException {
 		for (Occurrence occurrence : topic.getOccurrences(type)) {
 			boolean isAdaptive = true;
-			final String reference = ctmIdentity.getPrefixedIdentity(occurrence
-					.getDatatype());
+			final String reference = writer.getCtmIdentity()
+					.getPrefixedIdentity(occurrence.getDatatype());
 			if (datatypeAsTopicOrString instanceof Topic
 					&& datatypeAsTopicOrString.equals(occurrence.getDatatype())) {
 				isAdaptive &= true;
@@ -398,11 +213,11 @@ public class OccurrenceEntry extends EntryImpl {
 					reference)) {
 				isAdaptive &= true;
 			}
-			if (scopeEntry != null) {
-				isAdaptive &= scopeEntry.isAdaptiveFor(occurrence);
+			if (getScopeEntry() != null) {
+				isAdaptive &= getScopeEntry().isAdaptiveFor(occurrence);
 			}
-			if (reifierEntry != null) {
-				isAdaptive &= reifierEntry.isAdaptiveFor(occurrence);
+			if (getReifierEntry() != null) {
+				isAdaptive &= getReifierEntry().isAdaptiveFor(occurrence);
 			}
 			if (isAdaptive) {
 				return occurrence;
@@ -417,8 +232,8 @@ public class OccurrenceEntry extends EntryImpl {
 	 * of a topic. All information needed to define the entry are extracted from
 	 * the given construct.
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties}
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param occurrence
 	 *            the occurrence construct
 	 * @return the generate occurrence-entry
@@ -426,26 +241,27 @@ public class OccurrenceEntry extends EntryImpl {
 	 *             thrown if generation failed
 	 */
 	public static OccurrenceEntry buildFromConstruct(
-			final CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			final Occurrence occurrence) throws SerializerException {
+			final CTMTopicMapWriter writer, final Occurrence occurrence)
+			throws SerializerException {
 		Topic type = occurrence.getType();
 		/*
 		 * generate variable name
 		 */
 		String variable = "$"
-				+ ctmIdentity.getMainIdentifier(properties, type);
+				+ writer.getCtmIdentity().getMainIdentifier(
+						writer.getProperties(), type);
 		/*
 		 * set CTM identity of data-type
 		 */
-		String datatype = ctmIdentity.getPrefixedIdentity(occurrence
-				.getDatatype());
+		String datatype = writer.getCtmIdentity().getPrefixedIdentity(
+				occurrence.getDatatype());
 		/*
 		 * generate scope entry if necessary
 		 */
 		ScopeEntry scopeEntry = null;
 		if (!occurrence.getScope().isEmpty()) {
-			scopeEntry = new ScopeEntry(properties, ctmIdentity, occurrence.getScope()
-					.toArray(new Topic[0]));
+			scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(
+					occurrence.getScope().toArray(new Topic[0]));
 		}
 
 		/*
@@ -453,14 +269,18 @@ public class OccurrenceEntry extends EntryImpl {
 		 */
 		ReifierEntry reifierEntry = null;
 		if (occurrence.getReifier() != null) {
-			reifierEntry = new ReifierEntry(properties, ctmIdentity, occurrence.getReifier());
+			reifierEntry = writer.getFactory().getEntryFactory()
+					.newReifierEntry(occurrence.getReifier());
 		}
 
 		/*
 		 * create new occurrence-entry
 		 */
-		return new OccurrenceEntry(properties, ctmIdentity, variable, type, datatype,
-				scopeEntry, reifierEntry);
+		OccurrenceEntry entry = new OccurrenceEntry(writer, variable, type,
+				datatype);
+		entry.setReifierEntry(reifierEntry);
+		entry.setScopeEntry(scopeEntry);
+		return entry;
 	}
 
 	/**
@@ -486,19 +306,20 @@ public class OccurrenceEntry extends EntryImpl {
 			/*
 			 * reifier must be equal
 			 */
-			if (reifierEntry != null) {
-				result &= reifierEntry
-						.equals(((OccurrenceEntry) obj).reifierEntry);
+			if (getReifierEntry() != null) {
+				result &= getReifierEntry().equals(
+						((OccurrenceEntry) obj).getReifierEntry());
 			} else {
-				result &= ((OccurrenceEntry) obj).reifierEntry == null;
+				result &= ((OccurrenceEntry) obj).getReifierEntry() == null;
 			}
 			/*
 			 * scope must be equal
 			 */
-			if (scopeEntry != null) {
-				result &= scopeEntry.equals(((OccurrenceEntry) obj).scopeEntry);
+			if (getScopeEntry() != null) {
+				result &= getScopeEntry().equals(
+						((OccurrenceEntry) obj).getScopeEntry());
 			} else {
-				result &= ((OccurrenceEntry) obj).scopeEntry == null;
+				result &= ((OccurrenceEntry) obj).getScopeEntry() == null;
 			}
 			return result;
 		}
@@ -511,23 +332,5 @@ public class OccurrenceEntry extends EntryImpl {
 	@Override
 	public int hashCode() {
 		return super.hashCode();
-	}
-
-	/**
-	 * Method returns the internal {@link ScopeEntry}
-	 * 
-	 * @return the scopeEntry
-	 */
-	public ScopeEntry getScopeEntry() {
-		return scopeEntry;
-	}
-
-	/**
-	 * Method return the internal {@link ReifierEntry}.
-	 * 
-	 * @return the reifierEntry
-	 */
-	public ReifierEntry getReifierEntry() {
-		return reifierEntry;
 	}
 }

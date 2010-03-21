@@ -14,10 +14,9 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
 import org.tmapi.core.Variant;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -33,24 +32,18 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class VariantSerializer implements ISerializer<Variant> {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
-	
 	/**
 	 * constructor
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties} *
+	 * @param writer
+	 *            the parent topic map writer
 	 */
-	public VariantSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity) {
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+	public VariantSerializer(CTMTopicMapWriter writer) {
+		this.writer = writer;
 	}
 
 	public boolean serialize(Variant variant, CTMBuffer buffer)
@@ -60,13 +53,13 @@ public class VariantSerializer implements ISerializer<Variant> {
 		/*
 		 * add value and data-type
 		 */
-		new DatatypeAwareSerializer(properties, ctmIdentity).serialize(variant, buffer);
+		new DatatypeAwareSerializer(writer).serialize(variant, buffer);
 
 		/*
 		 * add scope if exists
 		 */
 		CTMBuffer ctmBuffer = new CTMBuffer();
-		if (new ScopedSerializer(properties, ctmIdentity).serialize(variant, ctmBuffer)) {
+		if (new ScopedSerializer(writer).serialize(variant, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -75,7 +68,8 @@ public class VariantSerializer implements ISerializer<Variant> {
 		 * add reifier if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ReifiableSerializer(properties, ctmIdentity).serialize(variant, ctmBuffer)) {
+		if (new ReifiableSerializer(writer).serialize(variant,
+				ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}

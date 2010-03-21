@@ -26,10 +26,9 @@ import java.net.URL;
 import org.tmapi.core.DatatypeAware;
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -51,23 +50,18 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
-	
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
-	
+	private final CTMTopicMapWriter writer;
 
 	/**
 	 * constructor
 	 * 
+	 * @param writer
+	 *            the parent topic map writer
 	 */
-	public DatatypeAwareSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity) {
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+	public DatatypeAwareSerializer(CTMTopicMapWriter writer) {
+		this.writer = writer;
 	}
 
 	/**
@@ -76,8 +70,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	public boolean serialize(DatatypeAware datatypeAware, CTMBuffer buffer)
 			throws SerializerException {
 		final String value = datatypeAware.getValue();
-		final String datatype = ctmIdentity.getPrefixedIdentity(datatypeAware
-				.getDatatype());
+		final String datatype = writer.getCtmIdentity().getPrefixedIdentity(
+				datatypeAware.getDatatype());
 		return serialize(datatype, value, buffer);
 	}
 
@@ -104,8 +98,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		 */
 		final String datatype_;
 		if (datatype instanceof Topic) {
-			datatype_ = ctmIdentity.getPrefixedIdentity(properties,
-					(Topic) datatype).toString();
+			datatype_ = writer.getCtmIdentity().getPrefixedIdentity(
+					writer.getProperties(), (Topic) datatype).toString();
 		} else {
 			datatype_ = (String) datatype;
 		}
@@ -182,8 +176,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 * Method is called to extract the arguments the value argument from the
 	 * given {@link DatatypeAware}. The value is convert by type.
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties} *
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param datatypeAware
 	 *            the {@link DatatypeAware}
 	 * @return the converted value
@@ -191,20 +185,21 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 *             Thrown if serialization failed.
 	 */
 	public static String toArgument(
-			final CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			final DatatypeAware datatypeAware) throws SerializerException {
+
+	final CTMTopicMapWriter writer, final DatatypeAware datatypeAware)
+			throws SerializerException {
 		final String value = datatypeAware.getValue();
-		final String datatype = ctmIdentity.getPrefixedIdentity(datatypeAware
-				.getDatatype()).toString();
-		return toArgument(properties, ctmIdentity, datatype, value);
+		final String datatype = writer.getCtmIdentity().getPrefixedIdentity(
+				datatypeAware.getDatatype()).toString();
+		return toArgument(writer, datatype, value);
 	}
 
 	/**
 	 * Method is called to convert the given value to a argument. The value is
 	 * convert by type.
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties} *
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param datatype
 	 *            the data-type of the {@link DatatypeAware} as {@link Topic} or
 	 *            as {@link String}
@@ -214,8 +209,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static String toArgument(
-			final CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
+	public static String toArgument(final CTMTopicMapWriter writer,
 			final Object datatype, final String value)
 			throws SerializerException {
 		/*
@@ -223,8 +217,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		 */
 		final String datatype_;
 		if (datatype instanceof Topic) {
-			datatype_ = ctmIdentity.getPrefixedIdentity(properties,
-					(Topic) datatype).toString();
+			datatype_ = writer.getCtmIdentity().getPrefixedIdentity(
+					writer.getProperties(), (Topic) datatype).toString();
 		} else {
 			datatype_ = (String) datatype;
 		}

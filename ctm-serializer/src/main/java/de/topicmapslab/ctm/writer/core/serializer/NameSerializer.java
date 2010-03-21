@@ -19,11 +19,11 @@ import org.tmapi.core.Name;
 import org.tmapi.core.Topic;
 import org.tmapi.core.Variant;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -40,24 +40,18 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class NameSerializer implements ISerializer<Name> {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
-	
 	/**
 	 * constructor
 	 * 
 	 * @param properties
 	 *            the internal {@link CTMTopicMapWriterProperties} *
 	 */
-	public NameSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity) {
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+	public NameSerializer(CTMTopicMapWriter writer) {
+		this.writer = writer;
 	}
 
 	/**
@@ -74,10 +68,9 @@ public class NameSerializer implements ISerializer<Name> {
 			/*
 			 * add type if it is not default name type of TMDM
 			 */
-			// buffer.append(false, CTMIdentity
-			// .getPrefixedIdentity(name.getType()), COLON);
-			buffer.append(false, ctmIdentity.getMainIdentifier(properties,
-					name.getType()).toString(), WHITESPACE, COLON, WHITESPACE);
+			buffer.append(false, writer.getCtmIdentity().getMainIdentifier(
+					writer.getProperties(), name.getType()).toString(),
+					WHITESPACE, COLON, WHITESPACE);
 		} catch (NoIdentityException e) {
 			// VOID
 		}
@@ -92,9 +85,7 @@ public class NameSerializer implements ISerializer<Name> {
 		 * add scope if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ScopedSerializer(properties, ctmIdentity).serialize(name, ctmBuffer)) {
-			// buffer.appendLine();
-			// buffer.append(true, TABULATOR, TABULATOR);
+		if (new ScopedSerializer(writer).serialize(name, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -103,9 +94,7 @@ public class NameSerializer implements ISerializer<Name> {
 		 * add reifier if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ReifiableSerializer(properties, ctmIdentity).serialize(name, ctmBuffer)) {
-			// buffer.appendLine();
-			// buffer.append(true, TABULATOR, TABULATOR);
+		if (new ReifiableSerializer(writer).serialize(name, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -118,9 +107,7 @@ public class NameSerializer implements ISerializer<Name> {
 			/*
 			 * redirect to variant serializer
 			 */
-			new VariantSerializer(properties, ctmIdentity).serialize(variant, ctmBuffer);
-			// buffer.appendLine();
-			// buffer.append(true, TABULATOR, TABULATOR);
+			new VariantSerializer(writer).serialize(variant, ctmBuffer);
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -136,8 +123,8 @@ public class NameSerializer implements ISerializer<Name> {
 	/**
 	 * Static method to generate CTM name-block by value and type.
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties}
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param value
 	 *            the value of the name
 	 * @param type
@@ -149,16 +136,14 @@ public class NameSerializer implements ISerializer<Name> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(
-			final CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity, final String value,
-			final Topic type, CTMBuffer buffer) throws SerializerException {
+	public static boolean serialize(final CTMTopicMapWriter writer,
+			final String value, final Topic type, CTMBuffer buffer)
+			throws SerializerException {
 
 		buffer.append(true, TABULATOR, NAME, WHITESPACE);
 		try {
-			// buffer.append(false, CTMIdentity.getPrefixedIdentity(type),
-			// COLON);
-			buffer.append(false, ctmIdentity.getMainIdentifier(properties,
-					type).toString(), COLON);
+			buffer.append(false, writer.getCtmIdentity().getMainIdentifier(
+					writer.getProperties(), type).toString(), COLON);
 		} catch (NoIdentityException e) {
 		} catch (NullPointerException e) {
 		}

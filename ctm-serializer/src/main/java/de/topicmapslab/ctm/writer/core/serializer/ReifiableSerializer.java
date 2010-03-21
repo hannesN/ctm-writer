@@ -12,10 +12,9 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.REIFIER;
 
 import org.tmapi.core.Reifiable;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -31,26 +30,20 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class ReifiableSerializer implements ISerializer<Reifiable> {
 
 	/**
-	 * properties for CTM topic map writer
+	 * The topic map writer reference
 	 */
-	private final CTMTopicMapWriterProperties properties;
-	
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
-	
+	private final CTMTopicMapWriter writer;
+
 	/**
 	 * constructor
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties} *
+	 * @param writer
+	 *            the parent topic map writer
 	 */
-	public ReifiableSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity) {
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+	public ReifiableSerializer(CTMTopicMapWriter writer) {
+		this.writer = writer;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -58,7 +51,9 @@ public class ReifiableSerializer implements ISerializer<Reifiable> {
 			throws SerializerException {
 
 		if (reifiable.getReifier() != null) {
-			buffer.append(true, REIFIER, ctmIdentity.getMainIdentifier(properties, reifiable.getReifier()).toString());
+			buffer.append(true, REIFIER, writer.getCtmIdentity()
+					.getMainIdentifier(writer.getProperties(),
+							reifiable.getReifier()).toString());
 			return true;
 		}
 		return false;

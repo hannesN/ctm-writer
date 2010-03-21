@@ -23,15 +23,13 @@ import org.tmapi.core.Topic;
 import org.tmapi.core.TopicMap;
 import org.tmapi.index.TypeInstanceIndex;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.templates.Template;
-import de.topicmapslab.ctm.writer.templates.entry.AssociationEntry;
-import de.topicmapslab.ctm.writer.templates.entry.IsInstanceOfEntry;
+import de.topicmapslab.ctm.writer.templates.TemplateFactory;
 import de.topicmapslab.ctm.writer.templates.entry.NameEntry;
 import de.topicmapslab.ctm.writer.templates.entry.OccurrenceEntry;
 import de.topicmapslab.ctm.writer.templates.entry.RoleEntry;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Implementation of a auto-detection algorithm for templates as part of a topic
@@ -50,19 +48,14 @@ public class TemplateDetection {
 	private final float threshold;
 
 	/**
-	 * the properties of the encapsulating property instance
-	 */
-	private final CTMTopicMapWriterProperties properties;
-
-	/**
 	 * the type-instance-index of the topic map
 	 */
 	private final TypeInstanceIndex index;
-	
+
 	/**
-	 * identity utility (cache and generator)
+	 * the reference of the parent topic map writer
 	 */
-	private final CTMIdentity ctmIdentity;
+	private final CTMTopicMapWriter writer;
 
 	/**
 	 * constructor
@@ -72,12 +65,12 @@ public class TemplateDetection {
 	 * @param topicMap
 	 *            the topic map
 	 */
-	public TemplateDetection(final CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
+	public TemplateDetection(final CTMTopicMapWriter writer,
 			final TopicMap topicMap) {
 		this.index = topicMap.getIndex(TypeInstanceIndex.class);
-		this.threshold = properties.getTemplateDetectionRelevanceThreshold();
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+		this.writer = writer;
+		this.threshold = writer.getProperties()
+				.getTemplateDetectionRelevanceThreshold();
 	}
 
 	/**
@@ -95,7 +88,7 @@ public class TemplateDetection {
 		/*
 		 * auto-detect topic-templates if enabled
 		 */
-		if (properties.isTopicTemplateDetectionSupported()) {
+		if (writer.getProperties().isTopicTemplateDetectionSupported()) {
 			for (Topic type : index.getTopicTypes()) {
 				templates.addAll(tryToDetectTopicTemplates(type));
 			}
@@ -104,7 +97,7 @@ public class TemplateDetection {
 		/*
 		 * auto-detect association-templates if enabled
 		 */
-		if (properties.isAssociationTemplateDetectionSupported()) {
+		if (writer.getProperties().isAssociationTemplateDetectionSupported()) {
 			for (Topic type : index.getAssociationTypes()) {
 				templates.addAll(tryToDetectAssociationTemplates(type));
 			}
@@ -245,16 +238,26 @@ public class TemplateDetection {
 	private Template candidatesToTemplate(Topic type,
 			Map<Class<? extends Construct>, Set<Candidate>> candidates,
 			long total) throws SerializerException {
+				
+		TemplateFactory factory = writer.getFactory();
+
+		String identifier = writer.getCtmIdentity().getMainIdentifier(
+				writer.getProperties(), type).getIdentifier();
+		
+		if ( identifier.contains(":")){
+			identifier = identifier.substring(identifier.lastIndexOf(":")+1);
+		}
+		
 		/*
 		 * create a template for the given type
 		 */
-		Template template = new Template("template-topic-"
-				+ ctmIdentity.getMainIdentifier(properties, type));
+		Template template = factory.newTemplate("template-topic-"
+				+ identifier);
 
 		/*
 		 * add instance-property-entry to the template
 		 */
-		template.add(new IsInstanceOfEntry(properties, ctmIdentity, type));
+		template.add(factory.getEntryFactory().newIsInstanceOfEntry(type));
 
 		Set<String> variables = new HashSet<String>();
 
@@ -270,7 +273,7 @@ public class TemplateDetection {
 				 * create new occurrence-template-entry by construct
 				 */
 				OccurrenceEntry entry = OccurrenceEntry.buildFromConstruct(
-						properties, ctmIdentity, (Occurrence) candidate.construct);
+						writer, (Occurrence) candidate.construct);
 				int count = 2;
 				/*
 				 * check if variable name is unique and try to unify variable
@@ -308,7 +311,7 @@ public class TemplateDetection {
 				/*
 				 * create new name-template-entry by construct
 				 */
-				NameEntry entry = NameEntry.buildFromConstruct(properties, ctmIdentity,
+				NameEntry entry = NameEntry.buildFromConstruct(writer,
 						(Name) candidate.construct);
 				int count = 2;
 				/*
@@ -413,11 +416,19 @@ public class TemplateDetection {
 	 */
 	private Template candidatesToTemplate(Topic type,
 			Set<Candidate> candidates, long total) throws SerializerException {
+		
+		String identifier = writer.getCtmIdentity().getMainIdentifier(
+				writer.getProperties(), type).getIdentifier();
+		
+		if ( identifier.contains(":")){
+			identifier = identifier.substring(identifier.lastIndexOf(":")+1);
+		}
 		/*
 		 * create a template for the given type
 		 */
-		Template template = new Template("template-association-"
-				+ ctmIdentity.getMainIdentifier(properties, type));
+		Template template = writer.getFactory().newTemplate(
+				"template-association-"
+						+ identifier);
 
 		Set<RoleEntry> roleEntries = new HashSet<RoleEntry>();
 
@@ -434,7 +445,7 @@ public class TemplateDetection {
 				/*
 				 * create new role-template-entry by construct
 				 */
-				RoleEntry entry = RoleEntry.buildFromConstruct(properties, ctmIdentity,
+				RoleEntry entry = RoleEntry.buildFromConstruct(writer,
 						(Role) candidate.construct);
 				/*
 				 * check if variable name is unique and try to unify variable
@@ -465,8 +476,8 @@ public class TemplateDetection {
 		/*
 		 * add new association-template-entry
 		 */
-		template.add(new AssociationEntry(properties, ctmIdentity, type, roleEntries
-				.toArray(new RoleEntry[0])));
+		template.add(writer.getFactory().getEntryFactory().newAssociationEntry(
+				type, roleEntries.toArray(new RoleEntry[0])));
 
 		return template;
 	}

@@ -21,12 +21,11 @@ import org.tmapi.core.Name;
 import org.tmapi.core.Occurrence;
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.templates.Template;
 import de.topicmapslab.ctm.writer.templates.TemplateInvocationSerializer;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -47,46 +46,36 @@ public class TopicSerializer implements ISerializer<Topic> {
 	private final Set<Template> adaptiveTemplates;
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
-
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
+	private final CTMTopicMapWriter writer;
 
 	/**
 	 * 
 	 * constructor, calling the
-	 * {@link TopicSerializer#TopicSerializer(CTMTopicMapWriterProperties, Set)}
-	 * with a new {@link HashSet}
+	 * {@link TopicSerializer#TopicSerializer(CTMTopicMapWriter, Set)} with a
+	 * new {@link HashSet}
 	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 */
-	public TopicSerializer(CTMTopicMapWriterProperties properties, CTMIdentity identity) {
-		this(properties, new HashSet<Template>(), identity);
+	public TopicSerializer(CTMTopicMapWriter writer) {
+		this(writer, new HashSet<Template>());
 	}
 
 	/**
 	 * constructor
 	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 * 
 	 * @param adaptiveTemplates
 	 *            a set of templates replacing parts of the topic block
 	 */
-	public TopicSerializer(CTMTopicMapWriterProperties properties,
-			Set<Template> adaptiveTemplates, CTMIdentity identity) {
-		this.properties = properties;
+	public TopicSerializer(CTMTopicMapWriter writer,
+			Set<Template> adaptiveTemplates) {
+		this.writer = writer;
 		this.adaptiveTemplates = adaptiveTemplates;
-		this.ctmIdentity = identity;
-	}
-	
-	public CTMIdentity getCtmIdentity() {
-		return ctmIdentity;
 	}
 
 	/**
@@ -95,11 +84,8 @@ public class TopicSerializer implements ISerializer<Topic> {
 	public boolean serialize(Topic topic, CTMBuffer buffer)
 			throws SerializerException {
 
-		
-		
-		buffer.appendLine(
-				getCtmIdentity().getMainIdentifier(properties, topic).toString(),
-				WHITESPACE);
+		buffer.appendLine(writer.getCtmIdentity().getMainIdentifier(
+				writer.getProperties(), topic).toString(), WHITESPACE);
 
 		/*
 		 * add template-invocations and store affected elements of the topic
@@ -117,19 +103,19 @@ public class TopicSerializer implements ISerializer<Topic> {
 		/*
 		 * add type-instance-associations
 		 */
-		new IsInstanceOfSerializer(properties, ctmIdentity, affectedConstructs).serialize(
-				topic, buffer);
+		new IsInstanceOfSerializer(writer, affectedConstructs).serialize(topic,
+				buffer);
 
 		/*
 		 * add super-type-sub-type-associations
 		 */
-		new AKindOfSerializer(properties, ctmIdentity, affectedConstructs).serialize(topic,
+		new AKindOfSerializer(writer, affectedConstructs).serialize(topic,
 				buffer);
 
 		/*
 		 * add name entries if not affected by template-invocations
 		 */
-		NameSerializer nameSerializer = new NameSerializer(properties, ctmIdentity);
+		NameSerializer nameSerializer = new NameSerializer(writer);
 		for (Name name : topic.getNames()) {
 			if (!affectedConstructs.contains(name)) {
 				nameSerializer.serialize(name, buffer);
@@ -139,7 +125,8 @@ public class TopicSerializer implements ISerializer<Topic> {
 		/*
 		 * add occurrence entries if not affected by template-invocations
 		 */
-		OccurrenceSerializer occurrenceSerializer = new OccurrenceSerializer(properties, ctmIdentity);
+		OccurrenceSerializer occurrenceSerializer = new OccurrenceSerializer(
+				writer);
 		for (Occurrence occurrence : topic.getOccurrences()) {
 			if (!affectedConstructs.contains(occurrence)) {
 				occurrenceSerializer.serialize(occurrence, buffer);
@@ -153,12 +140,15 @@ public class TopicSerializer implements ISerializer<Topic> {
 			if (affectedConstructs.contains(locator)) {
 				continue;
 			}
-			if (locator.toExternalForm().equals(ctmIdentity.getMainIdentifier(properties, topic).getIdentifier())) {
+			if (locator.toExternalForm().equals(
+					writer.getCtmIdentity().getMainIdentifier(
+							writer.getProperties(), topic).getIdentifier())) {
 				continue;
 			}
-			
-			String identity = getCtmIdentity().getPrefixedIdentity(locator);
-			buffer.appendTailLine(true, TABULATOR, getCtmIdentity()
+
+			String identity = writer.getCtmIdentity().getPrefixedIdentity(
+					locator);
+			buffer.appendTailLine(true, TABULATOR, writer.getCtmIdentity()
 					.getEscapedCTMIdentity(identity, locator));
 		}
 
@@ -169,23 +159,27 @@ public class TopicSerializer implements ISerializer<Topic> {
 			if (affectedConstructs.contains(locator)) {
 				continue;
 			}
-			String identity = getCtmIdentity().getPrefixedIdentity(locator);
-			buffer.appendTailLine(true, TABULATOR, SUBJECTLOCATOR, getCtmIdentity()
-					.getEscapedCTMIdentity(identity, locator));
+			String identity = writer.getCtmIdentity().getPrefixedIdentity(
+					locator);
+			buffer.appendTailLine(true, TABULATOR, SUBJECTLOCATOR, writer
+					.getCtmIdentity().getEscapedCTMIdentity(identity, locator));
 		}
 
 		/*
 		 * add all item-identifier if enabled
 		 */
-		if (properties.isExportOfItemIdentifierEnabled()) {
+		if (writer.getProperties().isExportOfItemIdentifierEnabled()) {
 			for (Locator locator : topic.getItemIdentifiers()) {
-				String identity = getCtmIdentity().getPrefixedIdentity(locator);
-				if (getCtmIdentity().isSystemItemIdentifier(properties, identity)
+				String identity = writer.getCtmIdentity().getPrefixedIdentity(
+						locator);
+				if (writer.getCtmIdentity().isSystemItemIdentifier(
+						writer.getProperties(), identity)
 						|| affectedConstructs.contains(locator)) {
 					continue;
 				}
-				buffer.appendTailLine(true, TABULATOR, ITEMIDENTIFIER,
-						getCtmIdentity().getEscapedCTMIdentity(identity, locator));
+				buffer.appendTailLine(true, TABULATOR, ITEMIDENTIFIER, writer
+						.getCtmIdentity().getEscapedCTMIdentity(identity,
+								locator));
 			}
 		}
 

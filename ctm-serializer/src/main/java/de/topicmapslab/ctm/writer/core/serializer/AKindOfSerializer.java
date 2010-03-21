@@ -18,10 +18,10 @@ import java.util.Set;
 import org.tmapi.core.ModelConstraintException;
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 import de.topicmapslab.ctm.writer.utility.TypeHierarchyUtils;
 
 /**
@@ -44,15 +44,10 @@ public class AKindOfSerializer implements ISerializer<Topic> {
 	private final Set<Object> affectedConstructs = new HashSet<Object>();
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
-	
 	/**
 	 * constructor
 	 * 
@@ -61,11 +56,10 @@ public class AKindOfSerializer implements ISerializer<Topic> {
 	 * @param properties
 	 *            the internal {@link CTMTopicMapWriterProperties}
 	 */
-	public AKindOfSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
+	public AKindOfSerializer(CTMTopicMapWriter writer,
 			Set<Object> affectedConstructs) {
 		this.affectedConstructs.addAll(affectedConstructs);
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+		this.writer = writer;
 	}
 
 	/**
@@ -84,7 +78,9 @@ public class AKindOfSerializer implements ISerializer<Topic> {
 				 * add super-type-definition
 				 */
 				if (!affectedConstructs.contains(supertype)) {
-					buffer.appendTailLine(true, TABULATOR, AKO, ctmIdentity.getMainIdentifier(properties, supertype).toString());
+					buffer.appendTailLine(true, TABULATOR, AKO, writer
+							.getCtmIdentity().getMainIdentifier(writer.getProperties(),
+									supertype).toString());
 					result = true;
 				}
 			}

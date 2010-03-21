@@ -24,17 +24,16 @@ import org.tmapi.core.Topic;
 import org.tmapi.core.TopicMap;
 import org.tmapi.core.Variant;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.core.PrefixHandler;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.templates.Template;
 import de.topicmapslab.ctm.writer.templates.TemplateMerger;
 import de.topicmapslab.ctm.writer.templates.TemplateSerializer;
 import de.topicmapslab.ctm.writer.templates.autodetection.TemplateDetection;
 import de.topicmapslab.ctm.writer.templates.entry.AssociationEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 import de.topicmapslab.ctm.writer.utility.TMDMIdentifier;
 
 /**
@@ -62,26 +61,21 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	 * set of defined templates
 	 */
 	private final Set<Template> templates = new HashSet<Template>();
-	/**
-	 * properties for CTM topic map writer
-	 */
-	private final CTMTopicMapWriterProperties properties;
 
 	/**
-	 * identity utility (cache and generator)
+	 * the parent topic map writer
 	 */
-	private final CTMIdentity ctmIdentity;
+	private final CTMTopicMapWriter writer;
 
 	/**
 	 * the prefix handler
 	 */
 	private final PrefixHandler prefixHandler;
 
-	public TopicMapSerializer(CTMTopicMapWriterProperties properties,
+	public TopicMapSerializer(CTMTopicMapWriter writer,
 			PrefixHandler prefixHandler) {
-		this.properties = properties;
 		this.prefixHandler = prefixHandler;
-		this.ctmIdentity = new CTMIdentity(prefixHandler);		
+		this.writer = writer;
 	}
 
 	/**
@@ -120,8 +114,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		 * add reification of topic map if exists
 		 */
 		CTMBuffer ctmBuffer = new CTMBuffer();
-		if (new ReifiableSerializer(properties, ctmIdentity).serialize(
-				topicMap, ctmBuffer)) {
+		if (new ReifiableSerializer(writer).serialize(topicMap, ctmBuffer)) {
 			buffer.appendCommentLine("reifier of the topicmap");
 			buffer.appendLine(ctmBuffer);
 			buffer.appendLine();
@@ -131,7 +124,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		 * add prefixes if auto-detection is enabled
 		 */
 		CTMBuffer prefixBuffer = new CTMBuffer();
-		if (properties.isPrefixDetectionEnabled()) {
+		if (writer.getProperties().isPrefixDetectionEnabled()) {
 			buffer.appendCommentLine("prefixes");
 			buffer.appendLine();
 			if (new PrefixesSerializer(prefixHandler).serialize(topicMap,
@@ -149,18 +142,18 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		/*
 		 * try to auto-detect templates if properties is enabled
 		 */
-		if (properties.isTemplateDetectionEnabled()) {
-			TemplateDetection detection = new TemplateDetection(properties,
-					ctmIdentity, topicMap);
+		if (writer.getProperties().isTemplateDetectionEnabled()) {
+			TemplateDetection detection = new TemplateDetection(writer,
+					topicMap);
 			templates.addAll(detection.tryToDetectTemplates());
 		}
 
 		/*
 		 * try to merge templates if properties is set
 		 */
-		if (properties.isTemplateMergerEnabled()) {
-			Collection<Template> templates = new TemplateMerger(properties)
-					.mergeTemplates(this.templates);
+		if (writer.getProperties().isTemplateMergerEnabled()) {
+			Collection<Template> templates = new TemplateMerger(writer
+					.getProperties()).mergeTemplates(this.templates);
 			this.templates.clear();
 			this.templates.addAll(templates);
 		}
@@ -201,7 +194,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		for (Association association : topicMap.getAssociations()) {
 			ctmBuffer = new CTMBuffer();
 			try {
-				ctmIdentity.getIdentity(properties, association.getType());
+				writer.getCtmIdentity().getIdentity(writer.getProperties(),
+						association.getType());
 				/*
 				 * ignore TMDM associations
 				 */
@@ -211,7 +205,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 								.next().toExternalForm())) {
 					continue;
 				}
-				new AssociationSerializer(properties, ctmIdentity,
+				new AssociationSerializer(writer,
 						getAdaptiveTemplates(association)).serialize(
 						association, ctmBuffer);
 				buffer.appendLine(ctmBuffer);
@@ -224,7 +218,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		 */
 		return true;
 	}
-	
+
 	/**
 	 * Method to convert the given constructs to its specific CTM strings. The
 	 * result should be written to the given output buffer.
@@ -242,74 +236,74 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			throws SerializerException {
 
 		/*
-		 * topic item store 
+		 * topic item store
 		 */
 		Collection<Topic> topics = new HashSet<Topic>();
 		/*
 		 * association item store
 		 */
 		Collection<Association> associations = new HashSet<Association>();
-		
+
 		/*
 		 * sort constructs by type
 		 */
-		for ( Construct construct : constructs ){
-			if ( construct instanceof Topic){
-				topics.add((Topic)construct);
-			}else if ( construct instanceof Name){
-				topics.add(((Name)construct).getParent());
-			}else if ( construct instanceof Occurrence){
-				topics.add(((Occurrence)construct).getParent());
-			}else if ( construct instanceof Variant){
-				topics.add(((Variant)construct).getParent().getParent());
-			}else if ( construct instanceof Association){
-				associations.add(((Association)construct));
-			}else if ( construct instanceof Role){
-				associations.add(((Role)construct).getParent());
+		for (Construct construct : constructs) {
+			if (construct instanceof Topic) {
+				topics.add((Topic) construct);
+			} else if (construct instanceof Name) {
+				topics.add(((Name) construct).getParent());
+			} else if (construct instanceof Occurrence) {
+				topics.add(((Occurrence) construct).getParent());
+			} else if (construct instanceof Variant) {
+				topics.add(((Variant) construct).getParent().getParent());
+			} else if (construct instanceof Association) {
+				associations.add(((Association) construct));
+			} else if (construct instanceof Role) {
+				associations.add(((Role) construct).getParent());
 			}
 		}
-		
-//		/*
-//		 * add comment
-//		 */
-//		buffer.appendCommentLine("Generated by the CTM Topic Map Writer.");
-//
-//		/*
-//		 * add encoding
-//		 */
-//		buffer.appendLine(UTF8ENCODING);
-//
-//		/*
-//		 * add version
-//		 */
-//		buffer.appendLine(VERSION);
+
+		// /*
+		// * add comment
+		// */
+		// buffer.appendCommentLine("Generated by the CTM Topic Map Writer.");
+		//
+		// /*
+		// * add encoding
+		// */
+		// buffer.appendLine(UTF8ENCODING);
+		//
+		// /*
+		// * add version
+		// */
+		// buffer.appendLine(VERSION);
 
 		/*
 		 * start topic map block
 		 */
 		buffer.appendLine();
 
-
 		/*
 		 * generate topic-definition blocks
 		 */
-//		buffer.appendCommentLine("topic definitions");
-		for (Topic topic : topics) {			
+		// buffer.appendCommentLine("topic definitions");
+		for (Topic topic : topics) {
 			serializeTopicToCTM(topic, buffer);
 		}
 
 		/*
 		 * generate association-definition blocks
 		 */
-//		buffer.appendCommentLine("association definitions");		
+		// buffer.appendCommentLine("association definitions");
 		for (Association association : associations) {
 			CTMBuffer ctmBuffer = new CTMBuffer();
 			try {
-				ctmIdentity.getIdentity(properties, association.getType());
+				writer.getCtmIdentity().getIdentity(writer.getProperties(),
+						association.getType());
 				/*
 				 * ignore TMDM associations
 				 */
-				new AssociationSerializer(properties, ctmIdentity,
+				new AssociationSerializer(writer,
 						getAdaptiveTemplates(association)).serialize(
 						association, ctmBuffer);
 				buffer.appendLine(ctmBuffer);
@@ -343,9 +337,9 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			/*
 			 * generate only for non TMDM types
 			 */
-			ctmIdentity.getIdentity(properties, topic);
-			new TopicSerializer(properties, getAdaptiveTemplates(topic),
-					ctmIdentity).serialize(topic, ctmBuffer);
+			writer.getCtmIdentity().getIdentity(writer.getProperties(), topic);
+			new TopicSerializer(writer, getAdaptiveTemplates(topic)).serialize(
+					topic, ctmBuffer);
 			buffer.appendLine(ctmBuffer);
 			return true;
 		} catch (NoIdentityException e) {

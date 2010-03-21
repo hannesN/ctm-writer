@@ -22,7 +22,9 @@ import de.topicmapslab.ctm.writer.core.serializer.TopicMapSerializer;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.templates.Template;
+import de.topicmapslab.ctm.writer.templates.TemplateFactory;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Implementation of {@link TopicMapWriter} interface to provide a CTM topic map
@@ -58,6 +60,16 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	private final PrefixHandler prefixHandler;
 
 	/**
+	 * the identity class
+	 */
+	private final CTMIdentity ctmIdentity;
+
+	/**
+	 * the template factory
+	 */
+	private final TemplateFactory factory;
+
+	/**
 	 * constructor
 	 * 
 	 * @param outputStream
@@ -91,10 +103,13 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 		this.baseURI = baseURI;
 		this.properties = new CTMTopicMapWriterProperties();
 		this.prefixHandler = new PrefixHandler();
-		this.serializer = new TopicMapSerializer(properties, prefixHandler);
+		this.ctmIdentity = new CTMIdentity(prefixHandler);
+		this.serializer = new TopicMapSerializer(this, prefixHandler);
 		if (propertyLine != null) {
 			this.properties.parse(propertyLine);
 		}
+
+		factory = new TemplateFactory(this);
 	}
 
 	/**
@@ -205,12 +220,12 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 */
 	public void write(Construct... constructs) throws IOException {
 		Collection<Construct> constructs_ = new HashSet<Construct>();
-		for ( Construct c : constructs){
+		for (Construct c : constructs) {
 			constructs_.add(c);
 		}
 		write(constructs_);
 	}
-	
+
 	/**
 	 * Serialize the given topic map to CTM and write it into the given
 	 * {@link OutputStream}.
@@ -234,6 +249,33 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 		writer.write(buffer.getBuffer().toString());
 		writer.flush();
 		writer.close();
+	}
+
+	/**
+	 * Returns the internal instance of the template factory
+	 * 
+	 * @return the template factory
+	 */
+	public TemplateFactory getFactory() {
+		return factory;
+	}
+
+	/**
+	 * Return the identity utility class instance
+	 * 
+	 * @return the utility class
+	 */
+	public CTMIdentity getCtmIdentity() {
+		return ctmIdentity;
+	}
+
+	/**
+	 * Returns the properties handler reference.
+	 * 
+	 * @return the properties handler
+	 */
+	public CTMTopicMapWriterProperties getProperties() {
+		return properties;
 	}
 
 }

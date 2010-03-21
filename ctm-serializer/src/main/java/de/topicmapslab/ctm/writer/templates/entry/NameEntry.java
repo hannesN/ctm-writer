@@ -20,13 +20,12 @@ import java.util.Set;
 import org.tmapi.core.Name;
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.core.serializer.NameSerializer;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
-import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
+import de.topicmapslab.ctm.writer.templates.entry.base.ScopedEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class representing a template-entry definition of an name-entry.
@@ -35,222 +34,59 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
  * @email krosse@informatik.uni-leipzig.de
  * 
  */
-public class NameEntry extends EntryImpl {
+public class NameEntry extends ScopedEntry {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 	/**
 	 * the name type
 	 */
 	private final Topic type;
-	/**
-	 * the scope entry
-	 */
-	private final ScopeEntry scopeEntry;
-	/**
-	 * the reifier entry
-	 */
-	private final ReifierEntry reifierEntry;
-	
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
 
 	/**
 	 * constructor
 	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link NameEntry#NameEntry(CTMTopicMapWriterProperties,String, Topic, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param valueOrVariable
 	 *            the value or variable definition of the template-entry
 	 */
-	public NameEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable) {
-		this(properties, ctmIdentity, valueOrVariable, null, null, null);
+	protected NameEntry(CTMTopicMapWriter writer, String valueOrVariable) {
+		this(writer, valueOrVariable, null);
 	}
 
 	/**
 	 * constructor
 	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link NameEntry#NameEntry(CTMTopicMapWriterProperties,String, Topic, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
 	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param valueOrVariable
 	 *            the value or variable definition of the template-entry
 	 * @param type
 	 *            the name type
 	 */
-	public NameEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type) {
-		this(properties, ctmIdentity, valueOrVariable, type, null, null);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link NameEntry#NameEntry(CTMTopicMapWriterProperties,String, Topic, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param type
-	 *            the name type
-	 * @param scopeEntry
-	 *            a scope entry
-	 */
-	public NameEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type,
-			final ScopeEntry scopeEntry) {
-		this(properties, ctmIdentity, valueOrVariable, type, scopeEntry, null);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link NameEntry#NameEntry(CTMTopicMapWriterProperties,String, Topic, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param type
-	 *            the name type
-	 * @param reifierEntry
-	 *            a reifier entry
-	 */
-	public NameEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type,
-			final ReifierEntry reifierEntry) {
-		this(properties, ctmIdentity, valueOrVariable, type, null, reifierEntry);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link NameEntry#NameEntry(CTMTopicMapWriterProperties,String, Topic, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param scopeEntry
-	 *            a scope entry
-	 */
-	public NameEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final ScopeEntry scopeEntry) {
-		this(properties, ctmIdentity, valueOrVariable, null, scopeEntry, null);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link NameEntry#NameEntry(CTMTopicMapWriterProperties,String, Topic, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param reifierEntry
-	 *            a reifier entry
-	 */
-	public NameEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final ReifierEntry reifierEntry) {
-		this(properties, ctmIdentity, valueOrVariable, null, null, reifierEntry);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * <br />
-	 * <br />
-	 * Constructor is calling
-	 * {@link NameEntry#NameEntry(CTMTopicMapWriterProperties,String, Topic, ScopeEntry, ReifierEntry)}
-	 * , the missing argument are <code>null</code>.
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param scopeEntry
-	 *            a scope entry
-	 * @param reifierEntry
-	 *            a reifier entry
-	 */
-	public NameEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final ScopeEntry scopeEntry,
-			final ReifierEntry reifierEntry) {
-		this(properties, ctmIdentity, valueOrVariable, null, scopeEntry, reifierEntry);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * @param properties
-	 *            the properties
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
-	 * @param type
-	 *            the name type
-	 * @param scopeEntry
-	 *            a scope entry
-	 * @param reifierEntry
-	 *            a reifier entry
-	 */
-	public NameEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String valueOrVariable, final Topic type,
-			final ScopeEntry scopeEntry, final ReifierEntry reifierEntry) {
+	protected NameEntry(CTMTopicMapWriter writer, String valueOrVariable,
+			final Topic type) {
 		super(valueOrVariable);
 		this.type = type;
-		this.ctmIdentity = ctmIdentity;
-		this.scopeEntry = scopeEntry;
-		this.reifierEntry = reifierEntry;
-		this.properties = properties;
+		this.writer = writer;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
-		NameSerializer
-				.serialize(properties, ctmIdentity, getValueOrVariable(), type, buffer);
-		if (scopeEntry != null) {
+		NameSerializer.serialize(writer, getValueOrVariable(), type, buffer);
+		if (getScopeEntry() != null) {
 			buffer.append(WHITESPACE);
-			scopeEntry.serialize(buffer);
+			getScopeEntry().serialize(buffer);
 		}
-		if (reifierEntry != null) {
+		if (getReifierEntry() != null) {
 			buffer.append(WHITESPACE);
-			reifierEntry.serialize(buffer);
+			getReifierEntry().serialize(buffer);
 		}
 		buffer.appendTailLine();
 	}
@@ -265,14 +101,14 @@ public class NameEntry extends EntryImpl {
 		} else {
 			for (Name name : topic.getNames(type)) {
 				result = true;
-				if (result && scopeEntry != null) {
+				if (result && getScopeEntry() != null) {
 					result = name.getScope().containsAll(
-							Arrays.asList(scopeEntry.getThemes()));
+							Arrays.asList(getScopeEntry().getThemes()));
 				}
 
-				if (result && reifierEntry != null) {
-					result = reifierEntry.getReifier()
-							.equals(name.getReifier());
+				if (result && getReifierEntry() != null) {
+					result = getReifierEntry().getReifier().equals(
+							name.getReifier());
 				}
 
 				if (result) {
@@ -338,11 +174,11 @@ public class NameEntry extends EntryImpl {
 			throws SerializerException {
 		for (Name name : topic.getNames(type)) {
 			boolean isAdaptive = true;
-			if (scopeEntry != null) {
-				isAdaptive &= scopeEntry.isAdaptiveFor(name);
+			if (getScopeEntry() != null) {
+				isAdaptive &= getScopeEntry().isAdaptiveFor(name);
 			}
-			if (reifierEntry != null) {
-				isAdaptive &= reifierEntry.isAdaptiveFor(name);
+			if (getReifierEntry() != null) {
+				isAdaptive &= getReifierEntry().isAdaptiveFor(name);
 			}
 			if (isAdaptive) {
 				return name;
@@ -357,24 +193,24 @@ public class NameEntry extends EntryImpl {
 	 * All information needed to define the entry are extracted from the given
 	 * construct.
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties}
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param name
 	 *            the name construct
 	 * @return the generate name-entry
 	 * @throws SerializerException
 	 *             thrown if generation failed
 	 */
-	public static NameEntry buildFromConstruct(
-			final CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity, final Name name)
-			throws SerializerException {
+	public static NameEntry buildFromConstruct(final CTMTopicMapWriter writer,
+			final Name name) throws SerializerException {
 		Topic type = name.getType();
 		/*
 		 * generate variable name
 		 */
 		String variable = "$";
 		try {
-			variable += ctmIdentity.getMainIdentifier(properties, type);
+			variable += writer.getCtmIdentity().getMainIdentifier(
+					writer.getProperties(), type);
 		} catch (NoIdentityException e) {
 			/*
 			 * could happens if name-type is a TMDM-default-type
@@ -386,8 +222,8 @@ public class NameEntry extends EntryImpl {
 		 */
 		ScopeEntry scopeEntry = null;
 		if (!name.getScope().isEmpty()) {
-			scopeEntry = new ScopeEntry(properties, ctmIdentity, name.getScope().toArray(
-					new Topic[0]));
+			scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(
+					name.getScope().toArray(new Topic[0]));
 		}
 
 		/*
@@ -395,14 +231,17 @@ public class NameEntry extends EntryImpl {
 		 */
 		ReifierEntry reifierEntry = null;
 		if (name.getReifier() != null) {
-			reifierEntry = new ReifierEntry(properties, ctmIdentity, name.getReifier());
+			reifierEntry = writer.getFactory().getEntryFactory()
+					.newReifierEntry(name.getReifier());
 		}
 
 		/*
 		 * create name entry
 		 */
-		return new NameEntry(properties, ctmIdentity, variable, type, scopeEntry,
-				reifierEntry);
+		NameEntry entry = new NameEntry(writer, variable, type);
+		entry.setReifierEntry(reifierEntry);
+		entry.setScopeEntry(scopeEntry);
+		return entry;
 	}
 
 	/**
@@ -426,18 +265,20 @@ public class NameEntry extends EntryImpl {
 			/*
 			 * reifier must be equal
 			 */
-			if (reifierEntry != null) {
-				result &= reifierEntry.equals(((NameEntry) obj).reifierEntry);
+			if (getReifierEntry() != null) {
+				result &= getReifierEntry().equals(
+						((NameEntry) obj).getReifierEntry());
 			} else {
-				result &= ((NameEntry) obj).reifierEntry == null;
+				result &= ((NameEntry) obj).getReifierEntry() == null;
 			}
 			/*
 			 * scope must be equal
 			 */
-			if (scopeEntry != null) {
-				result &= scopeEntry.equals(((NameEntry) obj).scopeEntry);
+			if (getScopeEntry() != null) {
+				result &= getScopeEntry().equals(
+						((NameEntry) obj).getScopeEntry());
 			} else {
-				result &= ((NameEntry) obj).scopeEntry == null;
+				result &= ((NameEntry) obj).getScopeEntry() == null;
 			}
 			return result;
 		}
@@ -450,24 +291,6 @@ public class NameEntry extends EntryImpl {
 	@Override
 	public int hashCode() {
 		return super.hashCode();
-	}
-
-	/**
-	 * Method returns the internal {@link ScopeEntry}
-	 * 
-	 * @return the scopeEntry
-	 */
-	public ScopeEntry getScopeEntry() {
-		return scopeEntry;
-	}
-
-	/**
-	 * Method return the internal {@link ReifierEntry}.
-	 * 
-	 * @return the reifierEntry
-	 */
-	public ReifierEntry getReifierEntry() {
-		return reifierEntry;
 	}
 
 }

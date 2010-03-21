@@ -19,12 +19,11 @@ import java.util.Set;
 import org.tmapi.core.Association;
 import org.tmapi.core.Role;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.templates.Template;
 import de.topicmapslab.ctm.writer.templates.TemplateInvocationSerializer;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -47,37 +46,33 @@ public class AssociationSerializer implements ISerializer<Association> {
 	private final Set<Template> adaptiveTemplates;
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 
 	/**
-	 * identity utility (cache and generator)
+	 * constructor
+	 * 
+	 * @param writer
+	 *            the parent writer
 	 */
-	private final CTMIdentity ctmIdentity;
-	
-	/**
-	 * constructor, calling the
-	 * {@link AssociationSerializer#AssociationSerializer(Set)} with a new
-	 * {@link HashSet}
-	 */
-	public AssociationSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity) {
-		this(properties, ctmIdentity, new HashSet<Template>());
+	public AssociationSerializer(CTMTopicMapWriter writer) {
+		this(writer, new HashSet<Template>());
 	}
 
 	/**
 	 * constructor
 	 * 
+	 * @param writer
+	 *            the parent writer
+	 * 
 	 * @param adaptiveTemplates
 	 *            a set of templates replacing the association item
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties}
 	 */
-	public AssociationSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
+	public AssociationSerializer(CTMTopicMapWriter writer,
 			Set<Template> adaptiveTemplates) {
 		this.adaptiveTemplates = adaptiveTemplates;
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+		this.writer = writer;
 	}
 
 	/**
@@ -109,8 +104,9 @@ public class AssociationSerializer implements ISerializer<Association> {
 			/*
 			 * create association definition block
 			 */
-			buffer.appendLine(true, ctmIdentity.getMainIdentifier(
-					properties, association.getType()).toString(), BRO);
+			buffer.appendLine(true, writer.getCtmIdentity().getMainIdentifier(
+					writer.getProperties(), association.getType()).toString(),
+					BRO);
 
 			boolean first = true;
 			/*
@@ -118,7 +114,7 @@ public class AssociationSerializer implements ISerializer<Association> {
 			 */
 			for (Role role : association.getRoles()) {
 				CTMBuffer bufferoles = new CTMBuffer();
-				new RoleSerializer(properties, ctmIdentity).serialize(role, bufferoles);
+				new RoleSerializer(writer).serialize(role, bufferoles);
 				if (!first) {
 					buffer.appendLine(COMMA);
 				}
@@ -138,8 +134,7 @@ public class AssociationSerializer implements ISerializer<Association> {
 			 * add scope-definition if exists
 			 */
 			ctmBuffer = new CTMBuffer();
-			if (new ScopedSerializer(properties, ctmIdentity).serialize(association,
-					ctmBuffer)) {
+			if (new ScopedSerializer(writer).serialize(association, ctmBuffer)) {
 				buffer.appendLine();
 				buffer.append(TABULATOR);
 				buffer.append(ctmBuffer);
@@ -149,7 +144,7 @@ public class AssociationSerializer implements ISerializer<Association> {
 			 * add reifier-definition if exists
 			 */
 			ctmBuffer = new CTMBuffer();
-			if (new ReifiableSerializer(properties, ctmIdentity).serialize(association,
+			if (new ReifiableSerializer(writer).serialize(association,
 					ctmBuffer)) {
 				buffer.appendLine();
 				buffer.append(TABULATOR);

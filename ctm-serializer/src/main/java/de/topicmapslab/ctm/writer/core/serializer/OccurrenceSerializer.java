@@ -15,10 +15,9 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 import org.tmapi.core.Occurrence;
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -35,24 +34,18 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class OccurrenceSerializer implements ISerializer<Occurrence> {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
-	
 	/**
 	 * constructor
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties} *
+	 * @param writer
+	 *            the parent topic map writer
 	 */
-	public OccurrenceSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity) {
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+	public OccurrenceSerializer(CTMTopicMapWriter writer) {
+		this.writer = writer;
 	}
 
 	/**
@@ -64,20 +57,22 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 		/*
 		 * begin occurrence-definition block
 		 */
-		buffer.append(true, TABULATOR, ctmIdentity.getMainIdentifier(
-				properties, occurrence.getType()).toString(), COLON, WHITESPACE);
+		buffer.append(true, TABULATOR,
+				writer.getCtmIdentity().getMainIdentifier(
+						writer.getProperties(), occurrence.getType())
+						.toString(), COLON, WHITESPACE);
 
 		/*
 		 * add value and data-type
 		 */
-		new DatatypeAwareSerializer(properties, ctmIdentity).serialize(occurrence, buffer);
+		new DatatypeAwareSerializer(writer).serialize(occurrence, buffer);
 
 		CTMBuffer ctmBuffer = null;
 		/*
 		 * add scope if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ScopedSerializer(properties, ctmIdentity).serialize(occurrence, ctmBuffer)) {
+		if (new ScopedSerializer(writer).serialize(occurrence, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -86,8 +81,7 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 		 * add reifier if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ReifiableSerializer(properties, ctmIdentity)
-				.serialize(occurrence, ctmBuffer)) {
+		if (new ReifiableSerializer(writer).serialize(occurrence, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -100,8 +94,8 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 	 * Static method to generate CTM occurrence-block by value, data-type and
 	 * type.
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties}
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param value
 	 *            the value of the occurrence
 	 * @param datatype
@@ -115,18 +109,18 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String value, Object datatype, Topic type, CTMBuffer buffer)
+	public static boolean serialize(CTMTopicMapWriter writer, String value,
+			Object datatype, Topic type, CTMBuffer buffer)
 			throws SerializerException {
 
-		buffer.append(true, TABULATOR, ctmIdentity.getMainIdentifier(
-				properties, type).toString(), COLON, WHITESPACE);
+		buffer.append(true, TABULATOR, writer.getCtmIdentity()
+				.getMainIdentifier(writer.getProperties(), type).toString(),
+				COLON, WHITESPACE);
 
 		/*
 		 * add value and data-type
 		 */
-		new DatatypeAwareSerializer(properties, ctmIdentity).serialize(datatype, value,
-				buffer);
+		new DatatypeAwareSerializer(writer).serialize(datatype, value, buffer);
 
 		return true;
 	}

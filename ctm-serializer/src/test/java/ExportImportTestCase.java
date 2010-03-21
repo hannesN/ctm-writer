@@ -12,6 +12,7 @@ import org.tmapix.io.LTMTopicMapReader;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.templates.Template;
+import de.topicmapslab.ctm.writer.templates.TemplateFactory;
 
 /** 
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
@@ -55,12 +56,12 @@ public class ExportImportTestCase extends TestCase {
 		}
 		final String line = "writer.features.export.itemidentifier = false, "
 				+ "writer.features.prefixDetection.enabled = true, "
-				+ "writer.features.templateDetection.enabled = false, "
-				+ "writer.features.templateDetection.topicTemplates = false , "
+				+ "writer.features.templateDetection.enabled = true, "
+				+ "writer.features.templateDetection.topicTemplates = true , "
 				+ "writer.features.templateDetection.associationTemplates = false, "
 				+ "writer.features.templateMerger.enabled = false";
-		CTMTopicMapWriter writer = new CTMTopicMapWriter(
-				new FileOutputStream(file), "www.topicmapslab.de", line);
+		CTMTopicMapWriter writer = new CTMTopicMapWriter(new FileOutputStream(
+				file), "www.topicmapslab.de", line);
 
 		writer.setPrefix("tml", "http://www.topicmapslab.de/");
 		writer.write(topicMap);
@@ -72,16 +73,17 @@ public class ExportImportTestCase extends TestCase {
 		if (!file2.exists()) {
 			file2.createNewFile();
 		}
-//		org.tinytim.mio.CTMTopicMapWriter writer2 = new org.tinytim.mio.CTMTopicMapWriter(
-//				new FileOutputStream(file2), "www.topicmapslab.de");
-//		writer2.write(topicMap);
-		
+		// org.tinytim.mio.CTMTopicMapWriter writer2 = new
+		// org.tinytim.mio.CTMTopicMapWriter(
+		// new FileOutputStream(file2), "www.topicmapslab.de");
+		// writer2.write(topicMap);
+
 		System.out.println("Import from CTM...");
-		
+
 		CTMTopicMapReader reader = new CTMTopicMapReader(file);
 
 		reader.read();
-		
+
 		TopicMap reimport = topicMapSystem
 				.createTopicMap("http://de.topicmapslab/tmql4j/tests/reimport");
 
@@ -90,8 +92,6 @@ public class ExportImportTestCase extends TestCase {
 		reader2.read();
 
 		System.out.println("finished");
-		
-		
 
 	}
 
@@ -118,8 +118,10 @@ public class ExportImportTestCase extends TestCase {
 		properties.parse(line);
 
 		final String templateName = "myTemplate";
-		Template template = new Template(templateName);
+		TemplateFactory factory = writer.getFactory();
+		Template template = factory.newTemplate(templateName);
 
+		// change to new source version 1.0.5a1
 		// /*
 		// * create role entry for role-type composer
 		// */

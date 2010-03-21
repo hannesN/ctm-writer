@@ -17,10 +17,10 @@ import java.util.Arrays;
 import org.tmapi.core.Scoped;
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class representing a template-entry definition of an role-entry.
@@ -32,9 +32,9 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class ScopeEntry {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 	/**
 	 * a list of themes
 	 */
@@ -44,26 +44,21 @@ public class ScopeEntry {
 	 * a list of variables
 	 */
 	private final String[] variables;
-	
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
 
 	/**
 	 * constructor calling
 	 * {@link ScopeEntry#ScopeEntry(CTMTopicMapWriterProperties,Topic[], String...)}
 	 * with an empty topic array.
 	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param themes
 	 *            a non-empty list of themes
 	 * @throws SerializerException
 	 */
-	public ScopeEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
-			String... variables) throws SerializerException {
-		this(properties, ctmIdentity, new Topic[0], variables);
+	protected ScopeEntry(CTMTopicMapWriter writer, String... variables)
+			throws SerializerException {
+		this(writer, new Topic[0], variables);
 	}
 
 	/**
@@ -71,27 +66,27 @@ public class ScopeEntry {
 	 * {@link ScopeEntry#ScopeEntry(CTMTopicMapWriterProperties,Topic[], String...)}
 	 * with an empty string array.
 	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param themes
 	 *            a non-empty list of themes
 	 * @throws SerializerException
 	 */
-	public ScopeEntry(CTMTopicMapWriterProperties properties,  CTMIdentity ctmIdentity, Topic... themes)
+	protected ScopeEntry(CTMTopicMapWriter writer, Topic... themes)
 			throws SerializerException {
-		this(properties, ctmIdentity, themes, new String[0]);
+		this(writer, themes, new String[0]);
 	}
 
 	/**
 	 * constructor
 	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param themes
 	 *            a non-empty list of themes
 	 * @throws SerializerException
 	 */
-	public ScopeEntry(CTMTopicMapWriterProperties properties,  CTMIdentity ctmIdentity, Topic[] themes,
+	protected ScopeEntry(CTMTopicMapWriter writer, Topic[] themes,
 			String... variables) throws SerializerException {
 		if (themes.length == 0 && variables.length == 0) {
 			throw new SerializerException(
@@ -99,8 +94,7 @@ public class ScopeEntry {
 		}
 		this.themes = themes;
 		this.variables = variables;
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+		this.writer = writer;
 	}
 
 	/**
@@ -121,8 +115,8 @@ public class ScopeEntry {
 			} else {
 				buffer.append(COMMA, WHITESPACE);
 			}
-			// buffer.append(SCOPE, CTMIdentity.getPrefixedIdentity(theme));
-			buffer.append(ctmIdentity.getMainIdentifier(properties, theme).toString());
+			buffer.append(writer.getCtmIdentity().getMainIdentifier(
+					writer.getProperties(), theme).toString());
 		}
 
 		for (String variable : variables) {

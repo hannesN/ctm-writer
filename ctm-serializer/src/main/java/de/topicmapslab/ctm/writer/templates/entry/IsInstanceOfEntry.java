@@ -17,11 +17,10 @@ import java.util.Set;
 
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class representing a template-entry definition of a instance-of-association.
@@ -33,40 +32,34 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class IsInstanceOfEntry extends EntryImpl {
 
 	/**
-	 * properties for CTM topic map writer
+	 *the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 	/**
 	 * the type
 	 */
 	private final Topic type;
-	
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
 
 	/**
 	 * constructor
 	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param valueOrVariable
 	 *            the value or variable definition of the template-entry
 	 */
-	public IsInstanceOfEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity, Topic type) {
+	protected IsInstanceOfEntry(CTMTopicMapWriter writer, Topic type) {
 		super(type.toString());
 		this.type = type;
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+		this.writer = writer;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
-		buffer.appendTailLine(true, TABULATOR, ISA, ctmIdentity
-				.getMainIdentifier(properties, type).toString());
+		buffer.appendTailLine(true, TABULATOR, ISA, writer.getCtmIdentity()
+				.getMainIdentifier(writer.getProperties(), type).toString());
 	}
 
 	/**
@@ -92,7 +85,8 @@ public class IsInstanceOfEntry extends EntryImpl {
 		 */
 		if (isDependentFromVariable()) {
 			Topic type = topic.getTypes().iterator().next();
-			arguments.add(ctmIdentity.getMainIdentifier(properties, type).toString());
+			arguments.add(writer.getCtmIdentity().getMainIdentifier(
+					writer.getProperties(), type).toString());
 			affectedConstructs.add(type);
 
 		}
@@ -100,8 +94,8 @@ public class IsInstanceOfEntry extends EntryImpl {
 		 * is constant value
 		 */
 		else {
-			arguments.add(ctmIdentity
-					.getPrefixedIdentity(properties, this.type).toString());
+			arguments.add(writer.getCtmIdentity().getPrefixedIdentity(
+					writer.getProperties(), this.type).toString());
 			affectedConstructs.add(this.type);
 		}
 		return arguments;

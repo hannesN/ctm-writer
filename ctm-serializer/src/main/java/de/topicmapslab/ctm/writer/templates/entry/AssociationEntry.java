@@ -25,11 +25,10 @@ import org.tmapi.core.Role;
 import org.tmapi.core.Topic;
 import org.tmapi.index.TypeInstanceIndex;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class representing a template-entry definition of a association-entry.
@@ -41,10 +40,10 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class AssociationEntry implements IEntry {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
-	
+	private final CTMTopicMapWriter writer;
+
 	/**
 	 * the association type
 	 */
@@ -57,31 +56,27 @@ public class AssociationEntry implements IEntry {
 	 * a list of all variables
 	 */
 	private final Set<String> variables = new HashSet<String>();
-	
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
 
 	/**
 	 * constructor
-	 *  @param properties
-	 *            the properties
+	 * 
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param associationType
 	 *            the association type supported by this template
 	 * @param roleEntries
 	 *            a possible empty list of all role-entries
 	 */
-	public AssociationEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity, Topic associationType, RoleEntry... roleEntries) {
+	protected AssociationEntry(CTMTopicMapWriter writer, Topic associationType,
+			RoleEntry... roleEntries) {
 		this.associationType = associationType;
-		this.ctmIdentity = ctmIdentity;
+		this.writer = writer;
 		for (RoleEntry entry : roleEntries) {
 			this.roleEntries.add(entry);
 			if (entry.getTopicOrVariable().startsWith("$")) {
 				variables.add(entry.getTopicOrVariable());
 			}
 		}
-		this.properties = properties;
 	}
 
 	/**
@@ -98,17 +93,20 @@ public class AssociationEntry implements IEntry {
 	 * {@inheritDoc}
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
-		buffer.appendLine(true, ctmIdentity
-				.getMainIdentifier(properties,getAssociationType()).toString(), BRO);
+		buffer.appendLine(true, writer.getCtmIdentity().getMainIdentifier(
+				writer.getProperties(), getAssociationType()).toString(), BRO);
 		boolean first = true;
 		for (RoleEntry entry : roleEntries) {
 			if (!first) {
 				buffer.appendLine(COMMA);
 			}
-			buffer.append(TABULATOR, TABULATOR, ctmIdentity
-					.getMainIdentifier(properties,entry.roleType).toString(), COLON,
-					entry.topicOrVariable instanceof Topic ? ctmIdentity
-							.getMainIdentifier(properties,(Topic) entry.topicOrVariable).toString()
+			buffer.append(TABULATOR, TABULATOR, writer.getCtmIdentity()
+					.getMainIdentifier(writer.getProperties(), entry.roleType)
+					.toString(), COLON,
+					entry.topicOrVariable instanceof Topic ? writer
+							.getCtmIdentity().getMainIdentifier(
+									writer.getProperties(),
+									(Topic) entry.topicOrVariable).toString()
 							: entry.topicOrVariable.toString());
 			first = false;
 		}
@@ -217,8 +215,9 @@ public class AssociationEntry implements IEntry {
 				if (entry.getTopicOrVariable().startsWith("$")) {
 					Role role = association.getRoles(entry.roleType).iterator()
 							.next();
-					arguments.add(ctmIdentity.getMainIdentifier(properties,role
-							.getPlayer()).toString());
+					arguments.add(writer.getCtmIdentity().getMainIdentifier(
+							writer.getProperties(), role.getPlayer())
+							.toString());
 				}
 			}
 		}

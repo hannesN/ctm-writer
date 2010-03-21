@@ -50,25 +50,14 @@ public class Template {
 	private final List<String> variables;
 
 	/**
-	 * construct calling {@link Template#Template(String, List)} with a new
-	 * {@link LinkedList}
-	 * 
-	 * @param templateName
-	 *            the template name
-	 */
-	public Template(final String templateName) {
-		this(templateName, new LinkedList<IEntry>());
-	}
-
-	/**
 	 * constructor
 	 * 
 	 * @param templateName
 	 *            the template name
 	 * @param entries
-	 *            a list of entries
+	 *            an array of entries
 	 */
-	public Template(final String templateName, List<IEntry> entries) {
+	protected Template(final String templateName, IEntry... entries) {
 		this.templateName = templateName;
 		this.entries = new LinkedList<IEntry>();
 		this.variables = new LinkedList<String>();

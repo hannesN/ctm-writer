@@ -17,11 +17,10 @@ import java.util.Set;
 
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 import de.topicmapslab.ctm.writer.utility.TypeHierarchyUtils;
 
 /**
@@ -34,34 +33,27 @@ import de.topicmapslab.ctm.writer.utility.TypeHierarchyUtils;
 public class AKindOfEntry extends EntryImpl {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 
 	/**
 	 * the super-type
 	 */
 	private final Topic type;
-	
-
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
 
 	/**
 	 * constructor
 	 * 
-	 * @param properties
-	 *            the properties
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param valueOrVariable
 	 *            the value or variable definition of the template-entry
 	 */
-	public AKindOfEntry(CTMTopicMapWriterProperties properties, Topic type, CTMIdentity ctmIdentity) {
+	protected AKindOfEntry(CTMTopicMapWriter writer, Topic type) {
 		super(type.toString());
 		this.type = type;
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+		this.writer = writer;
 	}
 
 	/**
@@ -70,8 +62,8 @@ public class AKindOfEntry extends EntryImpl {
 	public void serialize(CTMBuffer buffer) throws SerializerException {
 		// buffer.appendTailLine(true, TABULATOR, AKO, CTMIdentity
 		// .getPrefixedIdentity(type));
-		buffer.appendTailLine(true, TABULATOR, AKO, ctmIdentity
-				.getMainIdentifier(properties,type).toString());
+		buffer.appendTailLine(true, TABULATOR, AKO, writer.getCtmIdentity()
+				.getMainIdentifier(writer.getProperties(), type).toString());
 	}
 
 	/**
@@ -92,7 +84,8 @@ public class AKindOfEntry extends EntryImpl {
 		}
 
 		List<String> arguments = new LinkedList<String>();
-		arguments.add(ctmIdentity.getMainIdentifier(properties,type).toString());
+		arguments.add(writer.getCtmIdentity().getMainIdentifier(
+				writer.getProperties(), type).toString());
 		affectedConstructs.add(type);
 
 		return arguments;

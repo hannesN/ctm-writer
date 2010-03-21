@@ -15,11 +15,9 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 import org.tmapi.core.Scoped;
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
-
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -35,25 +33,20 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class ScopedSerializer implements ISerializer<Scoped> {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
-	
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
-	
+	private final CTMTopicMapWriter writer;
+
 	/**
 	 * constructor
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties} *
+	 * @param writer
+	 *            the parent topic map writer
 	 */
-	public ScopedSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity) {
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+	public ScopedSerializer(CTMTopicMapWriter writer) {
+		this.writer = writer;
 	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -66,9 +59,10 @@ public class ScopedSerializer implements ISerializer<Scoped> {
 					buffer.append(SCOPE);
 					first = false;
 				} else {
-					buffer.append(true,COMMA, WHITESPACE);
+					buffer.append(true, COMMA, WHITESPACE);
 				}
-				buffer.append(ctmIdentity.getMainIdentifier(properties,theme).toString());
+				buffer.append(writer.getCtmIdentity().getMainIdentifier(
+						writer.getProperties(), theme).toString());
 			}
 			return true;
 		}

@@ -12,10 +12,9 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.COLON;
 
 import org.tmapi.core.Role;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -32,35 +31,32 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class RoleSerializer implements ISerializer<Role> {
 
 	/**
-	 * properties for CTM topic map writer
-	 */
-	private final CTMTopicMapWriterProperties properties;
-	
-	/**
 	 * identity utility (cache and generator)
 	 */
-	private final CTMIdentity ctmIdentity;
-	
+	private final CTMTopicMapWriter writer;
+
 	/**
 	 * constructor
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties} *
+	 * @param writer
+	 *            the parent topic map writer
 	 */
-	public RoleSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity) {
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+	public RoleSerializer(CTMTopicMapWriter writer) {
+		this.writer = writer;
 	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	public boolean serialize(Role role, CTMBuffer buffer)
 			throws SerializerException {
 
-		buffer.append(true, ctmIdentity.getMainIdentifier(properties,role.getType()).toString(),
-				COLON, ctmIdentity.getMainIdentifier(properties,role.getPlayer()).toString());
+		buffer.append(true, writer.getCtmIdentity().getMainIdentifier(
+				writer.getProperties(), role.getType()).toString(), COLON,
+				writer.getCtmIdentity().getMainIdentifier(
+						writer.getProperties(), role.getPlayer()).toString());
 
-		new ReifiableSerializer(properties, ctmIdentity).serialize(role, buffer);
+		new ReifiableSerializer(writer).serialize(role, buffer);
 
 		return true;
 	}

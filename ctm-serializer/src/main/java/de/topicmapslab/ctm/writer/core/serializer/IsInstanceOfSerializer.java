@@ -24,10 +24,9 @@ import org.tmapi.core.Topic;
 import org.tmapi.core.TopicMap;
 import org.tmapi.index.TypeInstanceIndex;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -49,29 +48,23 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 	private final Set<Object> affectedConstructs = new HashSet<Object>();
 
 	/**
-	 * the internal properties
+	 * the parent topic map writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
-	
-	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
+	private final CTMTopicMapWriter writer;
 
 	/**
 	 * constructor
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties} *
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param affectedConstructs
 	 *            a set of constructs which are affected by template-invocations
 	 * 
 	 */
-	public IsInstanceOfSerializer(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity,
+	public IsInstanceOfSerializer(CTMTopicMapWriter writer,
 			Set<Object> affectedConstructs) {
+		this.writer = writer;
 		this.affectedConstructs.addAll(affectedConstructs);
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
 	}
 
 	/**
@@ -90,8 +83,9 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 			 * add to buffer
 			 */
 			if (!affectedConstructs.contains(type)) {
-				buffer.appendTailLine(true, TABULATOR, ISA, ctmIdentity
-						.getMainIdentifier(properties, type).toString());
+				buffer.appendTailLine(true, TABULATOR, ISA, writer
+						.getCtmIdentity().getMainIdentifier(
+								writer.getProperties(), type).toString());
 				returnValue = true;
 			}
 		}
@@ -162,12 +156,11 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 					/*
 					 * add to buffer
 					 */
-					// buffer.appendTailLine(true, TABULATOR, ISA, CTMIdentity
-					// .getPrefixedIdentity(typePlayers.iterator().next()
-					// .getPlayer()));
-					buffer.appendTailLine(true, TABULATOR, ISA, ctmIdentity
-							.getMainIdentifier(properties, typePlayers
-									.iterator().next().getPlayer()).toString());
+					buffer.appendTailLine(true, TABULATOR, ISA, writer
+							.getCtmIdentity().getMainIdentifier(
+									writer.getProperties(),
+									typePlayers.iterator().next().getPlayer())
+							.toString());
 				}
 			}
 			returnValue = true;

@@ -13,10 +13,9 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.REIFIER;
 import org.tmapi.core.Reifiable;
 import org.tmapi.core.Topic;
 
+import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
  * Class representing a template-entry definition of an reifier-entry.
@@ -28,45 +27,26 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 public class ReifierEntry {
 
 	/**
-	 * properties for CTM topic map writer
+	 * the parent writer
 	 */
-	private final CTMTopicMapWriterProperties properties;
+	private final CTMTopicMapWriter writer;
 	/**
 	 * the reifierOrVariable
 	 */
 	private final Object reifierOrVariable;
 
 	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMIdentity ctmIdentity;
-	
-	/**
 	 * constructor
-	 *  @param properties
-	 *            the properties
+	 * 
+	 * @param writer
+	 *            the parent topic map writer
 	 * @param variable
 	 *            the variable representing the value for reification
 	 * @throws SerializerException
 	 */
-	public ReifierEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity, String variable) {
-		this.reifierOrVariable = variable;
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
-	}
-
-	/**
-	 * constructor
-	 *  @param properties
-	 *            the properties
-	 * @param reifier
-	 *            the reifier used for reification of
-	 * @throws SerializerException
-	 */
-	public ReifierEntry(CTMTopicMapWriterProperties properties, CTMIdentity ctmIdentity, Topic reifier) {
-		this.reifierOrVariable = reifier;
-		this.properties = properties;
-		this.ctmIdentity = ctmIdentity;
+	protected ReifierEntry(CTMTopicMapWriter writer, Object variableOrTopic) {
+		this.reifierOrVariable = variableOrTopic;
+		this.writer = writer;
 	}
 
 	/**
@@ -80,10 +60,9 @@ public class ReifierEntry {
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
 		if (reifierOrVariable instanceof Topic) {
-			// buffer.append(REIFIER, CTMIdentity
-			// .getPrefixedIdentity((Topic) reifierOrVariable));
-			buffer.append(REIFIER, ctmIdentity
-					.getMainIdentifier(properties,(Topic) reifierOrVariable).toString());
+			buffer.append(REIFIER, writer.getCtmIdentity().getMainIdentifier(
+					writer.getProperties(), (Topic) reifierOrVariable)
+					.toString());
 		} else {
 			buffer.append(REIFIER, reifierOrVariable.toString());
 		}

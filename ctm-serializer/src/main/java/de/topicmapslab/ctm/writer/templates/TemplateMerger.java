@@ -181,7 +181,7 @@ public class TemplateMerger {
 						 * modify template and store
 						 */
 						template = new Template(template.getTemplateName(),
-								entries);
+								entries.toArray(new IEntry[0]));
 						template.add(templateEntry);
 						mergedTemplates.add(template);
 						used = true;
