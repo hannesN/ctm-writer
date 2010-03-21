@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.tmapi.core.Occurrence;
 import org.tmapi.core.Topic;
@@ -247,9 +248,10 @@ public class OccurrenceEntry extends ScopedEntry {
 		/*
 		 * generate variable name
 		 */
-		String variable = "$"
-				+ writer.getCtmIdentity().getMainIdentifier(
-						writer.getProperties(), type);
+//		String variable = "$"
+//				+ writer.getCtmIdentity().getMainIdentifier(
+//						writer.getProperties(), type);
+		String variable = "$occ";
 		/*
 		 * set CTM identity of data-type
 		 */

@@ -117,9 +117,10 @@ public class RoleEntry {
 		/*
 		 * generate variable name
 		 */
-		String variable = "$"
-				+ writer.getCtmIdentity().getMainIdentifier(
-						writer.getProperties(), type);
+//		String variable = "$"
+//				+ writer.getCtmIdentity().getMainIdentifier(
+//						writer.getProperties(), type);
+		String variable = "$player";
 		/*
 		 * create new role-entry
 		 */
