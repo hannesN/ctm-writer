@@ -1,0 +1,36 @@
+=== serialize the topic map ===
+
+After defining additional content like prefixes or templates, the last step to do is to call the *write()* method of the CTM writer to serialize the topic map instance to the given file. Please note that all user defined templates and prefixes have to add before calling the serializing method.
+
+--------------------------------------
+1: 	/*
+2:	 * create a new file
+3:	 */
+4:	final File file = new File("./output.ctm");
+5:	if (file.exists()) {
+6:		file.createNewFile();
+7:	}
+8:	/*
+9:	 * create file output stream 
+10:	 */ 
+11:	final FileOutputStream outputStream = new FileOutputStream(file);
+12:	/*
+13:	 * create CTM writer
+14:	 */
+15:	final String baseURI = "http://tutorials.topicmapslab.de/ctm";
+16:	final String line = "writer.features.export.itemidentifier = false, "
+17:				+ "writer.features.prefixDetection.enabled = true, "
+18:				+ "writer.features.templateDetection.enabled = true, "
+19:				+ "writer.features.templateDetection.topicTemplates = true , "
+20:				+ "writer.features.templateDetection.associationTemplates = true, "
+21:				+ "writer.features.templateMerger.enabled = false";
+22:	final CTMTopicMapWriter writer = new CTMTopicMapWriter(outputStream, baseURI, line);
+23:	/*
+24:	 * serialization of the topic map
+25:	 */		
+26:	writer.write(topicMap);
+--------------------------------------
+
+======================================
+This example is similar to the first one in chapter <<create-writer>> except of the command line defining the additional features. But the interesting line is number 16, we call the write method with one argument - the topic map to serialize - and export the topic map to CTM.
+======================================	

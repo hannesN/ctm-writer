@@ -1,0 +1,34 @@
+[[create-writer]]
+=== Creating a new CTM writer ===
+
+At the first step we have to create a new instance of the writer. The constructor of the writer needs two parameters. 
+
+The first parameter specifies the output stream as a target for the serialized topic map. The writer supports every instance of output streams like a file output stream, a socket output stream or a string stream. In the following example we use a file to export the CTM string.
+
+The second parameter is a string representing a base URI. The given base URI is used in the worst case, if a topic has no item-identifier, no subject-identifier and no subject-locator, in this case the engine will be generate a new identifier based on the given URI and the internal id of the topic map engine.
+
+The third optional parameter is a string representing a feature line, containing a list of feature-strings and their values. For more information see chapter <<>>
+
+-------------------------------------
+1: 	/*
+2:	 * create a new file
+3:	 */
+4:	final File file = new File("./output.ctm");
+5: 	if ( file.exists()){
+6: 		file.createNewFile();
+7: 	}
+8:	/*
+9:	 * create file output stream 
+10:	 */ 	
+11:	final FileOutputStream outputStream = new FileOutputStream(file);
+12:	/*
+13:	 * create ctm writer
+14:	 */
+15:	final String baseURI = "http://tutorials.topicmapslab.de/ctm";
+16:	final CTMTopicMapWriter writer = new CTMTopicMapWriter(outputStream, baseURI);
+-------------------------------------
+
+=======================================
+In the 4. line we create a new file, which should be used for the file output stream defined in line 11. If the file does not exists, it will be created in line 6. In the 15. line we define the base locator which will be used in the described case. After all we create a new instance of the CTM topic map writer in source line 16.
+
+=======================================
