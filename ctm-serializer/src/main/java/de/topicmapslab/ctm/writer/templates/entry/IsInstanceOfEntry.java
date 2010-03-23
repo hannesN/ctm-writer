@@ -20,6 +20,10 @@ import org.tmapi.core.Topic;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -36,21 +40,21 @@ public class IsInstanceOfEntry extends EntryImpl {
 	 */
 	private final CTMTopicMapWriter writer;
 	/**
-	 * the type
+	 * the parameter
 	 */
-	private final Topic type;
+	private final IEntryParam param;
 
 	/**
 	 * constructor
 	 * 
 	 * @param writer
 	 *            the parent topic map writer
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
+	 * @param param
+	 *            the parameter for template
 	 */
-	protected IsInstanceOfEntry(CTMTopicMapWriter writer, Topic type) {
-		super(type.toString());
-		this.type = type;
+	protected IsInstanceOfEntry(CTMTopicMapWriter writer, IEntryParam param) {
+		super(param.getCTMRepresentation());
+		this.param = param;
 		this.writer = writer;
 	}
 
@@ -58,15 +62,29 @@ public class IsInstanceOfEntry extends EntryImpl {
 	 * {@inheritDoc}
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
-		buffer.appendTailLine(true, TABULATOR, ISA, writer.getCtmIdentity()
-				.getMainIdentifier(writer.getProperties(), type).toString());
+		String value = null;
+		if (param instanceof WildcardParam || param instanceof VariableParam) {
+			value = param.getCTMRepresentation();
+		} else if (param instanceof TopicTypeParam) {
+			value = writer.getCtmIdentity()
+					.getMainIdentifier(writer.getProperties(),
+							((TopicTypeParam) param).getTopic()).toString();
+		}
+		buffer.appendTailLine(true, TABULATOR, ISA, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public boolean isAdaptiveFor(Topic topic) {
-		return topic.getTypes().contains(type);
+		if (param instanceof TopicTypeParam) {
+			return topic.getTypes().contains(
+					((TopicTypeParam) param).getTopic());
+		} else if (param instanceof WildcardParam
+				|| param instanceof VariableParam) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -83,21 +101,21 @@ public class IsInstanceOfEntry extends EntryImpl {
 		/*
 		 * is variable depended value
 		 */
-		if (isDependentFromVariable()) {
+		if (param instanceof VariableParam) {
 			Topic type = topic.getTypes().iterator().next();
 			arguments.add(writer.getCtmIdentity().getMainIdentifier(
 					writer.getProperties(), type).toString());
 			affectedConstructs.add(type);
 
 		}
-		/*
-		 * is constant value
-		 */
-		else {
-			arguments.add(writer.getCtmIdentity().getPrefixedIdentity(
-					writer.getProperties(), this.type).toString());
-			affectedConstructs.add(this.type);
-		}
+//		/*
+//		 * is constant value
+//		 */
+//		else {
+//			arguments.add(writer.getCtmIdentity().getPrefixedIdentity(
+//					writer.getProperties(), this.type).toString());
+//			affectedConstructs.add(this.type);
+//		}
 		return arguments;
 	}
 
@@ -108,7 +126,7 @@ public class IsInstanceOfEntry extends EntryImpl {
 	public boolean equals(Object obj) {
 		if (obj instanceof IsInstanceOfEntry) {
 			return super.equals(obj)
-					&& type.equals(((IsInstanceOfEntry) obj).type);
+					&& param.equals(((IsInstanceOfEntry) obj).param);
 		}
 		return false;
 	}

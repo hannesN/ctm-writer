@@ -21,6 +21,7 @@ import java.util.Collection;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.AssociationEntry;
+import de.topicmapslab.ctm.writer.templates.entry.TopicEntry;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
@@ -60,6 +61,7 @@ public class TemplateSerializer {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean serialize(CTMBuffer buffer) throws SerializerException {
 
 		/*
@@ -70,7 +72,8 @@ public class TemplateSerializer {
 		/*
 		 * create argument list
 		 */
-		if (!template.containsOnlyInstanceOf(AssociationEntry.class)) {
+		if (!template.containsOnlyInstanceOf(AssociationEntry.class,
+				TopicEntry.class)) {
 			buffer.append(TOPICVARIABLE);
 			firstVariable = false;
 		}
@@ -92,7 +95,7 @@ public class TemplateSerializer {
 			/*
 			 * create topic-definition-entry
 			 */
-			if (entry instanceof EntryImpl) {
+			if (entry instanceof EntryImpl && !(entry instanceof TopicEntry)) {
 				if (topicDef.getBuffer().length() == 0) {
 					topicDef.appendLine(TABULATOR, TOPICVARIABLE);
 				}
@@ -177,7 +180,7 @@ public class TemplateSerializer {
 		/*
 		 * generate template-invocation-begin --> write template name
 		 */
-		buffer.append(false,template.getTemplateName(), BRO);
+		buffer.append(false, template.getTemplateName(), BRO);
 		boolean first = true;
 		/*
 		 * add argument list

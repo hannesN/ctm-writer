@@ -24,6 +24,7 @@ import de.topicmapslab.ctm.writer.templates.entry.OccurrenceEntry;
 import de.topicmapslab.ctm.writer.templates.entry.TemplateEntry;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * Class representing a CTM template defintion
@@ -390,9 +391,11 @@ public class Template {
 	 * @return <code>true</code> if internal entry set only contains entries of
 	 *         the given type, <code>false</code> otherwise.
 	 */
-	public boolean containsOnlyInstanceOf(Class<? extends IEntry> clazz) {
+	@SuppressWarnings("unchecked")
+	public boolean containsOnlyInstanceOf(Class<? extends IEntry>... classes) {
+		List<Class<? extends IEntry>> list = Arrays.asList(classes);
 		for (IEntry entry : entries) {
-			if (!clazz.isInstance(entry)) {
+			if (!list.contains(entry.getClass())) {
 				return false;
 			}
 		}

@@ -15,6 +15,10 @@ import org.tmapi.core.Topic;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
 
 /**
  * Class representing a template-entry definition of an role-entry.
@@ -31,11 +35,11 @@ public class RoleEntry {
 	/**
 	 * the role type
 	 */
-	public Topic roleType;
+	private final Topic roleType;
 	/**
-	 * the topic or variable playing the role
+	 * the parameter
 	 */
-	public Object topicOrVariable;
+	private IEntryParam param;
 
 	/**
 	 * constructor
@@ -44,13 +48,13 @@ public class RoleEntry {
 	 *            the parent topic map writer
 	 * @param roleType
 	 *            the role type
-	 * @param topicOrVariable
-	 *            the topic or variable playing the role
+	 * @param param
+	 *            the parameter
 	 */
 	protected RoleEntry(CTMTopicMapWriter writer, Topic roleType,
-			Object topicOrVariable) {
+			IEntryParam param) {
 		this.roleType = roleType;
-		this.topicOrVariable = topicOrVariable;
+		this.param = param;
 		this.writer = writer;
 	}
 
@@ -65,9 +69,14 @@ public class RoleEntry {
 	 */
 	public boolean isAdaptiveFor(Association association) {
 		for (Role role : association.getRoles(roleType)) {
-			if (topicOrVariable instanceof String) {
+			if (param instanceof TopicTypeParam) {
+				if (role.getPlayer()
+						.equals(((TopicTypeParam) param).getTopic())) {
+					return true;
+				}
+			} else if (param instanceof VariableParam) {
 				return true;
-			} else if (role.getPlayer().equals((Topic) topicOrVariable)) {
+			} else if (param instanceof WildcardParam) {
 				return true;
 			}
 		}
@@ -82,8 +91,7 @@ public class RoleEntry {
 		if (obj instanceof RoleEntry) {
 			return super.equals(obj)
 					&& roleType.equals(((RoleEntry) obj).roleType)
-					&& topicOrVariable
-							.equals(((RoleEntry) obj).topicOrVariable);
+					&& param.equals(((RoleEntry) obj).param);
 		}
 		return false;
 	}
@@ -117,14 +125,14 @@ public class RoleEntry {
 		/*
 		 * generate variable name
 		 */
-//		String variable = "$"
-//				+ writer.getCtmIdentity().getMainIdentifier(
-//						writer.getProperties(), type);
+		// String variable = "$"
+		// + writer.getCtmIdentity().getMainIdentifier(
+		// writer.getProperties(), type);
 		String variable = "$player";
 		/*
 		 * create new role-entry
 		 */
-		return new RoleEntry(writer, type, variable);
+		return new RoleEntry(writer, type, new VariableParam(variable));
 	}
 
 	/**
@@ -135,30 +143,36 @@ public class RoleEntry {
 	 *         of a topic
 	 */
 	public String getTopicOrVariable() {
-		if (topicOrVariable instanceof Topic) {
+		if (param instanceof TopicTypeParam) {
 			try {
-				// return ctmIdentity.getPrefixedIdentity((Topic)
-				// topicOrVariable);
 				return writer.getCtmIdentity().getMainIdentifier(
-						writer.getProperties(), (Topic) topicOrVariable)
-						.toString();
+						writer.getProperties(),
+						((TopicTypeParam) param).getTopic()).toString();
 			} catch (NoIdentityException e) {
 				e.printStackTrace();
 			}
 		}
-		return topicOrVariable.toString();
+		return param.getCTMRepresentation();
+	}
+
+	/**
+	 * Returns the internal role type
+	 * 
+	 * @return the role type
+	 */
+	public Topic getRoleType() {
+		return roleType;
 	}
 
 	/**
 	 * Setter of the internal role player as a variable name or a CTM identifier
 	 * of a topic.
 	 * 
-	 * @param topicOrVariable
-	 *            the new internal role player as a variable name or a CTM
-	 *            identifier of a topic
+	 * @param param
+	 *            the parameter representing the player
 	 */
-	public void setTopicOrVariable(Object topicOrVariable) {
-		this.topicOrVariable = topicOrVariable;
+	public void setTopicOrVariable(IEntryParam param) {
+		this.param = param;
 	}
 
 }

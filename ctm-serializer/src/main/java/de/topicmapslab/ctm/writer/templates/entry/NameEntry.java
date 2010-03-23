@@ -16,14 +16,12 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import org.tmapi.core.Name;
 import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.core.serializer.NameSerializer;
-import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.ScopedEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
@@ -208,16 +206,16 @@ public class NameEntry extends ScopedEntry {
 		/*
 		 * generate variable name
 		 */
-//		String variable = "$";
-//		try {
-//			variable += writer.getCtmIdentity().getMainIdentifier(
-//					writer.getProperties(), type);
-//		} catch (NoIdentityException e) {
-//			/*
-//			 * could happens if name-type is a TMDM-default-type
-//			 */
-//			variable += "name";
-//		}
+		// String variable = "$";
+		// try {
+		// variable += writer.getCtmIdentity().getMainIdentifier(
+		// writer.getProperties(), type);
+		// } catch (NoIdentityException e) {
+		// /*
+		// * could happens if name-type is a TMDM-default-type
+		// */
+		// variable += "name";
+		// }
 		String variable = "$name";
 		/*
 		 * generate scope entry

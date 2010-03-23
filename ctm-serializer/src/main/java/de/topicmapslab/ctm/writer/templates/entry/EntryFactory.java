@@ -4,6 +4,7 @@ import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 
 /**
  * Factory class to create new entries for existing templates.
@@ -31,24 +32,24 @@ public class EntryFactory {
 	/**
 	 * Creates a new 'kind-of' entry representing a supertype-subtype relation.
 	 * 
-	 * @param type
-	 *            the supertype
+	 * @param param
+	 *            the parameter
 	 * @return the created entry
 	 */
-	public AKindOfEntry newAKindOfEntry(final Topic type) {
-		return new AKindOfEntry(writer, type);
+	public AKindOfEntry newAKindOfEntry(final IEntryParam param) {
+		return new AKindOfEntry(writer, param);
 	}
 
 	/**
 	 * Creates a new 'instance-of' entry representing a type-instance
 	 * relationship.
 	 * 
-	 * @param type
-	 *            the type
+	 * @param param
+	 *            the parameter
 	 * @return the created entry
 	 */
-	public IsInstanceOfEntry newIsInstanceOfEntry(final Topic type) {
-		return new IsInstanceOfEntry(writer, type);
+	public IsInstanceOfEntry newIsInstanceOfEntry(final IEntryParam param) {
+		return new IsInstanceOfEntry(writer, param);
 	}
 
 	/**
@@ -156,12 +157,15 @@ public class EntryFactory {
 	 * 
 	 * @param roleType
 	 *            the role type
-	 * @param topicOrVariable
-	 *            a topic acts as player or a variable name used as place-holder
-	 * @return
+	 * @param param
+	 *            the parameter representing the player of this role
+	 * @return the created entry
 	 */
-	public RoleEntry newRoleEntry(Topic roleType, Object topicOrVariable) {
-		return new RoleEntry(writer, roleType, topicOrVariable);
+	public RoleEntry newRoleEntry(Topic roleType, IEntryParam param) {
+		return new RoleEntry(writer, roleType, param);
 	}
 
+	public TopicEntry newTopicEntry(IEntryParam param) {
+		return new TopicEntry(param);
+	}
 }

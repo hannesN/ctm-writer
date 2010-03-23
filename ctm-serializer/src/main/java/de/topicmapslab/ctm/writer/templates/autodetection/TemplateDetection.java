@@ -30,6 +30,8 @@ import de.topicmapslab.ctm.writer.templates.TemplateFactory;
 import de.topicmapslab.ctm.writer.templates.entry.NameEntry;
 import de.topicmapslab.ctm.writer.templates.entry.OccurrenceEntry;
 import de.topicmapslab.ctm.writer.templates.entry.RoleEntry;
+import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 
 /**
  * Implementation of a auto-detection algorithm for templates as part of a topic
@@ -238,26 +240,26 @@ public class TemplateDetection {
 	private Template candidatesToTemplate(Topic type,
 			Map<Class<? extends Construct>, Set<Candidate>> candidates,
 			long total) throws SerializerException {
-				
+
 		TemplateFactory factory = writer.getFactory();
 
 		String identifier = writer.getCtmIdentity().getMainIdentifier(
 				writer.getProperties(), type).getIdentifier();
-		
-		if ( identifier.contains(":")){
-			identifier = identifier.substring(identifier.lastIndexOf(":")+1);
+
+		if (identifier.contains(":")) {
+			identifier = identifier.substring(identifier.lastIndexOf(":") + 1);
 		}
-		
+
 		/*
 		 * create a template for the given type
 		 */
-		Template template = factory.newTemplate("template-topic-"
-				+ identifier);
+		Template template = factory.newTemplate("template-topic-" + identifier);
 
 		/*
 		 * add instance-property-entry to the template
 		 */
-		template.add(factory.getEntryFactory().newIsInstanceOfEntry(type));
+		template.add(factory.getEntryFactory().newIsInstanceOfEntry(
+				new TopicTypeParam(type)));
 
 		Set<String> variables = new HashSet<String>();
 
@@ -416,19 +418,18 @@ public class TemplateDetection {
 	 */
 	private Template candidatesToTemplate(Topic type,
 			Set<Candidate> candidates, long total) throws SerializerException {
-		
+
 		String identifier = writer.getCtmIdentity().getMainIdentifier(
 				writer.getProperties(), type).getIdentifier();
-		
-		if ( identifier.contains(":")){
-			identifier = identifier.substring(identifier.lastIndexOf(":")+1);
+
+		if (identifier.contains(":")) {
+			identifier = identifier.substring(identifier.lastIndexOf(":") + 1);
 		}
 		/*
 		 * create a template for the given type
 		 */
 		Template template = writer.getFactory().newTemplate(
-				"template-association-"
-						+ identifier);
+				"template-association-" + identifier);
 
 		Set<RoleEntry> roleEntries = new HashSet<RoleEntry>();
 
@@ -461,7 +462,7 @@ public class TemplateDetection {
 				/*
 				 * set new variable name
 				 */
-				entry.setTopicOrVariable(variable);
+				entry.setTopicOrVariable(new VariableParam(variable));
 				/*
 				 * store variable name
 				 */

@@ -13,8 +13,6 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
 import static de.topicmapslab.ctm.writer.utility.TMDMIdentifier.TMDM_IDENTIFIERS;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,17 +85,18 @@ public class CTMIdentity {
 			final Locator locator) {
 
 		String id = identity;
-		
+
 		try {
 			id = URIEncoder.encodeURI(id, "UTF-8");
-		} catch (UnsupportedEncodingException e) {			
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
+
 		if ((!identity.equals(locator.toExternalForm()))
-				&& (identity.contains(":")) && !id.contains("%") && !id.contains(",")) {
+				&& (identity.contains(":")) && !id.contains("%")
+				&& !id.contains(",")) {
 			return id;
-		}		
+		}
 		return PREFIXBEGIN + id + PREFIXEND;
 	}
 

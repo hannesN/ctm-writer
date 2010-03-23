@@ -101,13 +101,9 @@ public class AssociationEntry implements IEntry {
 				buffer.appendLine(COMMA);
 			}
 			buffer.append(TABULATOR, TABULATOR, writer.getCtmIdentity()
-					.getMainIdentifier(writer.getProperties(), entry.roleType)
+					.getMainIdentifier(writer.getProperties(), entry.getRoleType())
 					.toString(), COLON,
-					entry.topicOrVariable instanceof Topic ? writer
-							.getCtmIdentity().getMainIdentifier(
-									writer.getProperties(),
-									(Topic) entry.topicOrVariable).toString()
-							: entry.topicOrVariable.toString());
+					entry.getTopicOrVariable());
 			first = false;
 		}
 		buffer.appendLine();
@@ -213,7 +209,7 @@ public class AssociationEntry implements IEntry {
 			 */
 			for (RoleEntry entry : roleEntries) {
 				if (entry.getTopicOrVariable().startsWith("$")) {
-					Role role = association.getRoles(entry.roleType).iterator()
+					Role role = association.getRoles(entry.getRoleType()).iterator()
 							.next();
 					arguments.add(writer.getCtmIdentity().getMainIdentifier(
 							writer.getProperties(), role.getPlayer())
