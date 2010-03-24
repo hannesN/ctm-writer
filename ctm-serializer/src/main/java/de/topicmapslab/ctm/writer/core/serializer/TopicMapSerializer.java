@@ -13,7 +13,6 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.VERSION;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.tmapi.core.Association;
@@ -142,7 +141,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		}
 		
 		/*
-		 * add includes if existent 
+		 * add includes if exists 
 		 */
 		if (!writer.getIncludes().isEmpty()) {
 			CTMBuffer includeBuffer = new CTMBuffer();
@@ -153,6 +152,20 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			}
 			buffer.appendLine();
 		}
+		
+		/*
+		 * add mergemap if exists
+		 */
+		if (!writer.getMergeMaps().isEmpty()) {
+			CTMBuffer mergeMapBuffer = new CTMBuffer();
+			buffer.appendCommentLine("mergemap");
+			buffer.appendLine();
+			if (new MergeMapSerializer(writer.getMergeMaps(), prefixHandler).serialize(topicMap, mergeMapBuffer)) {
+				buffer.appendLine(mergeMapBuffer);
+			}
+			buffer.appendLine();
+		}
+		
 		/*
 		 * start topic map block
 		 */
