@@ -347,6 +347,8 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	}
 	
 	public Map<String, String> getMergeMaps() {
+		if (mergeMaps==null)
+			mergeMaps = new HashMap<String, String>();
 		return mergeMaps;
 	}
 }

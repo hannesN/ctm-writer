@@ -55,7 +55,7 @@ public class AKindOfEntry extends EntryImpl {
 	 *            the parameter for the template-entry
 	 */
 	protected AKindOfEntry(CTMTopicMapWriter writer, IEntryParam param) {
-		super(param.getCTMRepresentation());
+		super(param);
 		this.param = param;
 		this.writer = writer;
 	}

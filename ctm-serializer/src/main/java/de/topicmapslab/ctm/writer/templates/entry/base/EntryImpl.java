@@ -8,6 +8,7 @@
  */
 package de.topicmapslab.ctm.writer.templates.entry.base;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,8 @@ import org.tmapi.core.Construct;
 import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 
 /**
  * Base implementation of simple-template entries representing only name,
@@ -27,42 +30,42 @@ import de.topicmapslab.ctm.writer.exception.SerializerException;
 public abstract class EntryImpl implements IEntry {
 
 	/**
-	 * the value or variable definition of the template-entry
+	 * the parameter of the template-entry
 	 */
-	private String valueOrVariable;
+	private IEntryParam param;
 
 	/**
 	 * constructor
 	 * 
-	 * @param valueOrVariable
-	 *            the value or variable definition of the template-entry
+	 * @param param
+	 *            the parameter
 	 */
-	public EntryImpl(final String valueOrVariable) {
-		this.valueOrVariable = valueOrVariable;
+	public EntryImpl(final IEntryParam param) {
+		this.param = param;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getValueOrVariable() {
-		return valueOrVariable;
+	public IEntryParam getParameter() {
+		return param;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public boolean isDependentFromVariable() {
-		return getValueOrVariable().startsWith("$");
+		return getParameter() instanceof VariableParam;
 	}
 
 	/**
-	 * Setter of the value or variable definition of the template-entry.
+	 * Setter of the parameterW definition of the template-entry.
 	 * 
-	 * @param valueOrVariable
+	 * @param param
 	 *            the new definition
 	 */
-	public void setValueOrVariable(String valueOrVariable) {
-		this.valueOrVariable = valueOrVariable;
+	public void setValueOrVariable(IEntryParam param) {
+		this.param = param;
 	}
 
 	/**
@@ -74,8 +77,7 @@ public abstract class EntryImpl implements IEntry {
 			if (isDependentFromVariable()) {
 				return true;
 			}
-			return getValueOrVariable().equalsIgnoreCase(
-					((EntryImpl) obj).getValueOrVariable());
+			return getParameter().equals(((EntryImpl) obj).getParameter());
 		}
 		return false;
 	}
@@ -136,4 +138,16 @@ public abstract class EntryImpl implements IEntry {
 	 *         topic.
 	 */
 	public abstract boolean isAdaptiveFor(Topic topic);
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<String> getVariables() {
+		List<String> variables = new LinkedList<String>();
+		if (getParameter() instanceof VariableParam) {
+			variables.add(getParameter().getCTMRepresentation());
+		}
+		return variables;
+	}
 }

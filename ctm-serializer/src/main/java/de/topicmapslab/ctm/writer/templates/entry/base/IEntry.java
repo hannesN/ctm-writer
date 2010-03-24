@@ -16,6 +16,7 @@ import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.Template;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -50,12 +51,11 @@ public interface IEntry {
 	public boolean isAdaptiveFor(Construct construct);
 
 	/**
-	 * The internal definition of a value or variable as value part of
-	 * template-entry.
+	 * The internal definition of a parameter as value part of template-entry.
 	 * 
-	 * @return the valueOrVariable the definition of a value or variable
+	 * @return the parameter definition
 	 */
-	public String getValueOrVariable();
+	public IEntryParam getParameter();
 
 	/**
 	 * Checks if the template value definition is a variable or a constant value
@@ -84,4 +84,11 @@ public interface IEntry {
 	public List<String> extractArguments(final Topic type,
 			final Construct construct, Set<Object> affectedConstructs)
 			throws SerializerException;
+
+	/**
+	 * Returns the list of variables defined by the current template
+	 * 
+	 * @return the list of variables
+	 */
+	public List<String> getVariables();
 }

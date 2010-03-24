@@ -16,7 +16,6 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.TRIPPLEQUOTE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
 import org.tmapi.core.Name;
-import org.tmapi.core.Topic;
 import org.tmapi.core.Variant;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
@@ -128,7 +127,7 @@ public class NameSerializer implements ISerializer<Name> {
 	 * @param value
 	 *            the value of the name
 	 * @param type
-	 *            the type of the name
+	 *            the string representation of the type of the name
 	 * @param buffer
 	 *            the buffer written to
 	 * @return <code>true</code> if new content was written into buffer,
@@ -137,15 +136,12 @@ public class NameSerializer implements ISerializer<Name> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(final CTMTopicMapWriter writer,
-			final String value, final Topic type, CTMBuffer buffer)
+			final String value, final String type, CTMBuffer buffer)
 			throws SerializerException {
 
 		buffer.append(true, TABULATOR, NAME, WHITESPACE);
-		try {
-			buffer.append(false, writer.getCtmIdentity().getMainIdentifier(
-					writer.getProperties(), type).toString(), COLON);
-		} catch (NoIdentityException e) {
-		} catch (NullPointerException e) {
+		if (type != null) {
+			buffer.append(false, type, COLON);
 		}
 
 		if (value.startsWith("$")) {

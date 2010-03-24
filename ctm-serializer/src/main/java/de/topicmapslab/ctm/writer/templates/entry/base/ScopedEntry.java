@@ -1,6 +1,9 @@
 package de.topicmapslab.ctm.writer.templates.entry.base;
 
+import java.util.List;
+
 import de.topicmapslab.ctm.writer.templates.entry.ScopeEntry;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 
 /**
  * Abstract class of a template entry which can contain a scope entry.
@@ -18,11 +21,11 @@ public abstract class ScopedEntry extends ReifiedEntry {
 	/**
 	 * constructor
 	 * 
-	 * @param the
-	 *            value or variable definition of the template-entry
+	 * @param param
+	 *            the parameter
 	 */
-	public ScopedEntry(String valueOrVariable) {
-		super(valueOrVariable);
+	public ScopedEntry(IEntryParam param) {
+		super(param);
 	}
 
 	/**
@@ -42,6 +45,18 @@ public abstract class ScopedEntry extends ReifiedEntry {
 	 */
 	public ScopeEntry getScopeEntry() {
 		return scopeEntry;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<String> getVariables() {
+		List<String> variables = super.getVariables();
+		if (scopeEntry != null) {
+			variables.addAll(scopeEntry.getVariables());
+		}
+		return variables;
 	}
 
 }

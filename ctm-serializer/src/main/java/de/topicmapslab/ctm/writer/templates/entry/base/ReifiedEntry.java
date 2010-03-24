@@ -1,6 +1,10 @@
 package de.topicmapslab.ctm.writer.templates.entry.base;
 
+import java.util.List;
+
 import de.topicmapslab.ctm.writer.templates.entry.ReifierEntry;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 
 /**
  * Abstract class of template entries which can contain a reification entry.
@@ -18,11 +22,11 @@ public abstract class ReifiedEntry extends EntryImpl {
 	/**
 	 * constructor
 	 * 
-	 * @param the
-	 *            value or variable definition of the template-entry
+	 * @param param
+	 *            the parameter
 	 */
-	public ReifiedEntry(String valueOrVariable) {
-		super(valueOrVariable);
+	public ReifiedEntry(IEntryParam param) {
+		super(param);
 	}
 
 	/**
@@ -42,6 +46,21 @@ public abstract class ReifiedEntry extends EntryImpl {
 	 */
 	public ReifierEntry getReifierEntry() {
 		return reifierEntry;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<String> getVariables() {
+		List<String> variables = super.getVariables();
+		if (reifierEntry != null) {
+			if (reifierEntry.getReifierParameter() instanceof VariableParam) {
+				variables.add(reifierEntry.getReifierParameter()
+						.getCTMRepresentation());
+			}
+		}
+		return variables;
 	}
 
 }
