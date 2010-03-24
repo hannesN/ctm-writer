@@ -11,8 +11,11 @@ package de.topicmapslab.ctm.writer.core;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 
 import org.tmapi.core.Construct;
 import org.tmapi.core.TopicMap;
@@ -68,7 +71,12 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 * the template factory
 	 */
 	private final TemplateFactory factory;
-
+	
+	/**
+	 * the list of includes
+	 */
+	private List<String> includes;
+	
 	/**
 	 * constructor
 	 * 
@@ -277,5 +285,31 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	public CTMTopicMapWriterProperties getProperties() {
 		return properties;
 	}
+	
+	/**
+	 * Adds an uri to the include list
+	 * @param uri the uri for an include directive
+	 */
+	public void addInclude(String uri) {
+		if (includes==null)
+			includes = new ArrayList<String>();
+		includes.add(uri);
+	}
+	
+	/**
+	 * Adds an uri to the include list
+	 * @param uri the uri for an include directive
+	 */
+	public void removeInclude(String uri) {
+		if (includes!=null)
+			includes.remove(uri);
+	}
 
+	public List<String> getIncludes() {
+		if (includes==null)
+			return Collections.emptyList();
+		
+		return includes;
+	}
+	
 }

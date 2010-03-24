@@ -70,4 +70,20 @@ public class PrefixHandler {
 		return prefixMap;
 	}
 
+	/**
+	 * Checks if the given iri is a qName using one of the specified prefixes.
+	 * 
+	 * @param iri the iri to check
+	 * 
+	 * @return <code>true</code> of iri is a qname
+	 */
+	public boolean isQName(String iri) {
+		int idx = iri.indexOf(":");
+		if (idx==-1)
+			return false;
+		
+		String prefix = iri.substring(0, idx);
+		
+		return getPrefixMap().containsKey(prefix);
+	}
 }
