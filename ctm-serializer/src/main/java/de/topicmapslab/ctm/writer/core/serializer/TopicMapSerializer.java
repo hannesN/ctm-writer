@@ -121,19 +121,20 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		}
 
 		/*
-		 * add prefixes if auto-detection is enabled
+		 * add prefixes if some exists
 		 */
 		CTMBuffer prefixBuffer = new CTMBuffer();
-		if (writer.getProperties().isPrefixDetectionEnabled()) {
+		if (!prefixHandler.getPrefixMap().isEmpty()) {
 			buffer.appendCommentLine("prefixes");
 			buffer.appendLine();
-			if (new PrefixesSerializer(prefixHandler).serialize(topicMap,
-					prefixBuffer)) {
+			if (new PrefixesSerializer(prefixHandler, 
+					writer.getProperties().isPrefixDetectionEnabled())
+					.serialize(topicMap, prefixBuffer)) {
 				buffer.appendLine(prefixBuffer);
 			}
 			buffer.appendLine();
 		}
-
+		
 		/*
 		 * start topic map block
 		 */

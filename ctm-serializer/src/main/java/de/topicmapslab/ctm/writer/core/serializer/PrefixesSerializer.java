@@ -40,15 +40,21 @@ public class PrefixesSerializer implements ISerializer<TopicMap> {
 	 * the prefix handler
 	 */
 	private final PrefixHandler prefixHandler;
-
+	
+	/**
+	 * Fag if prefixes should be auto detected
+	 */
+	private final boolean autoDetect;
+	
 	/**
 	 * constructor
 	 * 
 	 * @param prefixHandler
 	 *            the prefix handler of the CTM writer
 	 */
-	public PrefixesSerializer(PrefixHandler prefixHandler) {
+	public PrefixesSerializer(PrefixHandler prefixHandler, boolean autoDetect) {
 		this.prefixHandler = prefixHandler;
+		this.autoDetect = autoDetect;
 	}
 
 	/**
@@ -61,21 +67,21 @@ public class PrefixesSerializer implements ISerializer<TopicMap> {
 		/*
 		 * try to identify all prefixes of the topic map
 		 */
-		Map<String, String> prefixes = PrefixIdentifier.prefixMap(topicMap);
-
+		if (autoDetect) {
+			Map<String, String> prefixes = PrefixIdentifier.prefixMap(topicMap);
+			
+			prefixHandler.getPrefixMap().putAll(prefixes);
+		}
 		/*
 		 * iterate over entries
 		 */
-		for (Entry<String, String> prefix : prefixes.entrySet()) {
+		for (Entry<String, String> prefix : prefixHandler.getPrefixMap().entrySet()) {
 			/*
 			 * add to buffer
 			 */
 			buffer.append(true, PREFIX, prefix.getKey(), WHITESPACE);
 			buffer.appendLine(false, PREFIXBEGIN, prefix.getValue(), PREFIXEND);
-			/*
-			 * store known prefix
-			 */
-			prefixHandler.setPrefix(prefix.getKey(), prefix.getValue());
+			
 			result = true;
 		}
 		return result;
