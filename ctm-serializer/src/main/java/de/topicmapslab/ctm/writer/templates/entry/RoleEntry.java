@@ -142,7 +142,7 @@ public class RoleEntry {
 	 * @return the internal role player as a variable name or a CTM identifier
 	 *         of a topic
 	 */
-	public String getTopicOrVariable() {
+	public String getParameterAsString() {
 		if (param instanceof TopicTypeParam) {
 			try {
 				return writer.getCtmIdentity().getMainIdentifier(

@@ -53,7 +53,7 @@ public class IsInstanceOfEntry extends EntryImpl {
 	 *            the parameter for template
 	 */
 	protected IsInstanceOfEntry(CTMTopicMapWriter writer, IEntryParam param) {
-		super(param.getCTMRepresentation());
+		super(param);
 		this.param = param;
 		this.writer = writer;
 	}

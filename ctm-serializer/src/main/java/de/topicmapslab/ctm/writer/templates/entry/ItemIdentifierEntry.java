@@ -18,6 +18,9 @@ import org.tmapi.core.Locator;
 import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.ValueParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
@@ -29,16 +32,14 @@ import de.topicmapslab.ctm.writer.utility.CTMIdentity;
  */
 public class ItemIdentifierEntry extends IdentifierEntry {
 
-	
-	
 	/**
 	 * constructor
 	 * 
-	 * @param valueOrVariable
-	 *            the item-identifier or variable to define value of the template-entry
+	 * @param param
+	 *            the parameter
 	 */
-	public ItemIdentifierEntry(String valueOrVariable, CTMIdentity ctmIdentity) {
-		super(valueOrVariable, ctmIdentity);
+	public ItemIdentifierEntry(IEntryParam param, CTMIdentity ctmIdentity) {
+		super(param, ctmIdentity);
 	}
 
 	/**
@@ -66,12 +67,12 @@ public class ItemIdentifierEntry extends IdentifierEntry {
 			throw new SerializerException(
 					"template entry is not adaptive for given topic.");
 		}
-		
+
 		List<String> arguments = new LinkedList<String>();
 		/*
-		 * if value is a variable 
+		 * if value is a variable
 		 */
-		if ( isDependentFromVariable()){
+		if (getParameter() instanceof VariableParam) {
 			Locator locator = topic.getItemIdentifiers().iterator().next();
 			affectedConstructs.add(locator);
 			arguments.add(ctmIdentity.getPrefixedIdentity(locator));
@@ -79,8 +80,9 @@ public class ItemIdentifierEntry extends IdentifierEntry {
 		/*
 		 * if value is constant
 		 */
-		else{
-			Locator locator = topic.getTopicMap().createLocator(getValueOrVariable());
+		else if (getParameter() instanceof ValueParam) {
+			Locator locator = topic.getTopicMap().createLocator(
+					getParameter().getCTMRepresentation());
 			affectedConstructs.add(locator);
 			arguments.add(ctmIdentity.getPrefixedIdentity(locator));
 		}

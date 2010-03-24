@@ -18,6 +18,7 @@ import org.tmapi.core.Locator;
 import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
@@ -32,12 +33,12 @@ public class SubjectLocatorEntry extends IdentifierEntry {
 	/**
 	 * constructor
 	 * 
-	 * @param valueOrVariable
+	 * @param value
 	 *            the subject-locator or variable to define value of the
 	 *            template-entry
 	 */
-	public SubjectLocatorEntry(String valueOrVariable, CTMIdentity ctmIdentity) {
-		super(valueOrVariable, ctmIdentity);
+	public SubjectLocatorEntry(IEntryParam value, CTMIdentity ctmIdentity) {
+		super(value, ctmIdentity);
 	}
 
 	/**
@@ -80,9 +81,9 @@ public class SubjectLocatorEntry extends IdentifierEntry {
 		 */
 		else {
 			Locator locator = topic.getTopicMap().createLocator(
-					getValueOrVariable());
+					getParameter().getCTMRepresentation());
 			affectedConstructs.add(locator);
-			arguments.add(getValueOrVariable());
+			arguments.add(getParameter().getCTMRepresentation());
 		}
 
 		return arguments;

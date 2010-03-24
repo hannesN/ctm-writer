@@ -20,7 +20,7 @@ public class TopicEntry extends EntryImpl {
 	private List<IEntry> entries = new LinkedList<IEntry>();
 
 	public TopicEntry(IEntryParam param) {
-		super(param.getCTMRepresentation());
+		super(param);
 		this.param = param;
 	}
 
@@ -58,5 +58,14 @@ public class TopicEntry extends EntryImpl {
 
 	public void add(IEntry entry) {
 		entries.add(entry);
+	}
+	
+	@Override
+	public List<String> getVariables() {
+		List<String> variables = new LinkedList<String>();
+		for ( IEntry entry : entries){
+			variables.addAll(entry.getVariables());
+		}
+		return variables;
 	}
 }

@@ -19,6 +19,8 @@ import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.Template;
 import de.topicmapslab.ctm.writer.templates.TemplateSerializer;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.ValueParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -73,8 +75,8 @@ public class TemplateEntry implements IEntry {
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getValueOrVariable() {
-		return template.getTemplateName();
+	public IEntryParam getParameter() {
+		return new ValueParam(template.getTemplateName());
 	}
 
 	/**
@@ -135,5 +137,14 @@ public class TemplateEntry implements IEntry {
 					&& template.equals(((TemplateEntry) obj).template);
 		}
 		return false;
+	}
+	
+	@Override
+	public List<String> getVariables() {
+		List<String> variables = new LinkedList<String>();
+		for ( IEntry entry : template.getEntries()){
+			variables.addAll(entry.getVariables());
+		}
+		return variables;
 	}
 }

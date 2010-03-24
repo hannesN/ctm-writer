@@ -243,11 +243,31 @@ public class TemplateDetection {
 
 		TemplateFactory factory = writer.getFactory();
 
+		/*
+		 * create template identifier
+		 */
 		String identifier = writer.getCtmIdentity().getMainIdentifier(
 				writer.getProperties(), type).getIdentifier();
 
+		/*
+		 * is prefixed IRI
+		 */
 		if (identifier.contains(":")) {
 			identifier = identifier.substring(identifier.lastIndexOf(":") + 1);
+		} 
+		
+		/*
+		 * is slash contained
+		 */
+		if (identifier.contains("/")) {
+			identifier = identifier.substring(identifier.lastIndexOf("/") + 1);
+		}
+
+		/*
+		 * is hash contained
+		 */
+		if (identifier.contains("#")) {
+			identifier = identifier.substring(identifier.lastIndexOf("#") + 1);
 		}
 
 		/*
@@ -281,16 +301,16 @@ public class TemplateDetection {
 				 * check if variable name is unique and try to unify variable
 				 * name if necessary
 				 */
-				String variable = entry.getValueOrVariable();
+				String variable = entry.getParameter().getCTMRepresentation();
 				while (variables.contains(variable)) {
-					variable = entry.getValueOrVariable()
+					variable = entry.getParameter().getCTMRepresentation()
 							+ Integer.toString(count);
 					count++;
 				}
 				/*
 				 * set new variable name
 				 */
-				entry.setValueOrVariable(variable);
+				entry.setValueOrVariable(new VariableParam(variable));
 				/*
 				 * store variable name
 				 */
@@ -320,16 +340,16 @@ public class TemplateDetection {
 				 * check if variable name is unique and try to unify variable
 				 * name if necessary
 				 */
-				String variable = entry.getValueOrVariable();
+				String variable = entry.getParameter().getCTMRepresentation();
 				while (variables.contains(variable)) {
-					variable = entry.getValueOrVariable()
+					variable = entry.getParameter().getCTMRepresentation()
 							+ Integer.toString(count);
 					count++;
 				}
 				/*
 				 * set new variable name
 				 */
-				entry.setValueOrVariable(variable);
+				entry.setValueOrVariable(new VariableParam(variable));
 				/*
 				 * store variable name
 				 */
@@ -422,8 +442,27 @@ public class TemplateDetection {
 		String identifier = writer.getCtmIdentity().getMainIdentifier(
 				writer.getProperties(), type).getIdentifier();
 
+		/*
+		 * create template identifier
+		 */
+		/*
+		 * is prefixed IRI
+		 */
 		if (identifier.contains(":")) {
 			identifier = identifier.substring(identifier.lastIndexOf(":") + 1);
+		}
+		/*
+		 * is slash contained
+		 */
+		if (identifier.contains("/")) {
+			identifier = identifier.substring(identifier.lastIndexOf("/") + 1);
+		}
+
+		/*
+		 * is hash contained
+		 */
+		if (identifier.contains("#")) {
+			identifier = identifier.substring(identifier.lastIndexOf("#") + 1);
 		}
 		/*
 		 * create a template for the given type
@@ -453,9 +492,9 @@ public class TemplateDetection {
 				 * name if necessary
 				 */
 				int count = 2;
-				String variable = entry.getTopicOrVariable();
+				String variable = entry.getParameterAsString();
 				while (variables.contains(variable)) {
-					variable = entry.getTopicOrVariable()
+					variable = entry.getParameterAsString()
 							+ Integer.toString(count);
 					count++;
 				}

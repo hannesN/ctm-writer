@@ -15,6 +15,10 @@ import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -31,21 +35,21 @@ public class ReifierEntry {
 	 */
 	private final CTMTopicMapWriter writer;
 	/**
-	 * the reifierOrVariable
+	 * the reifier param
 	 */
-	private final Object reifierOrVariable;
+	private final IEntryParam reifier;
 
 	/**
 	 * constructor
 	 * 
 	 * @param writer
 	 *            the parent topic map writer
-	 * @param variable
+	 * @param reifier
 	 *            the variable representing the value for reification
 	 * @throws SerializerException
 	 */
-	protected ReifierEntry(CTMTopicMapWriter writer, Object variableOrTopic) {
-		this.reifierOrVariable = variableOrTopic;
+	protected ReifierEntry(CTMTopicMapWriter writer, IEntryParam reifier) {
+		this.reifier = reifier;
 		this.writer = writer;
 	}
 
@@ -59,12 +63,14 @@ public class ReifierEntry {
 	 *             Thrown if serialization failed.
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
-		if (reifierOrVariable instanceof Topic) {
+		if (reifier instanceof TopicTypeParam) {
 			buffer.append(REIFIER, writer.getCtmIdentity().getMainIdentifier(
-					writer.getProperties(), (Topic) reifierOrVariable)
-					.toString());
-		} else {
-			buffer.append(REIFIER, reifierOrVariable.toString());
+					writer.getProperties(),
+					((TopicTypeParam) reifier).getTopic()).toString());
+		} else if (reifier instanceof WildcardParam) {
+			buffer.append(REIFIER, reifier.getCTMRepresentation());
+		} else if (reifier instanceof VariableParam) {
+			buffer.append(REIFIER, reifier.getCTMRepresentation());
 		}
 	}
 
@@ -77,11 +83,12 @@ public class ReifierEntry {
 	 *         reifiable element.
 	 */
 	public boolean isAdaptiveFor(Reifiable reifiable) {
-		if (reifierOrVariable instanceof Topic) {
+		if (reifier instanceof TopicTypeParam) {
 			if (reifiable.getReifier() == null) {
 				return false;
 			} else {
-				return reifiable.getReifier().equals((Topic) reifierOrVariable);
+				return reifiable.getReifier().equals(
+						((TopicTypeParam) reifier).getTopic());
 			}
 		}
 		return true;
@@ -93,8 +100,8 @@ public class ReifierEntry {
 	 * @return the reifier or <code>null</code> if internal value is a variable
 	 */
 	public Topic getReifier() {
-		if (reifierOrVariable instanceof Topic) {
-			return (Topic) reifierOrVariable;
+		if (reifier instanceof TopicTypeParam) {
+			return ((TopicTypeParam) reifier).getTopic();
 		}
 		return null;
 	}
@@ -104,8 +111,8 @@ public class ReifierEntry {
 	 * 
 	 * @return the reifierOrVariable
 	 */
-	public Object getReifierOrVariable() {
-		return reifierOrVariable;
+	public IEntryParam getReifierParameter() {
+		return reifier;
 	}
 
 	/**
@@ -115,8 +122,7 @@ public class ReifierEntry {
 	public boolean equals(Object obj) {
 		if (obj instanceof ReifierEntry) {
 			return super.equals(obj)
-					&& reifierOrVariable
-							.equals(((ReifierEntry) obj).reifierOrVariable);
+					&& reifier.equals(((ReifierEntry) obj).reifier);
 		}
 		return false;
 	}

@@ -23,6 +23,8 @@ import de.topicmapslab.ctm.writer.templates.entry.NameEntry;
 import de.topicmapslab.ctm.writer.templates.entry.OccurrenceEntry;
 import de.topicmapslab.ctm.writer.templates.entry.TemplateEntry;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 import edu.emory.mathcs.backport.java.util.Arrays;
 
@@ -94,119 +96,126 @@ public class Template {
 	 *            the new entry
 	 */
 	public void add(final IEntry entry) {
-		/*
-		 * is multiple-entry of type association-entry
-		 */
-		if (entry instanceof AssociationEntry) {
-			/*
-			 * iterate over variables or values
-			 */
-			for (String variable : ((AssociationEntry) entry)
-					.getValueOrVariables()) {
-				/*
-				 * check if value is a variable and is not the default topic
-				 * argument
-				 */
-				if (variable.startsWith("$")
-						&& !variable.equalsIgnoreCase(TOPICVARIABLE)) {
-					variables.add(variable);
-				}
-			}
-		}
-		/*
-		 * is multiple-entry of type template-entry
-		 */
-		else if (entry instanceof TemplateEntry) {
-			/*
-			 * iterate over variables or values
-			 */
-			for (String variable : ((TemplateEntry) entry)
-					.getValuesOrVariables()) {
-				/*
-				 * check if value is a variable and is not the default topic
-				 * argument
-				 */
-				if (variable.startsWith("$")
-						&& !variable.equalsIgnoreCase(TOPICVARIABLE)) {
-					variables.add(variable);
-				}
-			}
-		}
-		/*
-		 * is name-entry
-		 */
-		else if (entry instanceof NameEntry) {
-			String valueOrVariable = entry.getValueOrVariable();
-			if (valueOrVariable != null && valueOrVariable.startsWith("$")
-					&& !valueOrVariable.equalsIgnoreCase(TOPICVARIABLE)) {
-				variables.add(valueOrVariable);
-			}
-
-			NameEntry nameEntry = (NameEntry) entry;
-			/*
-			 * check if name entry contains a variable dependent reifier entry
-			 */
-			if (nameEntry.getReifierEntry() != null
-					&& nameEntry.getReifierEntry().getReifierOrVariable()
-							.toString().startsWith("$")) {
-				variables.add(nameEntry.getReifierEntry()
-						.getReifierOrVariable().toString());
-			}
-			/*
-			 * check if name entry contains a scope entry
-			 */
-			if (nameEntry.getScopeEntry() != null) {
-				for (String variable : nameEntry.getScopeEntry().getVariables()) {
-					variables.add(variable);
-				}
-			}
-		}
-		/*
-		 * is occurrence-entry
-		 */
-		else if (entry instanceof OccurrenceEntry) {
-			String valueOrVariable = entry.getValueOrVariable();
-			if (valueOrVariable != null && valueOrVariable.startsWith("$")
-					&& !valueOrVariable.equalsIgnoreCase(TOPICVARIABLE)) {
-				variables.add(valueOrVariable);
-			}
-
-			OccurrenceEntry occurrenceEntry = (OccurrenceEntry) entry;
-			/*
-			 * check if occurrence entry contains a variable dependent reifier
-			 * entry
-			 */
-			if (occurrenceEntry.getReifierEntry() != null
-					&& occurrenceEntry.getReifierEntry().getReifierOrVariable()
-							.toString().startsWith("$")) {
-				variables.add(occurrenceEntry.getReifierEntry()
-						.getReifierOrVariable().toString());
-			}
-			/*
-			 * check if occurrence entry contains a scope entry
-			 */
-			if (occurrenceEntry.getScopeEntry() != null) {
-				for (String variable : occurrenceEntry.getScopeEntry()
-						.getVariables()) {
-					variables.add(variable);
-				}
-			}
-		}
-		/*
-		 * is simple-entry
-		 */
-		else {
-			final String valueOrVariable = entry.getValueOrVariable();
-			/*
-			 * check if value exists, is a variable and is not the default topic
-			 * argument
-			 */
-			if (valueOrVariable != null && valueOrVariable.startsWith("$")
-					&& !valueOrVariable.equalsIgnoreCase(TOPICVARIABLE)) {
-				variables.add(valueOrVariable);
-			}
-
-		}
+		// /*
+		// * is multiple-entry of type association-entry
+		// */
+		// if (entry instanceof AssociationEntry) {
+		// /*
+		// * iterate over variables or values
+		// */
+		// for (String variable : ((AssociationEntry) entry)
+		// .getValueOrVariables()) {
+		// /*
+		// * check if value is a variable and is not the default topic
+		// * argument
+		// */
+		// if (variable.startsWith("$")
+		// && !variable.equalsIgnoreCase(TOPICVARIABLE)) {
+		// variables.add(variable);
+		// }
+		// }
+		// }
+		// /*
+		// * is multiple-entry of type template-entry
+		// */
+		// else if (entry instanceof TemplateEntry) {
+		// /*
+		// * iterate over variables or values
+		// */
+		// for (String variable : ((TemplateEntry) entry)
+		// .getValuesOrVariables()) {
+		// /*
+		// * check if value is a variable and is not the default topic
+		// * argument
+		// */
+		// if (variable.startsWith("$")
+		// && !variable.equalsIgnoreCase(TOPICVARIABLE)) {
+		// variables.add(variable);
+		// }
+		// }
+		// }
+		// /*
+		// * is name-entry
+		// */
+		// else if (entry instanceof NameEntry) {
+		// IEntryParam value = entry.getParameter();
+		// if (value != null
+		// && value instanceof VariableParam
+		// && !value.getCTMRepresentation().equalsIgnoreCase(
+		// TOPICVARIABLE)) {
+		// variables.add(value.getCTMRepresentation());
+		// }
+		//
+		// NameEntry nameEntry = (NameEntry) entry;
+		// /*
+		// * check if name entry contains a variable dependent reifier entry
+		// */
+		// if (nameEntry.getReifierEntry() != null
+		// && nameEntry.getReifierEntry().getReifierParameter()
+		// .toString().startsWith("$")) {
+		// variables.add(nameEntry.getReifierEntry().getReifierParameter()
+		// .toString());
+		// }
+		// /*
+		// * check if name entry contains a scope entry
+		// */
+		// if (nameEntry.getScopeEntry() != null) {
+		// for (String variable : nameEntry.getScopeEntry().getVariables()) {
+		// variables.add(variable);
+		// }
+		// }
+		// }
+		// /*
+		// * is occurrence-entry
+		// */
+		// else if (entry instanceof OccurrenceEntry) {
+		// IEntryParam value = entry.getParameter();
+		// if (value != null
+		// && value instanceof VariableParam
+		// && !value.getCTMRepresentation().equalsIgnoreCase(
+		// TOPICVARIABLE)) {
+		// variables.add(value.getCTMRepresentation());
+		// }
+		//
+		// OccurrenceEntry occurrenceEntry = (OccurrenceEntry) entry;
+		// /*
+		// * check if occurrence entry contains a variable dependent reifier
+		// * entry
+		// */
+		// if (occurrenceEntry.getReifierEntry() != null
+		// && occurrenceEntry.getReifierEntry().getReifierParameter()
+		// .toString().startsWith("$")) {
+		// variables.add(occurrenceEntry.getReifierEntry()
+		// .getReifierParameter().toString());
+		// }
+		// /*
+		// * check if occurrence entry contains a scope entry
+		// */
+		// if (occurrenceEntry.getScopeEntry() != null) {
+		// for (String variable : occurrenceEntry.getScopeEntry()
+		// .getVariables()) {
+		// variables.add(variable);
+		// }
+		// }
+		// }
+		// /*
+		// * is simple-entry
+		// */
+		// else {
+		// final IEntryParam value = entry.getParameter();
+		// /*
+		// * check if value exists, is a variable and is not the default topic
+		// * argument
+		// */
+		// if (value != null
+		// && value instanceof VariableParam
+		// && !value.getCTMRepresentation().equalsIgnoreCase(
+		// TOPICVARIABLE)) {
+		// variables.add(value.getCTMRepresentation());
+		// }
+		//
+		// }
+		variables.addAll(entry.getVariables());
 
 		this.entries.add(entry);
 	}
@@ -257,10 +266,12 @@ public class Template {
 		 * is name-entry
 		 */
 		else if (entry instanceof NameEntry) {
-			String valueOrVariable = entry.getValueOrVariable();
-			if (valueOrVariable != null && valueOrVariable.startsWith("$")
-					&& !valueOrVariable.equalsIgnoreCase(TOPICVARIABLE)) {
-				variables.remove(valueOrVariable);
+			IEntryParam value = entry.getParameter();
+			if (value != null
+					&& value instanceof VariableParam
+					&& !value.getCTMRepresentation().equalsIgnoreCase(
+							TOPICVARIABLE)) {
+				variables.remove(value.getCTMRepresentation());
 			}
 
 			NameEntry nameEntry = (NameEntry) entry;
@@ -268,10 +279,10 @@ public class Template {
 			 * check if name entry contains a variable dependent reifier entry
 			 */
 			if (nameEntry.getReifierEntry() != null
-					&& nameEntry.getReifierEntry().getReifierOrVariable()
+					&& nameEntry.getReifierEntry().getReifierParameter()
 							.toString().startsWith("$")) {
 				variables.remove(nameEntry.getReifierEntry()
-						.getReifierOrVariable().toString());
+						.getReifierParameter().toString());
 			}
 			/*
 			 * check if name entry contains a scope entry
@@ -286,10 +297,12 @@ public class Template {
 		 * is occurrence-entry
 		 */
 		else if (entry instanceof OccurrenceEntry) {
-			String valueOrVariable = entry.getValueOrVariable();
-			if (valueOrVariable != null && valueOrVariable.startsWith("$")
-					&& !valueOrVariable.equalsIgnoreCase(TOPICVARIABLE)) {
-				variables.remove(valueOrVariable);
+			IEntryParam value = entry.getParameter();
+			if (value != null
+					&& value instanceof VariableParam
+					&& !value.getCTMRepresentation().equalsIgnoreCase(
+							TOPICVARIABLE)) {
+				variables.remove(value.getCTMRepresentation());
 			}
 
 			OccurrenceEntry occurrenceEntry = (OccurrenceEntry) entry;
@@ -298,10 +311,10 @@ public class Template {
 			 * entry
 			 */
 			if (occurrenceEntry.getReifierEntry() != null
-					&& occurrenceEntry.getReifierEntry().getReifierOrVariable()
+					&& occurrenceEntry.getReifierEntry().getReifierParameter()
 							.toString().startsWith("$")) {
 				variables.remove(occurrenceEntry.getReifierEntry()
-						.getReifierOrVariable().toString());
+						.getReifierParameter().toString());
 			}
 			/*
 			 * check if occurrence entry contains a scope entry
@@ -317,12 +330,12 @@ public class Template {
 		 * is simple-entry
 		 */
 		else {
-			final String valueOrVariable = entry.getValueOrVariable();
+			IEntryParam value = entry.getParameter();
 			/*
 			 * check if value exists and is a variable
 			 */
-			if (valueOrVariable != null && valueOrVariable.startsWith("$")) {
-				variables.remove(valueOrVariable);
+			if (value != null && value instanceof VariableParam) {
+				variables.remove(value.getCTMRepresentation());
 			}
 		}
 		entries.remove(entry);

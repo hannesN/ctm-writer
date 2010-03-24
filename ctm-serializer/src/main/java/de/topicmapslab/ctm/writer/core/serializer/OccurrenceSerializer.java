@@ -13,7 +13,6 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
 import org.tmapi.core.Occurrence;
-import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
@@ -101,7 +100,7 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 	 * @param datatype
 	 *            the data-type of the occurrence
 	 * @param type
-	 *            the type of the occurrence
+	 *            the string-representation of the type of the occurrence
 	 * @param buffer
 	 *            the buffer written to
 	 * @return <code>true</code> if new content was written into buffer,
@@ -110,12 +109,10 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, String value,
-			Object datatype, Topic type, CTMBuffer buffer)
+			Object datatype, final String type, CTMBuffer buffer)
 			throws SerializerException {
 
-		buffer.append(true, TABULATOR, writer.getCtmIdentity()
-				.getMainIdentifier(writer.getProperties(), type).toString(),
-				COLON, WHITESPACE);
+		buffer.append(true, TABULATOR, type, COLON, WHITESPACE);
 
 		/*
 		 * add value and data-type

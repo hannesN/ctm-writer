@@ -28,6 +28,7 @@ import org.tmapi.index.TypeInstanceIndex;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -73,8 +74,8 @@ public class AssociationEntry implements IEntry {
 		this.writer = writer;
 		for (RoleEntry entry : roleEntries) {
 			this.roleEntries.add(entry);
-			if (entry.getTopicOrVariable().startsWith("$")) {
-				variables.add(entry.getTopicOrVariable());
+			if (entry.getParameterAsString().startsWith("$")) {
+				variables.add(entry.getParameterAsString());
 			}
 		}
 	}
@@ -101,9 +102,9 @@ public class AssociationEntry implements IEntry {
 				buffer.appendLine(COMMA);
 			}
 			buffer.append(TABULATOR, TABULATOR, writer.getCtmIdentity()
-					.getMainIdentifier(writer.getProperties(), entry.getRoleType())
-					.toString(), COLON,
-					entry.getTopicOrVariable());
+					.getMainIdentifier(writer.getProperties(),
+							entry.getRoleType()).toString(), COLON, entry
+					.getParameterAsString());
 			first = false;
 		}
 		buffer.appendLine();
@@ -165,11 +166,8 @@ public class AssociationEntry implements IEntry {
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getValueOrVariable() {
-		if (!variables.isEmpty()) {
-			return variables.iterator().next();
-		}
-		return "";
+	public IEntryParam getParameter() {
+		return null;
 	}
 
 	/**
@@ -208,9 +206,9 @@ public class AssociationEntry implements IEntry {
 			 * iterate over roles and extract players as arguments
 			 */
 			for (RoleEntry entry : roleEntries) {
-				if (entry.getTopicOrVariable().startsWith("$")) {
-					Role role = association.getRoles(entry.getRoleType()).iterator()
-							.next();
+				if (entry.getParameterAsString().startsWith("$")) {
+					Role role = association.getRoles(entry.getRoleType())
+							.iterator().next();
 					arguments.add(writer.getCtmIdentity().getMainIdentifier(
 							writer.getProperties(), role.getPlayer())
 							.toString());
@@ -262,5 +260,19 @@ public class AssociationEntry implements IEntry {
 	@Override
 	public int hashCode() {
 		return super.hashCode();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<String> getVariables() {
+		List<String> variables = new LinkedList<String>();
+		for (RoleEntry entry : roleEntries) {
+			if (entry.getParameterAsString().startsWith("$")) {
+				variables.add(entry.getParameterAsString());
+			}
+		}
+		return variables;
 	}
 }

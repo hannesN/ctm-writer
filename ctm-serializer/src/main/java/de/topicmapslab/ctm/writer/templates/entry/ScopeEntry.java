@@ -13,6 +13,9 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.SCOPE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import org.tmapi.core.Scoped;
 import org.tmapi.core.Topic;
@@ -20,6 +23,10 @@ import org.tmapi.core.Topic;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
+import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -36,14 +43,9 @@ public class ScopeEntry {
 	 */
 	private final CTMTopicMapWriter writer;
 	/**
-	 * a list of themes
+	 * a list of parameters
 	 */
-	private final Topic[] themes;
-
-	/**
-	 * a list of variables
-	 */
-	private final String[] variables;
+	private final IEntryParam[] params;
 
 	/**
 	 * constructor calling
@@ -52,48 +54,17 @@ public class ScopeEntry {
 	 * 
 	 * @param writer
 	 *            the parent topic map writer
-	 * @param themes
-	 *            a non-empty list of themes
+	 * @param params
+	 *            a non-empty list of params
 	 * @throws SerializerException
 	 */
-	protected ScopeEntry(CTMTopicMapWriter writer, String... variables)
+	protected ScopeEntry(CTMTopicMapWriter writer, IEntryParam... params)
 			throws SerializerException {
-		this(writer, new Topic[0], variables);
-	}
-
-	/**
-	 * constructor calling
-	 * {@link ScopeEntry#ScopeEntry(CTMTopicMapWriterProperties,Topic[], String...)}
-	 * with an empty string array.
-	 * 
-	 * @param writer
-	 *            the parent topic map writer
-	 * @param themes
-	 *            a non-empty list of themes
-	 * @throws SerializerException
-	 */
-	protected ScopeEntry(CTMTopicMapWriter writer, Topic... themes)
-			throws SerializerException {
-		this(writer, themes, new String[0]);
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * @param writer
-	 *            the parent topic map writer
-	 * @param themes
-	 *            a non-empty list of themes
-	 * @throws SerializerException
-	 */
-	protected ScopeEntry(CTMTopicMapWriter writer, Topic[] themes,
-			String... variables) throws SerializerException {
-		if (themes.length == 0 && variables.length == 0) {
+		if (params.length == 0) {
 			throw new SerializerException(
 					"themes and variables can not be empty.");
 		}
-		this.themes = themes;
-		this.variables = variables;
+		this.params = params;
 		this.writer = writer;
 	}
 
@@ -108,23 +79,21 @@ public class ScopeEntry {
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
 		boolean first = true;
-		for (Topic theme : themes) {
+		for (IEntryParam param : params) {
 			if (first) {
 				buffer.append(SCOPE);
 				first = false;
 			} else {
 				buffer.append(COMMA, WHITESPACE);
 			}
-			buffer.append(writer.getCtmIdentity().getMainIdentifier(
-					writer.getProperties(), theme).toString());
-		}
-
-		for (String variable : variables) {
-			if (first) {
-				buffer.append(SCOPE, variable);
-				first = false;
-			} else {
-				buffer.append(COMMA, variable);
+			if (param instanceof TopicTypeParam) {
+				buffer.append(writer.getCtmIdentity().getMainIdentifier(
+						writer.getProperties(),
+						((TopicTypeParam) param).getTopic()).toString());
+			} else if (param instanceof WildcardParam) {
+				buffer.append(param.getCTMRepresentation());
+			} else if (param instanceof VariableParam) {
+				buffer.append(param.getCTMRepresentation());
 			}
 		}
 	}
@@ -138,8 +107,19 @@ public class ScopeEntry {
 	 *         scoped element.
 	 */
 	public boolean isAdaptiveFor(Scoped scoped) {
-		return scoped.getScope().containsAll(Arrays.asList(themes))
-				&& scoped.getScope().size() == themes.length + variables.length;
+		boolean adaptive = true;
+		Set<Topic> themes = scoped.getScope();
+		for (IEntryParam param : params) {
+			if (param instanceof TopicTypeParam) {
+				adaptive &= themes
+						.contains(((TopicTypeParam) param).getTopic());
+			}
+			if (!adaptive) {
+				break;
+			}
+		}
+		adaptive &= scoped.getScope().size() == params.length;
+		return adaptive;
 	}
 
 	/**
@@ -148,7 +128,14 @@ public class ScopeEntry {
 	 * @return the list of themes
 	 */
 	public Topic[] getThemes() {
-		return themes;
+		List<Topic> variables = new LinkedList<Topic>();
+
+		for (IEntryParam param : params) {
+			if (param instanceof TopicTypeParam) {
+				variables.add(((TopicTypeParam) param).getTopic());
+			}
+		}
+		return variables.toArray(new Topic[0]);
 	}
 
 	/**
@@ -156,7 +143,14 @@ public class ScopeEntry {
 	 * 
 	 * @return the list of variables
 	 */
-	public String[] getVariables() {
+	public List<String> getVariables() {
+		List<String> variables = new LinkedList<String>();
+
+		for (IEntryParam param : params) {
+			if (param instanceof VariableParam) {
+				variables.add(param.getCTMRepresentation());
+			}
+		}
 		return variables;
 	}
 
@@ -167,10 +161,8 @@ public class ScopeEntry {
 	public boolean equals(Object obj) {
 		if (obj instanceof ScopeEntry) {
 			return super.equals(obj)
-					&& Arrays.asList(themes).containsAll(
-							Arrays.asList(((ScopeEntry) obj).themes))
-					&& Arrays.asList(variables).containsAll(
-							Arrays.asList(((ScopeEntry) obj).variables));
+					&& Arrays.asList(params).containsAll(
+							Arrays.asList(((ScopeEntry) obj).params));
 		}
 		return false;
 	}

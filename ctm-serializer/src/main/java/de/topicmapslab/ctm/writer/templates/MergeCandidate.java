@@ -103,7 +103,7 @@ public class MergeCandidate implements Comparable<MergeCandidate> {
 		variables.add(TOPICVARIABLE);
 		for (IEntry entry : template.getEntries()) {
 			if (contains(entry)) {
-				variables.add(entry.getValueOrVariable());
+				variables.add(entry.getParameter().getCTMRepresentation());
 			}
 		}
 		Template t = toTemplate();

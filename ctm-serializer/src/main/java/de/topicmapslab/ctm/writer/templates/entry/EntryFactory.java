@@ -56,36 +56,36 @@ public class EntryFactory {
 	 * Creates a new name entry representing a name item of the topic
 	 * definition.
 	 * 
-	 * @param valueOrVariable
+	 * @param value
 	 *            the value or a variable name used as placeholder
 	 * @param type
 	 *            the name type
 	 * @return the created entry
 	 */
-	public NameEntry newNameEntry(String valueOrVariable, final Topic type) {
-		return new NameEntry(writer, valueOrVariable, type);
+	public NameEntry newNameEntry(IEntryParam value, final IEntryParam type) {
+		return new NameEntry(writer, value, type);
 	}
 
 	/**
 	 * Creates a new occurrence entry representing an occurrence item of the
 	 * topic definition. The default datatype 'xsd:string' is used.
 	 * 
-	 * @param valueOrVariable
+	 * @param value
 	 *            the value or a variable name used as placeholder
 	 * @param type
 	 *            the occurrence type
 	 * @return the created entry
 	 */
-	public OccurrenceEntry newOccurrenceEntry(String valueOrVariable,
-			final Topic type) {
-		return new OccurrenceEntry(writer, valueOrVariable, type);
+	public OccurrenceEntry newOccurrenceEntry(IEntryParam value,
+			final IEntryParam type) {
+		return new OccurrenceEntry(writer, value, type);
 	}
 
 	/**
 	 * Creates a new occurrence entry representing an occurrence item of the
 	 * topic definition.
 	 * 
-	 * @param valueOrVariable
+	 * @param value
 	 *            the value or a variable name used as place-holder
 	 * @param type
 	 *            the occurrence type
@@ -93,47 +93,33 @@ public class EntryFactory {
 	 *            the datatype of the occurrence
 	 * @return the created entry
 	 */
-	public OccurrenceEntry newOccurrenceEntry(String valueOrVariable,
-			final Topic type, final Object datatypeAsTopicOrString) {
-		return new OccurrenceEntry(writer, valueOrVariable, type,
-				datatypeAsTopicOrString);
+	public OccurrenceEntry newOccurrenceEntry(IEntryParam value,
+			final IEntryParam type, final Object datatypeAsTopicOrString) {
+		return new OccurrenceEntry(writer, value, type, datatypeAsTopicOrString);
 	}
 
 	/**
 	 * Creates a new reifier entry representing the reification of a reifiable
 	 * item.
 	 * 
-	 * @param variableOrTopic
+	 * @param reifier
 	 *            the value or a variable name used as place-holder
 	 * @return the created entry
 	 */
-	public ReifierEntry newReifierEntry(Object variableOrTopic) {
-		return new ReifierEntry(writer, variableOrTopic);
+	public ReifierEntry newReifierEntry(IEntryParam reifier) {
+		return new ReifierEntry(writer, reifier);
 	}
 
 	/**
 	 * Creates a new scoping entry representing the scope of a scoped item.
 	 * 
-	 * @param themes
-	 *            an array of topic items used as themes
-	 * @param variables
-	 *            an arrays of variable names used as place-holders
+	 * @param params
+	 *            an array of parameters acts as themes
 	 * @return the created entry
 	 */
-	public ScopeEntry newScopeEntry(Topic[] themes, String... variables)
+	public ScopeEntry newScopeEntry(IEntryParam... params)
 			throws SerializerException {
-		return new ScopeEntry(writer, themes, variables);
-	}
-
-	/**
-	 * Creates a new scoping entry representing the scope of a scoped item.
-	 * 
-	 * @param themes
-	 *            an array of topic items used as themes
-	 * @return the created entry
-	 */
-	public ScopeEntry newScopeEntry(Topic... themes) throws SerializerException {
-		return new ScopeEntry(writer, themes);
+		return new ScopeEntry(writer, params);
 	}
 
 	/**
