@@ -81,6 +81,10 @@ public final class CTMTokens {
 	 */
 	public static final String PREFIX = "%prefix";
 	/**
+	 * CTM include token <code>%include</code>
+	 */
+	public static final String INCLUDE = "%include";
+	/**
 	 * CTM comment token <code>#</code>
 	 */
 	public static final String COMMENT = "#";

@@ -13,6 +13,7 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.VERSION;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.tmapi.core.Association;
@@ -66,7 +67,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	 * the parent topic map writer
 	 */
 	private final CTMTopicMapWriter writer;
-
+	
 	/**
 	 * the prefix handler
 	 */
@@ -110,6 +111,10 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		 */
 		buffer.appendLine(VERSION);
 
+		// some empty lines
+		buffer.appendLine();
+		buffer.appendLine();
+		
 		/*
 		 * add reification of topic map if exists
 		 */
@@ -123,8 +128,9 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		/*
 		 * add prefixes if some exists
 		 */
-		CTMBuffer prefixBuffer = new CTMBuffer();
+		
 		if (!prefixHandler.getPrefixMap().isEmpty()) {
+			CTMBuffer prefixBuffer = new CTMBuffer();
 			buffer.appendCommentLine("prefixes");
 			buffer.appendLine();
 			if (new PrefixesSerializer(prefixHandler, 
@@ -135,6 +141,18 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			buffer.appendLine();
 		}
 		
+		/*
+		 * add includes if existent 
+		 */
+		if (!writer.getIncludes().isEmpty()) {
+			CTMBuffer includeBuffer = new CTMBuffer();
+			buffer.appendCommentLine("includes");
+			buffer.appendLine();
+			if (new IncludeSerializer(writer.getIncludes(), prefixHandler).serialize(topicMap, includeBuffer)) {
+				buffer.appendLine(includeBuffer);
+			}
+			buffer.appendLine();
+		}
 		/*
 		 * start topic map block
 		 */
