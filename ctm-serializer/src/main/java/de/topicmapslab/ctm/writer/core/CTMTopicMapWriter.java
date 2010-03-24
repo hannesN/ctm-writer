@@ -14,8 +14,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.tmapi.core.Construct;
 import org.tmapi.core.TopicMap;
@@ -76,6 +78,12 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 * the list of includes
 	 */
 	private List<String> includes;
+	
+	/**
+	 * The map containging iris to topic maps as keys and the notation as value.
+	 * The notation may only be CTM or XTM
+	 */
+	private Map<String, String> mergeMaps;
 	
 	/**
 	 * constructor
@@ -288,6 +296,7 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	
 	/**
 	 * Adds an uri to the include list
+	 * 
 	 * @param uri the uri for an include directive
 	 */
 	public void addInclude(String uri) {
@@ -298,6 +307,7 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	
 	/**
 	 * Adds an uri to the include list
+	 * 
 	 * @param uri the uri for an include directive
 	 */
 	public void removeInclude(String uri) {
@@ -305,6 +315,11 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 			includes.remove(uri);
 	}
 
+	/**
+	 * Returns the list of IRIs for include directives
+	 * 
+	 * @return
+	 */
 	public List<String> getIncludes() {
 		if (includes==null)
 			return Collections.emptyList();
@@ -312,4 +327,26 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 		return includes;
 	}
 	
+	public void addMergeXTMMap(String iri) {
+		if (mergeMaps==null)
+			mergeMaps = new HashMap<String, String>();
+		
+		mergeMaps.put(iri, "XTM");
+	}
+	
+	public void addMergeCTMMap(String iri) {
+		if (mergeMaps==null)
+			mergeMaps = new HashMap<String, String>();
+		
+		mergeMaps.put(iri, "CTM");
+	}
+	
+	public void removeMergeMap(String iri) {
+		if (mergeMaps!=null)
+			mergeMaps.remove(iri);
+	}
+	
+	public Map<String, String> getMergeMaps() {
+		return mergeMaps;
+	}
 }

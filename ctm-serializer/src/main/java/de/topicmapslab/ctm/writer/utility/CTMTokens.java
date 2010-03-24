@@ -85,6 +85,10 @@ public final class CTMTokens {
 	 */
 	public static final String INCLUDE = "%include";
 	/**
+	 * CTM mergemap token <code>%mergemap</code>
+	 */
+	public static final String MERGEMAP = "%mergemap";
+	/**
 	 * CTM comment token <code>#</code>
 	 */
 	public static final String COMMENT = "#";
