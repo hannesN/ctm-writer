@@ -69,9 +69,9 @@ public final class CTMTokens {
 	 */
 	public static final String ITEMIDENTIFIER = "^";
 	/**
-	 * CTM document version <code>%ctm 1.0</code>
+	 * CTM document version <code>%version 1.0</code>
 	 */
-	public static final String VERSION = "%ctm 1.0 ";
+	public static final String VERSION = "%version 1.0 ";
 	/**
 	 * CTM document encoding <code>%encoding "UTF-8"</code>
 	 */
