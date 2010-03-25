@@ -35,6 +35,11 @@ public class Prefixer {
 			final Map<String, String> prefixes) {
 		for (Entry<String, String> prefix : prefixes.entrySet()) {
 			if (uri.startsWith(prefix.getValue())) {
+				// check if in the remaining part is a '/'
+				String localPart = uri.substring(prefix.getValue().length());
+				if (localPart.contains("/"))
+					continue;
+				
 				String prefixed = uri.replaceFirst(prefix.getValue(), prefix
 						.getKey()
 						+ ":");
