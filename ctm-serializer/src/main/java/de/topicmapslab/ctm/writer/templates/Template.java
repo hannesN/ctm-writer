@@ -8,8 +8,6 @@
  */
 package de.topicmapslab.ctm.writer.templates;
 
-import static de.topicmapslab.ctm.writer.utility.CTMTokens.TOPICVARIABLE;
-
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,13 +16,7 @@ import java.util.Set;
 import org.tmapi.core.Construct;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.templates.entry.AssociationEntry;
-import de.topicmapslab.ctm.writer.templates.entry.NameEntry;
-import de.topicmapslab.ctm.writer.templates.entry.OccurrenceEntry;
-import de.topicmapslab.ctm.writer.templates.entry.TemplateEntry;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
-import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
-import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 import edu.emory.mathcs.backport.java.util.Arrays;
 
@@ -96,127 +88,7 @@ public class Template {
 	 *            the new entry
 	 */
 	public void add(final IEntry entry) {
-		// /*
-		// * is multiple-entry of type association-entry
-		// */
-		// if (entry instanceof AssociationEntry) {
-		// /*
-		// * iterate over variables or values
-		// */
-		// for (String variable : ((AssociationEntry) entry)
-		// .getValueOrVariables()) {
-		// /*
-		// * check if value is a variable and is not the default topic
-		// * argument
-		// */
-		// if (variable.startsWith("$")
-		// && !variable.equalsIgnoreCase(TOPICVARIABLE)) {
-		// variables.add(variable);
-		// }
-		// }
-		// }
-		// /*
-		// * is multiple-entry of type template-entry
-		// */
-		// else if (entry instanceof TemplateEntry) {
-		// /*
-		// * iterate over variables or values
-		// */
-		// for (String variable : ((TemplateEntry) entry)
-		// .getValuesOrVariables()) {
-		// /*
-		// * check if value is a variable and is not the default topic
-		// * argument
-		// */
-		// if (variable.startsWith("$")
-		// && !variable.equalsIgnoreCase(TOPICVARIABLE)) {
-		// variables.add(variable);
-		// }
-		// }
-		// }
-		// /*
-		// * is name-entry
-		// */
-		// else if (entry instanceof NameEntry) {
-		// IEntryParam value = entry.getParameter();
-		// if (value != null
-		// && value instanceof VariableParam
-		// && !value.getCTMRepresentation().equalsIgnoreCase(
-		// TOPICVARIABLE)) {
-		// variables.add(value.getCTMRepresentation());
-		// }
-		//
-		// NameEntry nameEntry = (NameEntry) entry;
-		// /*
-		// * check if name entry contains a variable dependent reifier entry
-		// */
-		// if (nameEntry.getReifierEntry() != null
-		// && nameEntry.getReifierEntry().getReifierParameter()
-		// .toString().startsWith("$")) {
-		// variables.add(nameEntry.getReifierEntry().getReifierParameter()
-		// .toString());
-		// }
-		// /*
-		// * check if name entry contains a scope entry
-		// */
-		// if (nameEntry.getScopeEntry() != null) {
-		// for (String variable : nameEntry.getScopeEntry().getVariables()) {
-		// variables.add(variable);
-		// }
-		// }
-		// }
-		// /*
-		// * is occurrence-entry
-		// */
-		// else if (entry instanceof OccurrenceEntry) {
-		// IEntryParam value = entry.getParameter();
-		// if (value != null
-		// && value instanceof VariableParam
-		// && !value.getCTMRepresentation().equalsIgnoreCase(
-		// TOPICVARIABLE)) {
-		// variables.add(value.getCTMRepresentation());
-		// }
-		//
-		// OccurrenceEntry occurrenceEntry = (OccurrenceEntry) entry;
-		// /*
-		// * check if occurrence entry contains a variable dependent reifier
-		// * entry
-		// */
-		// if (occurrenceEntry.getReifierEntry() != null
-		// && occurrenceEntry.getReifierEntry().getReifierParameter()
-		// .toString().startsWith("$")) {
-		// variables.add(occurrenceEntry.getReifierEntry()
-		// .getReifierParameter().toString());
-		// }
-		// /*
-		// * check if occurrence entry contains a scope entry
-		// */
-		// if (occurrenceEntry.getScopeEntry() != null) {
-		// for (String variable : occurrenceEntry.getScopeEntry()
-		// .getVariables()) {
-		// variables.add(variable);
-		// }
-		// }
-		// }
-		// /*
-		// * is simple-entry
-		// */
-		// else {
-		// final IEntryParam value = entry.getParameter();
-		// /*
-		// * check if value exists, is a variable and is not the default topic
-		// * argument
-		// */
-		// if (value != null
-		// && value instanceof VariableParam
-		// && !value.getCTMRepresentation().equalsIgnoreCase(
-		// TOPICVARIABLE)) {
-		// variables.add(value.getCTMRepresentation());
-		// }
-		//
-		// }
 		variables.addAll(entry.getVariables());
-
 		this.entries.add(entry);
 	}
 
@@ -228,116 +100,7 @@ public class Template {
 	 *            the entry to remove
 	 */
 	protected void remove(final IEntry entry) {
-		/*
-		 * is multiple-entry of type association-entry
-		 */
-		if (entry instanceof AssociationEntry) {
-			/*
-			 * iterate over variables or values
-			 */
-			for (String variable : ((AssociationEntry) entry)
-					.getValueOrVariables()) {
-				/*
-				 * check if value is a variable
-				 */
-				if (variable.startsWith("$")) {
-					variables.remove(variable);
-				}
-			}
-		}
-		/*
-		 * is multiple-entry of type association-entry
-		 */
-		else if (entry instanceof TemplateEntry) {
-			/*
-			 * iterate over variables or values
-			 */
-			for (String variable : ((TemplateEntry) entry)
-					.getValuesOrVariables()) {
-				/*
-				 * check if value is a variable
-				 */
-				if (variable.startsWith("$")) {
-					variables.remove(variable);
-				}
-			}
-		}
-		/*
-		 * is name-entry
-		 */
-		else if (entry instanceof NameEntry) {
-			IEntryParam value = entry.getParameter();
-			if (value != null
-					&& value instanceof VariableParam
-					&& !value.getCTMRepresentation().equalsIgnoreCase(
-							TOPICVARIABLE)) {
-				variables.remove(value.getCTMRepresentation());
-			}
-
-			NameEntry nameEntry = (NameEntry) entry;
-			/*
-			 * check if name entry contains a variable dependent reifier entry
-			 */
-			if (nameEntry.getReifierEntry() != null
-					&& nameEntry.getReifierEntry().getReifierParameter()
-							.toString().startsWith("$")) {
-				variables.remove(nameEntry.getReifierEntry()
-						.getReifierParameter().toString());
-			}
-			/*
-			 * check if name entry contains a scope entry
-			 */
-			if (nameEntry.getScopeEntry() != null) {
-				for (String variable : nameEntry.getScopeEntry().getVariables()) {
-					variables.remove(variable);
-				}
-			}
-		}
-		/*
-		 * is occurrence-entry
-		 */
-		else if (entry instanceof OccurrenceEntry) {
-			IEntryParam value = entry.getParameter();
-			if (value != null
-					&& value instanceof VariableParam
-					&& !value.getCTMRepresentation().equalsIgnoreCase(
-							TOPICVARIABLE)) {
-				variables.remove(value.getCTMRepresentation());
-			}
-
-			OccurrenceEntry occurrenceEntry = (OccurrenceEntry) entry;
-			/*
-			 * check if occurrence entry contains a variable dependent reifier
-			 * entry
-			 */
-			if (occurrenceEntry.getReifierEntry() != null
-					&& occurrenceEntry.getReifierEntry().getReifierParameter()
-							.toString().startsWith("$")) {
-				variables.remove(occurrenceEntry.getReifierEntry()
-						.getReifierParameter().toString());
-			}
-			/*
-			 * check if occurrence entry contains a scope entry
-			 */
-			if (occurrenceEntry.getScopeEntry() != null) {
-				for (String variable : occurrenceEntry.getScopeEntry()
-						.getVariables()) {
-					variables.remove(variable);
-				}
-			}
-		}
-		/*
-		 * is simple-entry
-		 */
-		else {
-			IEntryParam value = entry.getParameter();
-			/*
-			 * check if value exists and is a variable
-			 */
-			if (value != null && value instanceof VariableParam) {
-				variables.remove(value.getCTMRepresentation());
-			}
-		}
+		variables.removeAll(entry.getVariables());
 		entries.remove(entry);
 	}
 

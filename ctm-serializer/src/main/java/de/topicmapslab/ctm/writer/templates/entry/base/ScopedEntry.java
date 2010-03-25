@@ -1,5 +1,6 @@
 package de.topicmapslab.ctm.writer.templates.entry.base;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import de.topicmapslab.ctm.writer.templates.entry.ScopeEntry;
@@ -52,10 +53,11 @@ public abstract class ScopedEntry extends ReifiedEntry {
 	 */
 	@Override
 	public List<String> getVariables() {
-		List<String> variables = super.getVariables();
+		List<String> variables = new LinkedList<String>();
 		if (scopeEntry != null) {
 			variables.addAll(scopeEntry.getVariables());
 		}
+		variables.addAll(super.getVariables());
 		return variables;
 	}
 

@@ -112,7 +112,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		 * type is xsd:string
 		 */
 		if (XSD_STRING.equalsIgnoreCase(datatype_)
-				|| XSD_QSTRING.equalsIgnoreCase(datatype_)) {
+				|| XSD_QSTRING.equalsIgnoreCase(datatype_) || datatype_ == null) {
 			/*
 			 * string is a variable
 			 */

@@ -8,6 +8,9 @@
  */
 package de.topicmapslab.ctm.writer.templates.entry;
 
+import static de.topicmapslab.ctm.writer.utility.CTMTokens.BRC;
+import static de.topicmapslab.ctm.writer.utility.CTMTokens.BRO;
+import static de.topicmapslab.ctm.writer.utility.CTMTokens.COMMA;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.QUOTE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TRIPPLEQUOTE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
@@ -19,11 +22,13 @@ import java.util.Set;
 
 import org.tmapi.core.Name;
 import org.tmapi.core.Topic;
+import org.tmapi.core.Variant;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.core.serializer.NameSerializer;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
+import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.templates.entry.base.ScopedEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
@@ -48,6 +53,11 @@ public class NameEntry extends ScopedEntry {
 	 * the name type
 	 */
 	private final IEntryParam type;
+
+	/**
+	 * the variants definitions
+	 */
+	private final List<VariantEntry> variants = new LinkedList<VariantEntry>();
 
 	/**
 	 * constructor
@@ -109,6 +119,20 @@ public class NameEntry extends ScopedEntry {
 			buffer.append(WHITESPACE);
 			getReifierEntry().serialize(buffer);
 		}
+
+		if (!variants.isEmpty()) {
+			buffer.append(BRO);
+			boolean first = true;
+			for (VariantEntry variant : variants) {
+				if (!first) {
+					buffer.append(COMMA, WHITESPACE);
+				}
+				first = false;
+				variant.serialize(buffer);				
+			}
+			buffer.append(BRC);
+		}
+
 		buffer.appendTailLine();
 	}
 
@@ -133,6 +157,12 @@ public class NameEntry extends ScopedEntry {
 							name.getReifier());
 				}
 
+				for (VariantEntry variant : variants) {
+					result &= variant.isAdaptiveFor(name);
+				}
+
+				result &= name.getVariants().size() == variants.size();
+
 				if (result) {
 					break;
 				}
@@ -152,44 +182,49 @@ public class NameEntry extends ScopedEntry {
 		}
 
 		List<String> arguments = new LinkedList<String>();
+
+		/*
+		 * get name entity
+		 */
+		Name name = tryToExtractNameEntity(topic);
+		affectedConstructs.add(name);
+
+		/*
+		 * get type information
+		 */
+		if (type instanceof VariableParam) {
+			arguments.add(writer.getCtmIdentity().getMainIdentifier(
+					writer.getProperties(), name.getType()).toString());
+		}
+
 		/*
 		 * if value is a variable
 		 */
 		if (isDependentFromVariable()) {
-			Name name = tryToExtractNameEntity(topic);
-			affectedConstructs.add(name);
-
-			if (type instanceof VariableParam) {
-				arguments.add(writer.getCtmIdentity().getMainIdentifier(
-						writer.getProperties(), name.getType()).toString());
-			}
-
 			final String value = name.getValue();
 			if (value.contains(QUOTE)) {
 				arguments.add(TRIPPLEQUOTE + value + TRIPPLEQUOTE);
 			} else {
 				arguments.add(QUOTE + value + QUOTE);
 			}
-
 		}
 		/*
 		 * if value is a constant
 		 */
 		else {
-			Name name = tryToExtractNameEntity(topic);
-			if (type instanceof VariableParam) {
-				arguments.add(writer.getCtmIdentity().getMainIdentifier(
-						writer.getProperties(), name.getType()).toString());
-			}
-
 			final String value = getParameter().getCTMRepresentation();
 			if (value.contains(QUOTE)) {
 				arguments.add(TRIPPLEQUOTE + value + TRIPPLEQUOTE);
 			} else {
 				arguments.add(QUOTE + value + QUOTE);
 			}
-			affectedConstructs.add(name);
+
 		}
+
+		for (VariantEntry variantEntry : variants) {
+			variantEntry.extractArguments(topic, name, affectedConstructs);
+		}
+
 		return arguments;
 	}
 
@@ -276,6 +311,17 @@ public class NameEntry extends ScopedEntry {
 				new TopicTypeParam(type));
 		entry.setReifierEntry(reifierEntry);
 		entry.setScopeEntry(scopeEntry);
+
+		/*
+		 * add variants
+		 */
+		int index = 0;
+		for (Variant variant : name.getVariants()) {
+			VariantEntry v = VariantEntry.buildFromConstruct(writer, variant);
+			v.setValueOrVariable(new VariableParam("$variant" + index++));
+			entry.add(v);
+		}
+
 		return entry;
 	}
 
@@ -333,11 +379,25 @@ public class NameEntry extends ScopedEntry {
 	 */
 	@Override
 	public List<String> getVariables() {
-		List<String> variables = super.getVariables();
+		List<String> variables = new LinkedList<String>();
 		if (type instanceof VariableParam) {
 			variables.add(type.getCTMRepresentation());
 		}
+		variables.addAll(super.getVariables());
+		for (IEntry variant : variants) {
+			variables.addAll(variant.getVariables());
+		}
 		return variables;
+	}
+
+	/**
+	 * Add a new variant entry to the internal list
+	 * 
+	 * @param entry
+	 *            the new variant entry
+	 */
+	public void add(VariantEntry entry) {
+		variants.add(entry);
 	}
 
 }

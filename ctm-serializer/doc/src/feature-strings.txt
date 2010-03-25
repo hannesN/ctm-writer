@@ -38,4 +38,8 @@ The boolean property "writer.features.templateMerger.enabled* enables or disable
 
 === writer.features.templateMerger.threshold ===
 
-The property *writer.features.templateMerger.threshold* define the minimum number of templates as a part of the intersection. The default value is *false*. 
+The property *writer.features.templateMerger.threshold* define the minimum number of templates as a part of the intersection. The default value is *false*.
+
+=== writer.features.templateExport.enabled ===
+
+The property *writer.features.templateExport.enabled* enables to template export to the final CTM document. If the property is bound to the value 'true', all templates will be exported, except the restricted one. If the value is 'false' no template will be exported.
