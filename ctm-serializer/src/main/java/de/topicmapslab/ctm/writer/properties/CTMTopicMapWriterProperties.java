@@ -9,7 +9,9 @@
 package de.topicmapslab.ctm.writer.properties;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
@@ -37,7 +39,7 @@ public class CTMTopicMapWriterProperties extends Properties {
 	 * <code>false</code>.
 	 */
 	public static final String FEATURE_EXPORT_ITEMIDENTIFIER = "writer.features.export.itemidentifier";
-															   
+
 	/**
 	 * CTMTopicMapWriter Feature String for enabling the auto-prefix-detection.
 	 * Value should be a string containing <code>true</code> or
@@ -84,6 +86,19 @@ public class CTMTopicMapWriterProperties extends Properties {
 	 */
 	public static final String FEATURE_TEMPLATEMERGER_THRESHOLD = "writer.features.templateMerger.threshold";
 
+	/**
+	 * CTMTopicMapWriter Feature String for enabling the automatic export of
+	 * defined templates. If the value is <code>true</code> all templates will
+	 * be exported, except the restricted one specified by
+	 * {@link #getRestrictedTemplatesToExport()}. If the value is
+	 * <code>false</code> no template definition will be exported.
+	 */
+	public static final String FEATURE_TEMPLATEEXPORT_ENABLED = "writer.features.templateExport.enabled";
+
+	/**
+	 * a set containing all names of template, which should never exported.
+	 */
+	private final Set<String> restrictedTemplatesToExport = new HashSet<String>();
 
 	/**
 	 * Constructor to load the property-file CTM-writer.properties
@@ -295,6 +310,27 @@ public class CTMTopicMapWriterProperties extends Properties {
 	}
 
 	/**
+	 * Check if the export of template definition is enabled.
+	 * 
+	 * @return <code>true</code> if the export is enabled, <code>false</code>
+	 *         otherwise.
+	 */
+	public boolean isTemplateExportEnabled() {
+		return Boolean
+				.parseBoolean(getProperty(FEATURE_TEMPLATEEXPORT_ENABLED));
+	}
+
+	/**
+	 * Enables or disables the export of all template definitions.
+	 * 
+	 * @param enable
+	 *            the new state
+	 */
+	public void enableTemplateExport(final boolean enable) {
+		setProperty(FEATURE_TEMPLATEEXPORT_ENABLED, Boolean.toString(enable));
+	}
+
+	/**
 	 * Checks the plausibility of values before setting it.
 	 * 
 	 * {@inheritDoc}
@@ -351,4 +387,23 @@ public class CTMTopicMapWriterProperties extends Properties {
 		}
 	}
 
+	/**
+	 * Add a new template name to restriction set. Each template which name is
+	 * contained by this restriction list, will never been exported.
+	 * 
+	 * @param name
+	 *            the name of the restricted template
+	 */
+	public void addRestrictionForTemplateExport(final String name) {
+		this.restrictedTemplatesToExport.add(name);
+	}
+
+	/**
+	 * Returns all names of all templates, which should never exported.
+	 * 
+	 * @return a set containing all template names
+	 */
+	public Set<String> getRestrictedTemplatesToExport() {
+		return restrictedTemplatesToExport;
+	}
 }

@@ -11,41 +11,40 @@ package de.topicmapslab.ctm.writer.templates.entry;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.tmapi.core.Occurrence;
+import org.tmapi.core.Construct;
+import org.tmapi.core.Name;
 import org.tmapi.core.Topic;
+import org.tmapi.core.Variant;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.core.serializer.DatatypeAwareSerializer;
-import de.topicmapslab.ctm.writer.core.serializer.OccurrenceSerializer;
+import de.topicmapslab.ctm.writer.core.serializer.VariantSerializer;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.ScopedEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
-import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
- * Class representing a template-entry definition of an occurrence-entry.
+ * Class representing a template-entry definition of a variant-entry.
  * 
  * @author Sven Krosse
  * @email krosse@informatik.uni-leipzig.de
  * 
  */
-public class OccurrenceEntry extends ScopedEntry {
+public class VariantEntry extends ScopedEntry {
 
 	/**
 	 * the parent topic map writer
 	 */
 	private final CTMTopicMapWriter writer;
-	/**
-	 * the occurrence type
-	 */
-	private final IEntryParam type;
+
 	/**
 	 * the data-type defined as {@link Topic} or {@link String}
 	 */
@@ -58,12 +57,9 @@ public class OccurrenceEntry extends ScopedEntry {
 	 *            the parent topic map writer
 	 * @param value
 	 *            the value definition of the template-entry
-	 * @param type
-	 *            the type of the occurrence
 	 */
-	protected OccurrenceEntry(CTMTopicMapWriter writer, IEntryParam value,
-			final IEntryParam type) {
-		this(writer, value, type, null);
+	protected VariantEntry(CTMTopicMapWriter writer, IEntryParam value) {
+		this(writer, value, null);
 	}
 
 	/**
@@ -73,39 +69,22 @@ public class OccurrenceEntry extends ScopedEntry {
 	 *            the parent topic map writer
 	 * @param value
 	 *            the value definition of the template-entry
-	 * @param type
-	 *            the type of the occurrence
 	 * @param datatypeAsTopicOrString
-	 *            the data-type of the occurrence, given as a {@link Topic} or a
-	 *            {@link String}
+	 *            the data-type of the variant, given as a {@link String}
 	 */
-	protected OccurrenceEntry(CTMTopicMapWriter writer, IEntryParam value,
-			final IEntryParam type, final Object datatypeAsTopicOrString) {
+	protected VariantEntry(CTMTopicMapWriter writer, IEntryParam value,
+			Object datatypeAsTopicOrString) {
 		super(value);
 		this.writer = writer;
 		this.datatypeAsTopicOrString = datatypeAsTopicOrString;
-		this.type = type;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
-
-		String identifier = null;
-		if (type instanceof TopicTypeParam) {
-			identifier = writer.getCtmIdentity().getMainIdentifier(
-					writer.getProperties(), ((TopicTypeParam) type).getTopic())
-					.toString();
-		} else if (type instanceof WildcardParam) {
-			identifier = type.getCTMRepresentation();
-		} else if (type instanceof VariableParam) {
-			identifier = type.getCTMRepresentation();
-		}
-
-		OccurrenceSerializer.serialize(writer, getParameter()
-				.getCTMRepresentation(), datatypeAsTopicOrString, identifier,
-				buffer);
+		VariantSerializer.serialize(writer, getParameter()
+				.getCTMRepresentation(), datatypeAsTopicOrString, buffer);
 		if (getScopeEntry() != null) {
 			buffer.append(WHITESPACE);
 			getScopeEntry().serialize(buffer);
@@ -114,31 +93,75 @@ public class OccurrenceEntry extends ScopedEntry {
 			buffer.append(WHITESPACE);
 			getReifierEntry().serialize(buffer);
 		}
-		buffer.appendTailLine();
+	}
+
+	@Override
+	public boolean isAdaptiveFor(Construct construct) {
+		boolean result = super.isAdaptiveFor(construct);
+		if (!result && construct instanceof Name) {
+			for (Variant variant : ((Name) construct).getVariants()) {
+				if (isAdaptiveFor(variant)) {
+					return result;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Checks if the given variant can be used with this entry.
+	 * 
+	 * @param variant
+	 *            the variant to check
+	 * @return <code>true</code> if the variant matches this entry,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean isAdaptiveFor(Variant variant) {
+		boolean result = true;
+		if (getScopeEntry() == null) {
+			result &= variant.getScope().isEmpty();
+		} else {
+			result &= variant.getScope().contains(getScopeEntry().getThemes());
+		}
+
+		if (getReifierEntry() == null) {
+			result &= variant.getReifier() == null;
+		} else {
+			result &= variant.getReifier().equals(
+					getReifierEntry().getReifier())
+					|| getReifierEntry().getReifier() == null;
+		}
+
+		if (datatypeAsTopicOrString instanceof String) {
+			result &= variant.getDatatype().getReference().equalsIgnoreCase(
+					datatypeAsTopicOrString.toString());
+		} else {
+			result &= ((Topic) datatypeAsTopicOrString).getSubjectIdentifiers()
+					.contains(variant.getDatatype());
+		}
+		return result;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Deprecated
 	public boolean isAdaptiveFor(Topic topic) {
-		Set<Occurrence> occurrences = null;
-		if (type instanceof TopicTypeParam) {
-			occurrences = topic.getOccurrences(((TopicTypeParam) type)
-					.getTopic());
-		} else {
-			occurrences = topic.getOccurrences();
+		Set<Variant> variants = new HashSet<Variant>();
+		for (Name name : topic.getNames()) {
+			variants.addAll(name.getVariants());
 		}
 		boolean result = false;
 
 		if (datatypeAsTopicOrString == null) {
-			result = !occurrences.isEmpty();
+			result = !variants.isEmpty();
 		} else {
-			for (Occurrence occurrence : occurrences) {
+			for (Variant variant : variants) {
 				final String reference = writer.getCtmIdentity()
-						.getPrefixedIdentity(occurrence.getDatatype());
+						.getPrefixedIdentity(variant.getDatatype());
 				if (datatypeAsTopicOrString instanceof Topic
-						&& datatypeAsTopicOrString.equals(occurrence
-								.getDatatype())) {
+						&& datatypeAsTopicOrString
+								.equals(variant.getDatatype())) {
 					result = true;
 				} else if (datatypeAsTopicOrString.toString().equalsIgnoreCase(
 						reference)) {
@@ -146,13 +169,13 @@ public class OccurrenceEntry extends ScopedEntry {
 				}
 
 				if (result && getScopeEntry() != null) {
-					result = occurrence.getScope().containsAll(
+					result = variant.getScope().containsAll(
 							Arrays.asList(getScopeEntry().getThemes()));
 				}
 
 				if (result && getReifierEntry() != null) {
 					result = getReifierEntry().getReifier().equals(
-							occurrence.getReifier());
+							variant.getReifier());
 				}
 
 				if (result) {
@@ -162,6 +185,71 @@ public class OccurrenceEntry extends ScopedEntry {
 		}
 
 		return result;
+	}
+
+	@Override
+	public List<String> extractArguments(Topic type, Construct construct,
+			Set<Object> affectedConstructs) throws SerializerException {
+
+		if (construct instanceof Name) {
+			Name name = (Name) construct;
+			if (!isAdaptiveFor(name)) {
+				throw new SerializerException(
+						"template entry is not adaptive for given topic.");
+			}
+
+			List<String> arguments = new LinkedList<String>();
+			/*
+			 * if value is a variable
+			 */
+			if (getParameter() instanceof VariableParam) {
+				/*
+				 * try to extract occurrence entity
+				 */
+				Variant variant = tryToExtractVariantEntity(name);
+
+				/*
+				 * extract values and transform by type
+				 */
+				arguments.add(DatatypeAwareSerializer.toArgument(writer,
+						variant));
+
+				/*
+				 * add affected construct
+				 */
+				affectedConstructs.add(variant);
+			}
+			/*
+			 * if value is a constant
+			 */
+			else {
+
+				/*
+				 * extract values and transform by type
+				 */
+				arguments.add(DatatypeAwareSerializer.toArgument(getParameter()
+						.getCTMRepresentation()));
+
+				/*
+				 * try to extract occurrence entity
+				 */
+				Variant variant = tryToExtractVariantEntity(name);
+
+				/*
+				 * extract values and transform by type
+				 */
+				arguments.add(DatatypeAwareSerializer.toArgument(writer,
+						variant));
+
+				/*
+				 * add affected construct
+				 */
+				affectedConstructs.add(variant);
+			}
+			return arguments;
+		}
+
+		return super.extractArguments(type, construct, affectedConstructs);
 	}
 
 	/**
@@ -182,27 +270,17 @@ public class OccurrenceEntry extends ScopedEntry {
 			/*
 			 * try to extract occurrence entity
 			 */
-			Occurrence occurrence = tryToExtractOccurrenceEntity(topic);
-
-			/*
-			 * extract type
-			 */
-			if (type instanceof VariableParam) {
-				arguments.add(writer.getCtmIdentity().getMainIdentifier(
-						writer.getProperties(), occurrence.getType())
-						.toString());
-			}
+			Variant variant = tryToExtractVariantEntity(topic);
 
 			/*
 			 * extract values and transform by type
 			 */
-			arguments.add(DatatypeAwareSerializer
-					.toArgument(writer, occurrence));
+			arguments.add(DatatypeAwareSerializer.toArgument(writer, variant));
 
 			/*
 			 * add affected construct
 			 */
-			affectedConstructs.add(occurrence);
+			affectedConstructs.add(variant);
 		}
 		/*
 		 * if value is a constant
@@ -218,27 +296,17 @@ public class OccurrenceEntry extends ScopedEntry {
 			/*
 			 * try to extract occurrence entity
 			 */
-			Occurrence occurrence = tryToExtractOccurrenceEntity(topic);
-
-			/*
-			 * extract type
-			 */
-			if (type instanceof VariableParam) {
-				arguments.add(writer.getCtmIdentity().getMainIdentifier(
-						writer.getProperties(), occurrence.getType())
-						.toString());
-			}
+			Variant variant = tryToExtractVariantEntity(topic);
 
 			/*
 			 * extract values and transform by type
 			 */
-			arguments.add(DatatypeAwareSerializer
-					.toArgument(writer, occurrence));
+			arguments.add(DatatypeAwareSerializer.toArgument(writer, variant));
 
 			/*
 			 * add affected construct
 			 */
-			affectedConstructs.add(occurrence);
+			affectedConstructs.add(variant);
 		}
 		return arguments;
 	}
@@ -255,35 +323,53 @@ public class OccurrenceEntry extends ScopedEntry {
 	 * @throws SerializerException
 	 *             thrown if occurrence can not be extracted
 	 */
-	private Occurrence tryToExtractOccurrenceEntity(final Topic topic)
+	private Variant tryToExtractVariantEntity(final Topic topic)
 			throws SerializerException {
-		Set<Occurrence> occurrences = null;
-		if (type instanceof TopicTypeParam) {
-			occurrences = topic.getOccurrences(((TopicTypeParam) type)
-					.getTopic());
-		} else {
-			occurrences = topic.getOccurrences();
-		}
 
-		for (Occurrence occurrence : occurrences) {
+		for (Name name : topic.getNames()) {
+			Variant v = tryToExtractVariantEntity(name);
+			if (v != null) {
+				return v;
+			}
+		}
+		throw new SerializerException("No variant is matching");
+
+	}
+
+	/**
+	 * Internal method to extract the occurrence from name matching this
+	 * instance of template-entry. Method checks the type information, the
+	 * data-type, the scope and the reifier entry.
+	 * 
+	 * @param name
+	 *            the name item to extract the occurrence
+	 * @return the extracted occurrence if exists and never <code>null</code>
+	 * 
+	 * @throws SerializerException
+	 *             thrown if occurrence can not be extracted
+	 */
+	private Variant tryToExtractVariantEntity(final Name name)
+			throws SerializerException {
+
+		for (Variant variant : name.getVariants()) {
 			boolean isAdaptive = true;
 			final String reference = writer.getCtmIdentity()
-					.getPrefixedIdentity(occurrence.getDatatype());
+					.getPrefixedIdentity(variant.getDatatype());
 			if (datatypeAsTopicOrString instanceof Topic
-					&& datatypeAsTopicOrString.equals(occurrence.getDatatype())) {
+					&& datatypeAsTopicOrString.equals(variant.getDatatype())) {
 				isAdaptive &= true;
 			} else if (datatypeAsTopicOrString.toString().equalsIgnoreCase(
 					reference)) {
 				isAdaptive &= true;
 			}
 			if (getScopeEntry() != null) {
-				isAdaptive &= getScopeEntry().isAdaptiveFor(occurrence);
+				isAdaptive &= getScopeEntry().isAdaptiveFor(variant);
 			}
 			if (getReifierEntry() != null) {
-				isAdaptive &= getReifierEntry().isAdaptiveFor(occurrence);
+				isAdaptive &= getReifierEntry().isAdaptiveFor(variant);
 			}
 			if (isAdaptive) {
-				return occurrence;
+				return variant;
 			}
 		}
 		throw new SerializerException(
@@ -303,29 +389,23 @@ public class OccurrenceEntry extends ScopedEntry {
 	 * @throws SerializerException
 	 *             thrown if generation failed
 	 */
-	public static OccurrenceEntry buildFromConstruct(
-			final CTMTopicMapWriter writer, final Occurrence occurrence)
+	public static VariantEntry buildFromConstruct(
+			final CTMTopicMapWriter writer, final Variant variant)
 			throws SerializerException {
-		Topic type = occurrence.getType();
-		/*
-		 * generate variable name
-		 */
-		// String variable = "$"
-		// + writer.getCtmIdentity().getMainIdentifier(
-		// writer.getProperties(), type);
-		String variable = "$occ";
+
+		String variable = "$variant";
 		/*
 		 * set CTM identity of data-type
 		 */
 		String datatype = writer.getCtmIdentity().getPrefixedIdentity(
-				occurrence.getDatatype());
+				variant.getDatatype());
 		/*
 		 * generate scope entry if necessary
 		 */
 		ScopeEntry scopeEntry = null;
-		if (!occurrence.getScope().isEmpty()) {
+		if (!variant.getScope().isEmpty()) {
 			List<IEntryParam> params = new LinkedList<IEntryParam>();
-			for (Topic theme : occurrence.getScope()) {
+			for (Topic theme : variant.getScope()) {
 				params.add(new TopicTypeParam(theme));
 			}
 			scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(
@@ -336,17 +416,16 @@ public class OccurrenceEntry extends ScopedEntry {
 		 * generate reifier entry if necessary
 		 */
 		ReifierEntry reifierEntry = null;
-		if (occurrence.getReifier() != null) {
+		if (variant.getReifier() != null) {
 			reifierEntry = writer.getFactory().getEntryFactory()
-					.newReifierEntry(
-							new TopicTypeParam(occurrence.getReifier()));
+					.newReifierEntry(new TopicTypeParam(variant.getReifier()));
 		}
 
 		/*
 		 * create new occurrence-entry
 		 */
-		OccurrenceEntry entry = new OccurrenceEntry(writer, new VariableParam(
-				variable), new TopicTypeParam(type), datatype);
+		VariantEntry entry = new VariantEntry(writer, new VariableParam(
+				variable), datatype);
 		entry.setReifierEntry(reifierEntry);
 		entry.setScopeEntry(scopeEntry);
 		return entry;
@@ -357,55 +436,41 @@ public class OccurrenceEntry extends ScopedEntry {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof OccurrenceEntry) {
+		if (obj instanceof VariantEntry) {
 			/*
 			 * value or variable name must be equal
 			 */
-			boolean result = super.equals(obj)
-					&& type.equals(((OccurrenceEntry) obj).type);
+			boolean result = super.equals(obj);
 			/*
 			 * data-type must be equal
 			 */
 			if (datatypeAsTopicOrString != null) {
 				result &= datatypeAsTopicOrString
-						.equals(((OccurrenceEntry) obj).datatypeAsTopicOrString);
+						.equals(((VariantEntry) obj).datatypeAsTopicOrString);
 			} else {
-				result &= ((OccurrenceEntry) obj).datatypeAsTopicOrString == null;
+				result &= ((VariantEntry) obj).datatypeAsTopicOrString == null;
 			}
 			/*
 			 * reifier must be equal
 			 */
 			if (getReifierEntry() != null) {
 				result &= getReifierEntry().equals(
-						((OccurrenceEntry) obj).getReifierEntry());
+						((VariantEntry) obj).getReifierEntry());
 			} else {
-				result &= ((OccurrenceEntry) obj).getReifierEntry() == null;
+				result &= ((VariantEntry) obj).getReifierEntry() == null;
 			}
 			/*
 			 * scope must be equal
 			 */
 			if (getScopeEntry() != null) {
 				result &= getScopeEntry().equals(
-						((OccurrenceEntry) obj).getScopeEntry());
+						((VariantEntry) obj).getScopeEntry());
 			} else {
-				result &= ((OccurrenceEntry) obj).getScopeEntry() == null;
+				result &= ((VariantEntry) obj).getScopeEntry() == null;
 			}
 			return result;
 		}
 		return false;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<String> getVariables() {
-		List<String> variables = new LinkedList<String>();
-		if (type instanceof VariableParam) {
-			variables.add(type.getCTMRepresentation());
-		}
-		variables.addAll(super.getVariables());
-		return variables;
 	}
 
 	/**

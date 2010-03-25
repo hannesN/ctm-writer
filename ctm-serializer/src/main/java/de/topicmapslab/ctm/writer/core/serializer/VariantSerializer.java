@@ -68,13 +68,38 @@ public class VariantSerializer implements ISerializer<Variant> {
 		 * add reifier if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ReifiableSerializer(writer).serialize(variant,
-				ctmBuffer)) {
+		if (new ReifiableSerializer(writer).serialize(variant, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
 
 		buffer.append(BRC);
+		return true;
+	}
+
+	/**
+	 * Static method to generate CTM occurrence-block by value and data-type.
+	 * 
+	 * @param writer
+	 *            the parent topic map writer
+	 * @param value
+	 *            the value of the variant
+	 * @param datatype
+	 *            the data-type of the variant
+	 * @param buffer
+	 *            the buffer written to
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise.
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
+	 */
+	public static boolean serialize(CTMTopicMapWriter writer, String value,
+			Object datatype, CTMBuffer buffer) throws SerializerException {
+		/*
+		 * add value and data-type
+		 */
+		new DatatypeAwareSerializer(writer).serialize(datatype, value, buffer);
+
 		return true;
 	}
 

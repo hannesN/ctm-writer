@@ -67,6 +67,32 @@ public class EntryFactory {
 	}
 
 	/**
+	 * Creates a new variant entry representing a variant constraint in the
+	 * context of a name entry.
+	 * 
+	 * @param value
+	 *            the value of the variant
+	 * @return the created variant
+	 */
+	public VariantEntry newVariantEntry(IEntryParam value) {
+		return new VariantEntry(writer, value);
+	}
+
+	/**
+	 * Creates a new variant entry representing a variant constraint in the
+	 * context of a name entry.
+	 * 
+	 * @param value
+	 *            the value of the variant
+	 * @param datatype
+	 *            the datatype
+	 * @return the created variant
+	 */
+	public VariantEntry newVariantEntry(IEntryParam value, final Object datatype) {
+		return new VariantEntry(writer, value, datatype);
+	}
+
+	/**
 	 * Creates a new occurrence entry representing an occurrence item of the
 	 * topic definition. The default datatype 'xsd:string' is used.
 	 * 
@@ -151,6 +177,14 @@ public class EntryFactory {
 		return new RoleEntry(writer, roleType, param);
 	}
 
+	/**
+	 * Creates a new topic entry used as embed topic definition in the context
+	 * of the template.
+	 * 
+	 * @param param
+	 *            the topic identifier
+	 * @return the created entry
+	 */
 	public TopicEntry newTopicEntry(IEntryParam param) {
 		return new TopicEntry(param);
 	}

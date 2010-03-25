@@ -33,6 +33,7 @@ import de.topicmapslab.ctm.writer.templates.TemplateMerger;
 import de.topicmapslab.ctm.writer.templates.TemplateSerializer;
 import de.topicmapslab.ctm.writer.templates.autodetection.TemplateDetection;
 import de.topicmapslab.ctm.writer.templates.entry.AssociationEntry;
+import de.topicmapslab.ctm.writer.templates.entry.TopicEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 import de.topicmapslab.ctm.writer.utility.TMDMIdentifier;
 
@@ -66,7 +67,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	 * the parent topic map writer
 	 */
 	private final CTMTopicMapWriter writer;
-	
+
 	/**
 	 * the prefix handler
 	 */
@@ -113,7 +114,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		// some empty lines
 		buffer.appendLine();
 		buffer.appendLine();
-		
+
 		/*
 		 * add reification of topic map if exists
 		 */
@@ -127,32 +128,33 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		/*
 		 * add prefixes if some exists
 		 */
-		
+
 		if (!prefixHandler.getPrefixMap().isEmpty()) {
 			CTMBuffer prefixBuffer = new CTMBuffer();
 			buffer.appendCommentLine("prefixes");
 			buffer.appendLine();
-			if (new PrefixesSerializer(prefixHandler, 
-					writer.getProperties().isPrefixDetectionEnabled())
-					.serialize(topicMap, prefixBuffer)) {
+			if (new PrefixesSerializer(prefixHandler, writer.getProperties()
+					.isPrefixDetectionEnabled()).serialize(topicMap,
+					prefixBuffer)) {
 				buffer.appendLine(prefixBuffer);
 			}
 			buffer.appendLine();
 		}
-		
+
 		/*
-		 * add includes if exists 
+		 * add includes if exists
 		 */
 		if (!writer.getIncludes().isEmpty()) {
 			CTMBuffer includeBuffer = new CTMBuffer();
 			buffer.appendCommentLine("includes");
 			buffer.appendLine();
-			if (new IncludeSerializer(writer.getIncludes(), prefixHandler).serialize(topicMap, includeBuffer)) {
+			if (new IncludeSerializer(writer.getIncludes(), prefixHandler)
+					.serialize(topicMap, includeBuffer)) {
 				buffer.appendLine(includeBuffer);
 			}
 			buffer.appendLine();
 		}
-		
+
 		/*
 		 * add mergemap if exists
 		 */
@@ -160,12 +162,13 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			CTMBuffer mergeMapBuffer = new CTMBuffer();
 			buffer.appendCommentLine("mergemap");
 			buffer.appendLine();
-			if (new MergeMapSerializer(writer.getMergeMaps(), prefixHandler).serialize(topicMap, mergeMapBuffer)) {
+			if (new MergeMapSerializer(writer.getMergeMaps(), prefixHandler)
+					.serialize(topicMap, mergeMapBuffer)) {
 				buffer.appendLine(mergeMapBuffer);
 			}
 			buffer.appendLine();
 		}
-		
+
 		/*
 		 * start topic map block
 		 */
@@ -191,17 +194,27 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		}
 
 		/*
-		 * generate template-definition blocks
+		 * check if templates has to exported
 		 */
-		if (!templates.isEmpty()) {
-			buffer.appendCommentLine("template definitions");
+		if (writer.getProperties().isTemplateExportEnabled()) {
+			/*
+			 * generate template-definition blocks
+			 */
+			if (!templates.isEmpty()) {
+				buffer.appendCommentLine("template definitions");
+			}
+			for (Template template : templates) {
+				/*
+				 * check if the template is restricted for export
+				 */
+				if (!writer.getProperties().getRestrictedTemplatesToExport()
+						.contains(template.getTemplateName())) {
+					ctmBuffer = new CTMBuffer();
+					new TemplateSerializer(template).serialize(ctmBuffer);
+					buffer.appendLine(ctmBuffer);
+				}
+			}
 		}
-		for (Template template : templates) {
-			ctmBuffer = new CTMBuffer();
-			new TemplateSerializer(template).serialize(ctmBuffer);
-			buffer.appendLine(ctmBuffer);
-		}
-
 		/*
 		 * generate topic-definition blocks
 		 */
@@ -390,7 +403,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		Set<Template> templates = new HashSet<Template>();
 
 		for (Template t : this.templates) {
-			if (!t.containsOnlyInstanceOf(AssociationEntry.class)
+			if (!t.containsOnlyInstanceOf(AssociationEntry.class,
+					TopicEntry.class)
 					&& !t.getTemplateName().matches(".*-invoc--?[0-9]+")
 					&& t.isAdaptiveFor(topic)) {
 				templates.add(t);
