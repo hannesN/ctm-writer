@@ -55,9 +55,9 @@ public class ExportImportTestCase extends TestCase {
 			file.createNewFile();
 		}
 		final String line = "writer.features.export.itemidentifier = false, "
-				+ "writer.features.prefixDetection.enabled = false, "
-				+ "writer.features.templateDetection.enabled = true, "
-				+ "writer.features.templateDetection.topicTemplates = true , "
+				+ "writer.features.prefixDetection.enabled = true, "
+				+ "writer.features.templateDetection.enabled = false, "
+				+ "writer.features.templateDetection.topicTemplates = false , "
 				+ "writer.features.templateDetection.associationTemplates = false, "
 				+ "writer.features.templateMerger.enabled = false";
 		CTMTopicMapWriter writer = new CTMTopicMapWriter(new FileOutputStream(

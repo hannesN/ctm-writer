@@ -84,8 +84,10 @@ public class TopicSerializer implements ISerializer<Topic> {
 	public boolean serialize(Topic topic, CTMBuffer buffer)
 			throws SerializerException {
 
-		buffer.appendLine(writer.getCtmIdentity().getMainIdentifier(
-				writer.getProperties(), topic).toString(), WHITESPACE);
+		final String mainIdentifier = writer.getCtmIdentity()
+				.getMainIdentifier(writer.getProperties(), topic).toString();
+
+		buffer.appendLine(mainIdentifier, WHITESPACE);
 
 		/*
 		 * add template-invocations and store affected elements of the topic
@@ -140,16 +142,12 @@ public class TopicSerializer implements ISerializer<Topic> {
 			if (affectedConstructs.contains(locator)) {
 				continue;
 			}
-			if (locator.toExternalForm().equals(
-					writer.getCtmIdentity().getMainIdentifier(
-							writer.getProperties(), topic).getIdentifier())) {
-				continue;
-			}
-
 			String identity = writer.getCtmIdentity().getPrefixedIdentity(
 					locator);
-			buffer.appendTailLine(true, TABULATOR, writer.getCtmIdentity()
-					.getEscapedCTMIdentity(identity, locator));
+			if (!identity.equalsIgnoreCase(mainIdentifier)) {
+				buffer.appendTailLine(true, TABULATOR, writer.getCtmIdentity()
+						.getEscapedCTMIdentity(identity, locator));
+			}
 		}
 
 		/*
@@ -161,8 +159,11 @@ public class TopicSerializer implements ISerializer<Topic> {
 			}
 			String identity = writer.getCtmIdentity().getPrefixedIdentity(
 					locator);
-			buffer.appendTailLine(true, TABULATOR, SUBJECTLOCATOR, writer
-					.getCtmIdentity().getEscapedCTMIdentity(identity, locator));
+			if (!mainIdentifier.contains(identity)) {
+				buffer.appendTailLine(true, TABULATOR, SUBJECTLOCATOR, writer
+						.getCtmIdentity().getEscapedCTMIdentity(identity,
+								locator));
+			}
 		}
 
 		/*
@@ -177,9 +178,11 @@ public class TopicSerializer implements ISerializer<Topic> {
 						|| affectedConstructs.contains(locator)) {
 					continue;
 				}
-				buffer.appendTailLine(true, TABULATOR, ITEMIDENTIFIER, writer
-						.getCtmIdentity().getEscapedCTMIdentity(identity,
-								locator));
+				if (!mainIdentifier.contains(identity)) {
+					buffer.appendTailLine(true, TABULATOR, ITEMIDENTIFIER,
+							writer.getCtmIdentity().getEscapedCTMIdentity(
+									identity, locator));
+				}
 			}
 		}
 
