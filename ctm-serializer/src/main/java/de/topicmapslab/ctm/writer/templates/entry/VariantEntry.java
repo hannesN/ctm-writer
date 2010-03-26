@@ -399,7 +399,7 @@ public class VariantEntry extends ScopedEntry {
 		/*
 		 * variable
 		 */
-		String variable = "$variant";
+		String variable = "variant";
 		/*
 		 * set CTM identity of data-type
 		 */

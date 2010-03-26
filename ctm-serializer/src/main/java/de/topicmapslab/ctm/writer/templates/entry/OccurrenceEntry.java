@@ -318,7 +318,7 @@ public class OccurrenceEntry extends ScopedEntry {
 		/*
 		 * generate variable name
 		 */
-		String variable = "$occ";
+		String variable = "occ";
 		/*
 		 * set CTM identity of data-type
 		 */

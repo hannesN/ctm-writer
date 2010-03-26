@@ -130,7 +130,7 @@ public class RoleEntry {
 		/*
 		 * generate variable name
 		 */
-		String variable = "$player";
+		String variable = "player";
 		/*
 		 * create new role-entry
 		 */
