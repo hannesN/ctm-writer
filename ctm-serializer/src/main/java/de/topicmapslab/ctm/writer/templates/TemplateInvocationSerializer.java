@@ -118,9 +118,12 @@ public class TemplateInvocationSerializer implements ISerializer<Topic> {
 			 */
 			if (!entry.isDependentFromVariable()) {
 				continue;
-			}
+			}			
 			arguments.addAll(entry.extractArguments(association.getType(),
 					association, affectedConstructs));
+			if ( template.getVariables().size() >= arguments.size()){
+				break;
+			}
 		}
 
 		/*

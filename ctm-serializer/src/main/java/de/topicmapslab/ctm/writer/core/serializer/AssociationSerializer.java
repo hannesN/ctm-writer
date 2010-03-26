@@ -49,6 +49,11 @@ public class AssociationSerializer implements ISerializer<Association> {
 	 * the parent topic map writer
 	 */
 	private final CTMTopicMapWriter writer;
+	
+	/**
+	 * a set of affected constructs
+	 */
+	private final Set<Object> affectedConstructs;
 
 	/**
 	 * constructor
@@ -73,6 +78,7 @@ public class AssociationSerializer implements ISerializer<Association> {
 			Set<Template> adaptiveTemplates) {
 		this.adaptiveTemplates = adaptiveTemplates;
 		this.writer = writer;
+		affectedConstructs = new HashSet<Object>();
 	}
 
 	/**
@@ -93,8 +99,10 @@ public class AssociationSerializer implements ISerializer<Association> {
 				/*
 				 * redirect to template-invocation-serializer
 				 */
-				new TemplateInvocationSerializer(template).serialize(
+				TemplateInvocationSerializer s = new TemplateInvocationSerializer(template);
+				s.serialize(
 						association, buffer);
+				affectedConstructs.addAll(s.getAffectedConstructs());
 			}
 		}
 		/*
@@ -154,4 +162,11 @@ public class AssociationSerializer implements ISerializer<Association> {
 		return true;
 	}
 
+	/**
+	 * Returns a set of affected constructs, which will already exported because of templates using wildcards. Please note the calling association instance will never be contained.
+	 * @return the set of affected constructs
+	 */
+	public Set<Object> getAffectedConstructs() {
+		return affectedConstructs;
+	}
 }

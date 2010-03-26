@@ -1,5 +1,6 @@
 import junit.framework.TestCase;
 
+import org.tmapi.core.Association;
 import org.tmapi.core.Topic;
 import org.tmapi.core.TopicMap;
 import org.tmapi.core.TopicMapSystemFactory;
@@ -30,11 +31,13 @@ public class TemplateSerializerTest extends TestCase {
 
 	public void testUsingWildcards() throws Exception {
 
+		final String loc = "http://code.google.com/p/ctm-writer/";
+		
 		/*
 		 * the topic map to serialize
 		 */
 		TopicMap map = TopicMapSystemFactory.newInstance().newTopicMapSystem()
-				.createTopicMap("http://code.google.com/p/ctm-writer");
+				.createTopicMap(loc);
 
 		/*
 		 * define topic types used in template context
@@ -54,6 +57,9 @@ public class TemplateSerializerTest extends TestCase {
 		 */
 		CTMTopicMapWriter writer = new CTMTopicMapWriter(System.out,
 				"http://code.google.com/p/ctm-writer/");
+		writer.getProperties().enableTemplateExport(true);
+		writer.getProperties().enablePrefixDetection(true);
+		System.out.println(writer.getProperties().isPrefixDetectionEnabled());
 		/*
 		 * get the template factory
 		 */
@@ -118,10 +124,26 @@ public class TemplateSerializerTest extends TestCase {
 		 */
 		writer.addTemplate(t);
 
+		Topic c = map.createTopicBySubjectIdentifier(map.createLocator(loc+"constraint"));
+		
+		Topic tt1 =  map.createTopicBySubjectIdentifier(map.createLocator(loc+"tt1"));
+				
+		Topic tt2 =  map.createTopicBySubjectIdentifier(map.createLocator(loc+"tt2"));
+		
+		Association association = map.createAssociation(overlapsType, new Topic[0]);
+		association.createRole(allowedType, tt1);
+		association.createRole(allowsType, c);
+		
+		
+		Association association2 = map.createAssociation(overlapsType, new Topic[0]);
+		association2.createRole(allowedType, tt2);
+		association2.createRole(allowsType, c);
 		/*
 		 * serialize topic map
 		 */
 		writer.write(map);
+		
+		
 	}
 
 	// public void testNameTemplates() throws Exception {

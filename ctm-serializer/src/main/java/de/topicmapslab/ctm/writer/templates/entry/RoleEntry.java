@@ -176,5 +176,13 @@ public class RoleEntry {
 	public void setTopicOrVariable(IEntryParam param) {
 		this.param = param;
 	}
+	
+	/**
+	 * Returns the internal parameter
+	 * @return the parameter
+	 */
+	public IEntryParam getParameter() {
+		return param;
+	}
 
 }

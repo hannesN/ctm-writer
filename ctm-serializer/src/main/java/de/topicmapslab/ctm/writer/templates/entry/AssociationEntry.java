@@ -29,7 +29,10 @@ import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.TraversalUtilis;
 
 /**
  * Class representing a template-entry definition of a association-entry.
@@ -205,14 +208,23 @@ public class AssociationEntry implements IEntry {
 			/*
 			 * iterate over roles and extract players as arguments
 			 */
+			Set<RoleEntry> wildcards = new HashSet<RoleEntry>();
+			Topic roleType = null;
 			for (RoleEntry entry : roleEntries) {
-				if (entry.getParameterAsString().startsWith("$")) {
+				if (entry.getParameter() instanceof VariableParam) {
 					Role role = association.getRoles(entry.getRoleType())
 							.iterator().next();
 					arguments.add(writer.getCtmIdentity().getMainIdentifier(
 							writer.getProperties(), role.getPlayer())
 							.toString());
+					roleType = role.getType();
+				} else if (entry.getParameter() instanceof WildcardParam) {
+					wildcards.add(entry);
 				}
+			}
+			for ( RoleEntry wildcard : wildcards){
+				arguments.addAll(extractTraversalArgument(association,
+						affectedConstructs, wildcard, roleType));
 			}
 		}
 		/*
@@ -234,6 +246,29 @@ public class AssociationEntry implements IEntry {
 					return extractArguments(type, association,
 							affectedConstructs);
 				}
+			}
+		}
+		return arguments;
+	}
+
+	private List<String> extractTraversalArgument(Association association,
+			Set<Object> affectedConstructs, RoleEntry wildcard, Topic roleType)
+			throws SerializerException {
+		List<String> arguments = new LinkedList<String>();
+
+		Set<Role> roles = association.getRoles(wildcard.getRoleType());
+
+		if (roles.size() == 1) {
+			Set<Association> associations = TraversalUtilis
+					.getTraversalAssociations(roles.iterator().next()
+							.getPlayer(), association);
+			if (associations.size() == 1) {
+				Association a = associations.iterator().next();
+				Role role = a.getRoles(roleType).iterator()
+						.next();
+				arguments.add(writer.getCtmIdentity().getMainIdentifier(
+						writer.getProperties(), role.getPlayer()).toString());
+				affectedConstructs.add(a);
 			}
 		}
 		return arguments;
