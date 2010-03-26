@@ -62,15 +62,16 @@ Type entries representing the *type-instance-association* of the TMDM. The value
 6:	/*
 7:	 * create type entry with the specific type
 8:	 */
-9:	IsInstanceOfEntry entry = writer.getFactory().getEntryFactory().newIsInstanceOfEntry(new TopicTypeParam(type));
-10:	/*
-11:	 * add entry to template
-12:	 */
-13:	template.add(entry);
+9:	IEntryParam p = writer.getFactory().getEntryFactory().newTopicTypeParam(type);
+10:	IsInstanceOfEntry entry = writer.getFactory().getEntryFactory().newIsInstanceOfEntry(p);
+11:	/*
+12:	 * add entry to template
+13:	 */
+14:	template.add(entry);
 --------------------------------------
 
 ======================================
-At first we will have to extract the topic type from our topic map as the essential parameter of the entry. In line 4 and 5 we use method of the TMAPI to extract a topic representing our type information. In line 9 we create a new instance of *IsInstanceOfEntry* which represent the type entry and we set the parameter of this entry to the topic-type-parameter uses the topic as value. The entry will be created by a factory class provided by the template-factory. At last step we add the new entry to our template, as you can see in line 13.
+At first we will have to extract the topic type from our topic map as the essential parameter of the entry. In line 4 and 5 we use method of the TMAPI to extract a topic representing our type information. In line 9 we create a new parameter entry representing the given topic type as value of the entry parameters. The parameter is used in line 10 to create a new instance of *IsInstanceOfEntry* which represent the type entry. The entry will be created by a factory class provided by the template-factory. At last step we add the new entry to our template, as you can see in line 14.
 ======================================
 
 After defining the new entry we want to check the CTM output.
@@ -99,15 +100,16 @@ Super-type entries representing the *supertype-subtype-association* of the TMDM.
 6:	/*
 7:	 * create type entry with the specific supertype
 8:	 */
-9:	AKindOfEntry entry = writer.getFactory().getEntryFactory().newAKindOfEntry(new TopicTypeParam(supertype));
-10:	/*
-11:	 * add entry to template
-12:	 */
-13:	template.add(entry);
+9:	IEntryParam p = writer.getFactory().getEntryFactory().newTopicTypeParam(supertype);
+10:	AKindOfEntry entry = writer.getFactory().getEntryFactory().newAKindOfEntry(p);
+11:	/*
+12:	 * add entry to template
+13:	 */
+14:	template.add(entry);
 --------------------------------------
 
 ======================================
-At first we will have to extract the topic type from our topic map as the essential parameter of the entry. We use the the TMAPI methods to find the desired topic type representing the supertype, as you can see in line 4 and 5. In line 9 we create a new instance of *AKindOfEntry* which represent the type entry and we use a topic-type-parameter containing the topic type as supertype. At last step we add the new entry to our template.
+At first we will have to extract the topic type from our topic map as the essential parameter of the entry. We use the the TMAPI methods to find the desired topic type representing the supertype, as you can see in line 4 and 5. In line 9 we create a new parameter entry representing the given topic type as value of the entry parameters. The parameter is used in line 10 to create a new instance of *AKindOfEntry* which represent the type entry. At last step we add the new entry to our template.
 ======================================
 
 After defining the new entry we want to check the CTM output.
@@ -137,21 +139,23 @@ A name entry only represent a name item of a topic item. Name entries are more c
 6:	/*
 7:	 * create new scope entry
 8:	 */
-9:	ScopeEntry scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(new TopicTypeParam(shortName));
-10:	/*
-11:	 * create new name entry
-12:	 */
-13:	final String variable = "$name";
-14:	NameEntry entry = writer.getFactory().getEntryFactory().newNameEntry(new VariableParam(variable));
-15:	entry.setScopeEntry(scopeEntry);
-16:	/*
-17:	 * add entry to template
-18:	 */
-19:	template.add(entry);
+9:	IEntryParam p = writer.getFactory().getEntryFactory().newTopicTypeParam(shortName);
+10:	ScopeEntry scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(p);
+11:	/*
+12:	 * create new name entry
+13:	 */
+14:	final String variable = "name";
+15:	IEntryParam p2 = writer.getFactory().getEntryFactory().newVariableParam(variable);
+16:	NameEntry entry = writer.getFactory().getEntryFactory().newNameEntry(p2);
+17:	entry.setScopeEntry(scopeEntry);
+18:	/*
+19:	 * add entry to template
+20:	 */
+21:	template.add(entry);
 ---------------------------------------
 
 =======================================
-The code snippet show a small and simple example, how to create a name entry. In the first lines ( 4 and 5 ) the TMAPI methods are used to extract a theme represented by a topic item form the topic map. The extracted theme are used in line 9 to create a new instance of *ScopeEntry* which represents the scope information of our name entry. The real name entry are instantiated in line 14 with the value information specified by the variable *$name*.  In line 15 we use the setter-method to include a scoping constraint to our name entry definition. Like all entries the last necessary step is adding the entry to a template.
+The code snippet show a small and simple example, how to create a name entry. In the first lines ( 4 and 5 ) the TMAPI methods are used to extract a theme represented by a topic item form the topic map. The extracted theme are used in line 9 to create a new parameter used as parameter of the new instance of *ScopeEntry* which represents the scope information of our name entry. The real name entry are instantiated in line 16 with the value information specified by the variable parameter created in line 15 using the literal *name*. The prefix will be added automatically.  In line 17 we use the setter-method to include a scoping constraint to our name entry definition. Like all entries the last necessary step is adding the entry to a template.
 =======================================
 
 After serialization let us take a look at the serialized CTM pattern.
@@ -180,26 +184,29 @@ The TMDM differs between names and occurrences as characteristic informations of
 6:	/*
 7:	 * create new scope entry
 8:	 */
-9:	ScopeEntry scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(web);
-10:	/*
-11:	 * read the topic type of occurrence entry from the topic map
-12:	 */
-13:	locator = topicMap.createLocator("http://psi.ontopedia.net/webpage");
-14:	Topic type = topicMap.getTopicBySubjectIdentifier(locator);
-15:	/*
-16:	 * create new occurrence entry
-17:	 */
-18:	final String variable = "$webpage";
-19:	OccurrenceEntry entry = writer.getFactory().getEntryFactory().newOccurrenceEntry(new VariableEntry(variable), new TopicTypeEntry(type));
-20:	entry.setScopeEntry(scopeEntry);
-21:	/*
-22:	 * add entry to template
-23:	 */
-24:	template.add(entry);
+9:	IEntryParam p = writer.getFactory().getEntryFactory().newTopicTypeParam(web);
+10:	ScopeEntry scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(p);
+11:	/*
+12:	 * read the topic type of occurrence entry from the topic map
+13:	 */
+14:	locator = topicMap.createLocator("http://psi.ontopedia.net/webpage");
+15:	Topic type = topicMap.getTopicBySubjectIdentifier(locator);
+16:	/*
+17:	 * create new occurrence entry
+18:	 */
+19:	final String variable = "webpage";
+20:	IEntryParam p2 = writer.getFactory().getEntryFactory().newVariableParam(variable);
+21:	IEntryParam p3 = writer.getFactory().getEntryFactory().newTopicTypeParam(type);
+22:	OccurrenceEntry entry = writer.getFactory().getEntryFactory().newOccurrenceEntry(p2,p3);
+23:	entry.setScopeEntry(scopeEntry);
+24:	/*
+25:	 * add entry to template
+26:	 */
+27:	template.add(entry);
 ---------------------------------------
 
 =======================================
-In the code snippet we show a easy way to define our own template with exactly one occurrence entry. In line 4 and 5 we use TMAPI methods to get the topic type of our theme using in context of scoping information in line 9. In the lines 13 and 14 we use TMAPI against to get the topic type of our new occurrence. Now we can create the occurrence entry, as you can see in line 19 using the type of line 14 and the variable name of line 18. In line 20 we use the setter method to include the scoping constraint using the scope entry of line 9. After all we have to add the entry to the template.   
+In the code snippet we show a easy way to define our own template with exactly one occurrence entry. In line 4 and 5 we use TMAPI methods to get the topic type of our theme using in context of scoping information in line 9. In the lines 14 and 15 we use TMAPI against to get the topic type of our new occurrence. Now we can create the occurrence entry, as you can see in line 22 using the type parameter of line 20 and the variable parameter of line 21. In line 23 we use the setter method to include the scoping constraint using the scope entry of line 10. After all we have to add the entry to the template.   
 =======================================
 
 ---------------------------------------
@@ -223,27 +230,29 @@ One of the core features and benefits of a topic map are associations to model r
 3:	 */
 4:	Locator locatorRTA = topicMap.createLocator("http://psi.ontopedia.net/Composer");
 5:	Topic typeRTA = topicMap.getTopicBySubjectIdentifier(locatorRTA);
-6:	RoleEntry roleEntryA = writer.getFactory().getEntryFactory().newRoleEntry(typeRTA, new VariableParam("$composer"));		
-7:	/*
-8:	 * create role entry for role-type work
-9:	 */
-10:	Locator locatorRTB = topicMap.createLocator("http://psi.ontopedia.net/Work");
-11:	Topic typeRTB = topicMap.getTopicBySubjectIdentifier(locatorRTB);
-12:	RoleEntry roleEntryB = writer.getFactory().getEntryFactory().newRoleEntry(typeRTB, new VariableParam("$work"));
-13:	/*
-14:	 * create association entry by type and role entries
-15:	 */
-16:	Locator locator = topicMap.createLocator("http://psi.ontopedia.net/composed_by");
-17:	Topic type = topicMap.getTopicBySubjectIdentifier(locator);				
-18:	AssociationEntry entry = writer.getFactory().getEntryFactory().newAssociationEntry(type,roleEntryA, roleEntryB);
-19:	/*
-20:	 * add to template
-21:	 */
-22:	template.add(entry);
+6:	IEntryParm p = writer.getFactory().getEntryFactory().newVariableEntry("composer");
+7:	RoleEntry roleEntryA = writer.getFactory().getEntryFactory().newRoleEntry(typeRTA, p);		
+8:	/*
+9:	 * create role entry for role-type work
+10:	 */
+11:	Locator locatorRTB = topicMap.createLocator("http://psi.ontopedia.net/Work");
+12:	Topic typeRTB = topicMap.getTopicBySubjectIdentifier(locatorRTB);
+13:	IEntryParm p2 = writer.getFactory().getEntryFactory().newVariableEntry("work");
+14:	RoleEntry roleEntryB = writer.getFactory().getEntryFactory().newRoleEntry(typeRTB, p2);
+15:	/*
+16:	 * create association entry by type and role entries
+17:	 */
+18:	Locator locator = topicMap.createLocator("http://psi.ontopedia.net/composed_by");
+19:	Topic type = topicMap.getTopicBySubjectIdentifier(locator);				
+20:	AssociationEntry entry = writer.getFactory().getEntryFactory().newAssociationEntry(type,roleEntryA, roleEntryB);
+21:	/*
+22:	 * add to template
+23:	 */
+24:	template.add(entry);
 ---------------------------------------
 
 =======================================
-The code snippet first defines two role entries between line 4 and 12. At first we have to extract the role type by using TMAPI methods. The extracted type is used to create a new instance of *RoleEntry* in line 6 or 12. After the instantiation of all role entries, we can create our new association entry. As described we have to extract the topic type as type information of our association item, so we use TMAPI in line 16ff. After all we have to add the new entry to our template.
+The code snippet first defines two role entries between line 7 and 14. At first we have to extract the role type by using TMAPI methods. The extracted type is used to create a new type parameter in line 6 or 13. After the instantiation of all role entries, we can create our new association entry. As described we have to extract the topic type as type information of our association item, so we use TMAPI in line 18ff. After all we have to add the new entry to our template.
 
 *Note:* If you use association entries and topic entries in the same template, that could be problematic. 
 =======================================

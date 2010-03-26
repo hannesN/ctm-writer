@@ -236,7 +236,14 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		 * generate association-definition blocks
 		 */
 		buffer.appendCommentLine("association definitions");
+		Set<Object> affectedConstronstructs = new HashSet<Object>();
 		for (Association association : topicMap.getAssociations()) {
+			/*
+			 * already exported
+			 */
+			if ( affectedConstronstructs.contains(association)){
+				continue;
+			}
 			ctmBuffer = new CTMBuffer();
 			try {
 				writer.getCtmIdentity().getIdentity(writer.getProperties(),
@@ -250,9 +257,11 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 								.next().toExternalForm())) {
 					continue;
 				}
-				new AssociationSerializer(writer,
-						getAdaptiveTemplates(association)).serialize(
+				AssociationSerializer s = new AssociationSerializer(writer,
+						getAdaptiveTemplates(association));
+				s.serialize(
 						association, ctmBuffer);
+				affectedConstronstructs.addAll(s.getAffectedConstructs());
 				buffer.appendLine(ctmBuffer);
 			} catch (NoIdentityException e) {
 			}
@@ -336,11 +345,14 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			serializeTopicToCTM(topic, buffer);
 		}
 
+		
+		
 		/*
 		 * generate association-definition blocks
 		 */
 		// buffer.appendCommentLine("association definitions");
 		for (Association association : associations) {
+			
 			CTMBuffer ctmBuffer = new CTMBuffer();
 			try {
 				writer.getCtmIdentity().getIdentity(writer.getProperties(),
@@ -348,9 +360,9 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 				/*
 				 * ignore TMDM associations
 				 */
-				new AssociationSerializer(writer,
-						getAdaptiveTemplates(association)).serialize(
-						association, ctmBuffer);
+				AssociationSerializer s = new AssociationSerializer(writer,
+						getAdaptiveTemplates(association));
+				
 				buffer.appendLine(ctmBuffer);
 			} catch (NoIdentityException e) {
 			}
@@ -425,7 +437,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		Set<Template> templates = new HashSet<Template>();
 
 		for (Template t : this.templates) {
-			if (t.containsOnlyInstanceOf(AssociationEntry.class)
+			if (t.containsOnlyInstanceOf(AssociationEntry.class,
+					TopicEntry.class)
 					&& t.isAdaptiveFor(association)) {
 				templates.add(t);
 			}
