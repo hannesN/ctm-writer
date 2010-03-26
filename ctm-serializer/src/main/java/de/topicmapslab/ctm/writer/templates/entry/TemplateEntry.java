@@ -20,7 +20,7 @@ import de.topicmapslab.ctm.writer.templates.Template;
 import de.topicmapslab.ctm.writer.templates.TemplateSerializer;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
-import de.topicmapslab.ctm.writer.templates.entry.param.ValueParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -76,7 +76,11 @@ public class TemplateEntry implements IEntry {
 	 * {@inheritDoc}
 	 */
 	public IEntryParam getParameter() {
-		return new ValueParam(template.getTemplateName());
+		/*
+		 * parameter factory
+		 */
+		ParamFactory factory = new ParamFactory();
+		return factory.newValueParam(template.getTemplateName());
 	}
 
 	/**
@@ -138,11 +142,11 @@ public class TemplateEntry implements IEntry {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public List<String> getVariables() {
 		List<String> variables = new LinkedList<String>();
-		for ( IEntry entry : template.getEntries()){
+		for (IEntry entry : template.getEntries()) {
 			variables.addAll(entry.getVariables());
 		}
 		return variables;

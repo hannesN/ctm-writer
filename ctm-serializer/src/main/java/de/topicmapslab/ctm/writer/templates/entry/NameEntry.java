@@ -31,6 +31,7 @@ import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.templates.entry.base.ScopedEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
@@ -128,7 +129,7 @@ public class NameEntry extends ScopedEntry {
 					buffer.append(COMMA, WHITESPACE);
 				}
 				first = false;
-				variant.serialize(buffer);				
+				variant.serialize(buffer);
 			}
 			buffer.append(BRC);
 		}
@@ -277,6 +278,13 @@ public class NameEntry extends ScopedEntry {
 	 */
 	public static NameEntry buildFromConstruct(final CTMTopicMapWriter writer,
 			final Name name) throws SerializerException {
+		/*
+		 * parameter factory
+		 */
+		ParamFactory factory = new ParamFactory();
+		/*
+		 * the type
+		 */
 		Topic type = name.getType();
 		/*
 		 * generate variable name
@@ -289,7 +297,7 @@ public class NameEntry extends ScopedEntry {
 		if (!name.getScope().isEmpty()) {
 			List<IEntryParam> params = new LinkedList<IEntryParam>();
 			for (Topic theme : name.getScope()) {
-				params.add(new TopicTypeParam(theme));
+				params.add(factory.newTopicTypeParam(theme));
 			}
 			scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(
 					params.toArray(new IEntryParam[0]));
@@ -301,14 +309,15 @@ public class NameEntry extends ScopedEntry {
 		ReifierEntry reifierEntry = null;
 		if (name.getReifier() != null) {
 			reifierEntry = writer.getFactory().getEntryFactory()
-					.newReifierEntry(new TopicTypeParam(name.getReifier()));
+					.newReifierEntry(
+							factory.newTopicTypeParam(name.getReifier()));
 		}
 
 		/*
 		 * create name entry
 		 */
-		NameEntry entry = new NameEntry(writer, new VariableParam(variable),
-				new TopicTypeParam(type));
+		NameEntry entry = new NameEntry(writer, factory
+				.newVariableParam(variable), factory.newTopicTypeParam(type));
 		entry.setReifierEntry(reifierEntry);
 		entry.setScopeEntry(scopeEntry);
 
@@ -318,7 +327,9 @@ public class NameEntry extends ScopedEntry {
 		int index = 0;
 		for (Variant variant : name.getVariants()) {
 			VariantEntry v = VariantEntry.buildFromConstruct(writer, variant);
-			v.setValueOrVariable(new VariableParam("$variant" + index++));
+			v
+					.setValueOrVariable(factory.newVariableParam("$variant"
+							+ index++));
 			entry.add(v);
 		}
 

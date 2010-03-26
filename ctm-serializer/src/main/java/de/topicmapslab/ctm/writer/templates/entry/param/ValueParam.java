@@ -4,7 +4,7 @@ public class ValueParam implements IEntryParam {
 
 	private final String value;
 	
-	public ValueParam(final String value){
+	protected ValueParam(final String value){
 		this.value = value;
 	}
 	

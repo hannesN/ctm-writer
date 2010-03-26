@@ -16,6 +16,7 @@ import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
@@ -123,16 +124,17 @@ public class RoleEntry {
 			final Role role) throws SerializerException {
 		Topic type = role.getType();
 		/*
+		 * parameter factory
+		 */
+		ParamFactory factory = new ParamFactory();
+		/*
 		 * generate variable name
 		 */
-		// String variable = "$"
-		// + writer.getCtmIdentity().getMainIdentifier(
-		// writer.getProperties(), type);
 		String variable = "$player";
 		/*
 		 * create new role-entry
 		 */
-		return new RoleEntry(writer, type, new VariableParam(variable));
+		return new RoleEntry(writer, type, factory.newVariableParam(variable));
 	}
 
 	/**

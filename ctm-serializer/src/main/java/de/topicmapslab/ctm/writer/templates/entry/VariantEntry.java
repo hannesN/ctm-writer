@@ -27,7 +27,7 @@ import de.topicmapslab.ctm.writer.core.serializer.VariantSerializer;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.ScopedEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
-import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
@@ -392,7 +392,13 @@ public class VariantEntry extends ScopedEntry {
 	public static VariantEntry buildFromConstruct(
 			final CTMTopicMapWriter writer, final Variant variant)
 			throws SerializerException {
-
+		/*
+		 * parameter factory
+		 */
+		ParamFactory factory = new ParamFactory();
+		/*
+		 * variable
+		 */
 		String variable = "$variant";
 		/*
 		 * set CTM identity of data-type
@@ -406,7 +412,7 @@ public class VariantEntry extends ScopedEntry {
 		if (!variant.getScope().isEmpty()) {
 			List<IEntryParam> params = new LinkedList<IEntryParam>();
 			for (Topic theme : variant.getScope()) {
-				params.add(new TopicTypeParam(theme));
+				params.add(factory.newTopicTypeParam(theme));
 			}
 			scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(
 					params.toArray(new IEntryParam[0]));
@@ -418,14 +424,15 @@ public class VariantEntry extends ScopedEntry {
 		ReifierEntry reifierEntry = null;
 		if (variant.getReifier() != null) {
 			reifierEntry = writer.getFactory().getEntryFactory()
-					.newReifierEntry(new TopicTypeParam(variant.getReifier()));
+					.newReifierEntry(
+							factory.newTopicTypeParam(variant.getReifier()));
 		}
 
 		/*
 		 * create new occurrence-entry
 		 */
-		VariantEntry entry = new VariantEntry(writer, new VariableParam(
-				variable), datatype);
+		VariantEntry entry = new VariantEntry(writer, factory
+				.newVariableParam(variable), datatype);
 		entry.setReifierEntry(reifierEntry);
 		entry.setScopeEntry(scopeEntry);
 		return entry;
