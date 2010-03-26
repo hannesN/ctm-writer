@@ -30,8 +30,7 @@ import de.topicmapslab.ctm.writer.templates.TemplateFactory;
 import de.topicmapslab.ctm.writer.templates.entry.NameEntry;
 import de.topicmapslab.ctm.writer.templates.entry.OccurrenceEntry;
 import de.topicmapslab.ctm.writer.templates.entry.RoleEntry;
-import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
-import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
 
 /**
  * Implementation of a auto-detection algorithm for templates as part of a topic
@@ -254,8 +253,8 @@ public class TemplateDetection {
 		 */
 		if (identifier.contains(":")) {
 			identifier = identifier.substring(identifier.lastIndexOf(":") + 1);
-		} 
-		
+		}
+
 		/*
 		 * is slash contained
 		 */
@@ -279,7 +278,7 @@ public class TemplateDetection {
 		 * add instance-property-entry to the template
 		 */
 		template.add(factory.getEntryFactory().newIsInstanceOfEntry(
-				new TopicTypeParam(type)));
+				factory.getEntryFactory().newTopicTypeParam(type)));
 
 		Set<String> variables = new HashSet<String>();
 
@@ -310,7 +309,8 @@ public class TemplateDetection {
 				/*
 				 * set new variable name
 				 */
-				entry.setValueOrVariable(new VariableParam(variable));
+				entry.setValueOrVariable(factory.getEntryFactory()
+						.newVariableParam(variable));
 				/*
 				 * store variable name
 				 */
@@ -349,7 +349,8 @@ public class TemplateDetection {
 				/*
 				 * set new variable name
 				 */
-				entry.setValueOrVariable(new VariableParam(variable));
+				entry.setValueOrVariable(factory.getEntryFactory()
+						.newVariableParam(variable));
 				/*
 				 * store variable name
 				 */
@@ -501,7 +502,8 @@ public class TemplateDetection {
 				/*
 				 * set new variable name
 				 */
-				entry.setTopicOrVariable(new VariableParam(variable));
+				entry.setTopicOrVariable(new ParamFactory()
+						.newVariableParam(variable));
 				/*
 				 * store variable name
 				 */

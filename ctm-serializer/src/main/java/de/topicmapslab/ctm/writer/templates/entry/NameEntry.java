@@ -289,7 +289,7 @@ public class NameEntry extends ScopedEntry {
 		/*
 		 * generate variable name
 		 */
-		String variable = "$name";
+		String variable = "name";
 		/*
 		 * generate scope entry
 		 */
@@ -328,7 +328,7 @@ public class NameEntry extends ScopedEntry {
 		for (Variant variant : name.getVariants()) {
 			VariantEntry v = VariantEntry.buildFromConstruct(writer, variant);
 			v
-					.setValueOrVariable(factory.newVariableParam("$variant"
+					.setValueOrVariable(factory.newVariableParam("variant"
 							+ index++));
 			entry.add(v);
 		}
