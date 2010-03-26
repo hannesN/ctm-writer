@@ -24,6 +24,7 @@ import de.topicmapslab.ctm.writer.core.serializer.OccurrenceSerializer;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.ScopedEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
@@ -306,13 +307,17 @@ public class OccurrenceEntry extends ScopedEntry {
 	public static OccurrenceEntry buildFromConstruct(
 			final CTMTopicMapWriter writer, final Occurrence occurrence)
 			throws SerializerException {
+		/*
+		 * parameter factory
+		 */
+		ParamFactory factory = new ParamFactory();
+		/*
+		 * the type
+		 */
 		Topic type = occurrence.getType();
 		/*
 		 * generate variable name
 		 */
-		// String variable = "$"
-		// + writer.getCtmIdentity().getMainIdentifier(
-		// writer.getProperties(), type);
 		String variable = "$occ";
 		/*
 		 * set CTM identity of data-type
@@ -326,7 +331,7 @@ public class OccurrenceEntry extends ScopedEntry {
 		if (!occurrence.getScope().isEmpty()) {
 			List<IEntryParam> params = new LinkedList<IEntryParam>();
 			for (Topic theme : occurrence.getScope()) {
-				params.add(new TopicTypeParam(theme));
+				params.add(factory.newTopicTypeParam(theme));
 			}
 			scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(
 					params.toArray(new IEntryParam[0]));
@@ -339,14 +344,15 @@ public class OccurrenceEntry extends ScopedEntry {
 		if (occurrence.getReifier() != null) {
 			reifierEntry = writer.getFactory().getEntryFactory()
 					.newReifierEntry(
-							new TopicTypeParam(occurrence.getReifier()));
+							factory.newTopicTypeParam(occurrence.getReifier()));
 		}
 
 		/*
 		 * create new occurrence-entry
 		 */
-		OccurrenceEntry entry = new OccurrenceEntry(writer, new VariableParam(
-				variable), new TopicTypeParam(type), datatype);
+		OccurrenceEntry entry = new OccurrenceEntry(writer, factory
+				.newVariableParam(variable), factory.newTopicTypeParam(type),
+				datatype);
 		entry.setReifierEntry(reifierEntry);
 		entry.setScopeEntry(scopeEntry);
 		return entry;

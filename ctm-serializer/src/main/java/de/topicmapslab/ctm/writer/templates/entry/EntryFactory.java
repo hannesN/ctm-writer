@@ -5,6 +5,7 @@ import org.tmapi.core.Topic;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
+import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
 
 /**
  * Factory class to create new entries for existing templates.
@@ -20,6 +21,11 @@ public class EntryFactory {
 	private final CTMTopicMapWriter writer;
 
 	/**
+	 * the parameter factory
+	 */
+	private final ParamFactory factory;
+
+	/**
 	 * constructor
 	 * 
 	 * @param writer
@@ -27,6 +33,7 @@ public class EntryFactory {
 	 */
 	public EntryFactory(CTMTopicMapWriter writer) {
 		this.writer = writer;
+		this.factory = new ParamFactory();
 	}
 
 	/**
@@ -187,5 +194,51 @@ public class EntryFactory {
 	 */
 	public TopicEntry newTopicEntry(IEntryParam param) {
 		return new TopicEntry(param);
+	}
+
+	/**
+	 * Create a new entry parameter representing a value as variable. The '$'
+	 * prefix will added automatically.
+	 * 
+	 * @param name
+	 *            the variable name without '$'
+	 * @return the created parameter
+	 */
+	public IEntryParam newVariableParam(final String name) {
+		return factory.newVariableParam(name);
+	}
+
+	/**
+	 * Create a new entry parameter representing a value as wildcard. The '?'
+	 * prefix will added automatically.
+	 * 
+	 * @param name
+	 *            the variable name without '?'
+	 * @return the created parameter
+	 */
+	public IEntryParam newWildcardParam(final String name) {
+		return factory.newWildcardParam(name);
+	}
+
+	/**
+	 * Create a new entry parameter representing a value as literal.
+	 * 
+	 * @param value
+	 *            the value
+	 * @return the created parameter
+	 */
+	public IEntryParam newValueParam(final String value) {
+		return factory.newValueParam(value);
+	}
+
+	/**
+	 * Create a new entry parameter representing a value as topic type item.
+	 * 
+	 * @param type
+	 *            the topic type representing the value parameter
+	 * @return the created parameter
+	 */
+	public IEntryParam newTopicTypeParam(final Topic type) {
+		return factory.newTopicTypeParam(type);
 	}
 }

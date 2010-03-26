@@ -6,7 +6,7 @@ public class TopicTypeParam implements IEntryParam {
 
 	private final Topic topic;
 
-	public TopicTypeParam(final Topic topic) {
+	protected TopicTypeParam(final Topic topic) {
 		this.topic = topic;
 	}
 
