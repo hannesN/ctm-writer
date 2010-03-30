@@ -1,0 +1,8 @@
+== Scope ==
+
+The Compact Topic Maps ( CTM ) is a text-based representation of a topic map and describes a standardized interchange format of topic maps, similar to XTM. The syntax is designed in a human-readable way and represents every information items and any relationships between items modeled by the topic maps data model ( TMDM ).
+
+A community project, called TMAPIx, wants to provide additional features on top of the core TMAPI functions, like realizing some import or export functionality supporting XTM or CTM. This efforts are designed in a similar way to TMAPI, as should be independent of a specific implementation and only operates on core interfaces of the TMAPI.
+
+This implementation of a CTM Writer provides the core functionality of exporting every topic map to CTM. 
+ 

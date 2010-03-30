@@ -1,0 +1,440 @@
+=== control template exporter ===
+
+Sometime it would be necessary to disable the export of specific templates, because they are already included by imported files or they are predefined by any ontology. To realize that the topic map writer properties can be used to define a set of templates which are restricted to export. A template will be identified by its name.
+
+-----------------------------------
+1:	final String name = "my-restricted-template";
+2:	writer.getProperties().addRestrictionForTemplateExport(name);
+-----------------------------------
+
+===================================
+In line 1 we define a string instance containing only the name of the template we try to restrict for the exporter. To define a restriction for the exporter we use the name as parameter of the method 'addRestrictionForTemplateExport' provided by the topic map writer properties. After calling this method, the template with this never will never export by the current writer instance.
+===================================
+
+=== define templates ===
+
+The next step will be more complicated than the last one. We want to define our own template definitions, which should be used during the exporting process. There are two possibilities to define templates - *define by entries* and *define by CTM*. 
+
+==== define by entries ====
+
+One possibility defining templates is to create a new Template instance and add some entries representing the content of the template, as we will see in the next chapters. At first we have to create a new instance of a template with a given name.
+
+--------------------------------------
+1:	/*
+2:	 * create template with the name "myTemplate"
+3:	 */
+4:	final String templateName = "myTemplate";
+5:	Template template = writer.getFactory().newTemplate(templateName);
+6:	/*
+7:	 * add template to CTM writer
+8:	 */
+9:	writer.addTemplate(template);		
+--------------------------------------
+
+=====================================
+Because of the clear arrangement, we split the name definition and the template definition, but of course it will be possible to do in one step. In line 4 we create a new string and set them to the value "myTemplate". In the 5th line we use the string variable to create a new template instance using the factory provided by the writer itselfs and add them to the CTM writer in line 9. The given name will be used in the CTM file.
+=====================================
+
+The code snippet looks very simple, because it only creates an empty template and add them to the CTM writer, but let us see the generated CTM content.
+
+------------------------------------
+1:	def myTemplate ()
+2:		# empty
+3:	end
+------------------------------------
+
+====================================
+As you can see in the first line, the given name are used as a template identification and because of missing entries the template is empty.
+====================================
+
+The possible entries are distinguish from each other by their representing ontology and can contain variables or constants as a value.
+
+===== define a type entry =====
+
+Type entries representing the *type-instance-association* of the TMDM. The value of this template has to be an identifier of specific topic type or a variable.
+
+--------------------------------------
+1:	/*
+2:	 * read the topic type from the topic map
+3:	 */
+4:	Locator locator = topicMap.createLocator("http://psi.ontopedia.net/Composer");
+5:	Topic type = topicMap.getTopicBySubjectIdentifier(locator);
+6:	/*
+7:	 * create type entry with the specific type
+8:	 */
+9:	IEntryParam p = writer.getFactory().getEntryFactory().newTopicTypeParam(type);
+10:	IsInstanceOfEntry entry = writer.getFactory().getEntryFactory().newIsInstanceOfEntry(p);
+11:	/*
+12:	 * add entry to template
+13:	 */
+14:	template.add(entry);
+--------------------------------------
+
+======================================
+At first we will have to extract the topic type from our topic map as the essential parameter of the entry. In line 4 and 5 we use method of the TMAPI to extract a topic representing our type information. In line 9 we create a new parameter entry representing the given topic type as value of the entry parameters. The parameter is used in line 10 to create a new instance of *IsInstanceOfEntry* which represent the type entry. The entry will be created by a factory class provided by the template-factory. At last step we add the new entry to our template, as you can see in line 14.
+======================================
+
+After defining the new entry we want to check the CTM output.
+
+--------------------------------------
+1:	def myTemplate ($topic)
+2:		 $topic
+3:			 isa composer.
+4:	end
+--------------------------------------
+
+======================================
+As you can see in line 1 and 2 the template processor create a new variable *$topic* representing the topic using our template by invocation. In line 3 we can see the output of our new entry. The keyword *isa* symbolize a type-instance-association and the identifier *composer* was generated by internal processor to represent the given type *http://psi.ontopedia.net/Composer*.
+======================================
+
+===== define a super-type entry =====
+
+Super-type entries representing the *supertype-subtype-association* of the TMDM. The value of this template has to be an identifier of specific topic supertype or a variable.
+
+--------------------------------------
+1:	/*
+2:	 * read the topic type from the topic map
+3:	 */
+4:	Locator locator = topicMap.createLocator("http://psi.ontopedia.net/Musician");
+5:	Topic supertype = topicMap.getTopicBySubjectIdentifier(locator);
+6:	/*
+7:	 * create type entry with the specific supertype
+8:	 */
+9:	IEntryParam p = writer.getFactory().getEntryFactory().newTopicTypeParam(supertype);
+10:	AKindOfEntry entry = writer.getFactory().getEntryFactory().newAKindOfEntry(p);
+11:	/*
+12:	 * add entry to template
+13:	 */
+14:	template.add(entry);
+--------------------------------------
+
+======================================
+At first we will have to extract the topic type from our topic map as the essential parameter of the entry. We use the the TMAPI methods to find the desired topic type representing the supertype, as you can see in line 4 and 5. In line 9 we create a new parameter entry representing the given topic type as value of the entry parameters. The parameter is used in line 10 to create a new instance of *AKindOfEntry* which represent the type entry. At last step we add the new entry to our template.
+======================================
+
+After defining the new entry we want to check the CTM output.
+
+--------------------------------------
+1:	def myTemplate ($topic)
+2:		 $topic
+3:			 ako musician.
+4:	end
+--------------------------------------
+
+======================================
+As you can see in line 1 and 2 the template processor create a new variable *$topic* representing the topic using our template by invocation. In line 3 we can see the output of our new entry. The keyword *ako* symbolize a supertype-subtype-association and the identifier *musician* was generated by internal processor to represent the given type *http://psi.ontopedia.net/Musician*.
+======================================
+
+[[name_entry]]
+===== define a name entry =====
+
+A name entry only represent a name item of a topic item. Name entries are more complex than type or supertype entries, because the number of arguments are higher, but most of them are optional and can be let out. The only non-optional parameter is the identifier information given by a variable name or a string. Name entries also can specify the type of the name, which will be represented by a topic type, as default the *default-name-type* of the TMDM will be used. The last parameter can be used to define some scoping information by a number of given themes or variables. 
+
+---------------------------------------
+1:	/*
+2:	 * read the topic type of scope entry from the topic map
+3:	 */
+4:	Locator locator = topicMap.createLocator("http://psi.ontopedia.net/short_name");
+5:	Topic shortName = topicMap.getTopicBySubjectIdentifier(locator);
+6:	/*
+7:	 * create new scope entry
+8:	 */
+9:	IEntryParam p = writer.getFactory().getEntryFactory().newTopicTypeParam(shortName);
+10:	ScopeEntry scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(p);
+11:	/*
+12:	 * create new name entry
+13:	 */
+14:	final String variable = "name";
+15:	IEntryParam p2 = writer.getFactory().getEntryFactory().newVariableParam(variable);
+16:	NameEntry entry = writer.getFactory().getEntryFactory().newNameEntry(p2);
+17:	entry.setScopeEntry(scopeEntry);
+18:	/*
+19:	 * add entry to template
+20:	 */
+21:	template.add(entry);
+---------------------------------------
+
+=======================================
+The code snippet show a small and simple example, how to create a name entry. In the first lines ( 4 and 5 ) the TMAPI methods are used to extract a theme represented by a topic item form the topic map. The extracted theme are used in line 9 to create a new parameter used as parameter of the new instance of *ScopeEntry* which represents the scope information of our name entry. The real name entry are instantiated in line 16 with the value information specified by the variable parameter created in line 15 using the literal *name*. The prefix will be added automatically.  In line 17 we use the setter-method to include a scoping constraint to our name entry definition. Like all entries the last necessary step is adding the entry to a template.
+=======================================
+
+After serialization let us take a look at the serialized CTM pattern.
+
+---------------------------------------
+1:	def myTemplate ($topic,  $name)
+2:		 $topic
+3:			 -  $name @short-name.
+4:	end
+---------------------------------------
+
+=======================================
+Line 3 contains the exported name entry symbolized by the hyphen at the beginning. The scope information are symbolized by *@* and a list of themes identified by there topic identity. 
+=======================================
+
+===== define an occurrence entry =====
+
+The TMDM differs between names and occurrences as characteristic informations of a topic, because of that CTM also support two different patterns to define this, so we take a look at occurrence entries. The definition of occurrence entries are similar to name entries. The supported parameters are nearly the same, like the identifier or value parameter, the type parameter and the scope parameter, but occurrence entries additionally supporting some datatype information representing the datatype of the given value. Most of the parameters are optional two except the type and the value or identifier parameter.
+
+---------------------------------------
+1:	/*
+2:	 * read the topic type of scope entry from the topic map
+3:	 */
+4:	Locator locator = topicMap.createLocator("http://psi.ontopedia.net/Web");
+5:	Topic web = topicMap.getTopicBySubjectIdentifier(locator);
+6:	/*
+7:	 * create new scope entry
+8:	 */
+9:	IEntryParam p = writer.getFactory().getEntryFactory().newTopicTypeParam(web);
+10:	ScopeEntry scopeEntry = writer.getFactory().getEntryFactory().newScopeEntry(p);
+11:	/*
+12:	 * read the topic type of occurrence entry from the topic map
+13:	 */
+14:	locator = topicMap.createLocator("http://psi.ontopedia.net/webpage");
+15:	Topic type = topicMap.getTopicBySubjectIdentifier(locator);
+16:	/*
+17:	 * create new occurrence entry
+18:	 */
+19:	final String variable = "webpage";
+20:	IEntryParam p2 = writer.getFactory().getEntryFactory().newVariableParam(variable);
+21:	IEntryParam p3 = writer.getFactory().getEntryFactory().newTopicTypeParam(type);
+22:	OccurrenceEntry entry = writer.getFactory().getEntryFactory().newOccurrenceEntry(p2,p3);
+23:	entry.setScopeEntry(scopeEntry);
+24:	/*
+25:	 * add entry to template
+26:	 */
+27:	template.add(entry);
+---------------------------------------
+
+=======================================
+In the code snippet we show a easy way to define our own template with exactly one occurrence entry. In line 4 and 5 we use TMAPI methods to get the topic type of our theme using in context of scoping information in line 9. In the lines 14 and 15 we use TMAPI against to get the topic type of our new occurrence. Now we can create the occurrence entry, as you can see in line 22 using the type parameter of line 20 and the variable parameter of line 21. In line 23 we use the setter method to include the scoping constraint using the scope entry of line 10. After all we have to add the entry to the template.   
+=======================================
+
+---------------------------------------
+1:	def myTemplate ($topic,  $webpage)
+2:		 $topic
+3:			 webpage :  $webpage @web.
+4:	end
+---------------------------------------
+
+=======================================
+The 3. line containing our new occurrence entry. The pattern starts with the topic identity of the occurrence type followed by the colon. The scope information are symbolized by *@* and a list of themes identified by there topic identity.
+=======================================
+
+===== define an association entry =====
+
+One of the core features and benefits of a topic map are associations to model relations between topic items. Templates also support the modeling of association constraints as association entries. The TMDM required that an Association is typed, because of that we have to define a topic type as the type of association item representing by the association entry. The second parameter an entry is needed are a set of role entries defining a set of parameterized role constraints. Each role constraint has to define a topic type as the type of the role and a player, which can be variable or a constant topic playing this role.
+
+---------------------------------------
+1:	/*
+2:	 * create role entry for role-type composer
+3:	 */
+4:	Locator locatorRTA = topicMap.createLocator("http://psi.ontopedia.net/Composer");
+5:	Topic typeRTA = topicMap.getTopicBySubjectIdentifier(locatorRTA);
+6:	IEntryParm p = writer.getFactory().getEntryFactory().newVariableEntry("composer");
+7:	RoleEntry roleEntryA = writer.getFactory().getEntryFactory().newRoleEntry(typeRTA, p);		
+8:	/*
+9:	 * create role entry for role-type work
+10:	 */
+11:	Locator locatorRTB = topicMap.createLocator("http://psi.ontopedia.net/Work");
+12:	Topic typeRTB = topicMap.getTopicBySubjectIdentifier(locatorRTB);
+13:	IEntryParm p2 = writer.getFactory().getEntryFactory().newVariableEntry("work");
+14:	RoleEntry roleEntryB = writer.getFactory().getEntryFactory().newRoleEntry(typeRTB, p2);
+15:	/*
+16:	 * create association entry by type and role entries
+17:	 */
+18:	Locator locator = topicMap.createLocator("http://psi.ontopedia.net/composed_by");
+19:	Topic type = topicMap.getTopicBySubjectIdentifier(locator);				
+20:	AssociationEntry entry = writer.getFactory().getEntryFactory().newAssociationEntry(type,roleEntryA, roleEntryB);
+21:	/*
+22:	 * add to template
+23:	 */
+24:	template.add(entry);
+---------------------------------------
+
+=======================================
+The code snippet first defines two role entries between line 7 and 14. At first we have to extract the role type by using TMAPI methods. The extracted type is used to create a new type parameter in line 6 or 13. After the instantiation of all role entries, we can create our new association entry. As described we have to extract the topic type as type information of our association item, so we use TMAPI in line 18ff. After all we have to add the new entry to our template.
+
+*Note:* If you use association entries and topic entries in the same template, that could be problematic. 
+=======================================
+
+---------------------------------------
+1:	def myTemplate ($composer,  $work)
+2:		composed-by (
+3:		 	 work : $work,
+4:		 	 composer : $composer
+5:		)
+6:	end
+---------------------------------------
+
+=======================================
+This output are generated by our template definition. In line 2 we see the association type represented by its topic identity. The round brackets symbolize the definition of an association and containing a comma separated list of role-player-constraints. Each role-player constraint are symbolized by one role entry and we can see the result of our two entries in line 3 and 4. Please note that in this case no default variable *$topic* will be created, because the template only containing association entries.
+=======================================
+
+===== define a template-invocation entry =====
+
+The last possible entry type are template entries. Template entries realize the modeling of template-invocation as a part of templates. Of course we have to define the template, which should be called by the invocation as a parameter of the new entry.
+
+---------------------------------------
+1:	/*
+2:	 * create internal template
+3:	 */
+4:	Template invoc = writer.getFactory().newTemplate("template-invoc");
+5:	/*
+6:	 * add entries to internal template
+7:	 */
+8:	NameEntry entry = writer.getFactory().getEntryFactory()newNameEntry(new VariableParam("$name"));
+9:	invoc.add(entry);
+10:	/*
+11:	 * create template entry
+12:	 */
+13:	TemplateEntry templateEntry = writer.getFactory().getEntryFactory().newTemplateEntry(template, entry.getParameter().getCTMRepresentation());
+14:	/*
+15:	 * add to template
+16:	 */
+17:	template.add(templateEntry);
+---------------------------------------
+
+=======================================
+In code snippet replacing the definition of a name entry by using a template-invocation. In line 4 we create a template instance representing the template we called by invocation. In line 8 and 9 we create a name entry in the same way we see in the example <<name_entry>>.
+The new template is used to create a new template entry in line 13. The second argument of the constructor is a list of all containing variables. After all we have to add the entry to the template. 
+=======================================
+
+---------------------------------------
+1:	def myTemplate ($topic,  $name)
+2:		template-invoc($topic, $name)
+3:	end
+---------------------------------------
+
+=======================================
+Instead of containing a name entry the exported CTM pattern make use of invocations to swap out the name entry for reuse by other templates. In line 3 we see the template-invocation pattern containing the tempalte name *template-invoc* and a list of arguments represented by the template variables. As we can see the default variable *$topic* pass to the template invocation.
+=======================================
+
+==== usind wildcards ====
+
+In this case we want to create a template like the following one.
+
+-------------------------------------------
+1:	def overlaps ($tt1,  $tt2)
+2:		?c  isa tmcl:overlap-declaration .
+3:
+4:		tmcl:overlaps ( tmcl:allowed : $tt1, tmcl:allows : ?c )
+5:		tmcl:overlaps (	tmcl:allowed : $tt2, tmcl:allows : ?c )
+6:	end
+-------------------------------------------
+
+In this we can see the wildcard '?c' is used as topic identifier of the embed topic defined in line 2. To define a embed topic using a wildcard as identifier you has to create a new 'TopicEntry' for the specific template with a wildcard parameter definition as you can see in the following code snippet.
+
+-------------------------------------------
+1:	TemplateFactory factory = writer.getFactory();
+2:	TopicEntry t1 = factory.getEntryFactory().newTopicEntry(new WildcardParam("?c"));
+-------------------------------------------
+
+===========================================
+We use the factory provided by the ctm topic map writer instance to create a new topic-entry in line 2. To realize that we also has to use the entry factory as a enclosure instance of template-factory provided by the 'getEntryFactory' method. The only argument which is expected by the factory method 'newTopicEntry' will be a parameter defining the topic identifier used as first part of the topic block definition. By using a wildcard-parameter instance the topic identifier will be represented by the wildcard given as string-argument.
+===========================================
+
+In the next steps we have to define two association entry using the same wildcard as we can see in the upper example.
+
+---------------------------------------------
+1:	/*
+2:	 * create the role constraints for association entry
+3:	 */
+4:	 RoleEntry r3 = factory.getEntryFactory().newRoleEntry(allowsType, new WildcardParam("?c"));
+5:	 RoleEntry r4 = factory.getEntryFactory().newRoleEntry(allowedType, new VariableParam("$tt2"));
+6:	 /*
+7:	 * create association entry
+8:	 */
+9:	 AssociationEntry a2 = factory.getEntryFactory().newAssociationEntry( overlapsType, r3, r4);
+---------------------------------------------
+
+============================================
+The code snippet try to explain how it is possible to use wildcards as role-players in the context of an association entry. In line 4 we create a new role-entry instance representing the role item with the role type specified by the given topic type 'allowsType'. The player constraint is defined by using a wildcard parameter in the same way, like we see in the previous example. The second role definition in line 5, only use a variable parameter for specifying the role player. The last step will be the creation of the association entry itself, using the both role entries as arguments.
+============================================
+
+The next code shows the whole realization of our usecase.
+
+--------------------------------------------
+1:	/*
+2:	 * the topic map to serialize
+3:	 */
+4:	 TopicMap map ; // getting the topic map from anywhere	
+5:	 
+6:	 /*
+7:	 * define topic types used in template context
+8:	 */
+9:	 Topic overlapDecType, overlapsType, allowsType, allowedType; // instances has to set to the topic types needed
+10:	
+11:	 /*
+12:	 * create the topic map writer
+13:	 */
+14:	 CTMTopicMapWriter writer = new CTMTopicMapWriter(System.out, "http://code.google.com/p/ctm-writer/");
+15:	 /*
+16:	 * get the template factory
+17:	 */
+18:	 TemplateFactory factory = writer.getFactory();
+19:	
+20:	 /*
+21:	 * create the template by name
+22:	 */
+23:	 Template t = factory.newTemplate("overlaps");
+24:	
+25:	 /*
+26:	 * create entry representing the embed topic definition
+27:	 */
+28:	 TopicEntry t1 = factory.getEntryFactory().newTopicEntry( new WildcardParam("?c"));
+29:	 /*
+30:	 * add the is-instance-of entry
+31:	 */
+32:	 t1.add(factory.getEntryFactory().newIsInstanceOfEntry( new TopicTypeParam(overlapDecType)));
+33:	 /*
+34:	 * add entry to template
+35:	 */
+36:	 t.add(t1);	
+37:	 /*
+38:	 * create the role constraints for association entry
+39:	 */
+40:	 RoleEntry r1 = factory.getEntryFactory().newRoleEntry(allowsType, new WildcardParam("?c"));
+41:	 RoleEntry r2 = factory.getEntryFactory().newRoleEntry(allowedType, new VariableParam("$tt1"));
+42:	 /*
+43:	 * create association entry
+44:	 */
+45:	 AssociationEntry a1 = factory.getEntryFactory().newAssociationEntry(overlapsType, r1, r2);
+46:	 /*
+47:	 * add to template
+48:	 */
+49:	 t.add(a1);	
+50:	 /*
+51:	 * create the role constraints for association entry
+52:	 */
+53:	 RoleEntry r3 = factory.getEntryFactory().newRoleEntry(allowsType, new WildcardParam("?c"));
+54:	 RoleEntry r4 = factory.getEntryFactory().newRoleEntry(allowedType, new VariableParam("$tt2"));
+55:	 /*
+56:	 * create association entry
+57:	 */
+58:	 AssociationEntry a2 = factory.getEntryFactory().newAssociationEntry( overlapsType, r3, r4);
+59:	 /*
+60:	 * add to template
+61:	 */
+62:	 t.add(a2);	
+63:	 /*
+64:	 * add the template to writer context
+65:	 */
+66:	 writer.addTemplate(t);
+--------------------------------------------
+
+==== define by CTM ====
+A more comfortable way to create a template by importing a CTM file containing the CTM template definition. The template definitions look like the exported templates of the CTM writer. The drawback of this alternative is the missing possibility to control the definition process.
+---------------------------------------
+1:	/*
+2:	 * the file containing template definitions
+3:	 */
+4:	final File file = new File("template.ctm");
+5:	/*
+6:	 * read all templates from file
+7:	 */
+8:	Set<Template> templates = Template.fromCTM(file);
+---------------------------------------
+	
+=======================================
+In line 4 we create a new file instance pointing to the file containing the CTM template definitions. The next step is to call the static method of the *Template* class to parse the CTM file and extract the containing template definitions. Because of the fact that each CTM file can contain more than one template, a set of templates will be returned. 
+=======================================
