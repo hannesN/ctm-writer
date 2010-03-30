@@ -143,7 +143,6 @@ public class TemplateEntry implements IEntry {
 		return false;
 	}
 
-	@Override
 	public List<String> getVariables() {
 		List<String> variables = new LinkedList<String>();
 		for (IEntry entry : template.getEntries()) {

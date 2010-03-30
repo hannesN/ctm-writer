@@ -8,7 +8,6 @@ public class WildcardParam implements IEntryParam {
 		this.name = "?" + name;
 	}
 
-	@Override
 	public String getCTMRepresentation() {
 		return name;
 	}

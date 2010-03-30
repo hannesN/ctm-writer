@@ -10,7 +10,6 @@ public class TopicTypeParam implements IEntryParam {
 		this.topic = topic;
 	}
 
-	@Override
 	public String getCTMRepresentation() {
 		return topic.toString();
 	}

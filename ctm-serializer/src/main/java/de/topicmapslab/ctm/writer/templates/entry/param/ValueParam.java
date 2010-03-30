@@ -8,7 +8,6 @@ public class ValueParam implements IEntryParam {
 		this.value = value;
 	}
 	
-	@Override
 	public String getCTMRepresentation() {
 		return value;
 	}

@@ -57,7 +57,6 @@ public class TopicEntry extends EntryImpl {
 		return true;
 	}
 
-	@Override
 	public void serialize(CTMBuffer buffer) throws SerializerException {
 		CTMBuffer b = new CTMBuffer();
 		b.append(getParameter().getCTMRepresentation(), CTMTokens.WHITESPACE);

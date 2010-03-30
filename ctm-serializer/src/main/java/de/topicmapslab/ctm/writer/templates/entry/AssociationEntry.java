@@ -300,7 +300,6 @@ public class AssociationEntry implements IEntry {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public List<String> getVariables() {
 		List<String> variables = new LinkedList<String>();
 		for (RoleEntry entry : roleEntries) {

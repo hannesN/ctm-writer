@@ -17,6 +17,7 @@ Export-Package: .,
  de.topicmapslab.ctm.writer.templates.autodetection,
  de.topicmapslab.ctm.writer.templates.entry,
  de.topicmapslab.ctm.writer.templates.entry.base,
+ de.topicmapslab.ctm.writer.templates.entry.param,
  de.topicmapslab.ctm.writer.utility
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.tmapi;bundle-version="2.0.1",

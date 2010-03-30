@@ -142,7 +142,6 @@ public abstract class EntryImpl implements IEntry {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public List<String> getVariables() {
 		List<String> variables = new LinkedList<String>();
 		if (getParameter() instanceof VariableParam) {
