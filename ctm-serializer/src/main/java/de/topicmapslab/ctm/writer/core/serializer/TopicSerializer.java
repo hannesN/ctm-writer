@@ -144,9 +144,10 @@ public class TopicSerializer implements ISerializer<Topic> {
 			}
 			String identity = writer.getCtmIdentity().getPrefixedIdentity(
 					locator);
+			identity = writer.getCtmIdentity()
+			.getEscapedCTMIdentity(identity, locator);
 			if (!identity.equalsIgnoreCase(mainIdentifier)) {
-				buffer.appendTailLine(true, TABULATOR, writer.getCtmIdentity()
-						.getEscapedCTMIdentity(identity, locator));
+				buffer.appendTailLine(true, TABULATOR, identity);
 			}
 		}
 
@@ -159,10 +160,10 @@ public class TopicSerializer implements ISerializer<Topic> {
 			}
 			String identity = writer.getCtmIdentity().getPrefixedIdentity(
 					locator);
+			identity = writer.getCtmIdentity().getEscapedCTMIdentity(identity,
+					locator);
 			if (!mainIdentifier.contains(identity)) {
-				buffer.appendTailLine(true, TABULATOR, SUBJECTLOCATOR, writer
-						.getCtmIdentity().getEscapedCTMIdentity(identity,
-								locator));
+				buffer.appendTailLine(true, TABULATOR, SUBJECTLOCATOR, identity);
 			}
 		}
 
