@@ -49,12 +49,12 @@ public class LittleExportImportTestCase extends TestCase {
 		topicMap = topicMapSystem
 				.createTopicMap("http://de.topicmapslab/tmql4j/tests/opera-ltm");
 
-		Topic reifier = topicMap.createTopicByItemIdentifier(topicMap
+		Topic reifier = topicMap.createTopicBySubjectIdentifier(topicMap
 				.createLocator("http://reifier"));
 		topicMap.setReifier(reifier);
 
 		Topic occType = topicMap.createTopic();
-		occType.addItemIdentifier(topicMap
+		occType.addSubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/occ-type"));
 
 		Topic typeA = topicMap.createTopic();
@@ -65,21 +65,21 @@ public class LittleExportImportTestCase extends TestCase {
 		typeA.addSubjectLocator(topicMap
 				.createLocator("http://de.topicmapslab/sl-type"));
 
-		Topic theme = topicMap.createTopicByItemIdentifier(topicMap
+		Topic theme = topicMap.createTopicBySubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/theme"));
-		Topic theme2 = topicMap.createTopicByItemIdentifier(topicMap
+		Topic theme2 = topicMap.createTopicBySubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/theme2"));
 
-		Topic instanceA = topicMap.createTopicByItemIdentifier(topicMap
+		Topic instanceA = topicMap.createTopicBySubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/instanceA"));
-		instanceA.addItemIdentifier(topicMap
+		instanceA.addSubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/instanceA"));
 		instanceA.addSubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/si-instanceA"));
 		instanceA.addSubjectLocator(topicMap
 				.createLocator("http://de.topicmapslab/sl-instanceA"));
 		instanceA.addType(typeA);
-		Topic reifierOcc = topicMap.createTopicByItemIdentifier(topicMap
+		Topic reifierOcc = topicMap.createTopicBySubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/reifier-occ"));
 		Occurrence occ = instanceA
 				.createOccurrence(
@@ -104,12 +104,12 @@ public class LittleExportImportTestCase extends TestCase {
 						theme);
 		occ.setReifier(reifierOcc);
 
-		Topic reifierName = topicMap.createTopicByItemIdentifier(topicMap
+		Topic reifierName = topicMap.createTopicBySubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/reifier-name"));
 		Name name = instanceA.createName("name", theme, theme2);
 		name.setReifier(reifierName);
 
-		Topic reifierVariant = topicMap.createTopicByItemIdentifier(topicMap
+		Topic reifierVariant = topicMap.createTopicBySubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/reifier-variant"));
 		Name name2 = instanceA.createName("name2", new Topic[0]);
 		Variant v = name2
@@ -121,19 +121,19 @@ public class LittleExportImportTestCase extends TestCase {
 		v.setReifier(reifierVariant);
 
 		Topic roleA = topicMap.createTopic();
-		roleA.addItemIdentifier(topicMap
+		roleA.addSubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/role-type-a"));
 
 		Topic playerA = topicMap.createTopic();
-		playerA.addItemIdentifier(topicMap
+		playerA.addSubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/player-a"));
 
 		Topic roleB = topicMap.createTopic();
-		roleB.addItemIdentifier(topicMap
+		roleB.addSubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/role-type-b"));
 
 		Topic playerB = topicMap.createTopic();
-		playerB.addItemIdentifier(topicMap
+		playerB.addSubjectIdentifier(topicMap
 				.createLocator("http://de.topicmapslab/player-b"));
 
 		Association associationA = topicMap.createAssociation(typeA,
@@ -151,12 +151,12 @@ public class LittleExportImportTestCase extends TestCase {
 	}
 
 	public void testExportImport() throws Exception {
-		File file = new File("src/test/resources/ctm.ctm");
+		File file = new File("src/test/resources/ctm2.ctm");
 		if (!file.exists()) {
 			file.createNewFile();
 		}
-		final String line = "writer.features.export.itemidentifier = true, "
-				+ "writer.features.prefixDetection.enabled = true, "
+		final String line = "writer.features.export.itemidentifier = false, "
+				+ "writer.features.prefixDetection.enabled = false, "
 				+ "writer.features.templateDetection.enabled = false, "
 				+ "writer.features.templateDetection.topicTemplates = false , "
 				+ "writer.features.templateDetection.associationTemplates = false, "
