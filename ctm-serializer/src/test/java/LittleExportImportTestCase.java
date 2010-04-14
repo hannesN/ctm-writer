@@ -16,7 +16,7 @@ import org.tmapi.core.TopicMapSystem;
 import org.tmapi.core.TopicMapSystemFactory;
 import org.tmapi.core.Variant;
 
-import de.topicmapslab.ctm.writer.utility.TMDMIdentifier;
+import de.topicmapslab.java.tmdm.TmdmSubjectIdentifier;
 
 /** 
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
@@ -206,20 +206,21 @@ public class LittleExportImportTestCase extends TestCase {
 		TopicMap tm = topicMapSystem.createTopicMap("http://fallback-test");
 		Topic t = tm.createTopic();
 
-		Locator l = tm.createLocator(TMDMIdentifier.KIND_OF_TYPE);
+		Locator l = tm
+				.createLocator(TmdmSubjectIdentifier.TMDM_SUPERTYPE_SUBTYPE_ASSOCIATION);
 		Topic assType = tm.getTopicBySubjectIdentifier(l);
 		if (assType == null) {
 			assType = tm.createTopicBySubjectIdentifier(l);
 		}
 
 		Association a = tm.createAssociation(assType);
-		l = tm.createLocator(TMDMIdentifier.SUPERTYPE_ROLE);
+		l = tm.createLocator(TmdmSubjectIdentifier.TMDM_SUPERTYPE_ROLE_TYPE);
 		Topic supert = tm.getTopicBySubjectIdentifier(l);
 		if (supert == null) {
 			supert = tm.createTopicBySubjectIdentifier(l);
 		}
 		a.createRole(supert, t);
-		l = tm.createLocator(TMDMIdentifier.SUBTYPE_ROLE);
+		l = tm.createLocator(TmdmSubjectIdentifier.TMDM_SUBTYPE_ROLE_TYPE);
 		Topic subt = tm.getTopicBySubjectIdentifier(l);
 		if (subt == null) {
 			subt = tm.createTopicBySubjectIdentifier(l);

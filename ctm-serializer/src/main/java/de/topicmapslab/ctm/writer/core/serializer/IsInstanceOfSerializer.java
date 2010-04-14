@@ -10,9 +10,6 @@ package de.topicmapslab.ctm.writer.core.serializer;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.ISA;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
-import static de.topicmapslab.ctm.writer.utility.TMDMIdentifier.INSTANCE_OF_TYPE;
-import static de.topicmapslab.ctm.writer.utility.TMDMIdentifier.INSTANCE_ROLE;
-import static de.topicmapslab.ctm.writer.utility.TMDMIdentifier.TYPE_ROLE;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +24,7 @@ import org.tmapi.index.TypeInstanceIndex;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.java.tmdm.TmdmSubjectIdentifier;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -98,20 +96,22 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 		/*
 		 * get TMDM type-instance-association type
 		 */
-		Topic instanceOf = topicMap.getTopicBySubjectIdentifier(topicMap
-				.createLocator(INSTANCE_OF_TYPE));
+		Topic instanceOf = topicMap
+				.getTopicBySubjectIdentifier(topicMap
+						.createLocator(TmdmSubjectIdentifier.TMDM_TYPE_INSTANCE_ASSOCIATION_TYPE));
 
 		if (instanceOf != null) {
 			/*
 			 * get TMDM instance-role type
 			 */
-			Topic instanceRole = topicMap.getTopicBySubjectIdentifier(topicMap
-					.createLocator(INSTANCE_ROLE));
+			Topic instanceRole = topicMap
+					.getTopicBySubjectIdentifier(topicMap
+							.createLocator(TmdmSubjectIdentifier.TMDM_INSTANCE_ROLE_TYPE));
 			/*
 			 * get TMDM type-role type
 			 */
 			Topic typeRole = topicMap.getTopicBySubjectIdentifier(topicMap
-					.createLocator(TYPE_ROLE));
+					.createLocator(TmdmSubjectIdentifier.TMDM_TYPE_ROLE_TYPE));
 
 			/*
 			 * check if exists

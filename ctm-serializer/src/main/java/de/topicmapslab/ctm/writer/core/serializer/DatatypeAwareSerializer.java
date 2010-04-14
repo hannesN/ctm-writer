@@ -13,12 +13,12 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXBEGIN;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.QUOTE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TRIPPLEQUOTE;
-import static de.topicmapslab.ctm.writer.utility.XSDIdentifier.XSD_ANYURI;
-import static de.topicmapslab.ctm.writer.utility.XSDIdentifier.XSD_INTEGER;
-import static de.topicmapslab.ctm.writer.utility.XSDIdentifier.XSD_QANYURI;
-import static de.topicmapslab.ctm.writer.utility.XSDIdentifier.XSD_QINTEGER;
-import static de.topicmapslab.ctm.writer.utility.XSDIdentifier.XSD_QSTRING;
-import static de.topicmapslab.ctm.writer.utility.XSDIdentifier.XSD_STRING;
+import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_ANYURI;
+import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_INTEGER;
+import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_QANYURI;
+import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_QINTEGER;
+import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_QSTRING;
+import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_STRING;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -8,9 +8,6 @@
  */
 package de.topicmapslab.common.tools.prefix.core;
 
-import static de.topicmapslab.ctm.writer.utility.XSDIdentifier.XSD_BASE;
-import static de.topicmapslab.ctm.writer.utility.XSDIdentifier.XSD_QNAME;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,6 +25,7 @@ import de.topicmapslab.common.tools.collections.StringList;
 import de.topicmapslab.common.tools.exception.ToolRuntimeException;
 import de.topicmapslab.common.tools.prefix.model.IQnameProvider;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
+import de.topicmapslab.java.tmdm.XmlSchemeDatatypes;
 
 /**
  * Utility class to identify prefixes of a given {@link TopicMap}. This class
@@ -112,7 +110,7 @@ public class PrefixIdentifier {
 		/*
 		 * add XSD-data-type
 		 */
-		prefixes.put(XSD_QNAME, XSD_BASE);
+		prefixes.put(XmlSchemeDatatypes.XSD_QNAME, XmlSchemeDatatypes.XSD_BASE);
 		return prefixes;
 	}
 
@@ -218,17 +216,17 @@ public class PrefixIdentifier {
 			/*
 			 * split IRI of the locator to prefixes
 			 */
-			
+
 			String iri = locator.toExternalForm();
 			int indexHash = iri.lastIndexOf("#");
 			int indexSlash = iri.lastIndexOf("/");
-						
-			if ( indexHash > indexSlash ){
-				iri = iri.substring(0,indexHash+1);
-			}else if ( indexHash < indexSlash ){
-				iri = iri.substring(0,indexSlash+1);
+
+			if (indexHash > indexSlash) {
+				iri = iri.substring(0, indexHash + 1);
+			} else if (indexHash < indexSlash) {
+				iri = iri.substring(0, indexSlash + 1);
 			}
-			
+
 			/*
 			 * check if prefix is already known
 			 */
@@ -239,20 +237,20 @@ public class PrefixIdentifier {
 				count++;
 			}
 			candidates.put(iri, count);
-			
-//			PrefixerTokenizer tokenizer = new PrefixerTokenizer(locator);
-//			for (String candidate : tokenizer.getTokens()) {
-//				/*
-//				 * check if prefix is already known
-//				 */
-//				Integer count = candidates.get(candidate);
-//				if (count == null) {
-//					count = 1;
-//				} else {
-//					count++;
-//				}
-//				candidates.put(candidate, count);
-//			}
+
+			// PrefixerTokenizer tokenizer = new PrefixerTokenizer(locator);
+			// for (String candidate : tokenizer.getTokens()) {
+			// /*
+			// * check if prefix is already known
+			// */
+			// Integer count = candidates.get(candidate);
+			// if (count == null) {
+			// count = 1;
+			// } else {
+			// count++;
+			// }
+			// candidates.put(candidate, count);
+			// }
 		}
 
 		return candidates;

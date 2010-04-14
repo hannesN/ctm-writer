@@ -8,10 +8,6 @@
  */
 package de.topicmapslab.ctm.writer.utility;
 
-import static de.topicmapslab.ctm.writer.utility.TMDMIdentifier.KIND_OF_TYPE;
-import static de.topicmapslab.ctm.writer.utility.TMDMIdentifier.SUBTYPE_ROLE;
-import static de.topicmapslab.ctm.writer.utility.TMDMIdentifier.SUPERTYPE_ROLE;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +17,8 @@ import org.tmapi.core.Role;
 import org.tmapi.core.Topic;
 import org.tmapi.core.TopicMap;
 import org.tmapi.index.TypeInstanceIndex;
+
+import de.topicmapslab.java.tmdm.TmdmSubjectIdentifier;
 
 /**
  * Utility class to handle type hierarchy of topic maps
@@ -57,20 +55,23 @@ public class TypeHierarchyUtils {
 		/*
 		 * get supertype-subtype association type
 		 */
-		Topic kindOf = topicMap.getTopicBySubjectIdentifier(topicMap
-				.createLocator(KIND_OF_TYPE));
+		Topic kindOf = topicMap
+				.getTopicBySubjectIdentifier(topicMap
+						.createLocator(TmdmSubjectIdentifier.TMDM_SUPERTYPE_SUBTYPE_ASSOCIATION));
 
 		if (kindOf != null) {
 			/*
 			 * get subtype-role type
 			 */
-			Topic subtypeRole = topicMap.getTopicBySubjectIdentifier(topicMap
-					.createLocator(SUBTYPE_ROLE));
+			Topic subtypeRole = topicMap
+					.getTopicBySubjectIdentifier(topicMap
+							.createLocator(TmdmSubjectIdentifier.TMDM_SUBTYPE_ROLE_TYPE));
 			/*
 			 * get supertype-role type
 			 */
-			Topic supertypeRole = topicMap.getTopicBySubjectIdentifier(topicMap
-					.createLocator(SUPERTYPE_ROLE));
+			Topic supertypeRole = topicMap
+					.getTopicBySubjectIdentifier(topicMap
+							.createLocator(TmdmSubjectIdentifier.TMDM_SUPERTYPE_ROLE_TYPE));
 
 			/*
 			 * check if exists
