@@ -10,7 +10,6 @@ package de.topicmapslab.ctm.writer.utility;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXBEGIN;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
-import static de.topicmapslab.ctm.writer.utility.TMDMIdentifier.TMDM_IDENTIFIERS;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -26,6 +25,7 @@ import de.topicmapslab.ctm.writer.core.serializer.PrefixesSerializer;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMMainIdentifier.IdentifierType;
+import de.topicmapslab.java.tmdm.TmdmSubjectIdentifier;
 
 /**
  * Utility class to transform TMAPI identifier to CTM identifier
@@ -174,7 +174,8 @@ public class CTMIdentity {
 			/*
 			 * check if subject-identifier is a default TMDM identifier
 			 */
-			if (!TMDM_IDENTIFIERS.contains(locator.toExternalForm())) {
+			if (!TmdmSubjectIdentifier.isTmdmSubjectIdentifier(locator
+					.toExternalForm())) {
 				return new CTMMainIdentifier(prefixHandler, locator
 						.toExternalForm(), IdentifierType.SUBJECT_IDENTIFIER);
 			}

@@ -32,7 +32,7 @@
 	<repositories>
 		<repository>
 			<id>TML</id>
-			<url>http://maven.topicmapslab.de/third_party</url>
+			<url>http://maven.topicmapslab.de/public</url>
 		</repository>
 		<repository>
 			<id>Ontopia</id>
@@ -104,12 +104,17 @@
 			<version>5.0.1</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>de.topicmapslab</groupId>
+			<artifactId>java-tools</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 	</dependencies>
 	<distributionManagement>
 		<repository>
 			<id>topicmapslab</id>
 			<name>Topic Maps Lab Repositiory</name>
-			<url>scp://maven@topicmapslab.de/home/maven/webdir/maven.topicmapslab.de/public/third_party</url>
+			<url>scp://maven@topicmapslab.de/home/maven/webdir/maven.topicmapslab.de/public/public</url>
 		</repository>
 	</distributionManagement>
 </project>
