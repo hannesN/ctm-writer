@@ -41,47 +41,25 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class TopicSerializer implements ISerializer<Topic> {
 
 	/**
-	 * internal list of adaptive templates
-	 */
-	private final Set<Template> adaptiveTemplates;
-
-	/**
-	 * the parent topic map writer
-	 */
-	private final CTMTopicMapWriter writer;
-
-	/**
-	 * 
-	 * constructor, calling the
-	 * {@link TopicSerializer#TopicSerializer(CTMTopicMapWriter, Set)} with a
-	 * new {@link HashSet}
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
 	 * @param writer
-	 *            the parent topic map writer
-	 */
-	public TopicSerializer(CTMTopicMapWriter writer) {
-		this(writer, new HashSet<Template>());
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * @param writer
-	 *            the parent topic map writer
-	 * 
+	 *            the CTM writer
 	 * @param adaptiveTemplates
-	 *            a set of templates replacing parts of the topic block
+	 *            the template which can be used in combination with the given
+	 *            topic
+	 * @param topic
+	 *            the topic to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public TopicSerializer(CTMTopicMapWriter writer,
-			Set<Template> adaptiveTemplates) {
-		this.writer = writer;
-		this.adaptiveTemplates = adaptiveTemplates;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(Topic topic, CTMBuffer buffer)
+	public static boolean serialize(CTMTopicMapWriter writer,
+			Set<Template> adaptiveTemplates, Topic topic, CTMBuffer buffer)
 			throws SerializerException {
 
 		final String mainIdentifier = writer.getCtmIdentity()
@@ -95,43 +73,37 @@ public class TopicSerializer implements ISerializer<Topic> {
 		 */
 		Set<Object> affectedConstructs = new HashSet<Object>();
 		for (Template template : adaptiveTemplates) {
-			TemplateInvocationSerializer serializer = new TemplateInvocationSerializer(
-					template);
 			buffer.append(TABULATOR);
-			serializer.serialize(topic, buffer);
-			affectedConstructs.addAll(serializer.getAffectedConstructs());
+			affectedConstructs.addAll(TemplateInvocationSerializer.serialize(
+					template, topic, buffer));
 		}
 
 		/*
 		 * add type-instance-associations
 		 */
-		new IsInstanceOfSerializer(writer, affectedConstructs).serialize(topic,
+		IsInstanceOfSerializer.serialize(writer, affectedConstructs, topic,
 				buffer);
 
 		/*
 		 * add super-type-sub-type-associations
 		 */
-		new AKindOfSerializer(writer, affectedConstructs).serialize(topic,
-				buffer);
+		AKindOfSerializer.serialize(writer, affectedConstructs, topic, buffer);
 
 		/*
 		 * add name entries if not affected by template-invocations
 		 */
-		NameSerializer nameSerializer = new NameSerializer(writer);
 		for (Name name : topic.getNames()) {
 			if (!affectedConstructs.contains(name)) {
-				nameSerializer.serialize(name, buffer);
+				NameSerializer.serialize(writer, name, buffer);
 			}
 		}
 
 		/*
 		 * add occurrence entries if not affected by template-invocations
 		 */
-		OccurrenceSerializer occurrenceSerializer = new OccurrenceSerializer(
-				writer);
 		for (Occurrence occurrence : topic.getOccurrences()) {
 			if (!affectedConstructs.contains(occurrence)) {
-				occurrenceSerializer.serialize(occurrence, buffer);
+				OccurrenceSerializer.serialize(writer, occurrence, buffer);
 			}
 		}
 
@@ -144,8 +116,8 @@ public class TopicSerializer implements ISerializer<Topic> {
 			}
 			String identity = writer.getCtmIdentity().getPrefixedIdentity(
 					locator);
-			identity = writer.getCtmIdentity()
-			.getEscapedCTMIdentity(identity, locator);
+			identity = writer.getCtmIdentity().getEscapedCTMIdentity(identity,
+					locator);
 			if (!identity.equalsIgnoreCase(mainIdentifier)) {
 				buffer.appendTailLine(true, TABULATOR, identity);
 			}
@@ -163,7 +135,9 @@ public class TopicSerializer implements ISerializer<Topic> {
 			identity = writer.getCtmIdentity().getEscapedCTMIdentity(identity,
 					locator);
 			if (!mainIdentifier.contains(identity)) {
-				buffer.appendTailLine(true, TABULATOR, SUBJECTLOCATOR, identity);
+				buffer
+						.appendTailLine(true, TABULATOR, SUBJECTLOCATOR,
+								identity);
 			}
 		}
 

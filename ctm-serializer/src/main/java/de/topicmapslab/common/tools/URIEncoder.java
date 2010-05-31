@@ -1,8 +1,6 @@
 package de.topicmapslab.common.tools;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 

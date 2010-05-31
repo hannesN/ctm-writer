@@ -31,35 +31,29 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class TemplateInvocationSerializer implements ISerializer<Topic> {
 
 	/**
-	 * the template to serialize
-	 */
-	private final Template template;
-	/**
-	 * a set of affected constructs
-	 */
-	private final Set<Object> affectedConstructs;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
 	 * @param template
-	 *            the template to serialize
+	 *            the template called by the invocation
+	 * @param topic
+	 *            the topic to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public TemplateInvocationSerializer(Template template) {
-		this.template = template;
-		this.affectedConstructs = new HashSet<Object>();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(Topic topic, CTMBuffer buffer)
-			throws SerializerException {
+	public static Set<Object> serialize(Template template, Topic topic,
+			CTMBuffer buffer) throws SerializerException {
 
 		if (!template.isAdaptiveFor(topic)) {
 			throw new SerializerException(
 					"template is not adaptive for given topic.");
 		}
+
+		Set<Object> affectedConstructs = new HashSet<Object>();
 
 		final List<String> arguments = new LinkedList<String>();
 
@@ -79,10 +73,10 @@ public class TemplateInvocationSerializer implements ISerializer<Topic> {
 		/*
 		 * redirect to TemplateSerializer
 		 */
-		boolean result = new TemplateSerializer(template).serialize(buffer,
-				arguments.toArray(new String[0]));
+		TemplateSerializer.serialize(template, buffer, arguments
+				.toArray(new String[0]));
 		buffer.appendTailLine();
-		return result;
+		return affectedConstructs;
 	}
 
 	/**
@@ -90,6 +84,8 @@ public class TemplateInvocationSerializer implements ISerializer<Topic> {
 	 * representing the template-invocation call. The result should be written
 	 * to the given output buffer.
 	 * 
+	 * @param template
+	 *            the template called by the invocation
 	 * @param association
 	 *            the association to serialize
 	 * @param buffer
@@ -99,13 +95,15 @@ public class TemplateInvocationSerializer implements ISerializer<Topic> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public boolean serialize(Association association, CTMBuffer buffer)
-			throws SerializerException {
+	public static Set<Object> serialize(Template template, Association association,
+			CTMBuffer buffer) throws SerializerException {
 
 		if (!template.isAdaptiveFor(association)) {
 			throw new SerializerException(
 					"template is not adaptive for given association.");
 		}
+
+		Set<Object> affectedConstructs = new HashSet<Object>();
 
 		final List<String> arguments = new LinkedList<String>();
 
@@ -118,10 +116,10 @@ public class TemplateInvocationSerializer implements ISerializer<Topic> {
 			 */
 			if (!entry.isDependentFromVariable()) {
 				continue;
-			}			
+			}
 			arguments.addAll(entry.extractArguments(association.getType(),
 					association, affectedConstructs));
-			if ( template.getVariables().size() >= arguments.size()){
+			if (template.getVariables().size() >= arguments.size()) {
 				break;
 			}
 		}
@@ -129,17 +127,8 @@ public class TemplateInvocationSerializer implements ISerializer<Topic> {
 		/*
 		 * redirect to TemplateSerializer
 		 */
-		return new TemplateSerializer(template).serialize(buffer, arguments
+		TemplateSerializer.serialize(template, buffer, arguments
 				.toArray(new String[0]));
-	}
-
-	/**
-	 * Method return the set of affected construct. The set contains all
-	 * constructs of the topic map, which are affected by the internal template
-	 * 
-	 * @return the affectedConstructs
-	 */
-	public Set<Object> getAffectedConstructs() {
 		return affectedConstructs;
 	}
 

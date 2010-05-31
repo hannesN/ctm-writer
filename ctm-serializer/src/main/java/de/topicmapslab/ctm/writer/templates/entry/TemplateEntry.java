@@ -62,7 +62,7 @@ public class TemplateEntry implements IEntry {
 	 * {@inheritDoc}
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException {
-		new TemplateSerializer(template).serialize(buffer, valuesOrVariables);
+		TemplateSerializer.serialize(template, buffer, valuesOrVariables);
 	}
 
 	/**

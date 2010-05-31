@@ -32,34 +32,34 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class VariantSerializer implements ISerializer<Variant> {
 
 	/**
-	 * the parent topic map writer
-	 */
-	private final CTMTopicMapWriter writer;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
 	 * @param writer
-	 *            the parent topic map writer
+	 *            the CTM writer
+	 * @param variant
+	 *            the variant to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public VariantSerializer(CTMTopicMapWriter writer) {
-		this.writer = writer;
-	}
-
-	public boolean serialize(Variant variant, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer, Variant variant,
+			CTMBuffer buffer) throws SerializerException {
 
 		buffer.append(BRO);
 		/*
 		 * add value and data-type
 		 */
-		new DatatypeAwareSerializer(writer).serialize(variant, buffer);
+		DatatypeAwareSerializer.serialize(writer, variant, buffer);
 
 		/*
 		 * add scope if exists
 		 */
 		CTMBuffer ctmBuffer = new CTMBuffer();
-		if (new ScopedSerializer(writer).serialize(variant, ctmBuffer)) {
+		if (ScopedSerializer.serialize(writer, variant, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -68,7 +68,7 @@ public class VariantSerializer implements ISerializer<Variant> {
 		 * add reifier if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ReifiableSerializer(writer).serialize(variant, ctmBuffer)) {
+		if (ReifiableSerializer.serialize(writer, variant, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -98,7 +98,7 @@ public class VariantSerializer implements ISerializer<Variant> {
 		/*
 		 * add value and data-type
 		 */
-		new DatatypeAwareSerializer(writer).serialize(datatype, value, buffer);
+		DatatypeAwareSerializer.serialize(writer, datatype, value, buffer);
 
 		return true;
 	}

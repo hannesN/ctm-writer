@@ -30,25 +30,22 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class ReifiableSerializer implements ISerializer<Reifiable> {
 
 	/**
-	 * The topic map writer reference
-	 */
-	private final CTMTopicMapWriter writer;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
 	 * @param writer
-	 *            the parent topic map writer
+	 *            the CTM writer
+	 * @param reifiable
+	 *            the reifiable to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public ReifiableSerializer(CTMTopicMapWriter writer) {
-		this.writer = writer;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(Reifiable reifiable, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer,
+			Reifiable reifiable, CTMBuffer buffer) throws SerializerException {
 
 		if (reifiable.getReifier() != null) {
 			buffer.append(true, REIFIER, writer.getCtmIdentity()

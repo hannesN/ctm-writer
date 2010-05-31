@@ -33,25 +33,22 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class OccurrenceSerializer implements ISerializer<Occurrence> {
 
 	/**
-	 * the parent topic map writer
-	 */
-	private final CTMTopicMapWriter writer;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
 	 * @param writer
-	 *            the parent topic map writer
+	 *            the CTM writer
+	 * @param occurrence
+	 *            the occurrence to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public OccurrenceSerializer(CTMTopicMapWriter writer) {
-		this.writer = writer;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(Occurrence occurrence, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer,
+			Occurrence occurrence, CTMBuffer buffer) throws SerializerException {
 
 		/*
 		 * begin occurrence-definition block
@@ -64,14 +61,14 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 		/*
 		 * add value and data-type
 		 */
-		new DatatypeAwareSerializer(writer).serialize(occurrence, buffer);
+		DatatypeAwareSerializer.serialize(writer, occurrence, buffer);
 
 		CTMBuffer ctmBuffer = null;
 		/*
 		 * add scope if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ScopedSerializer(writer).serialize(occurrence, ctmBuffer)) {
+		if (ScopedSerializer.serialize(writer, occurrence, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -80,7 +77,7 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 		 * add reifier if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ReifiableSerializer(writer).serialize(occurrence, ctmBuffer)) {
+		if (ReifiableSerializer.serialize(writer, occurrence, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -117,7 +114,7 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 		/*
 		 * add value and data-type
 		 */
-		new DatatypeAwareSerializer(writer).serialize(datatype, value, buffer);
+		DatatypeAwareSerializer.serialize(writer, datatype, value, buffer);
 
 		return true;
 	}

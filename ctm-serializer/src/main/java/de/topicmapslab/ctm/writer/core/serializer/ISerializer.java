@@ -10,9 +10,6 @@ package de.topicmapslab.ctm.writer.core.serializer;
 
 import org.tmapi.core.Construct;
 
-import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-
 /**
  * 
  * Interface definition of a CTM serializer for a specific construct type.
@@ -38,6 +35,6 @@ public interface ISerializer<T extends Construct> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public boolean serialize(T construct, CTMBuffer buffer)
-			throws SerializerException;
+	// public boolean serialize(T construct, CTMBuffer buffer)
+	// throws SerializerException;
 }

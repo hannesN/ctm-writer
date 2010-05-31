@@ -123,6 +123,7 @@ public class TemplateSerializerTest extends TestCase {
 		 * add the template to writer context
 		 */
 		writer.addTemplate(t);
+		t.setSerialize(false);
 
 		Topic c = map.createTopicBySubjectIdentifier(map.createLocator(loc+"constraint"));
 		

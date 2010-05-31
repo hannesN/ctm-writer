@@ -37,30 +37,23 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class PrefixesSerializer implements ISerializer<TopicMap> {
 
 	/**
-	 * the prefix handler
-	 */
-	private final PrefixHandler prefixHandler;
-	
-	/**
-	 * Fag if prefixes should be auto detected
-	 */
-	private final boolean autoDetect;
-	
-	/**
-	 * constructor
+	 * Export the prefix definitions of the current writer instance.
 	 * 
 	 * @param prefixHandler
-	 *            the prefix handler of the CTM writer
+	 *            the prefix handler
+	 * @param autoDetect
+	 *            flag indicates if the prefixes should detect automatically
+	 * @param topicMap
+	 *            the topic map
+	 * @param buffer
+	 *            the CTM buffer
+	 * @return <code>true</code> if the prefixes were exported correctly,
+	 *         <code>false</code> otherwise.
+	 * @throws SerializerException
+	 *             thrown if operation fails
 	 */
-	public PrefixesSerializer(PrefixHandler prefixHandler, boolean autoDetect) {
-		this.prefixHandler = prefixHandler;
-		this.autoDetect = autoDetect;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(TopicMap topicMap, CTMBuffer buffer)
+	public static boolean serialize(PrefixHandler prefixHandler,
+			boolean autoDetect, TopicMap topicMap, CTMBuffer buffer)
 			throws SerializerException {
 
 		boolean result = false;
@@ -69,19 +62,20 @@ public class PrefixesSerializer implements ISerializer<TopicMap> {
 		 */
 		if (autoDetect) {
 			Map<String, String> prefixes = PrefixIdentifier.prefixMap(topicMap);
-			
+
 			prefixHandler.getPrefixMap().putAll(prefixes);
 		}
 		/*
 		 * iterate over entries
 		 */
-		for (Entry<String, String> prefix : prefixHandler.getPrefixMap().entrySet()) {
+		for (Entry<String, String> prefix : prefixHandler.getPrefixMap()
+				.entrySet()) {
 			/*
 			 * add to buffer
 			 */
 			buffer.append(true, PREFIX, prefix.getKey(), WHITESPACE);
 			buffer.appendLine(false, PREFIXBEGIN, prefix.getValue(), PREFIXEND);
-			
+
 			result = true;
 		}
 		return result;

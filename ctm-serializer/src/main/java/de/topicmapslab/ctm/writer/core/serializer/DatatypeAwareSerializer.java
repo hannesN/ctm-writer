@@ -13,12 +13,12 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXBEGIN;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.QUOTE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TRIPPLEQUOTE;
-import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_ANYURI;
-import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_INTEGER;
-import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_QANYURI;
-import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_QINTEGER;
-import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_QSTRING;
-import static de.topicmapslab.java.tmdm.XmlSchemeDatatypes.XSD_STRING;
+import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_ANYURI;
+import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_INTEGER;
+import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_QANYURI;
+import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_QINTEGER;
+import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_QSTRING;
+import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_STRING;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -50,35 +50,33 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 
 	/**
-	 * the parent topic map writer
-	 */
-	private final CTMTopicMapWriter writer;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
 	 * @param writer
-	 *            the parent topic map writer
+	 *            the CTM writer
+	 * @param datatypeAware
+	 *            the datatypeAware to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public DatatypeAwareSerializer(CTMTopicMapWriter writer) {
-		this.writer = writer;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(DatatypeAware datatypeAware, CTMBuffer buffer)
+	public static  boolean serialize(CTMTopicMapWriter writer, DatatypeAware datatypeAware, CTMBuffer buffer)
 			throws SerializerException {
 		final String value = datatypeAware.getValue();
 		final String datatype = writer.getCtmIdentity().getPrefixedIdentity(
 				datatypeAware.getDatatype());
-		return serialize(datatype, value, buffer);
+		return serialize(writer, datatype, value, buffer);
 	}
 
 	/**
 	 * Method to convert the given values to a specific CTM literal. The result
 	 * should be written to the given output buffer.
-	 * 
+	 * @param writer
+	 *            the CTM writer
 	 * @param datatype
 	 *            the data-type of the {@link DatatypeAware} as {@link Topic} or
 	 *            as {@link String}
@@ -91,7 +89,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public boolean serialize(final Object datatype, final String value_,
+	public static boolean serialize(CTMTopicMapWriter writer, final Object datatype, final String value_,
 			CTMBuffer buffer) throws SerializerException {
 		/*
 		 * extract reference of the data-type as string

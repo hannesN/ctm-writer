@@ -1,6 +1,6 @@
 package de.topicmapslab.ctm.writer.templates.entry.param;
 
-import org.tmapi.core.Topic;;
+import org.tmapi.core.Topic;
 
 public class TopicTypeParam implements IEntryParam {
 
