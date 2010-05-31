@@ -78,13 +78,29 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 * the list of includes
 	 */
 	private List<String> includes;
-	
+		
 	/**
 	 * The map containging iris to topic maps as keys and the notation as value.
 	 * The notation may only be CTM or XTM
 	 */
 	private Map<String, String> mergeMaps;
 	
+	// the serializer	
+	// private AKindOfSerializer aKindOfSerializer = null;
+	// private AssociationSerializer associationSerializer = null;
+	// private DatatypeAwareSerializer datatypeAwareSerializer = null;
+	// private IncludeSerializer includeSerializer = null;
+	// private IsInstanceOfSerializer isInstanceOfSerializer = null;
+	// private MergeMapSerializer mergeMapSerializer = null;
+	// private NameSerializer nameSerializer = null;
+	// private OccurrenceSerializer occurrenceSerializer = null;
+	// private PrefixesSerializer prefixesSerializer = null;
+	// private ReifiableSerializer reifiableSerializer = null;
+	// private RoleSerializer roleSerializer = null;
+	// private ScopedSerializer scopedSerializer = null;
+	// private TopicMapSerializer topicMapSerializer = null;
+	// private TopicSerializer topicSerializer = null;
+	// private VariantSerializer variantSerializer = null;
 	/**
 	 * constructor
 	 * 

@@ -21,7 +21,6 @@ import org.tmapi.core.Variant;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -39,25 +38,22 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class NameSerializer implements ISerializer<Name> {
 
 	/**
-	 * the parent topic map writer
-	 */
-	private final CTMTopicMapWriter writer;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties} *
+	 * @param writer
+	 *            the CTM writer
+	 * @param name
+	 *            the name to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public NameSerializer(CTMTopicMapWriter writer) {
-		this.writer = writer;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(Name name, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer, Name name,
+			CTMBuffer buffer) throws SerializerException {
 
 		/*
 		 * begin name definition
@@ -84,7 +80,7 @@ public class NameSerializer implements ISerializer<Name> {
 		 * add scope if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ScopedSerializer(writer).serialize(name, ctmBuffer)) {
+		if (ScopedSerializer.serialize(writer, name, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -93,7 +89,7 @@ public class NameSerializer implements ISerializer<Name> {
 		 * add reifier if exists
 		 */
 		ctmBuffer = new CTMBuffer();
-		if (new ReifiableSerializer(writer).serialize(name, ctmBuffer)) {
+		if (ReifiableSerializer.serialize(writer, name, ctmBuffer)) {
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}
@@ -106,7 +102,7 @@ public class NameSerializer implements ISerializer<Name> {
 			/*
 			 * redirect to variant serializer
 			 */
-			new VariantSerializer(writer).serialize(variant, ctmBuffer);
+			VariantSerializer.serialize(writer, variant, ctmBuffer);
 			buffer.append(WHITESPACE);
 			buffer.append(ctmBuffer);
 		}

@@ -40,52 +40,28 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class AssociationSerializer implements ISerializer<Association> {
 
 	/**
-	 * internal templates replacing all association items representing by this
-	 * serializer.
-	 */
-	private final Set<Template> adaptiveTemplates;
-
-	/**
-	 * the parent topic map writer
-	 */
-	private final CTMTopicMapWriter writer;
-	
-	/**
-	 * a set of affected constructs
-	 */
-	private final Set<Object> affectedConstructs;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
 	 * @param writer
-	 *            the parent writer
-	 */
-	public AssociationSerializer(CTMTopicMapWriter writer) {
-		this(writer, new HashSet<Template>());
-	}
-
-	/**
-	 * constructor
-	 * 
-	 * @param writer
-	 *            the parent writer
-	 * 
+	 *            the CTM writer
 	 * @param adaptiveTemplates
-	 *            a set of templates replacing the association item
+	 *            the templates which can be used for the current association
+	 *            item
+	 * @param association
+	 *            the association to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return the affected constructs by using any template definition, used to
+	 *         avoid twice exports
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public AssociationSerializer(CTMTopicMapWriter writer,
-			Set<Template> adaptiveTemplates) {
-		this.adaptiveTemplates = adaptiveTemplates;
-		this.writer = writer;
-		affectedConstructs = new HashSet<Object>();
-	}
+	public static Set<Object> serialize(CTMTopicMapWriter writer,
+			Set<Template> adaptiveTemplates, Association association,
+			CTMBuffer buffer) throws SerializerException {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(Association association, CTMBuffer buffer)
-			throws SerializerException {
+		Set<Object> affectedConstructs = new HashSet<Object>();
 
 		/*
 		 * if templates are not empty, use template-invocation instead of
@@ -99,10 +75,8 @@ public class AssociationSerializer implements ISerializer<Association> {
 				/*
 				 * redirect to template-invocation-serializer
 				 */
-				TemplateInvocationSerializer s = new TemplateInvocationSerializer(template);
-				s.serialize(
-						association, buffer);
-				affectedConstructs.addAll(s.getAffectedConstructs());
+				affectedConstructs.addAll(TemplateInvocationSerializer
+						.serialize(template, association, buffer));
 			}
 		}
 		/*
@@ -122,7 +96,7 @@ public class AssociationSerializer implements ISerializer<Association> {
 			 */
 			for (Role role : association.getRoles()) {
 				CTMBuffer bufferoles = new CTMBuffer();
-				new RoleSerializer(writer).serialize(role, bufferoles);
+				RoleSerializer.serialize(writer, role, bufferoles);
 				if (!first) {
 					buffer.appendLine(COMMA);
 				}
@@ -142,7 +116,7 @@ public class AssociationSerializer implements ISerializer<Association> {
 			 * add scope-definition if exists
 			 */
 			ctmBuffer = new CTMBuffer();
-			if (new ScopedSerializer(writer).serialize(association, ctmBuffer)) {
+			if (ScopedSerializer.serialize(writer, association, ctmBuffer)) {
 				buffer.appendLine();
 				buffer.append(TABULATOR);
 				buffer.append(ctmBuffer);
@@ -152,21 +126,22 @@ public class AssociationSerializer implements ISerializer<Association> {
 			 * add reifier-definition if exists
 			 */
 			ctmBuffer = new CTMBuffer();
-			if (new ReifiableSerializer(writer).serialize(association,
-					ctmBuffer)) {
+			if (ReifiableSerializer.serialize(writer, association, ctmBuffer)) {
 				buffer.appendLine();
 				buffer.append(TABULATOR);
 				buffer.append(ctmBuffer);
 			}
 		}
-		return true;
-	}
-
-	/**
-	 * Returns a set of affected constructs, which will already exported because of templates using wildcards. Please note the calling association instance will never be contained.
-	 * @return the set of affected constructs
-	 */
-	public Set<Object> getAffectedConstructs() {
 		return affectedConstructs;
 	}
+
+	// /**
+	// * Returns a set of affected constructs, which will already exported
+	// because of templates using wildcards. Please note the calling association
+	// instance will never be contained.
+	// * @return the set of affected constructs
+	// */
+	// public Set<Object> getAffectedConstructs() {
+	// return affectedConstructs;
+	// }
 }

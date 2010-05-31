@@ -33,25 +33,22 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class ScopedSerializer implements ISerializer<Scoped> {
 
 	/**
-	 * the parent topic map writer
-	 */
-	private final CTMTopicMapWriter writer;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
 	 * @param writer
-	 *            the parent topic map writer
+	 *            the CTM writer
+	 * @param scoped
+	 *            the scoped item to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public ScopedSerializer(CTMTopicMapWriter writer) {
-		this.writer = writer;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(Scoped scoped, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer, Scoped scoped,
+			CTMBuffer buffer) throws SerializerException {
 		if (!scoped.getScope().isEmpty()) {
 			boolean first = true;
 			for (Topic theme : scoped.getScope()) {

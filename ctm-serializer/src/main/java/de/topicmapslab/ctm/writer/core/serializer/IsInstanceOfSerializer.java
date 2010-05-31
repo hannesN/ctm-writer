@@ -11,7 +11,6 @@ package de.topicmapslab.ctm.writer.core.serializer;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.ISA;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.tmapi.core.Association;
@@ -41,34 +40,24 @@ import de.topicmapslab.java.tmdm.TmdmSubjectIdentifier;
 public class IsInstanceOfSerializer implements ISerializer<Topic> {
 
 	/**
-	 * a set of constructs which are affected by template-invocations
-	 */
-	private final Set<Object> affectedConstructs = new HashSet<Object>();
-
-	/**
-	 * the parent topic map writer
-	 */
-	private final CTMTopicMapWriter writer;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
 	 * @param writer
-	 *            the parent topic map writer
+	 *            the CTM writer
 	 * @param affectedConstructs
-	 *            a set of constructs which are affected by template-invocations
-	 * 
+	 *            the constructs affected by upper templates
+	 * @param instance
+	 *            the instance to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public IsInstanceOfSerializer(CTMTopicMapWriter writer,
-			Set<Object> affectedConstructs) {
-		this.writer = writer;
-		this.affectedConstructs.addAll(affectedConstructs);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(Topic instance, CTMBuffer buffer)
+	public static boolean serialize(CTMTopicMapWriter writer,
+			Set<Object> affectedConstructs, Topic instance, CTMBuffer buffer)
 			throws SerializerException {
 
 		boolean returnValue = false;

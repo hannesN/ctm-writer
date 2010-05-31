@@ -36,24 +36,11 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class TemplateSerializer {
 
 	/**
-	 * the template to serialize
-	 */
-	private final Template template;
-
-	/**
-	 * constructor
-	 * 
-	 * @param template
-	 *            the template to serialize
-	 */
-	public TemplateSerializer(Template template) {
-		this.template = template;
-	}
-
-	/**
 	 * Method to convert the internal template to its specific CTM string. The
 	 * result should be written to the given output buffer.
 	 * 
+	 * @param template
+	 *            the template to serialize
 	 * @param buffer
 	 *            the output buffer
 	 * @return <code>true</code> if new content was written into buffer,
@@ -62,7 +49,8 @@ public class TemplateSerializer {
 	 *             Thrown if serialization failed.
 	 */
 	@SuppressWarnings("unchecked")
-	public boolean serialize(CTMBuffer buffer) throws SerializerException {
+	public static boolean serialize(Template template, CTMBuffer buffer)
+			throws SerializerException {
 
 		/*
 		 * create template-definition-head
@@ -147,6 +135,8 @@ public class TemplateSerializer {
 	 * representing a template-invocation call by using the given arguments. The
 	 * result should be written to the given output buffer.
 	 * 
+	 * @param template
+	 *            the template to serialize
 	 * @param buffer
 	 *            the output buffer
 	 * @param arguments
@@ -156,9 +146,9 @@ public class TemplateSerializer {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public boolean serialize(CTMBuffer buffer, Collection<String> arguments)
-			throws SerializerException {
-		return serialize(buffer, arguments.toArray(new String[0]));
+	public static boolean serialize(Template template, CTMBuffer buffer,
+			Collection<String> arguments) throws SerializerException {
+		return serialize(template, buffer, arguments.toArray(new String[0]));
 	}
 
 	/**
@@ -166,6 +156,8 @@ public class TemplateSerializer {
 	 * representing a template-invocation call by using the given arguments. The
 	 * result should be written to the given output buffer.
 	 * 
+	 * @param template
+	 *            the template to serialize
 	 * @param buffer
 	 *            the output buffer
 	 * @param arguments
@@ -175,8 +167,8 @@ public class TemplateSerializer {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public boolean serialize(CTMBuffer buffer, String... arguments)
-			throws SerializerException {
+	public static boolean serialize(Template template, CTMBuffer buffer,
+			String... arguments) throws SerializerException {
 		/*
 		 * generate template-invocation-begin --> write template name
 		 */

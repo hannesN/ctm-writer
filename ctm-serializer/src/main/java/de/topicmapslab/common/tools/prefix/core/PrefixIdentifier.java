@@ -25,7 +25,7 @@ import de.topicmapslab.common.tools.collections.StringList;
 import de.topicmapslab.common.tools.exception.ToolRuntimeException;
 import de.topicmapslab.common.tools.prefix.model.IQnameProvider;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.java.tmdm.XmlSchemeDatatypes;
+import de.topicmapslab.java.xsd.XmlSchemeDatatypes;
 
 /**
  * Utility class to identify prefixes of a given {@link TopicMap}. This class

@@ -7,14 +7,6 @@ import org.tmapi.core.TopicMapSystem;
 import org.tmapi.core.TopicMapSystemFactory;
 import org.tmapix.io.LTMTopicMapReader;
 
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
-import de.topicmapslab.ctm.writer.templates.Template;
-import de.topicmapslab.ctm.writer.templates.TemplateMerger;
-import de.topicmapslab.ctm.writer.templates.TemplateSerializer;
-import de.topicmapslab.ctm.writer.templates.autodetection.TemplateDetection;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.CTMIdentity;
-
 /** 
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    
  * License:   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0.html

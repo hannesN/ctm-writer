@@ -12,7 +12,6 @@ package de.topicmapslab.ctm.writer.core.serializer;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.AKO;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.tmapi.core.ModelConstraintException;
@@ -20,7 +19,6 @@ import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 import de.topicmapslab.ctm.writer.utility.TypeHierarchyUtils;
 
@@ -39,33 +37,24 @@ import de.topicmapslab.ctm.writer.utility.TypeHierarchyUtils;
 public class AKindOfSerializer implements ISerializer<Topic> {
 
 	/**
-	 * a set of constructs which are affected by template-invocations
-	 */
-	private final Set<Object> affectedConstructs = new HashSet<Object>();
-
-	/**
-	 * the parent topic map writer
-	 */
-	private final CTMTopicMapWriter writer;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
+	 * @param writer
+	 *            the CTM writer
 	 * @param affectedConstructs
-	 *            a set of constructs which are affected by template-invocations
-	 * @param properties
-	 *            the internal {@link CTMTopicMapWriterProperties}
+	 *            the constructs affected by upper templates
+	 * @param subtype
+	 *            the subtype to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public AKindOfSerializer(CTMTopicMapWriter writer,
-			Set<Object> affectedConstructs) {
-		this.affectedConstructs.addAll(affectedConstructs);
-		this.writer = writer;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(Topic subtype, CTMBuffer buffer)
+	public static boolean serialize(CTMTopicMapWriter writer,
+			Set<Object> affectedConstructs, Topic subtype, CTMBuffer buffer)
 			throws SerializerException {
 		try {
 			boolean result = false;
@@ -79,8 +68,9 @@ public class AKindOfSerializer implements ISerializer<Topic> {
 				 */
 				if (!affectedConstructs.contains(supertype)) {
 					buffer.appendTailLine(true, TABULATOR, AKO, writer
-							.getCtmIdentity().getMainIdentifier(writer.getProperties(),
-									supertype).toString());
+							.getCtmIdentity().getMainIdentifier(
+									writer.getProperties(), supertype)
+							.toString());
 					result = true;
 				}
 			}

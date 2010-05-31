@@ -31,32 +31,29 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class RoleSerializer implements ISerializer<Role> {
 
 	/**
-	 * identity utility (cache and generator)
-	 */
-	private final CTMTopicMapWriter writer;
-
-	/**
-	 * constructor
+	 * Method to convert the given construct to its specific CTM string. The
+	 * result should be written to the given output buffer.
 	 * 
 	 * @param writer
-	 *            the parent topic map writer
+	 *            the CTM writer
+	 * @param role
+	 *            the role to serialize
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public RoleSerializer(CTMTopicMapWriter writer) {
-		this.writer = writer;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(Role role, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer, Role role,
+			CTMBuffer buffer) throws SerializerException {
 
 		buffer.append(true, writer.getCtmIdentity().getMainIdentifier(
 				writer.getProperties(), role.getType()).toString(), COLON,
 				writer.getCtmIdentity().getMainIdentifier(
 						writer.getProperties(), role.getPlayer()).toString());
 
-		new ReifiableSerializer(writer).serialize(role, buffer);
+		ReifiableSerializer.serialize(writer, role, buffer);
 
 		return true;
 	}

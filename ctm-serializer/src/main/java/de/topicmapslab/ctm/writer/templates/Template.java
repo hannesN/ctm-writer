@@ -9,6 +9,7 @@
 package de.topicmapslab.ctm.writer.templates;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,6 @@ import org.tmapi.core.Construct;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import java.util.Arrays;
 
 /**
  * Class representing a CTM template defintion
@@ -43,6 +43,11 @@ public class Template {
 	 * a list of all parameters of the template
 	 */
 	private final List<String> variables;
+
+	/**
+	 * flag indicates if the template should be serialized
+	 */
+	private boolean serialize = true;
 
 	/**
 	 * constructor
@@ -167,7 +172,6 @@ public class Template {
 	 * @return <code>true</code> if internal entry set only contains entries of
 	 *         the given type, <code>false</code> otherwise.
 	 */
-	@SuppressWarnings("unchecked")
 	public boolean containsOnlyInstanceOf(Class<? extends IEntry>... classes) {
 		List<Class<? extends IEntry>> list = Arrays.asList(classes);
 		for (IEntry entry : entries) {
@@ -186,7 +190,7 @@ public class Template {
 	public String toString() {
 		CTMBuffer buffer = new CTMBuffer();
 		try {
-			new TemplateSerializer(this).serialize(buffer);
+			TemplateSerializer.serialize(this, buffer);
 		} catch (SerializerException e) {
 			e.printStackTrace();
 		}
@@ -196,9 +200,26 @@ public class Template {
 	public static final Set<Template> fromCTM(final File file)
 			throws SerializerException {
 		throw new UnsupportedOperationException("not implemented yet.");
-		// Set<Template> templates = new HashSet<Template>();
-		//		
-		// return templates;
+	}
+
+	/**
+	 * Checks if the template should be serialized
+	 * 
+	 * @return <code>true</code> if the template definition should serialize
+	 *         too, <code>false</code> otherwise.
+	 */
+	public boolean shouldSerialize() {
+		return serialize;
+	}
+
+	/**
+	 * Change the serialization flag of the template
+	 * 
+	 * @param serialize
+	 *            the serialize to set
+	 */
+	public void setSerialize(boolean serialize) {
+		this.serialize = serialize;
 	}
 
 }

@@ -114,7 +114,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		 * add reification of topic map if exists
 		 */
 		CTMBuffer ctmBuffer = new CTMBuffer();
-		if (new ReifiableSerializer(writer).serialize(topicMap, ctmBuffer)) {
+		if (ReifiableSerializer.serialize(writer, topicMap, ctmBuffer)) {
 			buffer.appendCommentLine("reifier of the topicmap");
 			buffer.appendLine(ctmBuffer);
 			buffer.appendLine();
@@ -128,8 +128,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			CTMBuffer prefixBuffer = new CTMBuffer();
 			buffer.appendCommentLine("prefixes");
 			buffer.appendLine();
-			if (new PrefixesSerializer(prefixHandler, writer.getProperties()
-					.isPrefixDetectionEnabled()).serialize(topicMap,
+			if (PrefixesSerializer.serialize(prefixHandler, writer
+					.getProperties().isPrefixDetectionEnabled(), topicMap,
 					prefixBuffer)) {
 				buffer.appendLine(prefixBuffer);
 			}
@@ -143,8 +143,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			CTMBuffer includeBuffer = new CTMBuffer();
 			buffer.appendCommentLine("includes");
 			buffer.appendLine();
-			if (new IncludeSerializer(writer.getIncludes(), prefixHandler)
-					.serialize(topicMap, includeBuffer)) {
+			if (IncludeSerializer.serialize(writer.getIncludes(),
+					prefixHandler, includeBuffer)) {
 				buffer.appendLine(includeBuffer);
 			}
 			buffer.appendLine();
@@ -157,8 +157,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			CTMBuffer mergeMapBuffer = new CTMBuffer();
 			buffer.appendCommentLine("mergemap");
 			buffer.appendLine();
-			if (new MergeMapSerializer(writer.getMergeMaps(), prefixHandler)
-					.serialize(topicMap, mergeMapBuffer)) {
+			if (MergeMapSerializer.serialize(writer.getMergeMaps(),
+					prefixHandler, mergeMapBuffer)) {
 				buffer.appendLine(mergeMapBuffer);
 			}
 			buffer.appendLine();
@@ -203,9 +203,10 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 				 * check if the template is restricted for export
 				 */
 				if (!writer.getProperties().getRestrictedTemplatesToExport()
-						.contains(template.getTemplateName())) {
+						.contains(template.getTemplateName())
+						&& template.shouldSerialize()) {
 					ctmBuffer = new CTMBuffer();
-					new TemplateSerializer(template).serialize(ctmBuffer);
+					TemplateSerializer.serialize(template, ctmBuffer);
 					buffer.appendLine(ctmBuffer);
 				}
 			}
@@ -253,10 +254,9 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 										.next().toExternalForm())) {
 					continue;
 				}
-				AssociationSerializer s = new AssociationSerializer(writer,
-						getAdaptiveTemplates(association));
-				s.serialize(association, ctmBuffer);
-				affectedConstronstructs.addAll(s.getAffectedConstructs());
+				affectedConstronstructs.addAll(AssociationSerializer.serialize(
+						writer, getAdaptiveTemplates(association), association,
+						ctmBuffer));
 				buffer.appendLine(ctmBuffer);
 			} catch (NoIdentityException e) {
 			}
@@ -358,9 +358,9 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 				/*
 				 * ignore TMDM associations
 				 */
-				AssociationSerializer s = new AssociationSerializer(writer,
-						getAdaptiveTemplates(association));
-				s.serialize(association, ctmBuffer);
+				AssociationSerializer.serialize(writer,
+						getAdaptiveTemplates(association), association,
+						ctmBuffer);
 				buffer.appendLine(ctmBuffer);
 			} catch (NoIdentityException e) {
 			}
@@ -398,7 +398,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			 * generate only for non TMDM types
 			 */
 			writer.getCtmIdentity().getIdentity(writer.getProperties(), topic);
-			new TopicSerializer(writer, getAdaptiveTemplates(topic)).serialize(
+			TopicSerializer.serialize(writer, getAdaptiveTemplates(topic),
 					topic, ctmBuffer);
 			buffer.appendLine(ctmBuffer);
 			return true;
@@ -414,6 +414,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	 *            the topic which should be adaptive to the templates
 	 * @return a set of adaptive templates for the given topic
 	 */
+	@SuppressWarnings("unchecked")
 	private final Set<Template> getAdaptiveTemplates(final Topic topic) {
 		Set<Template> templates = new HashSet<Template>();
 
@@ -435,6 +436,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	 *            the association which should be adaptive to the templates
 	 * @return a set of adaptive templates for the given association
 	 */
+	@SuppressWarnings("unchecked")
 	private final Set<Template> getAdaptiveTemplates(
 			final Association association) {
 		Set<Template> templates = new HashSet<Template>();

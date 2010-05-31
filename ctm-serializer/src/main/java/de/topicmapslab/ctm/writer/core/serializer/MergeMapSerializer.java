@@ -36,33 +36,22 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class MergeMapSerializer implements ISerializer<TopicMap> {
 
 	/**
-	 * the prefix handler
-	 */
-	private final Map<String, String> mergeMap;
-	
-	/**
-	 * the prefix handler to check for qnames 
-	 */
-	private final PrefixHandler prefixHandler;
-
-	/**
-	 * constructor
+	 * Export the merge map items of the current writer instance to the CTM
+	 * file.
 	 * 
-	 * @param includes list of iri which should be included
-	 * @param prefixHandler the prefixhandler of the writer
-	 * 
+	 * @param mergeMap
+	 *            the merge map
 	 * @param prefixHandler
-	 *            the prefix handler of the CTM writer
+	 *            the prefix handler
+	 * @param buffer
+	 *            the CTM buffer
+	 * @return <code>true</code> if the merge map was export correctly,
+	 *         <code>false</code> otherwise.
+	 * @throws SerializerException
+	 *             thrown if serialization failed
 	 */
-	public MergeMapSerializer(Map<String, String> mergeMap, PrefixHandler prefixHandler) {
-		this.mergeMap = mergeMap;
-		this.prefixHandler = prefixHandler;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(TopicMap topicMap, CTMBuffer buffer)
+	public static boolean serialize(Map<String, String> mergeMap,
+			PrefixHandler prefixHandler, CTMBuffer buffer)
 			throws SerializerException {
 
 		boolean result = false;
@@ -78,10 +67,11 @@ public class MergeMapSerializer implements ISerializer<TopicMap> {
 			if (prefixHandler.isQName(e.getKey()))
 				buffer.append(false, e.getKey(), WHITESPACE);
 			else
-				buffer.append(false, PREFIXBEGIN, e.getKey(), PREFIXEND, WHITESPACE);
+				buffer.append(false, PREFIXBEGIN, e.getKey(), PREFIXEND,
+						WHITESPACE);
 
 			buffer.appendLine(e.getValue());
-			
+
 			result = true;
 		}
 		return result;

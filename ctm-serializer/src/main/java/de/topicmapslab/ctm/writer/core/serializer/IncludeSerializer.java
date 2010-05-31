@@ -35,33 +35,22 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class IncludeSerializer implements ISerializer<TopicMap> {
 
 	/**
-	 * the prefix handler
-	 */
-	private final List<String> includes;
-	
-	/**
-	 * the prefix handler to check for qnames 
-	 */
-	private final PrefixHandler prefixHandler;
-
-	/**
-	 * constructor
+	 * Method to convert the includes of the current writer instance to the CTM
+	 * string.
 	 * 
-	 * @param includes list of iri which should be included
-	 * @param prefixHandler the prefixhandler of the writer
-	 * 
+	 * @param includes
+	 *            the includes to serialize
 	 * @param prefixHandler
-	 *            the prefix handler of the CTM writer
+	 *            the prefix handler
+	 * @param buffer
+	 *            the output buffer
+	 * @return <code>true</code> if new content was written into buffer,
+	 *         <code>false</code> otherwise
+	 * @throws SerializerException
+	 *             Thrown if serialization failed.
 	 */
-	public IncludeSerializer(List<String> includes, PrefixHandler prefixHandler) {
-		this.includes = includes;
-		this.prefixHandler = prefixHandler;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean serialize(TopicMap topicMap, CTMBuffer buffer)
+	public static boolean serialize(List<String> includes,
+			PrefixHandler prefixHandler, CTMBuffer buffer)
 			throws SerializerException {
 
 		boolean result = false;
