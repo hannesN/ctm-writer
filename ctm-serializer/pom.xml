@@ -108,17 +108,12 @@
 			<version>5.0.1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>de.topicmapslab</groupId>
-			<artifactId>java-tools</artifactId>
-			<version>0.0.1</version>
-		</dependency>
 	</dependencies>
 	<distributionManagement>
 		<repository>
-			<id>topicmapslab</id>
+			<id>topicmapslab-public</id>
 			<name>Topic Maps Lab Repositiory</name>
-			<url>scp://maven@topicmapslab.de/home/maven/webdir/maven.topicmapslab.de/public/public</url>
+			<url>scpexe://topicmapslab.de/home/maven/webdir/maven.topicmapslab.de/public/public</url>
 		</repository>
 	</distributionManagement>
 </project>

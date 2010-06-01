@@ -16,7 +16,7 @@ import org.tmapi.core.TopicMapSystem;
 import org.tmapi.core.TopicMapSystemFactory;
 import org.tmapi.core.Variant;
 
-import de.topicmapslab.java.tmdm.TmdmSubjectIdentifier;
+import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
 /** 
  * Copyright: Copyright 2010 Topic Maps Lab, University of Leipzig. http://www.topicmapslab.de/    

@@ -13,12 +13,6 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXBEGIN;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.QUOTE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TRIPPLEQUOTE;
-import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_ANYURI;
-import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_INTEGER;
-import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_QANYURI;
-import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_QINTEGER;
-import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_QSTRING;
-import static de.topicmapslab.java.xsd.XmlSchemeDatatypes.XSD_STRING;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,6 +23,7 @@ import org.tmapi.core.Topic;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.identifier.XmlSchemeDatatypes;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -64,7 +59,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static  boolean serialize(CTMTopicMapWriter writer, DatatypeAware datatypeAware, CTMBuffer buffer)
+	public static boolean serialize(CTMTopicMapWriter writer,
+			DatatypeAware datatypeAware, CTMBuffer buffer)
 			throws SerializerException {
 		final String value = datatypeAware.getValue();
 		final String datatype = writer.getCtmIdentity().getPrefixedIdentity(
@@ -75,6 +71,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	/**
 	 * Method to convert the given values to a specific CTM literal. The result
 	 * should be written to the given output buffer.
+	 * 
 	 * @param writer
 	 *            the CTM writer
 	 * @param datatype
@@ -89,8 +86,9 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(CTMTopicMapWriter writer, final Object datatype, final String value_,
-			CTMBuffer buffer) throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer,
+			final Object datatype, final String value_, CTMBuffer buffer)
+			throws SerializerException {
 		/*
 		 * extract reference of the data-type as string
 		 */
@@ -109,8 +107,9 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:string
 		 */
-		if (XSD_STRING.equalsIgnoreCase(datatype_)
-				|| XSD_QSTRING.equalsIgnoreCase(datatype_) || datatype_ == null) {
+		if (XmlSchemeDatatypes.XSD_STRING.equalsIgnoreCase(datatype_)
+				|| XmlSchemeDatatypes.XSD_QSTRING.equalsIgnoreCase(datatype_)
+				|| datatype_ == null) {
 			/*
 			 * string is a variable
 			 */
@@ -135,8 +134,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:anyURI
 		 */
-		else if (XSD_ANYURI.equalsIgnoreCase(datatype_)
-				|| XSD_QANYURI.equalsIgnoreCase(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_ANYURI.equalsIgnoreCase(datatype_)
+				|| XmlSchemeDatatypes.XSD_QANYURI.equalsIgnoreCase(datatype_)) {
 			/*
 			 * URI is variable
 			 */
@@ -150,8 +149,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:integer
 		 */
-		else if (XSD_INTEGER.equalsIgnoreCase(datatype_)
-				|| XSD_QINTEGER.equalsIgnoreCase(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_INTEGER.equalsIgnoreCase(datatype_)
+				|| XmlSchemeDatatypes.XSD_QINTEGER.equalsIgnoreCase(datatype_)) {
 			buffer.append(false, value);
 		}
 		/*
@@ -223,8 +222,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:string
 		 */
-		if (XSD_STRING.equalsIgnoreCase(datatype_)
-				|| XSD_QSTRING.equalsIgnoreCase(datatype_)) {
+		if (XmlSchemeDatatypes.XSD_STRING.equalsIgnoreCase(datatype_)
+				|| XmlSchemeDatatypes.XSD_QSTRING.equalsIgnoreCase(datatype_)) {
 			/*
 			 * string is variable
 			 */
@@ -247,8 +246,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:anyURI
 		 */
-		else if (XSD_ANYURI.equalsIgnoreCase(datatype_)
-				|| XSD_QANYURI.equalsIgnoreCase(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_ANYURI.equalsIgnoreCase(datatype_)
+				|| XmlSchemeDatatypes.XSD_QANYURI.equalsIgnoreCase(datatype_)) {
 			/*
 			 * URI is variable
 			 */
@@ -260,8 +259,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:integer
 		 */
-		else if (XSD_INTEGER.equalsIgnoreCase(datatype_)
-				|| XSD_QINTEGER.equalsIgnoreCase(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_INTEGER.equalsIgnoreCase(datatype_)
+				|| XmlSchemeDatatypes.XSD_QINTEGER.equalsIgnoreCase(datatype_)) {
 			return value;
 		}
 		/*
