@@ -1,0 +1,16 @@
+== Getting started ==
+
+For using the CTM writer you have to have some dependent libraries within your search path. The following table list the essential libraries.
+
+.Table 1: dependencies of the CTM writer implementation 
+[options="header"]
+|=============================
+|library|description
+
+|tmapi-io|library defines the abstract interfaces of a topic map writer or a reader
+
+|tmapi|library defines all information items of the TMDM as interfaces
+
+|=============================
+
+
