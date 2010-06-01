@@ -218,27 +218,29 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	}
 
 	/**
-	 * Get the prefix IRI for the given name-space identifier.
+	 * Get the IRI for the given prefix.
 	 * 
-	 * @param namespace
-	 *            the identifier
-	 * @return the prefix IRI or <code>null</code> if no prefix is registered
+	 * @param prefix
+	 *            the prefix identifier
+	 * @return the IRI or <code>null</code> if no prefix is registered
 	 *         for given name-space
 	 */
-	public String getPrefix(final String namespace) {
-		return prefixHandler.getPrefix(namespace);
+	public String getPrefix(final String prefix) {
+		return prefixHandler.getPrefix(prefix);
 	}
 
 	/**
 	 * Register a new prefix definition.
 	 * 
-	 * @param namespace
-	 *            the name-space
+	 * A prefix definition in CTM is: %prefix key IRI
+	 * 
 	 * @param prefix
-	 *            the prefix IRI
+	 *            the prefix
+	 * @param iri
+	 *            the IRI
 	 */
-	public void setPrefix(final String namespace, final String prefix) {
-		this.prefixHandler.setPrefix(namespace, prefix);
+	public void setPrefix(final String prefix, final String iri) {
+		this.prefixHandler.setPrefix(prefix, iri);
 	}
 
 	/**

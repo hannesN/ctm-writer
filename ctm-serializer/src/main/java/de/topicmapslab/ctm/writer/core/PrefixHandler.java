@@ -28,37 +28,39 @@ public class PrefixHandler {
 	/**
 	 * Get the prefix IRI for the given name-space identifier.
 	 * 
-	 * @param namespace
-	 *            the identifier
-	 * @return the prefix IRI or <code>null</code> if no prefix is registered
-	 *         for given name-space
+	 * @param prefix
+	 *            the prefix
+	 * @return the IRI or <code>null</code> if no prefix is registered
+	 *         for given prefix identififer
 	 */
-	public String getPrefix(final String namespace) {
-		return prefixMap.get(namespace);
+	public String getPrefix(final String prefix) {
+		return prefixMap.get(prefix);
 	}
 
 	/**
 	 * Register a new prefix definition.
 	 * 
-	 * @param namespace
-	 *            the name-space
+	 * A prefix definition in CTM is: %prefix key IRI
+	 * 
 	 * @param prefix
-	 *            the prefix IRI
+	 *            the prefix
+	 * @param iri
+	 *            the IRI
 	 */
-	public void setPrefix(final String namespace, final String prefix) {
-		this.prefixMap.put(namespace, prefix);
+	public void setPrefix(final String prefix, final String iri) {
+		this.prefixMap.put(prefix, iri);
 	}
 
 	/**
-	 * Check if the given name-space is contained by the internal prefix map.
+	 * Check if the given prefix is contained by the internal prefix map.
 	 * 
-	 * @param namespace
-	 *            the name-space
-	 * @return <code>true</code> if a prefix stored for the name-space,
+	 * @param prefix
+	 *            the prefix
+	 * @return <code>true</code> if a prefix stored for the prefix identifier,
 	 *         <code>false</code> otherwise.
 	 */
-	public boolean isKnownNamespace(final String namespace) {
-		return prefixMap.containsKey(namespace);
+	public boolean isKnownPrefix(final String prefix) {
+		return prefixMap.containsKey(prefix);
 	}
 
 	/**

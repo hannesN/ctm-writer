@@ -124,7 +124,7 @@ public class CTMMainIdentifier {
 		if (id.contains(":") && !id.contains("%") && !id.contains(",")) {
 			int idx = id.indexOf(':');
 			String prefix = id.substring(0, idx);
-			if (prefixHandler.isKnownNamespace(prefix)) {
+			if (prefixHandler.isKnownPrefix(prefix)) {
 				b.append(id);
 				return b.toString();
 			}
