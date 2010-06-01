@@ -78,23 +78,23 @@ public class PrefixIdentifier {
 		/*
 		 * iterate over all identified prefixes
 		 */
-		for (String prefix : identifyPrefixes(topicMap)) {
+		for (String uri : identifyURIs(topicMap)) {
 			try {
 				/*
-				 * get QName for prefix
+				 * get prefix for URI
 				 */
-				String qname = provider.generateQname(prefix);
+				String prefix = provider.generateQname(uri);
 				/*
-				 * check if QName is unique
+				 * check if prefix is unique
 				 */
-				if (prefixes.containsKey(qname)) {
+				if (prefixes.containsKey(prefix)) {
 					/*
-					 * try to unify the QName by adding a number
+					 * try to unify the prefixes by adding a number
 					 */
 					for (int i = 2; i < Integer.MAX_VALUE; i++) {
-						final String tmp = qname + i;
+						final String tmp = prefix + i;
 						if (!prefixes.containsKey(tmp)) {
-							qname = tmp;
+							prefix = tmp;
 							break;
 						}
 					}
@@ -102,7 +102,7 @@ public class PrefixIdentifier {
 				/*
 				 * store result
 				 */
-				prefixes.put(qname, prefix);
+				prefixes.put(prefix, uri);
 			} catch (ToolRuntimeException e) {
 				throw new SerializerException(e);
 			}
@@ -123,7 +123,7 @@ public class PrefixIdentifier {
 	 * @throws SerializerException
 	 *             thrown if operation failed.
 	 */
-	public static List<String> identifyPrefixes(TopicMap topicMap)
+	public static List<String> identifyURIs(TopicMap topicMap)
 			throws SerializerException {
 
 		/*

@@ -46,11 +46,11 @@ public class CTMPrefixIdentifierTest extends TestCase {
 
 	/**
 	 * Test method for
-	 * {@link de.topicmapslab.common.tools.prefix.core.PrefixIdentifier#identifyPrefixes(org.tmapi.core.TopicMap)}
+	 * {@link de.topicmapslab.common.tools.prefix.core.PrefixIdentifier#identifyURIs(org.tmapi.core.TopicMap)}
 	 * .
 	 */
 	public final void testIdentifyPrefixes() throws Exception {
-		System.out.println(PrefixIdentifier.identifyPrefixes(topicMap));
+		System.out.println(PrefixIdentifier.identifyURIs(topicMap));
 	}
 
 	/**
