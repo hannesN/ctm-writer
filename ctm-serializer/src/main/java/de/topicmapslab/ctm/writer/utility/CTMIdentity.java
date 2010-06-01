@@ -25,7 +25,7 @@ import de.topicmapslab.ctm.writer.core.serializer.PrefixesSerializer;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
 import de.topicmapslab.ctm.writer.utility.CTMMainIdentifier.IdentifierType;
-import de.topicmapslab.java.tmdm.TmdmSubjectIdentifier;
+import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
 /**
  * Utility class to transform TMAPI identifier to CTM identifier

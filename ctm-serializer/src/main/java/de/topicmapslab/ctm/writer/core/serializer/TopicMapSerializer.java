@@ -35,7 +35,7 @@ import de.topicmapslab.ctm.writer.templates.autodetection.TemplateDetection;
 import de.topicmapslab.ctm.writer.templates.entry.AssociationEntry;
 import de.topicmapslab.ctm.writer.templates.entry.TopicEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.java.tmdm.TmdmSubjectIdentifier;
+import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />

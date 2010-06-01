@@ -23,7 +23,7 @@ import org.tmapi.index.TypeInstanceIndex;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.java.tmdm.TmdmSubjectIdentifier;
+import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />

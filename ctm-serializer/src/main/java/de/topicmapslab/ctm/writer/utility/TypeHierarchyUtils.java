@@ -18,7 +18,7 @@ import org.tmapi.core.Topic;
 import org.tmapi.core.TopicMap;
 import org.tmapi.index.TypeInstanceIndex;
 
-import de.topicmapslab.java.tmdm.TmdmSubjectIdentifier;
+import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
 /**
  * Utility class to handle type hierarchy of topic maps
