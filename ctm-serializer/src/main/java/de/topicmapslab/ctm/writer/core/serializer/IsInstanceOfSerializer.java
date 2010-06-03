@@ -11,6 +11,7 @@ package de.topicmapslab.ctm.writer.core.serializer;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.ISA;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.tmapi.core.Association;
@@ -77,6 +78,9 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 			}
 		}
 
+		// storing type already written
+		Set<Topic> writtenTypes = new HashSet<Topic>(instance.getTypes());
+		
 		/*
 		 * check additional types by extracting the TMDM association type
 		 */
@@ -145,11 +149,14 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 					/*
 					 * add to buffer
 					 */
-					buffer.appendTailLine(true, TABULATOR, ISA, writer
-							.getCtmIdentity().getMainIdentifier(
-									writer.getProperties(),
-									typePlayers.iterator().next().getPlayer())
-							.toString());
+					Topic newType = typePlayers.iterator().next().getPlayer();
+					if (!writtenTypes.contains(newType)) {
+						buffer.appendTailLine(true, TABULATOR, ISA, writer
+								.getCtmIdentity().getMainIdentifier(
+										writer.getProperties(),
+										newType)
+								.toString());
+					}
 				}
 			}
 			returnValue = true;
