@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ctm-writer
-Bundle-SymbolicName: ctm-writer
+Bundle-Name: CTM Writer
+Bundle-SymbolicName: de.topicmapslab.ctmwriter
 Bundle-Version: 1.0.7.SNAPSHOT
 Export-Package: .,
  de.topicmapslab.common.exception,
