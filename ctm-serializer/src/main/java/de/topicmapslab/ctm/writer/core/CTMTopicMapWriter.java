@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.tmapi.core.Construct;
 import org.tmapi.core.TopicMap;
+import org.tmapi.index.TypeInstanceIndex;
 import org.tmapix.io.TopicMapWriter;
 
 import de.topicmapslab.ctm.writer.core.serializer.TopicMapSerializer;
@@ -166,6 +167,11 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 */
 	public void write(TopicMap topicMap) throws IOException {
 
+		// open index if not opened
+		TypeInstanceIndex idx = topicMap.getIndex(TypeInstanceIndex.class);
+		if (!idx.isOpen())
+			idx.open();
+		
 		CTMBuffer buffer = new CTMBuffer();
 
 		try {
