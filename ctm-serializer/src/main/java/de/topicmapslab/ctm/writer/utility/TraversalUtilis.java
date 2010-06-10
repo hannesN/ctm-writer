@@ -16,8 +16,12 @@ public class TraversalUtilis {
 		 */
 		Set<Association> associations = new HashSet<Association>();
 		Set<Association> associations_ = new HashSet<Association>();
-		associations_.addAll(topic.getTopicMap().getIndex(
-				TypeInstanceIndex.class).getAssociations(type));
+
+		TypeInstanceIndex index = topic.getTopicMap().getIndex(TypeInstanceIndex.class);
+		if ( !index.isOpen()){
+			index.open();
+		}
+		associations_.addAll(index.getAssociations(type));
 
 		/*
 		 * iterate over all associations and extract associations played by
@@ -54,8 +58,11 @@ public class TraversalUtilis {
 		 */
 		Set<Association> associations = new HashSet<Association>();
 		Set<Association> associations_ = new HashSet<Association>();
-		associations_.addAll(topic.getTopicMap().getIndex(
-				TypeInstanceIndex.class).getAssociations(association.getType()));
+		TypeInstanceIndex index = topic.getTopicMap().getIndex(TypeInstanceIndex.class);
+		if ( !index.isOpen()){
+			index.open();
+		}
+		associations_.addAll(index.getAssociations(association.getType()));
 
 		/*
 		 * iterate over all associations and extract associations played by

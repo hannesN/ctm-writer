@@ -10,25 +10,18 @@ package de.topicmapslab.ctm.writer.templates.entry;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-import org.tmapi.core.Construct;
-import org.tmapi.core.Name;
 import org.tmapi.core.Topic;
 import org.tmapi.core.Variant;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
-import de.topicmapslab.ctm.writer.core.serializer.DatatypeAwareSerializer;
 import de.topicmapslab.ctm.writer.core.serializer.VariantSerializer;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.ScopedEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
-import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -95,286 +88,286 @@ public class VariantEntry extends ScopedEntry {
 		}
 	}
 
-	@Override
-	public boolean isAdaptiveFor(Construct construct) {
-		boolean result = super.isAdaptiveFor(construct);
-		if (!result && construct instanceof Name) {
-			for (Variant variant : ((Name) construct).getVariants()) {
-				if (isAdaptiveFor(variant)) {
-					return result;
-				}
-			}
-		}
-		return false;
-	}
+	// @Override
+	// public boolean isAdaptiveFor(Construct construct) {
+	// boolean result = super.isAdaptiveFor(construct);
+	// if (!result && construct instanceof Name) {
+	// for (Variant variant : ((Name) construct).getVariants()) {
+	// if (isAdaptiveFor(variant)) {
+	// return result;
+	// }
+	// }
+	// }
+	// return false;
+	// }
+	//
+	// /**
+	// * Checks if the given variant can be used with this entry.
+	// *
+	// * @param variant
+	// * the variant to check
+	// * @return <code>true</code> if the variant matches this entry,
+	// * <code>false</code> otherwise
+	// */
+	// public boolean isAdaptiveFor(Variant variant) {
+	// boolean result = true;
+	// if (getScopeEntry() == null) {
+	// result &= variant.getScope().isEmpty();
+	// } else {
+	// result &= variant.getScope().contains(getScopeEntry().getThemes());
+	// }
+	//
+	// if (getReifierEntry() == null) {
+	// result &= variant.getReifier() == null;
+	// } else {
+	// result &= variant.getReifier().equals(
+	// getReifierEntry().getReifier())
+	// || getReifierEntry().getReifier() == null;
+	// }
+	//
+	// if (datatypeAsTopicOrString instanceof String) {
+	// result &= variant.getDatatype().getReference().equalsIgnoreCase(
+	// datatypeAsTopicOrString.toString());
+	// } else {
+	// result &= ((Topic) datatypeAsTopicOrString).getSubjectIdentifiers()
+	// .contains(variant.getDatatype());
+	// }
+	// return result;
+	// }
+	//
+	// /**
+	// * {@inheritDoc}
+	// */
+	// @Deprecated
+	// public boolean isAdaptiveFor(Topic topic) {
+	// Set<Variant> variants = new HashSet<Variant>();
+	// for (Name name : topic.getNames()) {
+	// variants.addAll(name.getVariants());
+	// }
+	// boolean result = false;
+	//
+	// if (datatypeAsTopicOrString == null) {
+	// result = !variants.isEmpty();
+	// } else {
+	// for (Variant variant : variants) {
+	// final String reference = writer.getCtmIdentity()
+	// .getPrefixedIdentity(variant.getDatatype());
+	// if (datatypeAsTopicOrString instanceof Topic
+	// && datatypeAsTopicOrString
+	// .equals(variant.getDatatype())) {
+	// result = true;
+	// } else if (datatypeAsTopicOrString.toString().equalsIgnoreCase(
+	// reference)) {
+	// result = true;
+	// }
+	//
+	// if (result && getScopeEntry() != null) {
+	// result = variant.getScope().containsAll(
+	// Arrays.asList(getScopeEntry().getThemes()));
+	// }
+	//
+	// if (result && getReifierEntry() != null) {
+	// result = getReifierEntry().getReifier().equals(
+	// variant.getReifier());
+	// }
+	//
+	// if (result) {
+	// break;
+	// }
+	// }
+	// }
+	//
+	// return result;
+	// }
+	//
+	// @Override
+	// public List<String> extractArguments(Topic type, Construct construct,
+	// Set<Object> affectedConstructs) throws SerializerException {
+	//
+	// if (construct instanceof Name) {
+	// Name name = (Name) construct;
+	// if (!isAdaptiveFor(name)) {
+	// throw new SerializerException(
+	// "template entry is not adaptive for given topic.");
+	// }
+	//
+	// List<String> arguments = new LinkedList<String>();
+	// /*
+	// * if value is a variable
+	// */
+	// if (getParameter() instanceof VariableParam) {
+	// /*
+	// * try to extract occurrence entity
+	// */
+	// Variant variant = tryToExtractVariantEntity(name);
+	//
+	// /*
+	// * extract values and transform by type
+	// */
+	// arguments.add(DatatypeAwareSerializer.toArgument(writer,
+	// variant));
+	//
+	// /*
+	// * add affected construct
+	// */
+	// affectedConstructs.add(variant);
+	// }
+	// /*
+	// * if value is a constant
+	// */
+	// else {
+	//
+	// /*
+	// * extract values and transform by type
+	// */
+	// arguments.add(DatatypeAwareSerializer.toArgument(getParameter()
+	// .getCTMRepresentation()));
+	//
+	// /*
+	// * try to extract occurrence entity
+	// */
+	// Variant variant = tryToExtractVariantEntity(name);
+	//
+	// /*
+	// * extract values and transform by type
+	// */
+	// arguments.add(DatatypeAwareSerializer.toArgument(writer,
+	// variant));
+	//
+	// /*
+	// * add affected construct
+	// */
+	// affectedConstructs.add(variant);
+	// }
+	// return arguments;
+	// }
+	//
+	// return super.extractArguments(type, construct, affectedConstructs);
+	// }
+	//
+	// /**
+	// * {@inheritDoc}
+	// */
+	// public List<String> extractArguments(Topic topic,
+	// Set<Object> affectedConstructs) throws SerializerException {
+	// if (!isAdaptiveFor(topic)) {
+	// throw new SerializerException(
+	// "template entry is not adaptive for given topic.");
+	// }
+	//
+	// List<String> arguments = new LinkedList<String>();
+	// /*
+	// * if value is a variable
+	// */
+	// if (getParameter() instanceof VariableParam) {
+	// /*
+	// * try to extract occurrence entity
+	// */
+	// Variant variant = tryToExtractVariantEntity(topic);
+	//
+	// /*
+	// * extract values and transform by type
+	// */
+	// arguments.add(DatatypeAwareSerializer.toArgument(writer, variant));
+	//
+	// /*
+	// * add affected construct
+	// */
+	// affectedConstructs.add(variant);
+	// }
+	// /*
+	// * if value is a constant
+	// */
+	// else {
+	//
+	// /*
+	// * extract values and transform by type
+	// */
+	// arguments.add(DatatypeAwareSerializer.toArgument(getParameter()
+	// .getCTMRepresentation()));
+	//
+	// /*
+	// * try to extract occurrence entity
+	// */
+	// Variant variant = tryToExtractVariantEntity(topic);
+	//
+	// /*
+	// * extract values and transform by type
+	// */
+	// arguments.add(DatatypeAwareSerializer.toArgument(writer, variant));
+	//
+	// /*
+	// * add affected construct
+	// */
+	// affectedConstructs.add(variant);
+	// }
+	// return arguments;
+	// }
 
-	/**
-	 * Checks if the given variant can be used with this entry.
-	 * 
-	 * @param variant
-	 *            the variant to check
-	 * @return <code>true</code> if the variant matches this entry,
-	 *         <code>false</code> otherwise
-	 */
-	public boolean isAdaptiveFor(Variant variant) {
-		boolean result = true;
-		if (getScopeEntry() == null) {
-			result &= variant.getScope().isEmpty();
-		} else {
-			result &= variant.getScope().contains(getScopeEntry().getThemes());
-		}
-
-		if (getReifierEntry() == null) {
-			result &= variant.getReifier() == null;
-		} else {
-			result &= variant.getReifier().equals(
-					getReifierEntry().getReifier())
-					|| getReifierEntry().getReifier() == null;
-		}
-
-		if (datatypeAsTopicOrString instanceof String) {
-			result &= variant.getDatatype().getReference().equalsIgnoreCase(
-					datatypeAsTopicOrString.toString());
-		} else {
-			result &= ((Topic) datatypeAsTopicOrString).getSubjectIdentifiers()
-					.contains(variant.getDatatype());
-		}
-		return result;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Deprecated
-	public boolean isAdaptiveFor(Topic topic) {
-		Set<Variant> variants = new HashSet<Variant>();
-		for (Name name : topic.getNames()) {
-			variants.addAll(name.getVariants());
-		}
-		boolean result = false;
-
-		if (datatypeAsTopicOrString == null) {
-			result = !variants.isEmpty();
-		} else {
-			for (Variant variant : variants) {
-				final String reference = writer.getCtmIdentity()
-						.getPrefixedIdentity(variant.getDatatype());
-				if (datatypeAsTopicOrString instanceof Topic
-						&& datatypeAsTopicOrString
-								.equals(variant.getDatatype())) {
-					result = true;
-				} else if (datatypeAsTopicOrString.toString().equalsIgnoreCase(
-						reference)) {
-					result = true;
-				}
-
-				if (result && getScopeEntry() != null) {
-					result = variant.getScope().containsAll(
-							Arrays.asList(getScopeEntry().getThemes()));
-				}
-
-				if (result && getReifierEntry() != null) {
-					result = getReifierEntry().getReifier().equals(
-							variant.getReifier());
-				}
-
-				if (result) {
-					break;
-				}
-			}
-		}
-
-		return result;
-	}
-
-	@Override
-	public List<String> extractArguments(Topic type, Construct construct,
-			Set<Object> affectedConstructs) throws SerializerException {
-
-		if (construct instanceof Name) {
-			Name name = (Name) construct;
-			if (!isAdaptiveFor(name)) {
-				throw new SerializerException(
-						"template entry is not adaptive for given topic.");
-			}
-
-			List<String> arguments = new LinkedList<String>();
-			/*
-			 * if value is a variable
-			 */
-			if (getParameter() instanceof VariableParam) {
-				/*
-				 * try to extract occurrence entity
-				 */
-				Variant variant = tryToExtractVariantEntity(name);
-
-				/*
-				 * extract values and transform by type
-				 */
-				arguments.add(DatatypeAwareSerializer.toArgument(writer,
-						variant));
-
-				/*
-				 * add affected construct
-				 */
-				affectedConstructs.add(variant);
-			}
-			/*
-			 * if value is a constant
-			 */
-			else {
-
-				/*
-				 * extract values and transform by type
-				 */
-				arguments.add(DatatypeAwareSerializer.toArgument(getParameter()
-						.getCTMRepresentation()));
-
-				/*
-				 * try to extract occurrence entity
-				 */
-				Variant variant = tryToExtractVariantEntity(name);
-
-				/*
-				 * extract values and transform by type
-				 */
-				arguments.add(DatatypeAwareSerializer.toArgument(writer,
-						variant));
-
-				/*
-				 * add affected construct
-				 */
-				affectedConstructs.add(variant);
-			}
-			return arguments;
-		}
-
-		return super.extractArguments(type, construct, affectedConstructs);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<String> extractArguments(Topic topic,
-			Set<Object> affectedConstructs) throws SerializerException {
-		if (!isAdaptiveFor(topic)) {
-			throw new SerializerException(
-					"template entry is not adaptive for given topic.");
-		}
-
-		List<String> arguments = new LinkedList<String>();
-		/*
-		 * if value is a variable
-		 */
-		if (getParameter() instanceof VariableParam) {
-			/*
-			 * try to extract occurrence entity
-			 */
-			Variant variant = tryToExtractVariantEntity(topic);
-
-			/*
-			 * extract values and transform by type
-			 */
-			arguments.add(DatatypeAwareSerializer.toArgument(writer, variant));
-
-			/*
-			 * add affected construct
-			 */
-			affectedConstructs.add(variant);
-		}
-		/*
-		 * if value is a constant
-		 */
-		else {
-
-			/*
-			 * extract values and transform by type
-			 */
-			arguments.add(DatatypeAwareSerializer.toArgument(getParameter()
-					.getCTMRepresentation()));
-
-			/*
-			 * try to extract occurrence entity
-			 */
-			Variant variant = tryToExtractVariantEntity(topic);
-
-			/*
-			 * extract values and transform by type
-			 */
-			arguments.add(DatatypeAwareSerializer.toArgument(writer, variant));
-
-			/*
-			 * add affected construct
-			 */
-			affectedConstructs.add(variant);
-		}
-		return arguments;
-	}
-
-	/**
-	 * Internal method to extract the occurrence from topic matching this
-	 * instance of template-entry. Method checks the type information, the
-	 * data-type, the scope and the reifier entry.
-	 * 
-	 * @param topic
-	 *            the topic to extract the occurrence
-	 * @return the extracted occurrence if exists and never <code>null</code>
-	 * 
-	 * @throws SerializerException
-	 *             thrown if occurrence can not be extracted
-	 */
-	private Variant tryToExtractVariantEntity(final Topic topic)
-			throws SerializerException {
-
-		for (Name name : topic.getNames()) {
-			Variant v = tryToExtractVariantEntity(name);
-			if (v != null) {
-				return v;
-			}
-		}
-		throw new SerializerException("No variant is matching");
-
-	}
-
-	/**
-	 * Internal method to extract the occurrence from name matching this
-	 * instance of template-entry. Method checks the type information, the
-	 * data-type, the scope and the reifier entry.
-	 * 
-	 * @param name
-	 *            the name item to extract the occurrence
-	 * @return the extracted occurrence if exists and never <code>null</code>
-	 * 
-	 * @throws SerializerException
-	 *             thrown if occurrence can not be extracted
-	 */
-	private Variant tryToExtractVariantEntity(final Name name)
-			throws SerializerException {
-
-		for (Variant variant : name.getVariants()) {
-			boolean isAdaptive = true;
-			final String reference = writer.getCtmIdentity()
-					.getPrefixedIdentity(variant.getDatatype());
-			if (datatypeAsTopicOrString instanceof Topic
-					&& datatypeAsTopicOrString.equals(variant.getDatatype())) {
-				isAdaptive &= true;
-			} else if (datatypeAsTopicOrString.toString().equalsIgnoreCase(
-					reference)) {
-				isAdaptive &= true;
-			}
-			if (getScopeEntry() != null) {
-				isAdaptive &= getScopeEntry().isAdaptiveFor(variant);
-			}
-			if (getReifierEntry() != null) {
-				isAdaptive &= getReifierEntry().isAdaptiveFor(variant);
-			}
-			if (isAdaptive) {
-				return variant;
-			}
-		}
-		throw new SerializerException(
-				"template entry is not adaptive for given topic.");
-	}
+	// /**
+	// * Internal method to extract the occurrence from topic matching this
+	// * instance of template-entry. Method checks the type information, the
+	// * data-type, the scope and the reifier entry.
+	// *
+	// * @param topic
+	// * the topic to extract the occurrence
+	// * @return the extracted occurrence if exists and never <code>null</code>
+	// *
+	// * @throws SerializerException
+	// * thrown if occurrence can not be extracted
+	// */
+	// private Variant tryToExtractVariantEntity(final Topic topic)
+	// throws SerializerException {
+	//
+	// for (Name name : topic.getNames()) {
+	// Variant v = tryToExtractVariantEntity(name);
+	// if (v != null) {
+	// return v;
+	// }
+	// }
+	// throw new SerializerException("No variant is matching");
+	//
+	// }
+	//
+	// /**
+	// * Internal method to extract the occurrence from name matching this
+	// * instance of template-entry. Method checks the type information, the
+	// * data-type, the scope and the reifier entry.
+	// *
+	// * @param name
+	// * the name item to extract the occurrence
+	// * @return the extracted occurrence if exists and never <code>null</code>
+	// *
+	// * @throws SerializerException
+	// * thrown if occurrence can not be extracted
+	// */
+	// private Variant tryToExtractVariantEntity(final Name name)
+	// throws SerializerException {
+	//
+	// for (Variant variant : name.getVariants()) {
+	// boolean isAdaptive = true;
+	// final String reference = writer.getCtmIdentity()
+	// .getPrefixedIdentity(variant.getDatatype());
+	// if (datatypeAsTopicOrString instanceof Topic
+	// && datatypeAsTopicOrString.equals(variant.getDatatype())) {
+	// isAdaptive &= true;
+	// } else if (datatypeAsTopicOrString.toString().equalsIgnoreCase(
+	// reference)) {
+	// isAdaptive &= true;
+	// }
+	// if (getScopeEntry() != null) {
+	// isAdaptive &= getScopeEntry().isAdaptiveFor(variant);
+	// }
+	// if (getReifierEntry() != null) {
+	// isAdaptive &= getReifierEntry().isAdaptiveFor(variant);
+	// }
+	// if (isAdaptive) {
+	// return variant;
+	// }
+	// }
+	// throw new SerializerException(
+	// "template entry is not adaptive for given topic.");
+	// }
 
 	/**
 	 * Static method to create a occurrence-entry by given occurrence construct

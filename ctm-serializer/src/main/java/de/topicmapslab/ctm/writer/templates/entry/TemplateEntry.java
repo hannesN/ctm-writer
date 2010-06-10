@@ -10,10 +10,6 @@ package de.topicmapslab.ctm.writer.templates.entry;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-
-import org.tmapi.core.Construct;
-import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.Template;
@@ -65,12 +61,13 @@ public class TemplateEntry implements IEntry {
 		TemplateSerializer.serialize(template, buffer, valuesOrVariables);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean isAdaptiveFor(Construct construct) {
-		return template.isAdaptiveFor(construct);
-	}
+	// /**
+	// * {@inheritDoc}
+	// */
+	// public boolean isAdaptiveFor(Construct construct) {
+	// // return template.isAdaptiveFor(construct);
+	// return false;
+	// }
 
 	/**
 	 * {@inheritDoc}
@@ -105,23 +102,23 @@ public class TemplateEntry implements IEntry {
 		return false;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<String> extractArguments(Topic type, Construct construct,
-			Set<Object> affectedConstructs) throws SerializerException {
-		if (!isAdaptiveFor(type)) {
-			throw new SerializerException(
-					"template entry is not adaptive for given topic.");
-		}
-
-		List<String> arguments = new LinkedList<String>();
-		for (IEntry entry : template.getEntries()) {
-			arguments.addAll(entry.extractArguments(type, construct,
-					affectedConstructs));
-		}
-		return arguments;
-	}
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	public List<String> extractArguments(Topic type, Construct construct,
+//			Set<Object> affectedConstructs) throws SerializerException {
+//		if (!isAdaptiveFor(type)) {
+//			throw new SerializerException(
+//					"template entry is not adaptive for given topic.");
+//		}
+//
+//		List<String> arguments = new LinkedList<String>();
+//		for (IEntry entry : template.getEntries()) {
+//			arguments.addAll(entry.extractArguments(type, construct,
+//					affectedConstructs));
+//		}
+//		return arguments;
+//	}
 
 	/**
 	 * {@inheritDoc}

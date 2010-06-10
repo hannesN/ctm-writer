@@ -87,6 +87,9 @@ public class TypeHierarchyUtils {
 			 */
 			TypeInstanceIndex index = topicMap
 					.getIndex(TypeInstanceIndex.class);
+			if ( !index.isOpen()){
+				index.open();
+			}			
 			/*
 			 * iterate over all association items
 			 */

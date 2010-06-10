@@ -22,7 +22,6 @@ import org.tmapi.core.Role;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.Template;
-import de.topicmapslab.ctm.writer.templates.TemplateInvocationSerializer;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -68,16 +67,17 @@ public class AssociationSerializer implements ISerializer<Association> {
 		 * association-definition
 		 */
 		if (!adaptiveTemplates.isEmpty()) {
-			/*
-			 * iterate over templates
-			 */
-			for (Template template : adaptiveTemplates) {
-				/*
-				 * redirect to template-invocation-serializer
-				 */
-				affectedConstructs.addAll(TemplateInvocationSerializer
-						.serialize(template, association, buffer));
-			}
+			// /*
+			// * iterate over templates
+			// */
+			// for (Template template : adaptiveTemplates) {
+			// /*
+			// * redirect to template-invocation-serializer
+			// */
+			// affectedConstructs.addAll(TemplateInvocationSerializer
+			// .serialize(template, association, buffer));
+			// }
+			throw new UnsupportedOperationException("not implemented yet");
 		}
 		/*
 		 * templates are empty
