@@ -12,7 +12,9 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.UTF8ENCODING;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.VERSION;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.tmapi.core.Association;
@@ -28,12 +30,12 @@ import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.core.PrefixHandler;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
+import de.topicmapslab.ctm.writer.templates.ITemplateScanner;
 import de.topicmapslab.ctm.writer.templates.Template;
+import de.topicmapslab.ctm.writer.templates.TemplateMatching;
 import de.topicmapslab.ctm.writer.templates.TemplateMerger;
 import de.topicmapslab.ctm.writer.templates.TemplateSerializer;
 import de.topicmapslab.ctm.writer.templates.autodetection.TemplateDetection;
-import de.topicmapslab.ctm.writer.templates.entry.AssociationEntry;
-import de.topicmapslab.ctm.writer.templates.entry.TopicEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
@@ -72,6 +74,10 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	 * the prefix handler
 	 */
 	private final PrefixHandler prefixHandler;
+
+	private final Map<Template, Set<TemplateMatching>> matchings = new HashMap<Template, Set<TemplateMatching>>();
+	private final Map<Construct, Set<TemplateMatching>> constructMatchings = new HashMap<Construct, Set<TemplateMatching>>();
+	private final Set<Construct> affectedConstructs = new HashSet<Construct>();
 
 	public TopicMapSerializer(CTMTopicMapWriter writer,
 			PrefixHandler prefixHandler) {
@@ -211,11 +217,42 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 				}
 			}
 		}
+
+		/*
+		 * call template scanners
+		 */
+		for (Template t : templates) {
+			ITemplateScanner scanner = t.getScanner();
+			if (scanner == null) {
+				continue;
+			}
+
+			Set<TemplateMatching> set = scanner.getAdaptiveConstructs(topicMap);
+			for (TemplateMatching matching : set) {
+				if (matching.getContext() == null) {
+					continue;
+				}
+				Set<TemplateMatching> s = constructMatchings
+						.get(matching.getContext());
+				if (s == null) {
+					s = new HashSet<TemplateMatching>();
+				}
+				s.add(matching);
+				matching.setTemplate(t);
+				constructMatchings.put(matching.getContext(), s);
+				affectedConstructs.addAll(matching.getAffectedConstructs());				
+			}
+			matchings.put(t, set);
+		}
+
 		/*
 		 * generate topic-definition blocks
 		 */
 		buffer.appendCommentLine("topic definitions");
 		for (Topic topic : topicMap.getTopics()) {
+			if ( affectedConstructs.contains(topic)){
+				continue;
+			}
 			/*
 			 * ignore TMDM topics
 			 */
@@ -234,6 +271,9 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		buffer.appendCommentLine("association definitions");
 		Set<Object> affectedConstronstructs = new HashSet<Object>();
 		for (Association association : topicMap.getAssociations()) {
+			if ( affectedConstructs.contains(association)){
+				continue;
+			}
 			/*
 			 * already exported
 			 */
@@ -254,9 +294,9 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 										.next().toExternalForm())) {
 					continue;
 				}
-				affectedConstronstructs.addAll(AssociationSerializer.serialize(
-						writer, getAdaptiveTemplates(association), association,
-						ctmBuffer));
+				// affectedConstronstructs.addAll(AssociationSerializer.serialize(
+				// writer, getAdaptiveTemplates(association), association,
+				// ctmBuffer));
 				buffer.appendLine(ctmBuffer);
 			} catch (NoIdentityException e) {
 			}
@@ -358,9 +398,9 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 				/*
 				 * ignore TMDM associations
 				 */
-				AssociationSerializer.serialize(writer,
-						getAdaptiveTemplates(association), association,
-						ctmBuffer);
+				 AssociationSerializer.serialize(writer,
+				 new HashSet<Template>(), association,
+				 ctmBuffer);
 				buffer.appendLine(ctmBuffer);
 			} catch (NoIdentityException e) {
 			}
@@ -398,7 +438,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 			 * generate only for non TMDM types
 			 */
 			writer.getCtmIdentity().getIdentity(writer.getProperties(), topic);
-			TopicSerializer.serialize(writer, getAdaptiveTemplates(topic),
+			TopicSerializer.serialize(writer, constructMatchings.get(topic),
 					topic, ctmBuffer);
 			buffer.appendLine(ctmBuffer);
 			return true;
@@ -407,47 +447,47 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		}
 	}
 
-	/**
-	 * Extract adaptive templates from internal list.
-	 * 
-	 * @param topic
-	 *            the topic which should be adaptive to the templates
-	 * @return a set of adaptive templates for the given topic
-	 */
-	@SuppressWarnings("unchecked")
-	private final Set<Template> getAdaptiveTemplates(final Topic topic) {
-		Set<Template> templates = new HashSet<Template>();
-
-		for (Template t : this.templates) {
-			if (!t.containsOnlyInstanceOf(AssociationEntry.class,
-					TopicEntry.class)
-					&& !t.getTemplateName().matches(".*-invoc--?[0-9]+")
-					&& t.isAdaptiveFor(topic)) {
-				templates.add(t);
-			}
-		}
-		return templates;
-	}
-
-	/**
-	 * Extract adaptive templates from internal list.
-	 * 
-	 * @param association
-	 *            the association which should be adaptive to the templates
-	 * @return a set of adaptive templates for the given association
-	 */
-	@SuppressWarnings("unchecked")
-	private final Set<Template> getAdaptiveTemplates(
-			final Association association) {
-		Set<Template> templates = new HashSet<Template>();
-
-		for (Template t : this.templates) {
-			if (t.containsOnlyInstanceOf(AssociationEntry.class,
-					TopicEntry.class)
-					&& t.isAdaptiveFor(association)) {
-				templates.add(t);
-			}
-		}
-		return templates;
-	}
+	// /**
+	// * Extract adaptive templates from internal list.
+	// *
+	// * @param topic
+	// * the topic which should be adaptive to the templates
+	// * @return a set of adaptive templates for the given topic
+	// */
+	// @SuppressWarnings("unchecked")
+	// private final Set<Template> getAdaptiveTemplates(final Topic topic) {
+	// Set<Template> templates = new HashSet<Template>();
+	//
+	// for (Template t : this.templates) {
+	// if (!t.containsOnlyInstanceOf(AssociationEntry.class,
+	// TopicEntry.class)
+	// && !t.getTemplateName().matches(".*-invoc--?[0-9]+")
+	// && t.isAdaptiveFor(topic)) {
+	// templates.add(t);
+	// }
+	// }
+	// return templates;
+	// }
+	//
+	// /**
+	// * Extract adaptive templates from internal list.
+	// *
+	// * @param association
+	// * the association which should be adaptive to the templates
+	// * @return a set of adaptive templates for the given association
+	// */
+	// @SuppressWarnings("unchecked")
+	// private final Set<Template> getAdaptiveTemplates(
+	// final Association association) {
+	// Set<Template> templates = new HashSet<Template>();
+	//
+	// for (Template t : this.templates) {
+	// if (t.containsOnlyInstanceOf(AssociationEntry.class,
+	// TopicEntry.class)
+	// && t.isAdaptiveFor(association)) {
+	// templates.add(t);
+	// }
+	// }
+	// return templates;
+	// }
 }

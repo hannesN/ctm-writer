@@ -10,7 +10,6 @@ package de.topicmapslab.ctm.writer.templates.entry;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.REIFIER;
 
-import org.tmapi.core.Reifiable;
 import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
@@ -74,25 +73,25 @@ public class ReifierEntry {
 		}
 	}
 
-	/**
-	 * Check if entry is adaptive for given reifiable element.
-	 * 
-	 * @param reifiable
-	 *            the reifiable element
-	 * @return <code>true</code> if the entry can replaced a part of the given
-	 *         reifiable element.
-	 */
-	public boolean isAdaptiveFor(Reifiable reifiable) {
-		if (reifier instanceof TopicTypeParam) {
-			if (reifiable.getReifier() == null) {
-				return false;
-			} else {
-				return reifiable.getReifier().equals(
-						((TopicTypeParam) reifier).getTopic());
-			}
-		}
-		return true;
-	}
+	// /**
+	// * Check if entry is adaptive for given reifiable element.
+	// *
+	// * @param reifiable
+	// * the reifiable element
+	// * @return <code>true</code> if the entry can replaced a part of the given
+	// * reifiable element.
+	// */
+	// public boolean isAdaptiveFor(Reifiable reifiable) {
+	// if (reifier instanceof TopicTypeParam) {
+	// if (reifiable.getReifier() == null) {
+	// return false;
+	// } else {
+	// return reifiable.getReifier().equals(
+	// ((TopicTypeParam) reifier).getTopic());
+	// }
+	// }
+	// return true;
+	// }
 
 	/**
 	 * Method returns the internal reifier value

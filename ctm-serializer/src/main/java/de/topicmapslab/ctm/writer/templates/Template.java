@@ -14,8 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.tmapi.core.Construct;
-
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
@@ -48,6 +46,8 @@ public class Template {
 	 * flag indicates if the template should be serialized
 	 */
 	private boolean serialize = true;
+	
+	private ITemplateScanner scanner;
 
 	/**
 	 * constructor
@@ -107,25 +107,6 @@ public class Template {
 	protected void remove(final IEntry entry) {
 		variables.removeAll(entry.getVariables());
 		entries.remove(entry);
-	}
-
-	/**
-	 * Check if entry is adaptive for given construct. Method iterates over all
-	 * contained entries and redirect to {@link IEntry#isAdaptiveFor(Construct)}
-	 * .
-	 * 
-	 * @param construct
-	 *            the construct
-	 * @return <code>true</code> if the entry can replaced a part of the given
-	 *         construct.
-	 */
-	public boolean isAdaptiveFor(Construct construct) {
-		for (IEntry entry : entries) {
-			if (!entry.isAdaptiveFor(construct)) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	/**
@@ -222,4 +203,18 @@ public class Template {
 		this.serialize = serialize;
 	}
 
+	/**
+	 * @param scanner the scanner to set
+	 */
+	public void setScanner(ITemplateScanner scanner) {
+		this.scanner = scanner;
+	}
+	
+	/**
+	 * @return the scanner
+	 */
+	public ITemplateScanner getScanner() {
+		return scanner;
+	}
+	
 }

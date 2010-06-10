@@ -10,13 +10,6 @@ package de.topicmapslab.ctm.writer.templates.entry;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.ISA;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import org.tmapi.core.Topic;
-
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
@@ -73,51 +66,51 @@ public class IsInstanceOfEntry extends EntryImpl {
 		buffer.appendTailLine(true, TABULATOR, ISA, value);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean isAdaptiveFor(Topic topic) {
-		if (param instanceof TopicTypeParam) {
-			return topic.getTypes().contains(
-					((TopicTypeParam) param).getTopic());
-		} else if (param instanceof WildcardParam
-				|| param instanceof VariableParam) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<String> extractArguments(Topic topic,
-			Set<Object> affectedConstructs) throws SerializerException {
-		if (!isAdaptiveFor(topic)) {
-			throw new SerializerException(
-					"template entry is not adaptive for given topic.");
-		}
-
-		List<String> arguments = new LinkedList<String>();
-		/*
-		 * is variable depended value
-		 */
-		if (param instanceof VariableParam) {
-			Topic type = topic.getTypes().iterator().next();
-			arguments.add(writer.getCtmIdentity().getMainIdentifier(
-					writer.getProperties(), type).toString());
-			affectedConstructs.add(type);
-
-		}
-//		/*
-//		 * is constant value
-//		 */
-//		else {
-//			arguments.add(writer.getCtmIdentity().getPrefixedIdentity(
-//					writer.getProperties(), this.type).toString());
-//			affectedConstructs.add(this.type);
-//		}
-		return arguments;
-	}
+	// /**
+	// * {@inheritDoc}
+	// */
+	// public boolean isAdaptiveFor(Topic topic) {
+	// if (param instanceof TopicTypeParam) {
+	// return topic.getTypes().contains(
+	// ((TopicTypeParam) param).getTopic());
+	// } else if (param instanceof WildcardParam
+	// || param instanceof VariableParam) {
+	// return true;
+	// }
+	// return false;
+	// }
+	//
+	// /**
+	// * {@inheritDoc}
+	// */
+	// public List<String> extractArguments(Topic topic,
+	// Set<Object> affectedConstructs) throws SerializerException {
+	// if (!isAdaptiveFor(topic)) {
+	// throw new SerializerException(
+	// "template entry is not adaptive for given topic.");
+	// }
+	//
+	// List<String> arguments = new LinkedList<String>();
+	// /*
+	// * is variable depended value
+	// */
+	// if (param instanceof VariableParam) {
+	// Topic type = topic.getTypes().iterator().next();
+	// arguments.add(writer.getCtmIdentity().getMainIdentifier(
+	// writer.getProperties(), type).toString());
+	// affectedConstructs.add(type);
+	//
+	// }
+	// // /*
+	// // * is constant value
+	// // */
+	// // else {
+	// // arguments.add(writer.getCtmIdentity().getPrefixedIdentity(
+	// // writer.getProperties(), this.type).toString());
+	// // affectedConstructs.add(this.type);
+	// // }
+	// return arguments;
+	// }
 
 	/**
 	 * {@inheritDoc}

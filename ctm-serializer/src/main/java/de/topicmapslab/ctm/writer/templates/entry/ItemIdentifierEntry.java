@@ -9,18 +9,7 @@
 package de.topicmapslab.ctm.writer.templates.entry;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.ITEMIDENTIFIER;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import org.tmapi.core.Locator;
-import org.tmapi.core.Topic;
-
-import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
-import de.topicmapslab.ctm.writer.templates.entry.param.ValueParam;
-import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
@@ -50,44 +39,44 @@ public class ItemIdentifierEntry extends IdentifierEntry {
 		return ITEMIDENTIFIER;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean isAdaptiveFor(Topic topic) {
-		return !topic.getItemIdentifiers().isEmpty();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<String> extractArguments(Topic topic,
-			Set<Object> affectedConstructs) throws SerializerException {
-
-		if (!isAdaptiveFor(topic)) {
-			throw new SerializerException(
-					"template entry is not adaptive for given topic.");
-		}
-
-		List<String> arguments = new LinkedList<String>();
-		/*
-		 * if value is a variable
-		 */
-		if (getParameter() instanceof VariableParam) {
-			Locator locator = topic.getItemIdentifiers().iterator().next();
-			affectedConstructs.add(locator);
-			arguments.add(ctmIdentity.getPrefixedIdentity(locator));
-		}
-		/*
-		 * if value is constant
-		 */
-		else if (getParameter() instanceof ValueParam) {
-			Locator locator = topic.getTopicMap().createLocator(
-					getParameter().getCTMRepresentation());
-			affectedConstructs.add(locator);
-			arguments.add(ctmIdentity.getPrefixedIdentity(locator));
-		}
-
-		return arguments;
-	}
+	// /**
+	// * {@inheritDoc}
+	// */
+	// public boolean isAdaptiveFor(Topic topic) {
+	// return !topic.getItemIdentifiers().isEmpty();
+	// }
+	//
+	// /**
+	// * {@inheritDoc}
+	// */
+	// public List<String> extractArguments(Topic topic,
+	// Set<Object> affectedConstructs) throws SerializerException {
+	//
+	// if (!isAdaptiveFor(topic)) {
+	// throw new SerializerException(
+	// "template entry is not adaptive for given topic.");
+	// }
+	//
+	// List<String> arguments = new LinkedList<String>();
+	// /*
+	// * if value is a variable
+	// */
+	// if (getParameter() instanceof VariableParam) {
+	// Locator locator = topic.getItemIdentifiers().iterator().next();
+	// affectedConstructs.add(locator);
+	// arguments.add(ctmIdentity.getPrefixedIdentity(locator));
+	// }
+	// /*
+	// * if value is constant
+	// */
+	// else if (getParameter() instanceof ValueParam) {
+	// Locator locator = topic.getTopicMap().createLocator(
+	// getParameter().getCTMRepresentation());
+	// affectedConstructs.add(locator);
+	// arguments.add(ctmIdentity.getPrefixedIdentity(locator));
+	// }
+	//
+	// return arguments;
+	// }
 
 }
