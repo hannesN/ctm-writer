@@ -15,9 +15,7 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-import org.tmapi.core.Scoped;
 import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
@@ -98,29 +96,29 @@ public class ScopeEntry {
 		}
 	}
 
-	/**
-	 * Check if entry is adaptive for given scoped element.
-	 * 
-	 * @param scoped
-	 *            the scoped element
-	 * @return <code>true</code> if the entry can replaced a part of the given
-	 *         scoped element.
-	 */
-	public boolean isAdaptiveFor(Scoped scoped) {
-		boolean adaptive = true;
-		Set<Topic> themes = scoped.getScope();
-		for (IEntryParam param : params) {
-			if (param instanceof TopicTypeParam) {
-				adaptive &= themes
-						.contains(((TopicTypeParam) param).getTopic());
-			}
-			if (!adaptive) {
-				break;
-			}
-		}
-		adaptive &= scoped.getScope().size() == params.length;
-		return adaptive;
-	}
+	// /**
+	// * Check if entry is adaptive for given scoped element.
+	// *
+	// * @param scoped
+	// * the scoped element
+	// * @return <code>true</code> if the entry can replaced a part of the given
+	// * scoped element.
+	// */
+	// public boolean isAdaptiveFor(Scoped scoped) {
+	// boolean adaptive = true;
+	// Set<Topic> themes = scoped.getScope();
+	// for (IEntryParam param : params) {
+	// if (param instanceof TopicTypeParam) {
+	// adaptive &= themes
+	// .contains(((TopicTypeParam) param).getTopic());
+	// }
+	// if (!adaptive) {
+	// break;
+	// }
+	// }
+	// adaptive &= scoped.getScope().size() == params.length;
+	// return adaptive;
+	// }
 
 	/**
 	 * Method returns the internal list of themes

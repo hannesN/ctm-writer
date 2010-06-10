@@ -9,10 +9,6 @@
 package de.topicmapslab.ctm.writer.templates.entry.base;
 
 import java.util.List;
-import java.util.Set;
-
-import org.tmapi.core.Construct;
-import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.Template;
@@ -40,15 +36,15 @@ public interface IEntry {
 	 */
 	public void serialize(CTMBuffer buffer) throws SerializerException;
 
-	/**
-	 * Check if entry is adaptive for given construct.
-	 * 
-	 * @param construct
-	 *            the construct
-	 * @return <code>true</code> if the entry can replaced a part of the given
-	 *         construct.
-	 */
-	public boolean isAdaptiveFor(Construct construct);
+//	/**
+//	 * Check if entry is adaptive for given construct.
+//	 * 
+//	 * @param construct
+//	 *            the construct
+//	 * @return <code>true</code> if the entry can replaced a part of the given
+//	 *         construct.
+//	 */
+//	public boolean isAdaptiveFor(Construct construct);
 
 	/**
 	 * The internal definition of a parameter as value part of template-entry.
@@ -66,24 +62,24 @@ public interface IEntry {
 	 */
 	public boolean isDependentFromVariable();
 
-	/**
-	 * Method is called to extract the arguments for the entry from the given
-	 * construct. The extracted arguments are used as argument list for
-	 * template-invocation.
-	 * 
-	 * @param type
-	 *            the type of the given construct
-	 * @param construct
-	 *            the construct itself
-	 * @param affectedConstructs
-	 *            a set used to store affected entries of the given construct
-	 * @return a list of extracted arguments
-	 * @throws SerializerException
-	 *             thrown if given construct is not adaptive for entry
-	 */
-	public List<String> extractArguments(final Topic type,
-			final Construct construct, Set<Object> affectedConstructs)
-			throws SerializerException;
+	// /**
+	// * Method is called to extract the arguments for the entry from the given
+	// * construct. The extracted arguments are used as argument list for
+	// * template-invocation.
+	// *
+	// * @param type
+	// * the type of the given construct
+	// * @param construct
+	// * the construct itself
+	// * @param affectedConstructs
+	// * a set used to store affected entries of the given construct
+	// * @return a list of extracted arguments
+	// * @throws SerializerException
+	// * thrown if given construct is not adaptive for entry
+	// */
+	// public List<String> extractArguments(final Topic type,
+	// final Construct construct, Set<Object> affectedConstructs)
+	// throws SerializerException;
 
 	/**
 	 * Returns the list of variables defined by the current template

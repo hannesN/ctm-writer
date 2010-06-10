@@ -11,14 +11,10 @@ package de.topicmapslab.ctm.writer.templates.entry;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.BRC;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.BRO;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.COMMA;
-import static de.topicmapslab.ctm.writer.utility.CTMTokens.QUOTE;
-import static de.topicmapslab.ctm.writer.utility.CTMTokens.TRIPPLEQUOTE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.tmapi.core.Name;
 import org.tmapi.core.Topic;
@@ -137,131 +133,132 @@ public class NameEntry extends ScopedEntry {
 		buffer.appendTailLine();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean isAdaptiveFor(Topic topic) {
-		boolean result = false;
-		if (type == null || type instanceof WildcardParam
-				|| type instanceof VariableParam) {
-			result = true;
-		} else if (type instanceof TopicTypeParam) {
-			for (Name name : topic.getNames(((TopicTypeParam) type).getTopic())) {
-				result = true;
-				if (result && getScopeEntry() != null) {
-					result = name.getScope().containsAll(
-							Arrays.asList(getScopeEntry().getThemes()));
-				}
-
-				if (result && getReifierEntry() != null) {
-					result = getReifierEntry().getReifier().equals(
-							name.getReifier());
-				}
-
-				for (VariantEntry variant : variants) {
-					result &= variant.isAdaptiveFor(name);
-				}
-
-				result &= name.getVariants().size() == variants.size();
-
-				if (result) {
-					break;
-				}
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<String> extractArguments(Topic topic,
-			Set<Object> affectedConstructs) throws SerializerException {
-		if (!isAdaptiveFor(topic)) {
-			throw new SerializerException(
-					"template entry is not adaptive for given topic.");
-		}
-
-		List<String> arguments = new LinkedList<String>();
-
-		/*
-		 * get name entity
-		 */
-		Name name = tryToExtractNameEntity(topic);
-		affectedConstructs.add(name);
-
-		/*
-		 * get type information
-		 */
-		if (type instanceof VariableParam) {
-			arguments.add(writer.getCtmIdentity().getMainIdentifier(
-					writer.getProperties(), name.getType()).toString());
-		}
-
-		/*
-		 * if value is a variable
-		 */
-		if (isDependentFromVariable()) {
-			final String value = name.getValue();
-			if (value.contains(QUOTE)) {
-				arguments.add(TRIPPLEQUOTE + value + TRIPPLEQUOTE);
-			} else {
-				arguments.add(QUOTE + value + QUOTE);
-			}
-		}
-		/*
-		 * if value is a constant
-		 */
-		else {
-			final String value = getParameter().getCTMRepresentation();
-			if (value.contains(QUOTE)) {
-				arguments.add(TRIPPLEQUOTE + value + TRIPPLEQUOTE);
-			} else {
-				arguments.add(QUOTE + value + QUOTE);
-			}
-
-		}
-
-		for (VariantEntry variantEntry : variants) {
-			variantEntry.extractArguments(topic, name, affectedConstructs);
-		}
-
-		return arguments;
-	}
-
-	/**
-	 * Internal method to extract the name from topic matching this instance of
-	 * template-entry. Method checks the type information, the scope and the
-	 * reifier entry.
-	 * 
-	 * @param topic
-	 *            the topic to extract the name
-	 * @return the extracted name if exists and never <code>null</code>
-	 * 
-	 * @throws SerializerException
-	 *             thrown if name can not be extracted
-	 */
-	private Name tryToExtractNameEntity(final Topic topic)
-			throws SerializerException {
-		for (Name name : topic.getNames()) {
-			boolean isAdaptive = true;
-			if (type instanceof TopicTypeParam) {
-				Topic t = ((TopicTypeParam) type).getTopic();
-				isAdaptive &= name.getType().equals(t);
-			}
-			if (getScopeEntry() != null) {
-				isAdaptive &= getScopeEntry().isAdaptiveFor(name);
-			}
-			if (getReifierEntry() != null) {
-				isAdaptive &= getReifierEntry().isAdaptiveFor(name);
-			}
-			if (isAdaptive) {
-				return name;
-			}
-		}
-		throw new SerializerException(
-				"template entry is not adaptive for given topic.");
-	}
+	// /**
+	// * {@inheritDoc}
+	// */
+	// public boolean isAdaptiveFor(Topic topic) {
+	// boolean result = false;
+	// if (type == null || type instanceof WildcardParam
+	// || type instanceof VariableParam) {
+	// result = true;
+	// } else if (type instanceof TopicTypeParam) {
+	// for (Name name : topic.getNames(((TopicTypeParam) type).getTopic())) {
+	// result = true;
+	// if (result && getScopeEntry() != null) {
+	// result = name.getScope().containsAll(
+	// Arrays.asList(getScopeEntry().getThemes()));
+	// }
+	//
+	// if (result && getReifierEntry() != null) {
+	// result = getReifierEntry().getReifier().equals(
+	// name.getReifier());
+	// }
+	//
+	// for (VariantEntry variant : variants) {
+	// result &= variant.isAdaptiveFor(name);
+	// }
+	//
+	// result &= name.getVariants().size() == variants.size();
+	//
+	// if (result) {
+	// break;
+	// }
+	// }
+	// }
+	// return result;
+	// }
+	//
+	// /**
+	// * {@inheritDoc}
+	// */
+	// public List<String> extractArguments(Topic topic,
+	// Set<Object> affectedConstructs) throws SerializerException {
+	// if (!isAdaptiveFor(topic)) {
+	// throw new SerializerException(
+	// "template entry is not adaptive for given topic.");
+	// }
+	//
+	// List<String> arguments = new LinkedList<String>();
+	//
+	// /*
+	// * get name entity
+	// */
+	// Name name = tryToExtractNameEntity(topic);
+	// affectedConstructs.add(name);
+	//
+	// /*
+	// * get type information
+	// */
+	// if (type instanceof VariableParam) {
+	// arguments.add(writer.getCtmIdentity().getMainIdentifier(
+	// writer.getProperties(), name.getType()).toString());
+	// }
+	//
+	// /*
+	// * if value is a variable
+	// */
+	// if (isDependentFromVariable()) {
+	// final String value = name.getValue();
+	// if (value.contains(QUOTE)) {
+	// arguments.add(TRIPPLEQUOTE + value + TRIPPLEQUOTE);
+	// } else {
+	// arguments.add(QUOTE + value + QUOTE);
+	// }
+	// }
+	// /*
+	// * if value is a constant
+	// */
+	// else {
+	// final String value = getParameter().getCTMRepresentation();
+	// if (value.contains(QUOTE)) {
+	// arguments.add(TRIPPLEQUOTE + value + TRIPPLEQUOTE);
+	// } else {
+	// arguments.add(QUOTE + value + QUOTE);
+	// }
+	//
+	// }
+	//
+	// for (VariantEntry variantEntry : variants) {
+	// variantEntry.extractArguments(topic, name, affectedConstructs);
+	// }
+	//
+	// return arguments;
+	// }
+	//
+	// /**
+	// * Internal method to extract the name from topic matching this instance
+	// of
+	// * template-entry. Method checks the type information, the scope and the
+	// * reifier entry.
+	// *
+	// * @param topic
+	// * the topic to extract the name
+	// * @return the extracted name if exists and never <code>null</code>
+	// *
+	// * @throws SerializerException
+	// * thrown if name can not be extracted
+	// */
+	// private Name tryToExtractNameEntity(final Topic topic)
+	// throws SerializerException {
+	// for (Name name : topic.getNames()) {
+	// boolean isAdaptive = true;
+	// if (type instanceof TopicTypeParam) {
+	// Topic t = ((TopicTypeParam) type).getTopic();
+	// isAdaptive &= name.getType().equals(t);
+	// }
+	// if (getScopeEntry() != null) {
+	// isAdaptive &= getScopeEntry().isAdaptiveFor(name);
+	// }
+	// if (getReifierEntry() != null) {
+	// isAdaptive &= getReifierEntry().isAdaptiveFor(name);
+	// }
+	// if (isAdaptive) {
+	// return name;
+	// }
+	// }
+	// throw new SerializerException(
+	// "template entry is not adaptive for given topic.");
+	// }
 
 	/**
 	 * Static method to create a name-entry by given name construct of a topic.

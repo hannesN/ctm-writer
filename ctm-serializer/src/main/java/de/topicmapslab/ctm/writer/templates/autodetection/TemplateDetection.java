@@ -69,6 +69,9 @@ public class TemplateDetection {
 	public TemplateDetection(final CTMTopicMapWriter writer,
 			final TopicMap topicMap) {
 		this.index = topicMap.getIndex(TypeInstanceIndex.class);
+		if ( !index.isOpen()){
+			index.open();
+		}
 		this.writer = writer;
 		this.threshold = writer.getProperties()
 				.getTemplateDetectionRelevanceThreshold();
