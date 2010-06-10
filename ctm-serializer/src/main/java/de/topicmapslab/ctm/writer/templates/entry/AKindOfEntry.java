@@ -10,13 +10,6 @@ package de.topicmapslab.ctm.writer.templates.entry;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.AKO;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import org.tmapi.core.Topic;
-
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
@@ -25,7 +18,6 @@ import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
-import de.topicmapslab.ctm.writer.utility.TypeHierarchyUtils;
 
 /**
  * Class representing a template-entry definition of a kind-of-association.
@@ -75,41 +67,41 @@ public class AKindOfEntry extends EntryImpl {
 		buffer.appendTailLine(true, TABULATOR, AKO, value);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean isAdaptiveFor(Topic topic) {
-		if (param instanceof TopicTypeParam) {
-			return TypeHierarchyUtils.getSupertypes(topic).contains(
-					((TopicTypeParam) param).getTopic());
-		} else if (param instanceof WildcardParam
-				|| param instanceof VariableParam) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<String> extractArguments(Topic topic,
-			Set<Object> affectedConstructs) throws SerializerException {
-		if (!isAdaptiveFor(topic)) {
-			throw new SerializerException(
-					"template entry is not adaptive for given topic.");
-		}
-
-		List<String> arguments = new LinkedList<String>();
-
-		if (param instanceof VariableParam) {
-			Topic type = ((TopicTypeParam) param).getTopic();
-			arguments.add(writer.getCtmIdentity().getMainIdentifier(
-					writer.getProperties(), type).toString());
-			affectedConstructs.add(type);
-		}
-
-		return arguments;
-	}
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	public boolean isAdaptiveFor(Topic topic) {
+//		if (param instanceof TopicTypeParam) {
+//			return TypeHierarchyUtils.getSupertypes(topic).contains(
+//					((TopicTypeParam) param).getTopic());
+//		} else if (param instanceof WildcardParam
+//				|| param instanceof VariableParam) {
+//			return true;
+//		}
+//		return false;
+//	}
+	//
+	// /**
+	// * {@inheritDoc}
+	// */
+	// public List<String> extractArguments(Topic topic,
+	// Set<Object> affectedConstructs) throws SerializerException {
+	// if (!isAdaptiveFor(topic)) {
+	// throw new SerializerException(
+	// "template entry is not adaptive for given topic.");
+	// }
+	//
+	// List<String> arguments = new LinkedList<String>();
+	//
+	// if (param instanceof VariableParam) {
+	// Topic type = ((TopicTypeParam) param).getTopic();
+	// arguments.add(writer.getCtmIdentity().getMainIdentifier(
+	// writer.getProperties(), type).toString());
+	// affectedConstructs.add(type);
+	// }
+	//
+	// return arguments;
+	// }
 
 	/**
 	 * {@inheritDoc}

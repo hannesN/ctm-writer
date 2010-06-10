@@ -23,8 +23,7 @@ import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.templates.Template;
-import de.topicmapslab.ctm.writer.templates.TemplateInvocationSerializer;
+import de.topicmapslab.ctm.writer.templates.TemplateMatching;
 import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
@@ -59,7 +58,7 @@ public class TopicSerializer implements ISerializer<Topic> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer,
-			Set<Template> adaptiveTemplates, Topic topic, CTMBuffer buffer)
+			Set<TemplateMatching> matchings, Topic topic, CTMBuffer buffer)
 			throws SerializerException {
 
 		final String mainIdentifier = writer.getCtmIdentity()
@@ -72,10 +71,19 @@ public class TopicSerializer implements ISerializer<Topic> {
 		 * block
 		 */
 		Set<Object> affectedConstructs = new HashSet<Object>();
-		for (Template template : adaptiveTemplates) {
-			buffer.append(TABULATOR);
-			affectedConstructs.addAll(TemplateInvocationSerializer.serialize(
-					template, topic, buffer));
+		if (matchings != null) {
+			for (TemplateMatching matching : matchings) {
+				buffer.append(TABULATOR);
+				affectedConstructs.addAll(matching.getAffectedConstructs());				
+				buffer.append(matching.getTemplate().getTemplateName() + "(");
+				boolean first = true;
+				for (String arg : matching.getArgumentsAsString(writer)) {
+					buffer.append((first ? "" : ",") + arg);
+					first = false;
+				}
+				buffer.append(")");
+				buffer.appendLine();
+			}
 		}
 
 		/*

@@ -120,6 +120,9 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 			 */
 			TypeInstanceIndex index = topicMap
 					.getIndex(TypeInstanceIndex.class);
+			if ( !index.isOpen()){
+				index.open();
+			}
 			/*
 			 * iterate over association items
 			 */

@@ -8,7 +8,6 @@
  */
 package de.topicmapslab.ctm.writer.templates.entry;
 
-import org.tmapi.core.Association;
 import org.tmapi.core.Role;
 import org.tmapi.core.Topic;
 
@@ -18,8 +17,6 @@ import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
-import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
-import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
 
 /**
  * Class representing a template-entry definition of an role-entry.
@@ -59,30 +56,30 @@ public class RoleEntry {
 		this.writer = writer;
 	}
 
-	/**
-	 * Check if entry is adaptive for given association.
-	 * 
-	 * @param association
-	 *            the association
-	 * @return <code>true</code> if the entry can replaced a part of the given
-	 *         association, this means if the type and all roles an adaptive
-	 *         for.
-	 */
-	public boolean isAdaptiveFor(Association association) {
-		for (Role role : association.getRoles(roleType)) {
-			if (param instanceof TopicTypeParam) {
-				if (role.getPlayer()
-						.equals(((TopicTypeParam) param).getTopic())) {
-					return true;
-				}
-			} else if (param instanceof VariableParam) {
-				return true;
-			} else if (param instanceof WildcardParam) {
-				return true;
-			}
-		}
-		return false;
-	}
+	// /**
+	// * Check if entry is adaptive for given association.
+	// *
+	// * @param association
+	// * the association
+	// * @return <code>true</code> if the entry can replaced a part of the given
+	// * association, this means if the type and all roles an adaptive
+	// * for.
+	// */
+	// public boolean isAdaptiveFor(Association association) {
+	// for (Role role : association.getRoles(roleType)) {
+	// if (param instanceof TopicTypeParam) {
+	// if (role.getPlayer()
+	// .equals(((TopicTypeParam) param).getTopic())) {
+	// return true;
+	// }
+	// } else if (param instanceof VariableParam) {
+	// return true;
+	// } else if (param instanceof WildcardParam) {
+	// return true;
+	// }
+	// }
+	// return false;
+	// }
 
 	/**
 	 * {@inheritDoc}
