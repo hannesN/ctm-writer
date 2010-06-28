@@ -4,7 +4,7 @@
 	<groupId>de.topicmapslab</groupId>
 	<artifactId>ctm-writer</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.7-SNAPSHOT</version>
+	<version>1.0.8-SNAPSHOT</version>
 	<name>ctm-serializer</name>
 	<description>CTM writer based on TMAPIx</description>
 	<build>
