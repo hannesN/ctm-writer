@@ -42,21 +42,6 @@ public class TemplateDetectionTest extends TestCase {
 		reader.read();
 	}
 
-	// /**
-	// * Test method for
-	// * {@link
-	// de.topicmapslab.ctm.writer.templates.autodetection.TemplateDetection#tryToDetectTopicTemplates(org.tmapi.core.Topic)}
-	// * .
-	// */
-	// public final void testTryToDetectTopicTemplates() throws Exception {
-	// TemplateDetection detection = new TemplateDetection(topicMap);
-	// for (Template t : detection.tryToDetectTemplates()) {
-	// CTMBuffer buffer = new CTMBuffer();
-	// new TemplateSerializer(t).serialize(buffer);
-	// System.out.println(buffer.getBuffer().toString());
-	// }
-	// }
-
 	public void testTemplateDetectionAndUsage() throws Exception {
 		CTMTopicMapWriter writer = new CTMTopicMapWriter(System.out,
 				"www.topicmapslab.de");

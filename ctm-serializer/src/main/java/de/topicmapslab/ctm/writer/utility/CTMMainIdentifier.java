@@ -8,9 +8,9 @@
  */
 package de.topicmapslab.ctm.writer.utility;
 
-import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import de.topicmapslab.common.tools.URIEncoder;
 import de.topicmapslab.ctm.writer.core.PrefixHandler;
 
 /**
@@ -91,7 +91,9 @@ public class CTMMainIdentifier {
 
 	/**
 	 * Set the internal type of this identifier.
-	 * @param type the identifier
+	 * 
+	 * @param type
+	 *            the identifier
 	 */
 	public void setType(IdentifierType type) {
 		this.type = type;
@@ -112,13 +114,14 @@ public class CTMMainIdentifier {
 			b.append("=");
 			break;
 		}
-		
+
 		String id = identifier;
-						
+
 		try {
-			id = URIEncoder.encodeURI(id, "UTF-8");
-		} catch (UnsupportedEncodingException e) {			
-			e.printStackTrace();
+			URL url = new URL(id);
+			id = url.toExternalForm();
+		} catch (MalformedURLException e) {
+			id = identifier;
 		}
 
 		if (id.contains(":") && !id.contains("%") && !id.contains(",")) {

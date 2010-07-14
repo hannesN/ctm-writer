@@ -11,14 +11,14 @@ package de.topicmapslab.ctm.writer.utility;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXBEGIN;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
 
-import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.tmapi.core.Locator;
 import org.tmapi.core.Topic;
 
-import de.topicmapslab.common.tools.URIEncoder;
 import de.topicmapslab.common.tools.prefix.core.Prefixer;
 import de.topicmapslab.ctm.writer.core.PrefixHandler;
 import de.topicmapslab.ctm.writer.core.serializer.PrefixesSerializer;
@@ -87,9 +87,10 @@ public class CTMIdentity {
 		String id = identity;
 
 		try {
-			id = URIEncoder.encodeURI(id, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			URL url = new URL(id);
+			id = url.toExternalForm();
+		} catch (MalformedURLException e) {
+			id = identity;
 		}
 
 		if ((!identity.equals(locator.toExternalForm()))

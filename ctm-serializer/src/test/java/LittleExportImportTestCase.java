@@ -142,12 +142,6 @@ public class LittleExportImportTestCase extends TestCase {
 		associationA.createRole(roleA, playerA);
 		associationA.createRole(roleB, playerB);
 
-		//
-		// Association associationB = topicMap.createAssociation(typeB,
-		// new Topic[0]);
-		//
-		// associationB.createRole(roleB, playerB);
-
 	}
 
 	public void testExportImport() throws Exception {
@@ -169,38 +163,24 @@ public class LittleExportImportTestCase extends TestCase {
 		if (!file2.exists()) {
 			file2.createNewFile();
 		}
-		// org.tinytim.mio.CTMTopicMapWriter writer2 = new
-		// org.tinytim.mio.CTMTopicMapWriter(
-		// new FileOutputStream(file2), "www.topicmapslab.de");
-		// writer2.setExportItemIdentifiers(true);
-		// writer2.write(topicMap);
-
-		System.out.println("Import from CTM...");
-		TopicMap reimport = topicMapSystem
-				.createTopicMap("http://de.topicmapslab/tmql4j/tests/reimport");
-
 		CTMTopicMapReader reader = new CTMTopicMapReader(file);
 		reader.read();
 
 	}
 
-	public void testname() throws Exception {
-		File file = new File(
-				"C:/Dokumente und Einstellungen/Sven/Eigene Dateien/ICQ/263017971/ReceivedFiles/84633702 Uta/toyTM_after_spec.ctm");
-		System.out.println("Import from CTM with ontopia-reader ...");
-
-		CTMTopicMapReader reader = new CTMTopicMapReader(file);
-		TopicMapIF tmif = reader.read();
-		Assert.assertEquals(89, tmif.getTopics().size());
-
-		System.out.println("Import from CTM with tmapix ...");
-		TopicMap reimport = topicMapSystem
-				.createTopicMap("http://de.topicmapslab/tmql4j/tests/reimport");
-		org.tmapix.io.CTMTopicMapReader r = new org.tmapix.io.CTMTopicMapReader(
-				reimport, file);
-		r.read();
-		Assert.assertEquals(89, reimport.getTopics().size());
-	}
+//	public void testname() throws Exception {
+//		File file = new File(
+//				"C:/Dokumente und Einstellungen/Sven/Eigene Dateien/ICQ/263017971/ReceivedFiles/84633702 Uta/toyTM_after_spec.ctm");
+//		CTMTopicMapReader reader = new CTMTopicMapReader(file);
+//		TopicMapIF tmif = reader.read();
+//		Assert.assertEquals(89, tmif.getTopics().size());
+//		TopicMap reimport = topicMapSystem
+//				.createTopicMap("http://de.topicmapslab/tmql4j/tests/reimport");
+//		org.tmapix.io.CTMTopicMapReader r = new org.tmapix.io.CTMTopicMapReader(
+//				reimport, file);
+//		r.read();
+//		Assert.assertEquals(89, reimport.getTopics().size());
+//	}
 
 	public void testFallback() throws Exception {
 		TopicMap tm = topicMapSystem.createTopicMap("http://fallback-test");
@@ -231,14 +211,8 @@ public class LittleExportImportTestCase extends TestCase {
 		if (!file.exists()) {
 			file.createNewFile();
 		}
-		// final String line = "writer.features.export.itemidentifier = true, "
-		// + "writer.features.prefixDetection.enabled = true, "
-		// + "writer.features.templateDetection.enabled = false, "
-		// + "writer.features.templateDetection.topicTemplates = false , "
-		// + "writer.features.templateDetection.associationTemplates = false, "
-		// + "writer.features.templateMerger.enabled = false";
 		de.topicmapslab.ctm.writer.core.CTMTopicMapWriter writer = new de.topicmapslab.ctm.writer.core.CTMTopicMapWriter(
-				new FileOutputStream(file), "www.topicmapslab.de");// , line);
+				new FileOutputStream(file), "www.topicmapslab.de");
 		writer.write(tm);
 
 	}
