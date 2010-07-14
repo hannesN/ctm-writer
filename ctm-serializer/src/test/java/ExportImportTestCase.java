@@ -55,7 +55,7 @@ public class ExportImportTestCase extends TestCase {
 			file.createNewFile();
 		}
 		final String line = "writer.features.export.itemidentifier = false, "
-				+ "writer.features.prefixDetection.enabled = true, "
+				+ "writer.features.prefixDetection.enabled = false, "
 				+ "writer.features.templateDetection.enabled = false, "
 				+ "writer.features.templateDetection.topicTemplates = false , "
 				+ "writer.features.templateDetection.associationTemplates = false, "
@@ -63,11 +63,11 @@ public class ExportImportTestCase extends TestCase {
 		CTMTopicMapWriter writer = new CTMTopicMapWriter(new FileOutputStream(
 				file), "www.topicmapslab.de", line);
 
-		writer.setPrefix("tml", "http://www.topicmapslab.de/");
-		writer.write(topicMap);
 		final String qname = "ctm";
 		final String baseLocator = "http://www.isotopicmaps.org/ctm/";
 		writer.setPrefix(qname, baseLocator);
+		writer.setPrefix("tml", "http://www.topicmapslab.de/");
+		writer.write(topicMap);
 
 		File file2 = new File("src/test/resources/ctm-mio.ctm");
 		if (!file2.exists()) {

@@ -24,12 +24,12 @@ public class PropertyLineTest extends TestCase {
 		Assert
 				.assertEquals(false, properties
 						.isExportOfItemIdentifierEnabled());
-		Assert.assertEquals(true, properties.isPrefixDetectionEnabled());
-		Assert.assertEquals(true, properties.isTemplateDetectionEnabled());
-		Assert.assertEquals(true, properties.isTemplateMergerEnabled());
-		Assert.assertEquals(true, properties
+		Assert.assertEquals(false, properties.isPrefixDetectionEnabled());
+		Assert.assertEquals(false, properties.isTemplateDetectionEnabled());
+		Assert.assertEquals(false, properties.isTemplateMergerEnabled());
+		Assert.assertEquals(false, properties
 				.isTopicTemplateDetectionSupported());
-		Assert.assertEquals(true, properties
+		Assert.assertEquals(false, properties
 				.isAssociationTemplateDetectionSupported());
 
 		final String line = "writer.features.export.itemidentifier = true, "
