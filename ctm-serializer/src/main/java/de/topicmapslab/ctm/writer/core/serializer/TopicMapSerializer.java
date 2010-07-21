@@ -232,15 +232,15 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 				if (matching.getContext() == null) {
 					continue;
 				}
-				Set<TemplateMatching> s = constructMatchings
-						.get(matching.getContext());
+				Set<TemplateMatching> s = constructMatchings.get(matching
+						.getContext());
 				if (s == null) {
 					s = new HashSet<TemplateMatching>();
 				}
 				s.add(matching);
 				matching.setTemplate(t);
 				constructMatchings.put(matching.getContext(), s);
-				affectedConstructs.addAll(matching.getAffectedConstructs());				
+				affectedConstructs.addAll(matching.getAffectedConstructs());
 			}
 			matchings.put(t, set);
 		}
@@ -250,7 +250,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		 */
 		buffer.appendCommentLine("topic definitions");
 		for (Topic topic : topicMap.getTopics()) {
-			if ( affectedConstructs.contains(topic)){
+			if (affectedConstructs.contains(topic)) {
 				continue;
 			}
 			/*
@@ -271,7 +271,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		buffer.appendCommentLine("association definitions");
 		Set<Object> affectedConstronstructs = new HashSet<Object>();
 		for (Association association : topicMap.getAssociations()) {
-			if ( affectedConstructs.contains(association)){
+			if (affectedConstructs.contains(association)) {
 				continue;
 			}
 			/*
@@ -294,9 +294,9 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 										.next().toExternalForm())) {
 					continue;
 				}
-				// affectedConstronstructs.addAll(AssociationSerializer.serialize(
-				// writer, getAdaptiveTemplates(association), association,
-				// ctmBuffer));
+				affectedConstronstructs.addAll(AssociationSerializer
+						.serialize(writer, new HashSet<Template>(),
+								association, ctmBuffer));
 				buffer.appendLine(ctmBuffer);
 			} catch (NoIdentityException e) {
 			}
@@ -398,9 +398,8 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 				/*
 				 * ignore TMDM associations
 				 */
-				 AssociationSerializer.serialize(writer,
-				 new HashSet<Template>(), association,
-				 ctmBuffer);
+				AssociationSerializer.serialize(writer,
+						new HashSet<Template>(), association, ctmBuffer);
 				buffer.appendLine(ctmBuffer);
 			} catch (NoIdentityException e) {
 			}
