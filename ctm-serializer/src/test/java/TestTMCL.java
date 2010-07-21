@@ -1,8 +1,6 @@
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import junit.framework.TestCase;
 
@@ -12,10 +10,8 @@ import org.tmapi.core.TopicMapSystemFactory;
 import org.tmapix.io.CTMTopicMapReader;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
-import de.topicmapslab.ctm.writer.templates.ITemplateScanner;
 import de.topicmapslab.ctm.writer.templates.Template;
 import de.topicmapslab.ctm.writer.templates.TemplateFactory;
-import de.topicmapslab.ctm.writer.templates.TemplateMatching;
 import de.topicmapslab.ctm.writer.templates.entry.AssociationEntry;
 import de.topicmapslab.ctm.writer.templates.entry.EntryFactory;
 import de.topicmapslab.ctm.writer.templates.entry.OccurrenceEntry;

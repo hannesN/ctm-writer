@@ -169,8 +169,9 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 
 		// open index if not opened
 		TypeInstanceIndex idx = topicMap.getIndex(TypeInstanceIndex.class);
-		if (!idx.isOpen())
+		if (!idx.isOpen()){
 			idx.open();
+		}
 		
 		CTMBuffer buffer = new CTMBuffer();
 

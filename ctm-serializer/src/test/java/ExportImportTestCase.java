@@ -8,6 +8,7 @@ import org.tmapi.core.TopicMap;
 import org.tmapi.core.TopicMapSystem;
 import org.tmapi.core.TopicMapSystemFactory;
 import org.tmapix.io.LTMTopicMapReader;
+import org.tmapix.io.XTMTopicMapReader;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.properties.CTMTopicMapWriterProperties;
@@ -44,13 +45,14 @@ public class ExportImportTestCase extends TestCase {
 				.newTopicMapSystem();
 		topicMap = topicMapSystem
 				.createTopicMap("http://de.topicmapslab/tmql4j/tests/opera-ltm");
-		LTMTopicMapReader reader = new LTMTopicMapReader(topicMap, new File(
-				"src/test/resources/ItalianOpera.ltm"));
+//		LTMTopicMapReader reader = new LTMTopicMapReader(topicMap, new File(
+//				"src/test/resources/ItalianOpera.ltm"));
+		XTMTopicMapReader reader = new XTMTopicMapReader(topicMap, new File("src/test/resources/marc-tm-akis-example.xtm"));
 		reader.read();
 	}
 
 	public void testExportImport() throws Exception {
-		File file = new File("src/test/resources/ctm-opera.ctm");
+		File file = new File("src/test/resources/ctm-opera.ctm");		
 		if (!file.exists()) {
 			file.createNewFile();
 		}
