@@ -117,6 +117,14 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 				buffer.append(false, value);
 			}
 			/*
+			 * string contains tripple quotes
+			 */
+			else if (value.contains(TRIPPLEQUOTE)){
+				buffer
+				.append(false, TRIPPLEQUOTE, value.replaceAll(QUOTE, "\\\\"+QUOTE),
+						TRIPPLEQUOTE);
+			}
+			/*
 			 * string contains quotes
 			 */
 			else if (value.contains(QUOTE)) {
