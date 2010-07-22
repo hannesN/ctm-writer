@@ -10,699 +10,398 @@
 
 
 # topic definitions
-<http://www.loc.gov/marc/bibliographic/bd520.html#ind1.8>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "8@520#ind1".
-
-<http://www.loc.gov/marc/bibliographic/bd650.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "650 - Subject Added Entry-Topical Term (R)".
-
-<http://www.loc.gov/marc/subfield>  
-	 isa <http://www.loc.gov/marc/>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Subfield code (MARC)".
-
-<http://www.wandora.org/core/hidelevel>  
-	 isa <http://www.wandora.org/core/occurrencetype>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Hide level";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/bibliographic/bd082.html#2>  
+<http://www.loc.gov/marc/bibliographic/bd925.html#a>  
 	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Edition number (NR) (2@082)".
-
-<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass>  
-	 isa <http://www.wandora.org/core/role>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Superclass";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/bibliographic/bd925.html#ind1.0>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@925#ind1".
-
-<http://www.loc.gov/marc/bibliographic/bd028.html#ind2.0>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@028#ind2".
-
-<http://www.loc.gov/marc/bibliographic/bd538.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@538".
-
-<http://www.loc.gov/marc/bibliographic/bd043.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Geographic area code (R) (a@043)".
-
-<http://www.loc.gov/marc/data>  
-	 isa <http://www.loc.gov/marc/>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Data (MARC)".
-
-<http://www.loc.gov/marc/data/-1584076244>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "White House Web Team";
-	 <http://www.loc.gov/marc/data> :  "White House Web Team," @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/-1916312417>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Computer data.";
-	 <http://www.loc.gov/marc/data> :  "Computer data." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.wandora.org/core/role>  
-	 isa <http://www.wandora.org/core/associationtype>;
-	 isa <http://www.wandora.org/core/role>;
-	 isa <http://www.wandora.org/core/schema-type>;
-	 isa <http://www.wandora.org/core/contenttype>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Role";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/data/-117616270>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "New York, N.Y.";
-	 <http://www.loc.gov/marc/data> :  "New York, N.Y. :" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd511.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@511".
-
-<http://www.loc.gov/marc/bibliographic/bd906.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "906".
-
-<http://www.loc.gov/marc/bibliographic/bd082.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Classification number (R) (a@082)".
-
-<http://www.loc.gov/marc/data/-481276136>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Ray Charles, piano & celeste.";
-	 <http://www.loc.gov/marc/data> :  "Ray Charles, piano & celeste." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd245.html#ind1.0>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@245#ind1".
-
-<http://www.loc.gov/marc/data/2037483670>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "[sound recording].";
-	 <http://www.loc.gov/marc/data> :  "[sound recording]." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/615559267>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "[1957?]";
-	 <http://www.loc.gov/marc/data> :  "[1957?]" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@925".
 
 <http://www.loc.gov/marc/data/67771>  
 	 isa <http://www.loc.gov/marc/data>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "DLC";
 	 <http://www.loc.gov/marc/data> :  "DLC" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
-<http://www.loc.gov/marc/bibliographic/bd906.html#b>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "b@906".
-
-<http://www.loc.gov/marc/bibliographic/bd925.html#ind2.>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@925#ind2".
-
-<http://www.loc.gov/marc/bibliographic/bd300.html#c>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Dimensions (R) (c@300)".
-
-<http://www.loc.gov/marc/bibliographic/bd040.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Original cataloging agency (NR) (a@040)".
-
-<http://www.loc.gov/marc/data/104042>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "ibc";
-	 <http://www.loc.gov/marc/data> :  "ibc" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/-1208738601>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Mode of access: Internet.";
-	 <http://www.loc.gov/marc/data> :  "Mode of access: Internet." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd710.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Corporate name or jurisdiction name as entry element (NR) (a@710)".
-
-<http://www.wandora.org/core/occurrencetype>  
-	 isa <http://www.wandora.org/core/associationtype>;
-	 isa <http://www.wandora.org/core/role>;
-	 isa <http://www.wandora.org/core/schema-type>;
-	 isa <http://www.wandora.org/core/contenttype>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Occurrence type";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/data/-855477203>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "vb07 (stars done) 08-19-00 to HLCD lk00; AA3s lk29 received for subject Aug 25, 2000; to DEWEY 08-25-00; aa11 08-28-00";
-	 <http://www.loc.gov/marc/data> :  "vb07 (stars done) 08-19-00 to HLCD lk00; AA3s lk29 received for subject Aug 25, 2000; to DEWEY 08-25-00; aa11 08-28-00" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/1598>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "20";
-	 <http://www.loc.gov/marc/data> :  "20" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd300.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "300 - Physical Description (R)".
-
-<http://www.loc.gov/marc/bibliographic/bd710.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "710 - Added Entry-Corporate Name (R)".
-
-<http://www.topicmaps.org/xtm/1.0/language.xtm>  
-	 isa <http://www.wandora.org/core/schema-type>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Wandora language";
-	 <http://www.wandora.org/core/language>.
-
-<http://www.loc.gov/marc/data/-238498070>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "lccopycat";
-	 <http://www.loc.gov/marc/data> :  "lccopycat" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd906.html#e>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "e@906".
-
-<http://www.loc.gov/marc/bibliographic/bd245.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "245 - Title Statement (NR)".
-
-<http://www.wandora.org/core/roleclass>  
-	 isa <http://www.wandora.org/core/associationtype>;
-	 isa <http://www.wandora.org/core/role>;
-	 isa <http://www.wandora.org/core/schema-type>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Role class";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/bibliographic/bd610.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Corporate name or jurisdiction name as entry element (NR) (a@610)".
-
-<http://www.loc.gov/marc/bibliographic/bd700.html#ind2.>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@700#ind2".
-
-<http://www.topicmaps.org/xtm/1.0/language.xtm#fi>  
-	 isa <http://www.topicmaps.org/xtm/1.0/language.xtm>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Language FI" ("Finnish" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>) ("Finnish" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.topicmaps.org/xtm/1.0/language.xtm#en>).
-
-<http://www.loc.gov/marc/bibliographic/bd040.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "040 - Cataloging Source (NR)".
-
-<http://www.loc.gov/marc/bibliographic/bd008.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "008 - Fixed-Length Data Elements-General Information (NR)".
-
-<http://www.loc.gov/marc/data/1277331503>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1 sound disc";
-	 <http://www.loc.gov/marc/data> :  "1 sound disc :" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/-245088987>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Features the White House. Highlights the Executive Office of the President, which includes senior policy advisors and offices re (-245088987)";
-	 <http://www.loc.gov/marc/data> :  "Features the White House. Highlights the Executive Office of the President, which includes senior policy advisors and offices responsible for the President's correspondence and communications, the Office of the Vice President, and the Office of the First Lady. Posts contact information via mailing address, telephone and fax numbers, and e-mail. Contains the Interactive Citizens' Handbook with information on health, travel and tourism, education and training, and housing. Provides a tour and the history of the White House. Links to White House for Kids." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd042.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Authentication code (R) (a@042)".
-
-<http://www.topicmaps.org/xtm/1.0/core.xtm#subclass>  
-	 isa <http://www.wandora.org/core/role>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Subclass";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/data/-1269562684>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Atlantic";
-	 <http://www.loc.gov/marc/data> :  "Atlantic," @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
-	 <http://www.loc.gov/marc/data/374688360>.
-
-<http://www.loc.gov/marc/bibliographic/bd700.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "700 - Added Entry-Personal Name (R)".
-
-<http://www.loc.gov/marc/data/48>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0";
-	 <http://www.loc.gov/marc/data> :  "0" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd256.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "256 - Computer File Characteristics (NR)".
-
-<http://www.loc.gov/marc/bibliographic/bd906.html#d>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "d@906".
-
-<http://www.loc.gov/marc/bibliographic/bd520.html#ind2.>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@520#ind2".
-
-<http://www.loc.gov/marc/bibliographic/bd511.html#ind2.>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@511#ind2".
-
-<http://www.topicmaps.org/xtm/1.0/core.xtm#display>  
-	 isa <http://www.wandora.org/core/variant-name-version>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Scope Display" ("Display name" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>).
-
-<http://www.wandora.org/core/associationtype>  
-	 isa <http://www.wandora.org/core/associationtype>;
-	 isa <http://www.wandora.org/core/role>;
-	 isa <http://www.wandora.org/core/schema-type>;
-	 isa <http://www.wandora.org/core/contenttype>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Association type";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.wandora.org/core/wandoraclass>  
-	 isa <http://www.wandora.org/core/schema-type>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Wandora class";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/bibliographic/bd700.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Personal name (NR) (a@700)".
-
-<http://www.loc.gov/marc/data/72377>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "IEU";
-	 <http://www.loc.gov/marc/data> :  "IEU" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/-225922885>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "y-gencompf";
-	 <http://www.loc.gov/marc/data> :  "y-gencompf" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/-2125654656>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "http://www.whitehouse.gov";
-	 <http://www.loc.gov/marc/data> :  "http://www.whitehouse.gov" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd710.html#ind2.>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@710#ind2".
-
-<http://www.wandora.org/defaultSI1279625327232-1>  
-	 isa <http://www.loc.gov/marc/record>;
-	 <http://www.loc.gov/marc/bibliographic/bd005.html> :  "19920826084036.0" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
-	 <http://www.loc.gov/marc/bibliographic/bd008.html> :  "910926s1957    nyuuun              eng  " @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
-	 <http://www.loc.gov/marc/bibliographic/bd003.html> :  "DLC" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
-	 <http://www.loc.gov/marc/bibliographic/bd007.html> :  "sdubumennmplu" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
-	 <http://www.loc.gov/marc/bibliographic/bd001.html> :  "5637241" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd856.html#u>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Uniform Resource Identifier (R) (u@856)".
-
-<http://www.loc.gov/marc/bibliographic/bd610.html#ind1.1>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1@610#ind1".
-
-<http://www.loc.gov/marc/bibliographic/bd035.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "035 - System Control Number (R)".
-
-<http://www.topicmaps.org/xtm/1.0/language.xtm#se>  
-	 isa <http://www.topicmaps.org/xtm/1.0/language.xtm>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Language SE" ("Swedish" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.topicmaps.org/xtm/1.0/language.xtm#en>) ("Swedish" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>).
-
-<http://www.loc.gov/marc/bibliographic/bd925.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@925".
-
-<http://www.loc.gov/marc/bibliographic/bd520.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Summary, etc. (NR) (a@520)".
-
-<http://www.loc.gov/marc/data/77012>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "N@F";
-	 <http://www.loc.gov/marc/data> :  "N@F" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/1509509>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1259";
-	 <http://www.loc.gov/marc/data> :  "1259" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd538.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "538 - System Details Note (R)".
-
-<http://www.loc.gov/marc/bibliographic/bd500.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "General note (NR) (a@500)".
-
-<http://www.loc.gov/marc/data/-1216554612>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "The Great Ray Charles";
-	 <http://www.loc.gov/marc/data> :  "The Great Ray Charles" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd040.html#c>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Transcribing agency (NR) (c@040)".
-
-<http://www.loc.gov/marc/bibliographic/bd050.html#ind1.0>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@050#ind1".
-
-<http://www.loc.gov/marc/data/-1446655269>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "(OCoLC)ocm44279786";
-	 <http://www.loc.gov/marc/data> :  "(OCoLC)ocm44279786" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd260.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "260 - Publication, Distribution, etc. (Imprint) (R)".
-
-<http://www.loc.gov/marc/bibliographic/bd050.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "050 - Library of Congress Call Number (R)".
-
-<http://www.loc.gov/marc/bibliographic/bd925.html#x>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "x@925".
-
-<http://www.loc.gov/marc/bibliographic/bd856.html#z>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Public note (R) (z@856)".
-
-<http://www.loc.gov/marc/data/2301655>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Jazz";
-	 <http://www.loc.gov/marc/data> :  "Jazz" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/ind2>  
-	 isa <http://www.loc.gov/marc/>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Ind2 (MARC)".
-
-<http://www.loc.gov/marc/bibliographic/bd505.html#ind1.0>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@505#ind1".
-
-<http://www.loc.gov/marc/data/-248318950>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Executive Office of the President.";
-	 <http://www.loc.gov/marc/data> :  "Executive Office of the President." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/3375516>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "ncip";
-	 <http://www.loc.gov/marc/data> :  "ncip" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd010.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "LC control number (NR) (a@010)".
-
-<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass>  
-	 isa <http://www.wandora.org/core/associationtype>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Superclass-Subclass";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/bibliographic/bd082.html#ind2.0>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@082#ind2".
-
-<http://www.loc.gov/marc/bibliographic/bd955.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@955".
-
-<http://www.wandora.org/core/edittime>  
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Topic edit time";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/data/-828706496>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Office of the First Lady.";
-	 <http://www.loc.gov/marc/data> :  "Office of the First Lady." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/1492324538>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Charles, Ray";
-	 <http://www.loc.gov/marc/data> :  "Charles, Ray," @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd050.html#ind2.0>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@050#ind2".
-
-<http://www.loc.gov/marc/bibliographic/bd906.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@906".
-
-<http://www.loc.gov/marc/data/1279249215>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Piano with jazz ensemble.";
-	 <http://www.loc.gov/marc/data> :  "Piano with jazz ensemble." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd520.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "520 - Summary, Etc. (R)".
-
-<http://www.loc.gov/marc/data/-1382336457>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Brief record.";
-	 <http://www.loc.gov/marc/data> :  "Brief record." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/1936038195>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Washington, D.C.";
-	 <http://www.loc.gov/marc/data> :  "Washington, D.C. :" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd260.html#c>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Date of publication, distribution, etc. (R) (c@260)".
-
-<http://www.wandora.org/core/schema-type>  
-	 isa <http://www.wandora.org/core/roleclass>;
-	 isa <http://www.wandora.org/core/contenttype>;
-	 isa <http://www.wandora.org/core/schema-type>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Schema type";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/bibliographic/bd856.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "856 - Electronic Location and Access (R)".
-
-<http://www.loc.gov/marc/data/-1231925949>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1951-1960.";
-	 <http://www.loc.gov/marc/data> :  "1951-1960." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd040.html#d>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Modifying agency (R) (d@040)".
-
-<http://www.loc.gov/marc/data/-1584076242>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "White House Web Team.";
-	 <http://www.loc.gov/marc/data> :  "White House Web Team." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.topicmaps.org/xtm/1.0/language.xtm#en>  
-	 isa <http://www.topicmaps.org/xtm/1.0/language.xtm>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Language EN" ("English" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.topicmaps.org/xtm/1.0/language.xtm#en>) ("English" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>).
-
-<http://www.loc.gov/marc/bibliographic/bd511.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "511 - Participant or Performer Note (R)".
-
-<http://www.loc.gov/marc/bibliographic/bd856.html#ind2.0>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@856#ind2".
-
-<http://www.loc.gov/marc/data/-1866797251>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Atlantic 1259";
-	 <http://www.loc.gov/marc/data> :  "Atlantic 1259" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/49>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1";
-	 <http://www.loc.gov/marc/data> :  "1" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
 <http://www.loc.gov/marc/data/111268>  
 	 isa <http://www.loc.gov/marc/data>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "prf";
 	 <http://www.loc.gov/marc/data> :  "prf" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
-<http://www.loc.gov/marc/data/599585226>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "undetermined";
-	 <http://www.loc.gov/marc/data> :  "undetermined" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/1570>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "13";
-	 <http://www.loc.gov/marc/data> :  "13" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd245.html#h>  
+<http://www.loc.gov/marc/bibliographic/bd650.html#a>  
 	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Medium (NR) (h@245)".
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Topical term or geographic name entry element (NR) (a@650)".
 
-<http://www.loc.gov/marc/bibliographic/bd028.html>  
+<http://www.wandora.org/core/associationtype>  
+	 isa <http://www.wandora.org/core/contenttype>;
+	 isa <http://www.wandora.org/core/associationtype>;
+	 isa <http://www.wandora.org/core/schema-type>;
+	 isa <http://www.wandora.org/core/role>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Association type";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.loc.gov/marc/bibliographic/bd538.html>  
 	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "028 - Publisher Number (R)".
-
-<http://www.loc.gov/marc/data/-1598028375>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "http://lcweb.loc.gov/staff/wpp/whitehouse.html";
-	 <http://www.loc.gov/marc/data> :  "http://lcweb.loc.gov/staff/wpp/whitehouse.html" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd505.html#ind2.>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@505#ind2".
-
-<http://www.loc.gov/marc/bibliographic/bd028.html#ind1.0>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@028#ind1".
-
-<http://www.loc.gov/marc/bibliographic/bd710.html#ind1.2>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "2@710#ind1".
-
-<http://www.loc.gov/marc/bibliographic/bd005.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "005 - Date and Time of Latest Transaction (NR)".
-
-<http://www.loc.gov/marc/bibliographic/bd050.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Classification number (R)  (a@050)".
-
-<http://www.wandora.org/core/langindependent>  
-	 isa <http://www.topicmaps.org/xtm/1.0/language.xtm>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Language independent" ("Lang.indep." @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>).
-
-<http://www.loc.gov/marc/data/47007050>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1994-";
-	 <http://www.loc.gov/marc/data> :  "1994-" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/1416475759>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "United States.";
-	 <http://www.loc.gov/marc/data> :  "United States." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd856.html#ind1.4>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "4@856#ind1".
-
-<http://www.loc.gov/marc/bibliographic/bd505.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "505 - Formatted Contents Note (R)".
-
-<http://www.loc.gov/marc/bibliographic/bd925.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "925".
-
-<http://www.loc.gov/marc/bibliographic/bd260.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Place of publication, distribution, etc. (R) (a@260)".
-
-<http://www.loc.gov/marc/bibliographic/bd511.html#ind1.0>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@511#ind1".
-
-<http://www.loc.gov/marc/bibliographic/bd245.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Title (NR) (a@245)".
-
-<http://www.loc.gov/marc/>  
-	 isa <http://www.wandora.org/core/wandoraclass>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "MARC".
-
-<http://www.loc.gov/marc/data/122862949>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Office of the Vice President.";
-	 <http://www.loc.gov/marc/data> :  "Office of the Vice President." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.wandora.org/defaultSI1279627959375-2>  
-	 isa <http://www.loc.gov/marc/record>;
-	 <http://www.loc.gov/marc/bibliographic/bd005.html> :  "20001005175443.0" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
-	 <http://www.loc.gov/marc/bibliographic/bd001.html> :  "12149120" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
-	 <http://www.loc.gov/marc/bibliographic/bd008.html> :  "000407m19949999dcu    g   m        eng d" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
-	 <http://www.loc.gov/marc/bibliographic/bd007.html> :  "cr |||" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd042.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "042 - Authentication Code (NR)".
-
-<http://www.loc.gov/marc/data/-2124199172>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "The Ray -- My melancholy baby -- Black coffee -- There's no you -- Doodlin' -- Sweet sixteen bars -- I surrender dear -- Undecid (-2124199172)";
-	 <http://www.loc.gov/marc/data> :  "The Ray -- My melancholy baby -- Black coffee -- There's no you -- Doodlin' -- Sweet sixteen bars -- I surrender dear -- Undecided." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd650.html#y>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Chronological subdivision (R) (y@650)".
-
-<http://www.topicmaps.org/xtm/1.0/core.xtm#sort>  
-	 isa <http://www.wandora.org/core/variant-name-version>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Scope Sort" ("Sort name" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>).
-
-<http://www.loc.gov/marc/bibliographic/bd082.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "082 - Dewey Decimal Classification Number (R)".
-
-<http://www.loc.gov/marc/data/-1723648809>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "[computer file].";
-	 <http://www.loc.gov/marc/data> :  "[computer file]." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "538 - System Details Note (R)".
 
 <http://www.loc.gov/marc/data/-371493291>  
 	 isa <http://www.loc.gov/marc/data>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Web site archive";
 	 <http://www.loc.gov/marc/data> :  "Web site archive" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
-<http://www.loc.gov/marc/bibliographic/bd082.html#ind1.1>  
+<http://www.loc.gov/marc/bibliographic/bd610.html#ind1.2>  
 	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1@082#ind1".
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "2@610#ind1".
 
-<http://www.loc.gov/marc/bibliographic/bd300.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Extent (R) (a@300)".
+<http://www.loc.gov/marc/data/-117616270>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "New York, N.Y.";
+	 <http://www.loc.gov/marc/data> :  "New York, N.Y. :" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
-<http://www.loc.gov/marc/bibliographic/bd256.html#a>  
+<http://www.loc.gov/marc/bibliographic/bd906.html#e>  
 	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@256".
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "e@906".
 
-<http://www.loc.gov/marc/bibliographic/bd906.html#f>  
+<http://www.loc.gov/marc/>  
+	 isa <http://www.wandora.org/core/wandoraclass>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "MARC".
+
+<http://www.loc.gov/marc/bibliographic/bd505.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "505 - Formatted Contents Note (R)".
+
+<http://www.loc.gov/marc/bibliographic/bd028.html#ind1.0>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@028#ind1".
+
+<http://www.wandora.org/core/edittime>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Topic edit time";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.loc.gov/marc/bibliographic/bd538.html#a>  
 	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "f@906".
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@538".
+
+<http://www.loc.gov/marc/data/122862949>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Office of the Vice President.";
+	 <http://www.loc.gov/marc/data> :  "Office of the Vice President." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass>  
+	 isa <http://www.wandora.org/core/associationtype>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Superclass-Subclass";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.topicmaps.org/xtm/1.0/core.xtm#sort>  
+	 isa <http://www.wandora.org/core/variant-name-version>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Scope Sort" ("Sort name" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>).
+
+<http://www.wandora.org/defaultSI1279625327232-1>  
+	 isa <http://www.loc.gov/marc/record>;
+	 <http://www.loc.gov/marc/bibliographic/bd007.html> :  "sdubumennmplu" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
+	 <http://www.loc.gov/marc/bibliographic/bd003.html> :  "DLC" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
+	 <http://www.loc.gov/marc/bibliographic/bd001.html> :  "5637241" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
+	 <http://www.loc.gov/marc/bibliographic/bd005.html> :  "19920826084036.0" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
+	 <http://www.loc.gov/marc/bibliographic/bd008.html> :  "910926s1957    nyuuun              eng  " @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd300.html#b>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Other physical details (NR) (b@300)".
+
+<http://www.loc.gov/marc/data/2037483670>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "[sound recording].";
+	 <http://www.loc.gov/marc/data> :  "[sound recording]." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
 <http://www.loc.gov/marc/bibliographic/bd260.html#b>  
 	 isa <http://www.loc.gov/marc/subfield>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Name of publisher, distributor, etc. (R) (b@260)".
 
-<http://www.loc.gov/marc/bibliographic/bd610.html#ind2.0>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@610#ind2".
-
-<http://www.loc.gov/marc/bibliographic/bd010.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "010 - Library of Congress Control Number (NR)".
-
-<http://www.loc.gov/marc/data/1450062122>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "12 in.";
-	 <http://www.loc.gov/marc/data> :  "12 in." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd245.html#ind2.4>  
-	 isa <http://www.loc.gov/marc/ind2>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "4@245#ind2".
-
-<http://www.loc.gov/marc/bibliographic/bd906.html#g>  
+<http://www.loc.gov/marc/bibliographic/bd505.html#a>  
 	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "g@906".
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@505".
+
+<http://www.loc.gov/marc/data/1277331503>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1 sound disc";
+	 <http://www.loc.gov/marc/data> :  "1 sound disc :" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd856.html#ind2.0>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@856#ind2".
+
+<http://www.loc.gov/marc/bibliographic/bd028.html#ind2.0>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@028#ind2".
+
+<http://www.loc.gov/marc/bibliographic/bd511.html#ind2.>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@511#ind2".
+
+<http://www.loc.gov/marc/bibliographic/bd256.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@256".
+
+<http://www.loc.gov/marc/data>  
+	 isa <http://www.loc.gov/marc/>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Data (MARC)".
+
+<http://www.loc.gov/marc/bibliographic/bd028.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "028 - Publisher Number (R)".
+
+<http://www.loc.gov/marc/data/-828706496>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Office of the First Lady.";
+	 <http://www.loc.gov/marc/data> :  "Office of the First Lady." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/872745699>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "analog, 33 1/3 rpm";
+	 <http://www.loc.gov/marc/data> :  "analog, 33 1/3 rpm ;" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd040.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "040 - Cataloging Source (NR)".
+
+<http://www.loc.gov/marc/bibliographic/bd700.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "700 - Added Entry-Personal Name (R)".
+
+<http://www.loc.gov/marc/bibliographic/bd700.html#d>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Dates associated with a name (NR) (d@700)".
+
+<http://www.loc.gov/marc/data/72377>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "IEU";
+	 <http://www.loc.gov/marc/data> :  "IEU" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-855477203>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "vb07 (stars done) 08-19-00 to HLCD lk00; AA3s lk29 received for subject Aug 25, 2000; to DEWEY 08-25-00; aa11 08-28-00";
+	 <http://www.loc.gov/marc/data> :  "vb07 (stars done) 08-19-00 to HLCD lk00; AA3s lk29 received for subject Aug 25, 2000; to DEWEY 08-25-00; aa11 08-28-00" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.wandora.org/core/roleclass>  
+	 isa <http://www.wandora.org/core/associationtype>;
+	 isa <http://www.wandora.org/core/schema-type>;
+	 isa <http://www.wandora.org/core/role>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Role class";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.loc.gov/marc/bibliographic/bd245.html#h>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Medium (NR) (h@245)".
+
+<http://www.loc.gov/marc/data/2301655>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Jazz";
+	 <http://www.loc.gov/marc/data> :  "Jazz" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/240993263>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "n-us-dc";
+	 <http://www.loc.gov/marc/data> :  "n-us-dc" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/953524289>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "copycat";
+	 <http://www.loc.gov/marc/data> :  "copycat" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.wandora.org/core/occurrencetype>  
+	 isa <http://www.wandora.org/core/contenttype>;
+	 isa <http://www.wandora.org/core/associationtype>;
+	 isa <http://www.wandora.org/core/schema-type>;
+	 isa <http://www.wandora.org/core/role>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Occurrence type";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.loc.gov/marc/bibliographic/bd520.html#ind2.>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@520#ind2".
+
+<http://www.loc.gov/marc/bibliographic/bd955.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@955".
+
+<http://www.loc.gov/marc/data/-821869124>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "F204.W5";
+	 <http://www.loc.gov/marc/data> :  "F204.W5" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd710.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "710 - Added Entry-Corporate Name (R)".
+
+<http://www.loc.gov/marc/bibliographic/bd245.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "245 - Title Statement (NR)".
+
+<http://www.loc.gov/marc/bibliographic/bd906.html#d>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "d@906".
+
+<http://www.loc.gov/marc/bibliographic/bd260.html#c>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Date of publication, distribution, etc. (R) (c@260)".
+
+<http://www.loc.gov/marc/data/-1866797251>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Atlantic 1259";
+	 <http://www.loc.gov/marc/data> :  "Atlantic 1259" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/615559267>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "[1957?]";
+	 <http://www.loc.gov/marc/data> :  "[1957?]" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd710.html#ind2.>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@710#ind2".
 
 <http://www.loc.gov/marc/bibliographic/bd955.html>  
 	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "955".
 
-<http://www.loc.gov/marc/bibliographic/bd906.html#c>  
+<http://www.loc.gov/marc/bibliographic/bd520.html#ind1.8>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "8@520#ind1".
+
+<http://www.loc.gov/marc/bibliographic/bd003.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "003 - Control Number Identifier (NR)".
+
+<http://www.loc.gov/marc/bibliographic/bd245.html#a>  
 	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "c@906".
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Title (NR) (a@245)".
+
+<http://www.loc.gov/marc/bibliographic/bd050.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "050 - Library of Congress Call Number (R)".
+
+<http://www.topicmaps.org/xtm/1.0/language.xtm#en>  
+	 isa <http://www.topicmaps.org/xtm/1.0/language.xtm>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Language EN" ("English" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>,  <http://www.topicmaps.org/xtm/1.0/core.xtm#display>) ("English" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>).
+
+<http://www.topicmaps.org/xtm/1.0/core.xtm#display>  
+	 isa <http://www.wandora.org/core/variant-name-version>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Scope Display" ("Display name" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>).
+
+<http://www.loc.gov/marc/bibliographic/bd906.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "906".
+
+<http://www.topicmaps.org/xtm/1.0/language.xtm>  
+	 isa <http://www.wandora.org/core/schema-type>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Wandora language";
+	 <http://www.wandora.org/core/language>.
+
+<http://www.loc.gov/marc/bibliographic/bd610.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Corporate name or jurisdiction name as entry element (NR) (a@610)".
+
+<http://www.loc.gov/marc/bibliographic/bd520.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "520 - Summary, Etc. (R)".
+
+<http://www.loc.gov/marc/data/-1598028375>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "http://lcweb.loc.gov/staff/wpp/whitehouse.html";
+	 <http://www.loc.gov/marc/data> :  "http://lcweb.loc.gov/staff/wpp/whitehouse.html" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-238498070>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "lccopycat";
+	 <http://www.loc.gov/marc/data> :  "lccopycat" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd710.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Corporate name or jurisdiction name as entry element (NR) (a@710)".
+
+<http://www.loc.gov/marc/ind2>  
+	 isa <http://www.loc.gov/marc/>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Ind2 (MARC)".
+
+<http://www.loc.gov/marc/data/-1723648809>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "[computer file].";
+	 <http://www.loc.gov/marc/data> :  "[computer file]." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd040.html#c>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Transcribing agency (NR) (c@040)".
+
+<http://www.loc.gov/marc/bibliographic/bd008.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "008 - Fixed-Length Data Elements-General Information (NR)".
+
+<http://www.wandora.org/core/wandoraclass>  
+	 isa <http://www.wandora.org/core/schema-type>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Wandora class";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.loc.gov/marc/bibliographic/bd082.html#2>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Edition number (NR) (2@082)".
+
+<http://www.loc.gov/marc/bibliographic/bd650.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "650 - Subject Added Entry-Topical Term (R)".
+
+<http://www.loc.gov/marc/bibliographic/bd700.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Personal name (NR) (a@700)".
+
+<http://www.loc.gov/marc/data/1416475759>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "United States.";
+	 <http://www.loc.gov/marc/data> :  "United States." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd710.html#ind1.2>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "2@710#ind1".
+
+<http://www.loc.gov/marc/bibliographic/bd505.html#ind2.>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@505#ind2".
+
+<http://www.wandora.org/core/variant-name-version>  
+	 isa <http://www.wandora.org/core/schema-type>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Wandora variant name version".
+
+<http://www.loc.gov/marc/bibliographic/bd007.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "007 - Physical Description Fixed Field-General Information (R)".
+
+<http://www.loc.gov/marc/bibliographic/bd028.html#b>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Source (NR) (b@028)".
+
+<http://www.wandora.org/core/contenttype>  
+	 isa <http://www.wandora.org/core/contenttype>;
+	 isa <http://www.wandora.org/core/schema-type>;
+	 isa <http://www.wandora.org/core/role>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Content type";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.loc.gov/marc/bibliographic/bd050.html#ind2.0>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@050#ind2".
+
+<http://www.loc.gov/marc/data/1570>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "13";
+	 <http://www.loc.gov/marc/data> :  "13" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.topicmaps.org/xtm/1.0/core.xtm#subclass>  
+	 isa <http://www.wandora.org/core/role>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Subclass";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.loc.gov/marc/bibliographic/bd043.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Geographic area code (R) (a@043)".
+
+<http://www.loc.gov/marc/data/-1584076242>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "White House Web Team.";
+	 <http://www.loc.gov/marc/data> :  "White House Web Team." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
 <http://www.loc.gov/marc/bibliographic/bd700.html#4>  
 	 isa <http://www.loc.gov/marc/subfield>;
@@ -713,169 +412,463 @@
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "00530046";
 	 <http://www.loc.gov/marc/data> :  "00530046" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
-<http://www.loc.gov/marc/data/240993263>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "n-us-dc";
-	 <http://www.loc.gov/marc/data> :  "n-us-dc" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd043.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "043 - Geographic Area Code (NR)".
-
-<http://www.loc.gov/marc/data/54331612>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "975.3";
-	 <http://www.loc.gov/marc/data> :  "975.3" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd035.html#a>  
+<http://www.loc.gov/marc/bibliographic/bd925.html#x>  
 	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@035".
-
-<http://www.loc.gov/marc/bibliographic/bd610.html#ind1.2>  
-	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "2@610#ind1".
-
-<http://www.loc.gov/marc/bibliographic/bd300.html#b>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Other physical details (NR) (b@300)".
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "x@925".
 
 <http://www.loc.gov/marc/data/47001160>  
 	 isa <http://www.loc.gov/marc/data>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1930-";
 	 <http://www.loc.gov/marc/data> :  "1930-" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
-<http://www.wandora.org/core/variant-name-version>  
-	 isa <http://www.wandora.org/core/schema-type>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Wandora variant name version".
-
-<http://www.loc.gov/marc/bibliographic/bd007.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "007 - Physical Description Fixed Field-General Information (R)".
-
-<http://www.wandora.org/core/contenttype>  
-	 isa <http://www.wandora.org/core/role>;
-	 isa <http://www.wandora.org/core/contenttype>;
-	 isa <http://www.wandora.org/core/schema-type>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Content type";
-	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
-
-<http://www.loc.gov/marc/data/-57644513>  
+<http://www.loc.gov/marc/data/-1446655269>  
 	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "White House (Washington, D.C.)";
-	 <http://www.loc.gov/marc/data> :  "White House (Washington, D.C.)" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "(OCoLC)ocm44279786";
+	 <http://www.loc.gov/marc/data> :  "(OCoLC)ocm44279786" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
-<http://www.loc.gov/marc/bibliographic/bd700.html#d>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Dates associated with a name (NR) (d@700)".
-
-<http://www.loc.gov/marc/data/953524289>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "copycat";
-	 <http://www.loc.gov/marc/data> :  "copycat" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd___x___.html>  
-	 isa <http://www.loc.gov/marc/>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Field (MARC)".
-
-<http://www.loc.gov/marc/bibliographic/bd610.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "610 - Subject Added Entry-Corporate Name (R)".
-
-<http://www.loc.gov/marc/bibliographic/bd700.html#ind1.1>  
+<http://www.loc.gov/marc/bibliographic/bd511.html#ind1.0>  
 	 isa <http://www.loc.gov/marc/ind1>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1@700#ind1".
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@511#ind1".
 
-<http://www.loc.gov/marc/bibliographic/bd001.html>  
+<http://www.loc.gov/marc/data/48>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0";
+	 <http://www.loc.gov/marc/data> :  "0" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-1216554612>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "The Great Ray Charles";
+	 <http://www.loc.gov/marc/data> :  "The Great Ray Charles" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd010.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "LC control number (NR) (a@010)".
+
+<http://www.loc.gov/marc/data/-2125654656>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "http://www.whitehouse.gov";
+	 <http://www.loc.gov/marc/data> :  "http://www.whitehouse.gov" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-1916312417>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Computer data.";
+	 <http://www.loc.gov/marc/data> :  "Computer data." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-245088987>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Features the White House. Highlights the Executive Office of the President, which includes senior policy advisors and offices re (-245088987)";
+	 <http://www.loc.gov/marc/data> :  "Features the White House. Highlights the Executive Office of the President, which includes senior policy advisors and offices responsible for the President's correspondence and communications, the Office of the Vice President, and the Office of the First Lady. Posts contact information via mailing address, telephone and fax numbers, and e-mail. Contains the Interactive Citizens' Handbook with information on health, travel and tourism, education and training, and housing. Provides a tour and the history of the White House. Links to White House for Kids." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.topicmaps.org/xtm/1.0/language.xtm#se>  
+	 isa <http://www.topicmaps.org/xtm/1.0/language.xtm>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Language SE" ("Swedish" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>) ("Swedish" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>,  <http://www.topicmaps.org/xtm/1.0/core.xtm#display>).
+
+<http://www.loc.gov/marc/bibliographic/bd082.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Classification number (R) (a@082)".
+
+<http://www.loc.gov/marc/bibliographic/bd035.html>  
 	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "001 - Control Number (NR)".
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "035 - System Control Number (R)".
 
-<http://www.loc.gov/marc/data/-821869124>  
+<http://www.loc.gov/marc/data/1598>  
 	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "F204.W5";
-	 <http://www.loc.gov/marc/data> :  "F204.W5" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/data/872745699>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "analog, 33 1/3 rpm";
-	 <http://www.loc.gov/marc/data> :  "analog, 33 1/3 rpm ;" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd003.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "003 - Control Number Identifier (NR)".
-
-<http://www.loc.gov/marc/ind1>  
-	 isa <http://www.loc.gov/marc/>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Ind1 (MARC)".
-
-<http://www.loc.gov/marc/bibliographic/bd500.html>  
-	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "500 - General Note (R)".
-
-<http://www.loc.gov/marc/data/-1575749741>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "91758335";
-	 <http://www.loc.gov/marc/data> :  "91758335" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/bibliographic/bd650.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Topical term or geographic name entry element (NR) (a@650)".
-
-<http://www.loc.gov/marc/bibliographic/bd028.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Publisher number (NR) (a@028)".
-
-<http://www.loc.gov/marc/bibliographic/bd028.html#b>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Source (NR) (b@028)".
-
-<http://www.loc.gov/marc/data/-602068316>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Title from home page as viewed on Aug. 19, 2000.";
-	 <http://www.loc.gov/marc/data> :  "Title from home page as viewed on Aug. 19, 2000." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
-
-<http://www.loc.gov/marc/record>  
-	 isa <http://www.loc.gov/marc/>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Record (MARC)".
-
-<http://www.loc.gov/marc/bibliographic/bd505.html#a>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@505".
-
-<http://www.loc.gov/marc/bibliographic/bd610.html#b>  
-	 isa <http://www.loc.gov/marc/subfield>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Subordinate unit (R) (b@610)".
-
-<http://www.loc.gov/marc/data/558030554>  
-	 isa <http://www.loc.gov/marc/data>;
-	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "The White House";
-	 <http://www.loc.gov/marc/data> :  "The White House" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "20";
+	 <http://www.loc.gov/marc/data> :  "20" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
 <http://www.loc.gov/marc/data/-337086661>  
 	 isa <http://www.loc.gov/marc/data>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "web preservation project (wpp)";
 	 <http://www.loc.gov/marc/data> :  "web preservation project (wpp)" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
 
+<http://www.loc.gov/marc/bibliographic/bd082.html#ind2.0>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@082#ind2".
+
+<http://www.loc.gov/marc/data/1279249215>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Piano with jazz ensemble.";
+	 <http://www.loc.gov/marc/data> :  "Piano with jazz ensemble." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd001.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "001 - Control Number (NR)".
+
+<http://www.loc.gov/marc/bibliographic/bd650.html#y>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Chronological subdivision (R) (y@650)".
+
+<http://www.loc.gov/marc/bibliographic/bd043.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "043 - Geographic Area Code (NR)".
+
+<http://www.loc.gov/marc/bibliographic/bd511.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "511 - Participant or Performer Note (R)".
+
+<http://www.loc.gov/marc/bibliographic/bd005.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "005 - Date and Time of Latest Transaction (NR)".
+
+<http://www.loc.gov/marc/bibliographic/bd925.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "925".
+
+<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass>  
+	 isa <http://www.wandora.org/core/role>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Superclass";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.loc.gov/marc/data/-481276136>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Ray Charles, piano & celeste.";
+	 <http://www.loc.gov/marc/data> :  "Ray Charles, piano & celeste." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-225922885>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "y-gencompf";
+	 <http://www.loc.gov/marc/data> :  "y-gencompf" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-602068316>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Title from home page as viewed on Aug. 19, 2000.";
+	 <http://www.loc.gov/marc/data> :  "Title from home page as viewed on Aug. 19, 2000." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-248318950>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Executive Office of the President.";
+	 <http://www.loc.gov/marc/data> :  "Executive Office of the President." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd082.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "082 - Dewey Decimal Classification Number (R)".
+
+<http://www.loc.gov/marc/bibliographic/bd050.html#ind1.0>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@050#ind1".
+
+<http://www.loc.gov/marc/bibliographic/bd511.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@511".
+
+<http://www.wandora.org/core/langindependent>  
+	 isa <http://www.topicmaps.org/xtm/1.0/language.xtm>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Language independent" ("Lang.indep." @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>).
+
+<http://www.wandora.org/core/role>  
+	 isa <http://www.wandora.org/core/contenttype>;
+	 isa <http://www.wandora.org/core/associationtype>;
+	 isa <http://www.wandora.org/core/schema-type>;
+	 isa <http://www.wandora.org/core/role>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Role";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.loc.gov/marc/bibliographic/bd856.html#z>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Public note (R) (z@856)".
+
+<http://www.loc.gov/marc/bibliographic/bd040.html#d>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Modifying agency (R) (d@040)".
+
+<http://www.loc.gov/marc/bibliographic/bd700.html#ind1.1>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1@700#ind1".
+
+<http://www.loc.gov/marc/bibliographic/bd256.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "256 - Computer File Characteristics (NR)".
+
+<http://www.loc.gov/marc/data/-2124199172>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "The Ray -- My melancholy baby -- Black coffee -- There's no you -- Doodlin' -- Sweet sixteen bars -- I surrender dear -- Undecid (-2124199172)";
+	 <http://www.loc.gov/marc/data> :  "The Ray -- My melancholy baby -- Black coffee -- There's no you -- Doodlin' -- Sweet sixteen bars -- I surrender dear -- Undecided." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd856.html#u>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Uniform Resource Identifier (R) (u@856)".
+
+<http://www.loc.gov/marc/data/599585226>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "undetermined";
+	 <http://www.loc.gov/marc/data> :  "undetermined" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd028.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Publisher number (NR) (a@028)".
+
+<http://www.loc.gov/marc/data/1936038195>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Washington, D.C.";
+	 <http://www.loc.gov/marc/data> :  "Washington, D.C. :" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd610.html#ind1.1>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1@610#ind1".
+
+<http://www.loc.gov/marc/bibliographic/bd042.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Authentication code (R) (a@042)".
+
+<http://www.wandora.org/defaultSI1279627959375-2>  
+	 isa <http://www.loc.gov/marc/record>;
+	 <http://www.loc.gov/marc/bibliographic/bd007.html> :  "cr |||" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
+	 <http://www.loc.gov/marc/bibliographic/bd005.html> :  "20001005175443.0" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
+	 <http://www.loc.gov/marc/bibliographic/bd001.html> :  "12149120" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
+	 <http://www.loc.gov/marc/bibliographic/bd008.html> :  "000407m19949999dcu    g   m        eng d" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-1269562684>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Atlantic";
+	 <http://www.loc.gov/marc/data> :  "Atlantic," @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>;
+	 <http://www.loc.gov/marc/data/374688360>.
+
+<http://www.loc.gov/marc/bibliographic/bd906.html#g>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "g@906".
+
+<http://www.loc.gov/marc/bibliographic/bd500.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "500 - General Note (R)".
+
+<http://www.loc.gov/marc/data/104042>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "ibc";
+	 <http://www.loc.gov/marc/data> :  "ibc" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-57644513>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "White House (Washington, D.C.)";
+	 <http://www.loc.gov/marc/data> :  "White House (Washington, D.C.)" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd505.html#ind1.0>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@505#ind1".
+
+<http://www.loc.gov/marc/bibliographic/bd856.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "856 - Electronic Location and Access (R)".
+
+<http://www.loc.gov/marc/bibliographic/bd856.html#ind1.4>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "4@856#ind1".
+
+<http://www.loc.gov/marc/data/1509509>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1259";
+	 <http://www.loc.gov/marc/data> :  "1259" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd610.html#ind2.0>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@610#ind2".
+
+<http://www.loc.gov/marc/bibliographic/bd035.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@035".
+
+<http://www.loc.gov/marc/bibliographic/bd300.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "300 - Physical Description (R)".
+
+<http://www.loc.gov/marc/bibliographic/bd010.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "010 - Library of Congress Control Number (NR)".
+
+<http://www.loc.gov/marc/bibliographic/bd050.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Classification number (R)  (a@050)".
+
+<http://www.loc.gov/marc/bibliographic/bd245.html#ind1.0>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@245#ind1".
+
+<http://www.loc.gov/marc/data/1492324538>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Charles, Ray";
+	 <http://www.loc.gov/marc/data> :  "Charles, Ray," @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd906.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "a@906".
+
+<http://www.loc.gov/marc/data/558030554>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "The White House";
+	 <http://www.loc.gov/marc/data> :  "The White House" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd906.html#c>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "c@906".
+
+<http://www.loc.gov/marc/bibliographic/bd300.html#c>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Dimensions (R) (c@300)".
+
+<http://www.loc.gov/marc/bibliographic/bd___x___.html>  
+	 isa <http://www.loc.gov/marc/>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Field (MARC)".
+
+<http://www.wandora.org/core/schema-type>  
+	 isa <http://www.wandora.org/core/contenttype>;
+	 isa <http://www.wandora.org/core/roleclass>;
+	 isa <http://www.wandora.org/core/schema-type>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Schema type";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.wandora.org/core/hidelevel>  
+	 isa <http://www.wandora.org/core/occurrencetype>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Hide level";
+	 <http://www.wandora.org/core/hidelevel> :  "1" @<http://www.wandora.org/core/langindependent>.
+
+<http://www.loc.gov/marc/bibliographic/bd040.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Original cataloging agency (NR) (a@040)".
+
+<http://www.topicmaps.org/xtm/1.0/language.xtm#fi>  
+	 isa <http://www.topicmaps.org/xtm/1.0/language.xtm>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Language FI" ("Finnish" @<http://www.topicmaps.org/xtm/1.0/core.xtm#display>,  <http://www.wandora.org/core/langindependent>) ("Finnish" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>,  <http://www.topicmaps.org/xtm/1.0/core.xtm#display>).
+
+<http://www.loc.gov/marc/ind1>  
+	 isa <http://www.loc.gov/marc/>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Ind1 (MARC)".
+
+<http://www.loc.gov/marc/data/-1584076244>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "White House Web Team";
+	 <http://www.loc.gov/marc/data> :  "White House Web Team," @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd082.html#ind1.1>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1@082#ind1".
+
+<http://www.loc.gov/marc/bibliographic/bd925.html#ind1.0>  
+	 isa <http://www.loc.gov/marc/ind1>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "0@925#ind1".
+
+<http://www.loc.gov/marc/bibliographic/bd520.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Summary, etc. (NR) (a@520)".
+
+<http://www.loc.gov/marc/data/-1575749741>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "91758335";
+	 <http://www.loc.gov/marc/data> :  "91758335" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/subfield>  
+	 isa <http://www.loc.gov/marc/>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Subfield code (MARC)".
+
+<http://www.loc.gov/marc/record>  
+	 isa <http://www.loc.gov/marc/>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Record (MARC)".
+
+<http://www.loc.gov/marc/data/-1231925949>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1951-1960.";
+	 <http://www.loc.gov/marc/data> :  "1951-1960." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/-1382336457>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Brief record.";
+	 <http://www.loc.gov/marc/data> :  "Brief record." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/data/47007050>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1994-";
+	 <http://www.loc.gov/marc/data> :  "1994-" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd042.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "042 - Authentication Code (NR)".
+
+<http://www.loc.gov/marc/data/77012>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "N@F";
+	 <http://www.loc.gov/marc/data> :  "N@F" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd300.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Extent (R) (a@300)".
+
+<http://www.loc.gov/marc/bibliographic/bd610.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "610 - Subject Added Entry-Corporate Name (R)".
+
+<http://www.loc.gov/marc/data/54331612>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "975.3";
+	 <http://www.loc.gov/marc/data> :  "975.3" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd906.html#f>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "f@906".
+
+<http://www.loc.gov/marc/bibliographic/bd700.html#ind2.>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@700#ind2".
+
+<http://www.loc.gov/marc/bibliographic/bd906.html#b>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "b@906".
+
+<http://www.loc.gov/marc/bibliographic/bd245.html#ind2.4>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "4@245#ind2".
+
+<http://www.loc.gov/marc/data/1450062122>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "12 in.";
+	 <http://www.loc.gov/marc/data> :  "12 in." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd500.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "General note (NR) (a@500)".
+
+<http://www.loc.gov/marc/data/49>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "1";
+	 <http://www.loc.gov/marc/data> :  "1" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd925.html#ind2.>  
+	 isa <http://www.loc.gov/marc/ind2>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "@925#ind2".
+
+<http://www.loc.gov/marc/bibliographic/bd260.html>  
+	 isa <http://www.loc.gov/marc/bibliographic/bd___x___.html>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "260 - Publication, Distribution, etc. (Imprint) (R)".
+
+<http://www.loc.gov/marc/bibliographic/bd610.html#b>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Subordinate unit (R) (b@610)".
+
+<http://www.loc.gov/marc/data/-1208738601>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Mode of access: Internet.";
+	 <http://www.loc.gov/marc/data> :  "Mode of access: Internet." @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
+<http://www.loc.gov/marc/bibliographic/bd260.html#a>  
+	 isa <http://www.loc.gov/marc/subfield>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Place of publication, distribution, etc. (R) (a@260)".
+
+<http://www.loc.gov/marc/data/3375516>  
+	 isa <http://www.loc.gov/marc/data>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "ncip";
+	 <http://www.loc.gov/marc/data> :  "ncip" @<http://www.topicmaps.org/xtm/1.0/language.xtm#en>.
+
 # association definitions
-<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass> (
-	 <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass> : <http://www.wandora.org/core/schema-type>,
-	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/wandoraclass>
-)
-
 <http://www.wandora.org/core/role> (
-	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/contenttype>,
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/associationtype>
+	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/role>,
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/roleclass>
 )
 
-<http://www.loc.gov/marc/bibliographic/bd300.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd300.html#a> : <http://www.loc.gov/marc/data/1277331503>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
-	 <http://www.loc.gov/marc/bibliographic/bd300.html#b> : <http://www.loc.gov/marc/data/872745699>,
-	 <http://www.loc.gov/marc/bibliographic/bd300.html#c> : <http://www.loc.gov/marc/data/1450062122>
+<http://www.loc.gov/marc/bibliographic/bd955.html> (
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/bibliographic/bd955.html#a> : <http://www.loc.gov/marc/data/-855477203>
 )
 
-<http://www.wandora.org/core/occurrencetype> (
+<http://www.wandora.org/core/associationtype> (
 	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/schema-type>,
-	 <http://www.wandora.org/core/occurrencetype> : <http://www.wandora.org/core/hidelevel>
+	 <http://www.wandora.org/core/associationtype> : <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass>
 )
 
 <http://www.loc.gov/marc/bibliographic/bd500.html> (
@@ -883,47 +876,183 @@
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
 )
 
+<http://www.loc.gov/marc/bibliographic/bd520.html> (
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/bibliographic/bd520.html#a> : <http://www.loc.gov/marc/data/-245088987>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd520.html#ind2.>,
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd520.html#ind1.8>
+)
+
+<http://www.wandora.org/core/role> (
+	 <http://www.wandora.org/core/associationtype> : <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass>,
+	 <http://www.wandora.org/core/role> : <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass>
+)
+
+<http://www.wandora.org/core/associationtype> (
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/role>,
+	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/associationtype>
+)
+
 <http://www.wandora.org/core/role> (
 	 <http://www.wandora.org/core/role> : <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass>,
 	 <http://www.wandora.org/core/associationtype> : <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass>
 )
 
-<http://www.wandora.org/core/role> (
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/associationtype>,
-	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/associationtype>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd245.html> (
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd245.html#ind1.0>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd245.html#ind2.4>,
-	 <http://www.loc.gov/marc/bibliographic/bd245.html#a> : <http://www.loc.gov/marc/data/558030554>,
-	 <http://www.loc.gov/marc/bibliographic/bd245.html#h> : <http://www.loc.gov/marc/data/-1723648809>
-)
-
-<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass> (
-	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/schema-type>,
-	 <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass> : <http://www.wandora.org/core/roleclass>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd050.html> (
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd050.html#ind2.0>,
-	 <http://www.loc.gov/marc/bibliographic/bd050.html#a> : <http://www.loc.gov/marc/data/-1866797251>,
+<http://www.loc.gov/marc/bibliographic/bd010.html> (
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd050.html#ind1.0>
+	 <http://www.loc.gov/marc/bibliographic/bd010.html#a> : <http://www.loc.gov/marc/data/-1575749741>
 )
 
-<http://www.loc.gov/marc/bibliographic/bd043.html> (
+<http://www.loc.gov/marc/bibliographic/bd082.html> (
+	 <http://www.loc.gov/marc/bibliographic/bd082.html#2> : <http://www.loc.gov/marc/data/1570>,
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/bibliographic/bd043.html#a> : <http://www.loc.gov/marc/data/240993263>
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd082.html#ind1.1>,
+	 <http://www.loc.gov/marc/bibliographic/bd082.html#a> : <http://www.loc.gov/marc/data/54331612>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd082.html#ind2.0>
+)
+
+<http://www.wandora.org/core/role> (
+	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/associationtype>,
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/role>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd260.html> (
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/bibliographic/bd260.html#a> : <http://www.loc.gov/marc/data/1936038195>,
+	 <http://www.loc.gov/marc/bibliographic/bd260.html#c> : <http://www.loc.gov/marc/data/47007050>,
+	 <http://www.loc.gov/marc/bibliographic/bd260.html#b> : <http://www.loc.gov/marc/data/-1584076244>
+)
+
+<http://www.wandora.org/core/role> (
+	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/occurrencetype>,
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/occurrencetype>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd010.html> (
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/bibliographic/bd010.html#a> : <http://www.loc.gov/marc/data/-1028023776>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd650.html> (
+	 <http://www.loc.gov/marc/bibliographic/bd650.html#a> : <http://www.loc.gov/marc/data/1279249215>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>
+)
+
+<http://www.wandora.org/core/roleclass> (
+	 <http://www.wandora.org/core/roleclass> : <http://www.wandora.org/core/schema-type>,
+	 <http://www.wandora.org/core/role> : <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass>
+)
+
+<http://www.wandora.org/core/associationtype> (
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/roleclass>,
+	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/role>
 )
 
 <http://www.loc.gov/marc/bibliographic/bd610.html> (
 	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind2.0>,
-	 <http://www.loc.gov/marc/bibliographic/bd610.html#a> : <http://www.loc.gov/marc/data/1416475759>,
-	 <http://www.loc.gov/marc/bibliographic/bd610.html#b> : <http://www.loc.gov/marc/data/-248318950>,
+	 <http://www.loc.gov/marc/bibliographic/bd610.html#a> : <http://www.loc.gov/marc/data/-57644513>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind1.2>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd610.html> (
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind2.0>,
 	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind1.1>,
+	 <http://www.loc.gov/marc/bibliographic/bd610.html#b> : <http://www.loc.gov/marc/data/-248318950>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/bibliographic/bd610.html#a> : <http://www.loc.gov/marc/data/1416475759>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd700.html> (
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd700.html#ind1.1>,
+	 <http://www.loc.gov/marc/bibliographic/bd700.html#d> : <http://www.loc.gov/marc/data/47001160>,
+	 <http://www.loc.gov/marc/bibliographic/bd700.html#4> : <http://www.loc.gov/marc/data/111268>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd700.html#ind2.>,
+	 <http://www.loc.gov/marc/bibliographic/bd700.html#a> : <http://www.loc.gov/marc/data/1492324538>
+)
+
+<http://www.wandora.org/core/associationtype> (
+	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/contenttype>,
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/occurrencetype>
+)
+
+<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass> (
+	 <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass> : <http://www.wandora.org/core/roleclass>,
+	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/schema-type>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd043.html> (
+	 <http://www.loc.gov/marc/bibliographic/bd043.html#a> : <http://www.loc.gov/marc/data/240993263>,
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
+)
+
+<http://www.wandora.org/core/associationtype> (
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/associationtype>,
+	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/contenttype>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd906.html> (
+	 <http://www.loc.gov/marc/bibliographic/bd906.html#g> : <http://www.loc.gov/marc/data/-225922885>,
+	 <http://www.loc.gov/marc/bibliographic/bd906.html#b> : <http://www.loc.gov/marc/data/104042>,
+	 <http://www.loc.gov/marc/bibliographic/bd906.html#d> : <http://www.loc.gov/marc/data/49>,
+	 <http://www.loc.gov/marc/bibliographic/bd906.html#a> : <http://www.loc.gov/marc/data/48>,
+	 <http://www.loc.gov/marc/bibliographic/bd906.html#f> : <http://www.loc.gov/marc/data/1598>,
+	 <http://www.loc.gov/marc/bibliographic/bd906.html#c> : <http://www.loc.gov/marc/data/953524289>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/bibliographic/bd906.html#e> : <http://www.loc.gov/marc/data/3375516>
+)
+
+<http://www.wandora.org/core/role> (
+	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/associationtype>,
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/associationtype>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd925.html> (
+	 <http://www.loc.gov/marc/bibliographic/bd925.html#a> : <http://www.loc.gov/marc/data/599585226>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd925.html#ind1.0>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd925.html#ind2.>,
+	 <http://www.loc.gov/marc/bibliographic/bd925.html#x> : <http://www.loc.gov/marc/data/-337086661>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd505.html> (
+	 <http://www.loc.gov/marc/bibliographic/bd505.html#a> : <http://www.loc.gov/marc/data/-2124199172>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd505.html#ind1.0>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd505.html#ind2.>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd245.html> (
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
+	 <http://www.loc.gov/marc/bibliographic/bd245.html#a> : <http://www.loc.gov/marc/data/-1216554612>,
+	 <http://www.loc.gov/marc/bibliographic/bd245.html#h> : <http://www.loc.gov/marc/data/2037483670>,
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd245.html#ind1.0>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd245.html#ind2.4>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd300.html> (
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
+	 <http://www.loc.gov/marc/bibliographic/bd300.html#c> : <http://www.loc.gov/marc/data/1450062122>,
+	 <http://www.loc.gov/marc/bibliographic/bd300.html#a> : <http://www.loc.gov/marc/data/1277331503>,
+	 <http://www.loc.gov/marc/bibliographic/bd300.html#b> : <http://www.loc.gov/marc/data/872745699>
+)
+
+<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass> (
+	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/schema-type>,
+	 <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass> : <http://www.wandora.org/core/occurrencetype>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd042.html> (
+	 <http://www.loc.gov/marc/bibliographic/bd042.html#a> : <http://www.loc.gov/marc/data/-238498070>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd050.html> (
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd050.html#ind1.0>,
+	 <http://www.loc.gov/marc/bibliographic/bd050.html#a> : <http://www.loc.gov/marc/data/-1866797251>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd050.html#ind2.0>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>
 )
 
 <http://www.loc.gov/marc/bibliographic/bd511.html> (
@@ -933,60 +1062,10 @@
 	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd511.html#ind2.>
 )
 
-<http://www.wandora.org/core/associationtype> (
-	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/contenttype>,
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/associationtype>
-)
-
-<http://www.wandora.org/core/role> (
-	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/contenttype>,
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/occurrencetype>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd260.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd260.html#b> : <http://www.loc.gov/marc/data/-1269562684>,
-	 <http://www.loc.gov/marc/bibliographic/bd260.html#a> : <http://www.loc.gov/marc/data/-117616270>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
-	 <http://www.loc.gov/marc/bibliographic/bd260.html#c> : <http://www.loc.gov/marc/data/615559267>
-)
-
 <http://www.loc.gov/marc/bibliographic/bd040.html> (
 	 <http://www.loc.gov/marc/bibliographic/bd040.html#c> : <http://www.loc.gov/marc/data/67771>,
-	 <http://www.loc.gov/marc/bibliographic/bd040.html#a> : <http://www.loc.gov/marc/data/67771>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>
-)
-
-<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass> (
-	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/schema-type>,
-	 <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass> : <http://www.wandora.org/core/role>
-)
-
-<http://www.wandora.org/core/associationtype> (
-	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/schema-type>,
-	 <http://www.wandora.org/core/associationtype> : <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass>
-)
-
-<http://www.wandora.org/core/role> (
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/roleclass>,
-	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/role>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd610.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd610.html#a> : <http://www.loc.gov/marc/data/1416475759>,
-	 <http://www.loc.gov/marc/bibliographic/bd610.html#b> : <http://www.loc.gov/marc/data/-828706496>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind2.0>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind1.1>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
-)
-
-<http://www.wandora.org/core/role> (
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/role>,
-	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/associationtype>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd955.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd955.html#a> : <http://www.loc.gov/marc/data/-855477203>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
+	 <http://www.loc.gov/marc/bibliographic/bd040.html#a> : <http://www.loc.gov/marc/data/67771>
 )
 
 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass> (
@@ -994,146 +1073,113 @@
 	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/schema-type>
 )
 
-<http://www.wandora.org/core/associationtype> (
-	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/associationtype>,
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/role>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd040.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd040.html#d> : <http://www.loc.gov/marc/data/77012>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/bibliographic/bd040.html#c> : <http://www.loc.gov/marc/data/72377>,
-	 <http://www.loc.gov/marc/bibliographic/bd040.html#a> : <http://www.loc.gov/marc/data/72377>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd925.html> (
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd925.html#ind1.0>,
-	 <http://www.loc.gov/marc/bibliographic/bd925.html#a> : <http://www.loc.gov/marc/data/599585226>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd925.html#ind2.>,
-	 <http://www.loc.gov/marc/bibliographic/bd925.html#x> : <http://www.loc.gov/marc/data/-337086661>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd082.html> (
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/bibliographic/bd082.html#2> : <http://www.loc.gov/marc/data/1570>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd082.html#ind2.0>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd082.html#ind1.1>,
-	 <http://www.loc.gov/marc/bibliographic/bd082.html#a> : <http://www.loc.gov/marc/data/54331612>
+<http://www.wandora.org/core/role> (
+	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/contenttype>,
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/occurrencetype>
 )
 
 <http://www.loc.gov/marc/bibliographic/bd856.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd856.html#u> : <http://www.loc.gov/marc/data/-1598028375>,
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd856.html#ind2.0>,
 	 <http://www.loc.gov/marc/bibliographic/bd856.html#z> : <http://www.loc.gov/marc/data/-371493291>,
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd856.html#ind1.4>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd856.html#ind2.0>,
+	 <http://www.loc.gov/marc/bibliographic/bd856.html#u> : <http://www.loc.gov/marc/data/-1598028375>
+)
+
+<http://www.wandora.org/core/role> (
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/role>,
+	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/role>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd538.html> (
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/bibliographic/bd538.html#a> : <http://www.loc.gov/marc/data/-1208738601>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd028.html> (
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd028.html#ind1.0>,
+	 <http://www.loc.gov/marc/bibliographic/bd028.html#a> : <http://www.loc.gov/marc/data/1509509>,
+	 <http://www.loc.gov/marc/bibliographic/bd028.html#b> : <http://www.loc.gov/marc/data/-1269562684>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd028.html#ind2.0>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd245.html> (
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd245.html#ind2.4>,
+	 <http://www.loc.gov/marc/bibliographic/bd245.html#h> : <http://www.loc.gov/marc/data/-1723648809>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/bibliographic/bd245.html#a> : <http://www.loc.gov/marc/data/558030554>,
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd245.html#ind1.0>
+)
+
+<http://www.wandora.org/core/role> (
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/associationtype>,
+	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/contenttype>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd256.html> (
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/bibliographic/bd256.html#a> : <http://www.loc.gov/marc/data/-1916312417>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd856.html> (
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd856.html#ind2.0>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/bibliographic/bd856.html#u> : <http://www.loc.gov/marc/data/-2125654656>,
 	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd856.html#ind1.4>
 )
 
-<http://www.loc.gov/marc/bibliographic/bd042.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd042.html#a> : <http://www.loc.gov/marc/data/-238498070>,
+<http://www.loc.gov/marc/bibliographic/bd500.html> (
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
+	 <http://www.loc.gov/marc/bibliographic/bd500.html#a> : <http://www.loc.gov/marc/data/-1382336457>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd050.html> (
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd050.html#ind1.0>,
+	 <http://www.loc.gov/marc/bibliographic/bd050.html#a> : <http://www.loc.gov/marc/data/-821869124>,
+	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd050.html#ind2.0>
+)
+
+<http://www.wandora.org/core/role> (
+	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/roleclass>,
+	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/roleclass>
+)
+
+<http://www.loc.gov/marc/bibliographic/bd035.html> (
+	 <http://www.loc.gov/marc/bibliographic/bd035.html#a> : <http://www.loc.gov/marc/data/-1446655269>,
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
 )
 
-<http://www.wandora.org/core/associationtype> (
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/occurrencetype>,
-	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/contenttype>
+<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass> (
+	 <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass> : <http://www.wandora.org/core/contenttype>,
+	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/schema-type>
 )
 
-<http://www.loc.gov/marc/bibliographic/bd505.html> (
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
-	 <http://www.loc.gov/marc/bibliographic/bd505.html#a> : <http://www.loc.gov/marc/data/-2124199172>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd505.html#ind1.0>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd505.html#ind2.>
+<http://www.wandora.org/core/roleclass> (
+	 <http://www.wandora.org/core/roleclass> : <http://www.wandora.org/core/schema-type>,
+	 <http://www.wandora.org/core/role> : <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass>
 )
 
-<http://www.loc.gov/marc/bibliographic/bd906.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd906.html#d> : <http://www.loc.gov/marc/data/49>,
-	 <http://www.loc.gov/marc/bibliographic/bd906.html#b> : <http://www.loc.gov/marc/data/104042>,
-	 <http://www.loc.gov/marc/bibliographic/bd906.html#a> : <http://www.loc.gov/marc/data/48>,
-	 <http://www.loc.gov/marc/bibliographic/bd906.html#g> : <http://www.loc.gov/marc/data/-225922885>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/bibliographic/bd906.html#c> : <http://www.loc.gov/marc/data/953524289>,
-	 <http://www.loc.gov/marc/bibliographic/bd906.html#f> : <http://www.loc.gov/marc/data/1598>,
-	 <http://www.loc.gov/marc/bibliographic/bd906.html#e> : <http://www.loc.gov/marc/data/3375516>
+<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass> (
+	 <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass> : <http://www.wandora.org/core/schema-type>,
+	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/wandoraclass>
 )
 
-<http://www.loc.gov/marc/bibliographic/bd010.html> (
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
-	 <http://www.loc.gov/marc/bibliographic/bd010.html#a> : <http://www.loc.gov/marc/data/-1575749741>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd710.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd710.html#a> : <http://www.loc.gov/marc/data/-1584076242>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd710.html#ind2.>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd710.html#ind1.2>,
+<http://www.loc.gov/marc/bibliographic/bd610.html> (
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind1.1>,
+	 <http://www.loc.gov/marc/bibliographic/bd610.html#a> : <http://www.loc.gov/marc/data/1416475759>,
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind2.0>,
+	 <http://www.loc.gov/marc/bibliographic/bd610.html#b> : <http://www.loc.gov/marc/data/-828706496>,
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
 )
 
 <http://www.loc.gov/marc/bibliographic/bd610.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd610.html#a> : <http://www.loc.gov/marc/data/-57644513>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind1.2>,
 	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind2.0>,
+	 <http://www.loc.gov/marc/bibliographic/bd610.html#b> : <http://www.loc.gov/marc/data/122862949>,
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind1.1>,
+	 <http://www.loc.gov/marc/bibliographic/bd610.html#a> : <http://www.loc.gov/marc/data/1416475759>,
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd245.html> (
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd245.html#ind1.0>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd245.html#ind2.4>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
-	 <http://www.loc.gov/marc/bibliographic/bd245.html#a> : <http://www.loc.gov/marc/data/-1216554612>,
-	 <http://www.loc.gov/marc/bibliographic/bd245.html#h> : <http://www.loc.gov/marc/data/2037483670>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd856.html> (
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd856.html#ind2.0>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd856.html#ind1.4>,
-	 <http://www.loc.gov/marc/bibliographic/bd856.html#u> : <http://www.loc.gov/marc/data/-2125654656>
-)
-
-<http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass> (
-	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/schema-type>,
-	 <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass> : <http://www.wandora.org/core/contenttype>
-)
-
-<http://www.wandora.org/core/role> (
-	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/role>,
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/role>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd028.html> (
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd028.html#ind1.0>,
-	 <http://www.loc.gov/marc/bibliographic/bd028.html#a> : <http://www.loc.gov/marc/data/1509509>,
-	 <http://www.loc.gov/marc/bibliographic/bd028.html#b> : <http://www.loc.gov/marc/data/-1269562684>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd028.html#ind2.0>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd538.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd538.html#a> : <http://www.loc.gov/marc/data/-1208738601>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
-)
-
-<http://www.wandora.org/core/role> (
-	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/occurrencetype>,
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/occurrencetype>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd700.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd700.html#4> : <http://www.loc.gov/marc/data/111268>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>,
-	 <http://www.loc.gov/marc/bibliographic/bd700.html#a> : <http://www.loc.gov/marc/data/1492324538>,
-	 <http://www.loc.gov/marc/bibliographic/bd700.html#d> : <http://www.loc.gov/marc/data/47001160>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd700.html#ind1.1>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd700.html#ind2.>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd260.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd260.html#c> : <http://www.loc.gov/marc/data/47007050>,
-	 <http://www.loc.gov/marc/bibliographic/bd260.html#a> : <http://www.loc.gov/marc/data/1936038195>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/bibliographic/bd260.html#b> : <http://www.loc.gov/marc/data/-1584076244>
 )
 
 <http://www.loc.gov/marc/bibliographic/bd650.html> (
@@ -1142,81 +1188,35 @@
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>
 )
 
-<http://www.wandora.org/core/roleclass> (
-	 <http://www.wandora.org/core/role> : <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass>,
-	 <http://www.wandora.org/core/roleclass> : <http://www.wandora.org/core/schema-type>
-)
-
-<http://www.wandora.org/core/associationtype> (
-	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/role>,
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/roleclass>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd650.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd650.html#a> : <http://www.loc.gov/marc/data/1279249215>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>
+<http://www.wandora.org/core/occurrencetype> (
+	 <http://www.wandora.org/core/occurrencetype> : <http://www.wandora.org/core/hidelevel>,
+	 <http://www.wandora.org/core/contenttype> : <http://www.wandora.org/core/schema-type>
 )
 
 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass> (
-	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/schema-type>,
-	 <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass> : <http://www.wandora.org/core/occurrencetype>
+	 <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass> : <http://www.wandora.org/core/role>,
+	 <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass> : <http://www.wandora.org/core/schema-type>
 )
 
-<http://www.loc.gov/marc/bibliographic/bd035.html> (
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/bibliographic/bd035.html#a> : <http://www.loc.gov/marc/data/-1446655269>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd050.html> (
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd050.html#ind2.0>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd050.html#ind1.0>,
-	 <http://www.loc.gov/marc/bibliographic/bd050.html#a> : <http://www.loc.gov/marc/data/-821869124>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd520.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd520.html#a> : <http://www.loc.gov/marc/data/-245088987>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd520.html#ind1.8>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd520.html#ind2.>
-)
-
-<http://www.wandora.org/core/roleclass> (
-	 <http://www.wandora.org/core/role> : <http://www.topicmaps.org/xtm/1.0/core.xtm#subclass>,
-	 <http://www.wandora.org/core/roleclass> : <http://www.wandora.org/core/schema-type>
-)
-
-<http://www.wandora.org/core/role> (
-	 <http://www.wandora.org/core/associationtype> : <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass-subclass>,
-	 <http://www.wandora.org/core/role> : <http://www.topicmaps.org/xtm/1.0/core.xtm#superclass>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd256.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd256.html#a> : <http://www.loc.gov/marc/data/-1916312417>,
+<http://www.loc.gov/marc/bibliographic/bd040.html> (
+	 <http://www.loc.gov/marc/bibliographic/bd040.html#d> : <http://www.loc.gov/marc/data/77012>,
+	 <http://www.loc.gov/marc/bibliographic/bd040.html#c> : <http://www.loc.gov/marc/data/72377>,
+	 <http://www.loc.gov/marc/bibliographic/bd040.html#a> : <http://www.loc.gov/marc/data/72377>,
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
 )
 
-<http://www.loc.gov/marc/bibliographic/bd500.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd500.html#a> : <http://www.loc.gov/marc/data/-1382336457>,
+<http://www.loc.gov/marc/bibliographic/bd260.html> (
+	 <http://www.loc.gov/marc/bibliographic/bd260.html#b> : <http://www.loc.gov/marc/data/-1269562684>,
+	 <http://www.loc.gov/marc/bibliographic/bd260.html#c> : <http://www.loc.gov/marc/data/615559267>,
+	 <http://www.loc.gov/marc/bibliographic/bd260.html#a> : <http://www.loc.gov/marc/data/-117616270>,
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279625327232-1>
 )
 
-<http://www.loc.gov/marc/bibliographic/bd610.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd610.html#a> : <http://www.loc.gov/marc/data/1416475759>,
+<http://www.loc.gov/marc/bibliographic/bd710.html> (
+	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd710.html#ind1.2>,
+	 <http://www.loc.gov/marc/bibliographic/bd710.html#a> : <http://www.loc.gov/marc/data/-1584076242>,
 	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>,
-	 <http://www.loc.gov/marc/ind1> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind1.1>,
-	 <http://www.loc.gov/marc/bibliographic/bd610.html#b> : <http://www.loc.gov/marc/data/122862949>,
-	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd610.html#ind2.0>
-)
-
-<http://www.wandora.org/core/role> (
-	 <http://www.wandora.org/core/associationtype> : <http://www.wandora.org/core/roleclass>,
-	 <http://www.wandora.org/core/role> : <http://www.wandora.org/core/roleclass>
-)
-
-<http://www.loc.gov/marc/bibliographic/bd010.html> (
-	 <http://www.loc.gov/marc/bibliographic/bd010.html#a> : <http://www.loc.gov/marc/data/-1028023776>,
-	 <http://www.loc.gov/marc/record> : <http://www.wandora.org/defaultSI1279627959375-2>
+	 <http://www.loc.gov/marc/ind2> : <http://www.loc.gov/marc/bibliographic/bd710.html#ind2.>
 )
 
 # Generated by the CTM Topic Map Writer.

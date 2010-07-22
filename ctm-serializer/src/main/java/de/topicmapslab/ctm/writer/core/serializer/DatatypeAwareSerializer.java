@@ -121,8 +121,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 			 */
 			else if (value.contains(QUOTE)) {
 				buffer
-						.append(false, QUOTE, value.replaceAll(QUOTE, "'"),
-								QUOTE);
+						.append(false, TRIPPLEQUOTE, value,
+								TRIPPLEQUOTE);
 			}
 			/*
 			 * string does not contain any quotes
