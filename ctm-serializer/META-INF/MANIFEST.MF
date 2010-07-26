@@ -20,6 +20,8 @@ Export-Package: .,
  de.topicmapslab.ctm.writer.templates.entry.param,
  de.topicmapslab.ctm.writer.utility
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.tmapi;bundle-version="2.0.1",
- org.tmapix_0.3;bundle-version="0.3.0"
-Import-Package: org.junit;version="4.5.0";resolution:=optional
+Import-Package: org.junit;version="4.5.0";resolution:=optional,
+ org.tmapi.core;version="2.0.2",
+ org.tmapi.index;version="2.0.2",
+ org.tmapix.io,
+ org.tmapix.voc

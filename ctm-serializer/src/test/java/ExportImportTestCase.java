@@ -7,7 +7,6 @@ import net.ontopia.topicmaps.utils.ctm.CTMTopicMapReader;
 import org.tmapi.core.TopicMap;
 import org.tmapi.core.TopicMapSystem;
 import org.tmapi.core.TopicMapSystemFactory;
-import org.tmapix.io.LTMTopicMapReader;
 import org.tmapix.io.XTMTopicMapReader;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;

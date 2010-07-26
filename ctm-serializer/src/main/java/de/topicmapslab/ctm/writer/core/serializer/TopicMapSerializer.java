@@ -77,7 +77,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 
 	private final Map<Template, Set<TemplateMatching>> matchings = new HashMap<Template, Set<TemplateMatching>>();
 	private final Map<Construct, Set<TemplateMatching>> constructMatchings = new HashMap<Construct, Set<TemplateMatching>>();
-	private final Set<Construct> affectedConstructs = new HashSet<Construct>();
+	private final Set<Construct> ignoredConstructs = new HashSet<Construct>();
 
 	public TopicMapSerializer(CTMTopicMapWriter writer,
 			PrefixHandler prefixHandler) {
@@ -92,7 +92,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	 * @param template
 	 *            the template to add
 	 */
-	public void add(Template template) {
+	public void addTemplate(Template template) {
 		templates.add(template);
 	}
 
@@ -240,7 +240,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 				s.add(matching);
 				matching.setTemplate(t);
 				constructMatchings.put(matching.getContext(), s);
-				affectedConstructs.addAll(matching.getAffectedConstructs());
+				ignoredConstructs.addAll(matching.getAffectedConstructs());
 			}
 			matchings.put(t, set);
 		}
@@ -250,7 +250,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		 */
 		buffer.appendCommentLine("topic definitions");
 		for (Topic topic : topicMap.getTopics()) {
-			if (affectedConstructs.contains(topic)) {
+			if (ignoredConstructs.contains(topic)) {
 				continue;
 			}
 			/*
@@ -271,7 +271,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		buffer.appendCommentLine("association definitions");
 		Set<Object> affectedConstronstructs = new HashSet<Object>();
 		for (Association association : topicMap.getAssociations()) {
-			if (affectedConstructs.contains(association)) {
+			if (ignoredConstructs.contains(association)) {
 				continue;
 			}
 			/*
@@ -444,6 +444,17 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 		} catch (NoIdentityException e) {
 			return false;
 		}
+	}
+
+	/**
+	 * Adds a construct to the ignore set. Every construct in this set will not
+	 * be serialized. This might be useful, if the topic map contains topics specified 
+	 * in external ctm files.
+	 * 
+	 * @param the construct to ignore
+	 */
+	public void addIgnoredConstruct(Construct construct) {
+		ignoredConstructs.add(construct);		
 	}
 
 	// /**

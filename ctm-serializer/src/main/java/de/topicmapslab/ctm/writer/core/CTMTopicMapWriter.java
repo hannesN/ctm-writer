@@ -153,7 +153,18 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 *            the template to add
 	 */
 	public void addTemplate(Template template) {
-		this.serializer.add(template);
+		this.serializer.addTemplate(template);
+	}
+	
+	/**
+	 * Adds a construct to the ignore set. Every construct in this set will not
+	 * be serialized. This might be useful, if the topic map contains topics specified 
+	 * in external ctm files.
+	 * 
+	 * @param the construct to ignore
+	 */
+	public void addIgnoredConstruct(Construct construct) {
+		this.serializer.addIgnoredConstruct(construct);
 	}
 
 	/**

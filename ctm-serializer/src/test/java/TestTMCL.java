@@ -58,7 +58,7 @@ public class TestTMCL extends TestCase {
 /**
  * A class which creates {@link Template}s for the CTM Serializer.
  * 
- * @author Lorenz Bühmann
+ * @author Lorenz Bï¿½hmann
  * 
  */
 class TMCLTemplateDefinitions {
