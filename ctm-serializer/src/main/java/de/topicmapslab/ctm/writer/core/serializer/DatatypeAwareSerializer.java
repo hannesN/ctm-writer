@@ -107,8 +107,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:string
 		 */
-		if (XmlSchemeDatatypes.XSD_STRING.equalsIgnoreCase(datatype_)
-				|| XmlSchemeDatatypes.XSD_QSTRING.equalsIgnoreCase(datatype_)
+		if (XmlSchemeDatatypes.XSD_STRING.equals(datatype_)
+				|| XmlSchemeDatatypes.XSD_QSTRING.equals(datatype_)
 				|| datatype_ == null) {
 			/*
 			 * string is a variable
@@ -142,8 +142,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:anyURI
 		 */
-		else if (XmlSchemeDatatypes.XSD_ANYURI.equalsIgnoreCase(datatype_)
-				|| XmlSchemeDatatypes.XSD_QANYURI.equalsIgnoreCase(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_ANYURI.equals(datatype_)
+				|| XmlSchemeDatatypes.XSD_QANYURI.equals(datatype_)) {
 			/*
 			 * URI is variable
 			 */
@@ -157,8 +157,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:integer
 		 */
-		else if (XmlSchemeDatatypes.XSD_INTEGER.equalsIgnoreCase(datatype_)
-				|| XmlSchemeDatatypes.XSD_QINTEGER.equalsIgnoreCase(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_INTEGER.equals(datatype_)
+				|| XmlSchemeDatatypes.XSD_QINTEGER.equals(datatype_)) {
 			buffer.append(false, value);
 		}
 		/*
@@ -230,8 +230,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:string
 		 */
-		if (XmlSchemeDatatypes.XSD_STRING.equalsIgnoreCase(datatype_)
-				|| XmlSchemeDatatypes.XSD_QSTRING.equalsIgnoreCase(datatype_)) {
+		if (XmlSchemeDatatypes.XSD_STRING.equals(datatype_)
+				|| XmlSchemeDatatypes.XSD_QSTRING.equals(datatype_)) {
 			/*
 			 * string is variable
 			 */
@@ -254,8 +254,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:anyURI
 		 */
-		else if (XmlSchemeDatatypes.XSD_ANYURI.equalsIgnoreCase(datatype_)
-				|| XmlSchemeDatatypes.XSD_QANYURI.equalsIgnoreCase(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_ANYURI.equals(datatype_)
+				|| XmlSchemeDatatypes.XSD_QANYURI.equals(datatype_)) {
 			/*
 			 * URI is variable
 			 */
@@ -267,8 +267,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:integer
 		 */
-		else if (XmlSchemeDatatypes.XSD_INTEGER.equalsIgnoreCase(datatype_)
-				|| XmlSchemeDatatypes.XSD_QINTEGER.equalsIgnoreCase(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_INTEGER.equals(datatype_)
+				|| XmlSchemeDatatypes.XSD_QINTEGER.equals(datatype_)) {
 			return value;
 		}
 		/*
