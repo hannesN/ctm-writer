@@ -562,7 +562,7 @@ class TMCLTemplateDefinitions {
 
 		t.add(t1);
 
-//		t.setScanner(new HasNameTemplateScanner());
+		t.setScanner(new HasNameTemplateScanner());
 
 		templates.add(t);
 

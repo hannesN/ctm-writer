@@ -11,12 +11,10 @@ package de.topicmapslab.ctm.writer.utility;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.tmapi.core.Association;
 import org.tmapi.core.ModelConstraintException;
 import org.tmapi.core.Role;
 import org.tmapi.core.Topic;
 import org.tmapi.core.TopicMap;
-import org.tmapi.index.TypeInstanceIndex;
 
 import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
@@ -83,47 +81,21 @@ public class TypeHierarchyUtils {
 			}
 
 			/*
-			 * get type-instance-index
-			 */
-			TypeInstanceIndex index = topicMap
-					.getIndex(TypeInstanceIndex.class);
-			if ( !index.isOpen()){
-				index.open();
-			}			
-			/*
 			 * iterate over all association items
 			 */
-			for (Association association : index.getAssociations(kindOf)) {
-				Set<Role> subtypePlayers = association.getRoles(subtypeRole);
-				if (subtypePlayers.size() != 1) {
+			for (Role role : kindOf.getRolesPlayed(subtypeRole)) {
+				Set<Role> supertypePlayers = role.getParent()
+						.getRoles(supertypeRole);
+				if (supertypePlayers.size() != 1) {
 					throw new ModelConstraintException(
-							association,
-							"Invalid association item of type 'supertype-subtype' - expected number of players of role-type 'subtype' is 1, but was"
-									+ subtypePlayers.size());
+							role.getParent(),
+							"Invalid association item of type 'supertype-subtype' - expected number of players of role-type 'supertype' is 1, but was"
+									+ supertypePlayers.size());
 				}
 				/*
-				 * extract player of subtype-role
+				 * add supertype-role player
 				 */
-				Topic subtypePlayer = subtypePlayers.iterator().next()
-						.getPlayer();
-				/*
-				 * check if player equals given type
-				 */
-				if (subtypePlayer.equals(subtype)) {
-					Set<Role> supertypePlayers = association
-							.getRoles(supertypeRole);
-					if (supertypePlayers.size() != 1) {
-						throw new ModelConstraintException(
-								association,
-								"Invalid association item of type 'supertype-subtype' - expected number of players of role-type 'supertype' is 1, but was"
-										+ supertypePlayers.size());
-					}
-					/*
-					 * add supertype-role player
-					 */
-					supertypes.add(supertypePlayers.iterator().next()
-							.getPlayer());
-				}
+				supertypes.add(supertypePlayers.iterator().next().getPlayer());
 			}
 		}
 		return supertypes;
