@@ -2,11 +2,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import junit.framework.TestCase;
-import net.ontopia.topicmaps.utils.ctm.CTMTopicMapReader;
 
 import org.tmapi.core.TopicMap;
 import org.tmapi.core.TopicMapSystem;
 import org.tmapi.core.TopicMapSystemFactory;
+import org.tmapix.io.CTMTopicMapReader;
 import org.tmapix.io.XTMTopicMapReader;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
@@ -81,7 +81,7 @@ public class ExportImportTestCase extends TestCase {
 
 		System.out.println("Import from CTM...");
 
-		CTMTopicMapReader reader = new CTMTopicMapReader(file);
+		CTMTopicMapReader reader = new CTMTopicMapReader(topicMap, file);
 
 		reader.read();
 
