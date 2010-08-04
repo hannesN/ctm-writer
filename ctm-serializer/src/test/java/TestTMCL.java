@@ -562,7 +562,7 @@ class TMCLTemplateDefinitions {
 
 		t.add(t1);
 
-		t.setScanner(new HasNameTemplateScanner());
+		// t.setScanner(new HasNameTemplateScanner());
 
 		templates.add(t);
 
@@ -1190,38 +1190,41 @@ class TMCLTemplateDefinitions {
 
 }
 //
-//class HasNameTemplateScanner implements ITemplateScanner {
+// class HasNameTemplateScanner implements ITemplateScanner {
 //
-//	public Set<TemplateMatching> getAdaptiveConstructs(TopicMap topicMap) {
-//		try {
-//			Set<TemplateMatching> matchings = new HashSet<TemplateMatching>();
+// public Set<TemplateMatching> getAdaptiveConstructs(TopicMap topicMap) {
+// try {
+// Set<TemplateMatching> matchings = new HashSet<TemplateMatching>();
 //
-//			ITMQLRuntime runtime = TMQLRuntimeFactory.newFactory().newRuntime(
-//					topicMap);
+// ITMQLRuntime runtime = TMQLRuntimeFactory.newFactory().newRuntime(
+// topicMap);
 //
-//			String query = "FOR $c IN // tmcl:topic-name-constraint "
-//					+ "WHERE tmcl:constrained-topic-type(tmcl:constraint : $c, tmcl:constrained : $tt) "
-//					+ "AND tmcl:constrained-statement(tmcl:constraint : $c, tmcl:constrained : $nt) "
-//					+ "RETURN (  $tt , $nt , $c / tmcl:card-min [0] , $c / tmcl:card-max [0] , $c )";
+// String query = "FOR $c IN // tmcl:topic-name-constraint "
+// +
+// "WHERE tmcl:constrained-topic-type(tmcl:constraint : $c, tmcl:constrained : $tt) "
+// +
+// "AND tmcl:constrained-statement(tmcl:constraint : $c, tmcl:constrained : $nt) "
+// +
+// "RETURN (  $tt , $nt , $c / tmcl:card-min [0] , $c / tmcl:card-max [0] , $c )";
 //
-//			IQuery q = runtime.run(query);
-//			System.out.println(q.getResults());
-//			for (IResult result : q.getResults()) {
-//				TemplateMatching matching = new TemplateMatching();
-//				matching.setContext((Topic) result.getResults().get(0));
-//				matching.addArgument(result.getResults().get(1));
-//				matching.addArgument(result.getResults().get(2));
-//				matching.addArgument(result.getResults().get(3));
-//				matching.addAffectedConstruct((Topic) result.getResults()
-//						.get(4));
-//				matchings.add(matching);
-//			}
-//			return matchings;
+// IQuery q = runtime.run(query);
+// System.out.println(q.getResults());
+// for (IResult result : q.getResults()) {
+// TemplateMatching matching = new TemplateMatching();
+// matching.setContext((Topic) result.getResults().get(0));
+// matching.addArgument(result.getResults().get(1));
+// matching.addArgument(result.getResults().get(2));
+// matching.addArgument(result.getResults().get(3));
+// matching.addAffectedConstruct((Topic) result.getResults()
+// .get(4));
+// matchings.add(matching);
+// }
+// return matchings;
 //
-//		} catch (TMQLRuntimeException e) {
-//			e.printStackTrace();
-//		}
-//		return new HashSet<TemplateMatching>();
-//	}
+// } catch (TMQLRuntimeException e) {
+// e.printStackTrace();
+// }
+// return new HashSet<TemplateMatching>();
+// }
 //
-//}
+// }
