@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CTM Writer
+Bundle-SymbolicName: de.topicmapslab.ctmwriter;singleton:=true
+Bundle-Version: 1.0.8.SNAPSHOT
+Export-Package: de.topicmapslab.common.exception,
+ de.topicmapslab.common.tools,
+ de.topicmapslab.common.tools.collections,
+ de.topicmapslab.common.tools.exception,
+ de.topicmapslab.common.tools.prefix.core,
+ de.topicmapslab.common.tools.prefix.model,
+ de.topicmapslab.ctm.writer.core,
+ de.topicmapslab.ctm.writer.core.serializer,
+ de.topicmapslab.ctm.writer.exception,
+ de.topicmapslab.ctm.writer.properties,
+ de.topicmapslab.ctm.writer.templates,
+ de.topicmapslab.ctm.writer.templates.autodetection,
+ de.topicmapslab.ctm.writer.templates.entry,
+ de.topicmapslab.ctm.writer.templates.entry.base,
+ de.topicmapslab.ctm.writer.templates.entry.param,
+ de.topicmapslab.ctm.writer.utility
+Import-Package: org.tmapi.core;version="2.0.2",
+ org.tmapi.index;version="2.0.2",
+ org.tmapix.io,
+ org.tmapix.voc;version="0.2.0"
+Created-By: Apache Maven
+Archiver-Version: Plexus Archiver
+Built-By: niederhausen
+Build-Jdk: 1.6.0_20
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy

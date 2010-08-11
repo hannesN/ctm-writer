@@ -16,7 +16,16 @@
 					<source>1.5</source>
 					<target>1.5</target>
 				</configuration>
-			</plugin>			
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<url>http://maven.apache.org</url>
@@ -75,7 +84,8 @@
 		<repository>
 			<id>topicmapslab-public</id>
 			<name>Topic Maps Lab Repositiory</name>
-			<url>scpexe://topicmapslab.de/home/maven/webdir/maven.topicmapslab.de/public/public</url>
+			<url>scpexe://topicmapslab.de/home/maven/webdir/maven.topicmapslab.de/public/public
+			</url>
 		</repository>
 	</distributionManagement>
 </project>
