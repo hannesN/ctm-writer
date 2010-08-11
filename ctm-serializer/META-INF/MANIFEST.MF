@@ -18,7 +18,8 @@ Export-Package: de.topicmapslab.common.exception,
  de.topicmapslab.ctm.writer.templates.entry,
  de.topicmapslab.ctm.writer.templates.entry.base,
  de.topicmapslab.ctm.writer.templates.entry.param,
- de.topicmapslab.ctm.writer.utility
+ de.topicmapslab.ctm.writer.utility,
+ de.topicmapslab.identifier
 Import-Package: org.tmapi.core;version="2.0.2",
  org.tmapi.index;version="2.0.2",
  org.tmapix.io,
