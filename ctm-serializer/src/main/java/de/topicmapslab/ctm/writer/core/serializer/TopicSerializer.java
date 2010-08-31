@@ -81,7 +81,7 @@ public class TopicSerializer implements ISerializer<Topic> {
 					buffer.append((first ? "" : ",") + arg);
 					first = false;
 				}
-				buffer.append(")");
+				buffer.append(");");
 				buffer.appendLine();
 			}
 		}
