@@ -14,12 +14,10 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.tmapi.core.Association;
 import org.tmapi.core.ModelConstraintException;
 import org.tmapi.core.Role;
 import org.tmapi.core.Topic;
 import org.tmapi.core.TopicMap;
-import org.tmapi.index.TypeInstanceIndex;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
@@ -80,7 +78,7 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 
 		// storing type already written
 		Set<Topic> writtenTypes = new HashSet<Topic>(instance.getTypes());
-		
+
 		/*
 		 * check additional types by extracting the TMDM association type
 		 */
@@ -116,50 +114,27 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 			}
 
 			/*
-			 * get type-instance-index
-			 */
-			TypeInstanceIndex index = topicMap
-					.getIndex(TypeInstanceIndex.class);
-			if ( !index.isOpen()){
-				index.open();
-			}
-			/*
 			 * iterate over association items
 			 */
-			for (Association association : index.getAssociations(instanceOf)) {
-				/*
-				 * extract instance-role player
-				 */
-				Set<Role> instancePlayers = association.getRoles(instanceRole);
-				if (instancePlayers.size() != 1) {
+			for (Role role : instance.getRolesPlayed(instanceRole)) {
+				Set<Role> typePlayers = role.getParent().getRoles(typeRole);
+				if (typePlayers.size() != 1) {
 					throw new SerializerException(
 							new ModelConstraintException(
-									association,
-									"Invalid association item of type 'is-instance-of' - expected number of players of role-type 'instance' is 1, but was"
-											+ instancePlayers.size()));
+									role.getParent(),
+									"Invalid association item of type 'is-instance-of' - expected number of players of role-type 'type' is 1, but was"
+											+ typePlayers.size()));
 				}
-				Topic instancePlayer = instancePlayers.iterator().next()
-						.getPlayer();
-				if (instancePlayer.equals(instance)) {
-					Set<Role> typePlayers = association.getRoles(typeRole);
-					if (typePlayers.size() != 1) {
-						throw new SerializerException(
-								new ModelConstraintException(
-										association,
-										"Invalid association item of type 'is-instance-of' - expected number of players of role-type 'type' is 1, but was"
-												+ typePlayers.size()));
-					}
-					/*
-					 * add to buffer
-					 */
-					Topic newType = typePlayers.iterator().next().getPlayer();
-					if (!writtenTypes.contains(newType)) {
-						buffer.appendTailLine(true, TABULATOR, ISA, writer
-								.getCtmIdentity().getMainIdentifier(
-										writer.getProperties(),
-										newType)
-								.toString());
-					}
+				/*
+				 * add to buffer
+				 */
+				Topic newType = typePlayers.iterator().next().getPlayer();
+				if (!writtenTypes.contains(newType)) {
+					buffer
+							.appendTailLine(true, TABULATOR, ISA, writer
+									.getCtmIdentity().getMainIdentifier(
+											writer.getProperties(), newType)
+									.toString());
 				}
 			}
 			returnValue = true;
