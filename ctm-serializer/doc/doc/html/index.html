@@ -1,0 +1,1175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.4.5" />
+<title>CTM Writer documentation and tutorial</title>
+<style type="text/css">
+/* Debug borders */
+p, li, dt, dd, div, pre, h1, h2, h3, h4, h5, h6 {
+/*
+  border: 1px solid red;
+*/
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+tt {
+  color: navy;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  font-family: sans-serif;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+
+div.sectionbody {
+  font-family: serif;
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+span#author {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+span#email {
+}
+span#revnumber, span#revdate, span#revremark {
+  font-family: sans-serif;
+}
+
+div#footer {
+  font-family: sans-serif;
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+div#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+div#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+div#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.tableblock, div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock {
+  padding-left: 2.0em;
+  margin-right: 10%;
+}
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock {
+  padding-left: 2.0em;
+  margin-right: 10%;
+}
+div.verseblock > div.content {
+  white-space: pre;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 2px solid silver;
+}
+
+div.exampleblock > div.content {
+  border-left: 2px solid silver;
+  padding: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+@media print {
+  div#footer-badges { display: none; }
+}
+
+div#toctitle {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+/* Workarounds for IE6's broken and incomplete CSS2. */
+
+div.sidebar-content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+div.sidebar-title, div.image-title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 0.0em;
+  margin-bottom: 0.5em;
+}
+
+div.listingblock div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock-attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock-content {
+  white-space: pre;
+}
+div.verseblock-attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+
+div.exampleblock-content {
+  border-left: 2px solid silver;
+  padding-left: 0.5em;
+}
+
+/* IE6 sets dynamically generated links as visited. */
+div#toc a:visited { color: blue; }
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.onload = function(){generateToc(2)}
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, October 2006. License: GPL */
+
+function getText(el) {
+  var text = "";
+  for (var i = el.firstChild; i != null; i = i.nextSibling) {
+    if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+      text += i.data;
+    else if (i.firstChild != null)
+      text += getText(i);
+  }
+  return text;
+}
+
+function TocEntry(el, text, toclevel) {
+  this.element = el;
+  this.text = text;
+  this.toclevel = toclevel;
+}
+
+function tocEntries(el, toclevels) {
+  var result = new Array;
+  var re = new RegExp('[hH]([2-'+(toclevels+1)+'])');
+  // Function that scans the DOM tree for header elements (the DOM2
+  // nodeIterator API would be a better technique but not supported by all
+  // browsers).
+  var iterate = function (el) {
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+        var mo = re.exec(i.tagName)
+        if (mo)
+          result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+        iterate(i);
+      }
+    }
+  }
+  iterate(el);
+  return result;
+}
+
+// This function does the work. toclevels = 1..4.
+function generateToc(toclevels) {
+  var toc = document.getElementById("toc");
+  var entries = tocEntries(document.getElementsByTagName("body")[0], toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "toc" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    document.getElementById("header").removeChild(toc);
+}
+/*]]>*/
+</script>
+</head>
+<body>
+<div id="header">
+<h1>CTM Writer documentation and tutorial</h1>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>The CTM topic map writer is an open source project available under an Apache 2.0 license. The project is hosted on <a href="http://code.google.com/p/ctm-writer/">http://code.google.com/p/ctm-writer/</a>. If you find bugs or have feature requests please file a <a href="http://code.google.com/p/ctm-writer/issues/list">ticket</a>.</p></div>
+</div>
+</div>
+<h2 id="_scope">1. Scope</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The Compact Topic Maps ( CTM ) is a text-based representation of a topic map and describes a standardized interchange format of topic maps, similar to XTM. The syntax is designed in a human-readable way and represents every information items and any relationships between items modeled by the topic maps data model ( TMDM ).</p></div>
+<div class="paragraph"><p>A community project, called TMAPIx, wants to provide additional features on top of the core TMAPI functions, like realizing some import or export functionality supporting XTM or CTM. This efforts are designed in a similar way to TMAPI, as should be independent of a specific implementation and only operates on core interfaces of the TMAPI.</p></div>
+<div class="paragraph"><p>This implementation of a CTM Writer provides the core functionality of exporting every topic map to CTM.</p></div>
+</div>
+<h2 id="_getting_started">2. Getting started</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>For using the CTM writer you have to have some dependent libraries within your search path. The following table list the essential libraries.</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 1: dependencies of the CTM writer implementation</caption>
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">library</th>
+<th align="left" valign="top">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">tmapi-io</p></td>
+<td align="left" valign="top"><p class="table">library defines the abstract interfaces of a topic map writer or a reader</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">tmapi</p></td>
+<td align="left" valign="top"><p class="table">library defines all information items of the TMDM as interfaces</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h2 id="_functionality">3. Functionality</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This section wants to give a short overview about the core functionality of the CTM writer implementation on the one hand and explain their algorithm on the other hand.</p></div>
+<h3 id="_serialize_an_instance_of_tmapi_org_core_topicmap">3.1. Serialize an instance of tmapi.org.core.TopicMap</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The core functionality of the writer is to serialize the topic map instance using the CTM syntax. The writer will be transform any information item of the given topic map to a CTM pattern, which will be written to a user-defined output stream.</p></div>
+<div class="paragraph"><p>The exported patterns will be valid in context of the current CTM standard.</p></div>
+<div class="paragraph"><p>At first step the CTM header will be created, which specify the current version of the used CTM standard and some encoding information.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>%encoding "UTF-8"
+%version 1.0</tt></pre>
+</div></div>
+<div class="paragraph"><p>At the second step the internal processor exports all defined prefixes to the CTM file. Prefixes are used in the CTM document to replace absolute IRI by relative IRIs using QNames to reduce the overhead of repeating IRI parts.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt># prefixes
+%prefix ontopedia  &lt;http://psi.ontopedia.net/&gt;
+%prefix xtm  &lt;http://www.topicmaps.org/xtm/1.0/&gt;
+%prefix xsd  &lt;http://www.w3.org/2001/XMLSchema#&gt;</tt></pre>
+</div></div>
+<div class="paragraph"><p>The next step will be exporting the template definitions. Templates can be used to represent some frequently used definitions of topics or associations based on ontology knowledge.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt># template definitions
+def template-association-has-voice ($voice-type,  $character)
+        has-voice (
+                 voice-type : $voice-type,
+                 character : $character
+        )
+end</tt></pre>
+</div></div>
+<div class="paragraph"><p>The last step will be create a specific topic block for each topic contained by the given topic map and an association block for each association item. The writer will be detect automatically matching templates an reduce the given topic block by using template-invocations.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt># topic definitions
+ballet
+         isa artform;
+         -  "Ballet";
+         -  "Ballett" @norwegian;
+         &lt;ontopedia:Ballet&gt;.</tt></pre>
+</div></div>
+<div class="paragraph"><p>After all the created CTM stream will be written to the given output stream.</p></div>
+<h3 id="_defining_prefixes">3.2. Defining prefixes</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The writer provides the functionality to define prefixes which will be used to reduce the base part of IRIs used as subject-identifier, subject-locator or item-identifiers. The writer will detect automatically the matching IRIs and try to reduce them by replacing the prefix part with its QName.</p></div>
+<div class="paragraph"><p>By using the <em>setProperty</em> function of the CTM topic map writer instance, the user can add own prefixes.</p></div>
+<h3 id="_defining_templates_and_detecting_adaptive_information_items">3.3. Defining templates and detecting adaptive information items</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The writer provides the possibility to define CTM templates. This templates can be used to reduce the overhead caused by ontology overhead of topic items. Templates can be defined by using the <strong>Template</strong> class and adding some entries representing the content of this template. As an alternitive it is possible to define template in CTM and import the CTM file.</p></div>
+<div class="paragraph"><p>During the process of serialization the internal processor tries to detect the set of adaptive templates for a topic item or an association item. The topic block will be reduced by using template-invocations instead of the normal topic-tail-definition. In the case of association items, the normal association block will be replaced by the template-invocation.</p></div>
+<h3 id="_automatic_template_detection">3.4. Automatic template detection</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The template detection algorithm is a powerful tool to detect ontology intersections between topic items. The algorithm currently works only on topic items of the same type.</p></div>
+<div class="paragraph"><p>A ontology intersection is defined as a multiple use of topic tails in the context of different topic items and will be detect dependent from the tail-type.</p></div>
+<div class="listingblock">
+<div class="title">A CTM snippet of the composer Puccini without template detection</div>
+<div class="content">
+<pre><tt>puccini isa composer;
+    - "Puccini, Giacomo";
+    - "Giacomo Puccini" @normal;
+    - "Puccini" @short-name;
+    article: &lt;http://en.wikipedia.org/wiki/Giacomo_Puccini&gt;;
+    article: &lt;http://www.ontopia.net/topicmaps/examples/opera/occurs/snl/puccini.htm&gt; @snl, web;
+    bibref: """Budden, Julian: "Puccini: His Life and Works", Oxford University Press (Oxford, 2002)""";
+    bibref: """Sadie, Stanley (ed): "Puccini and His Operas", Macmillan (London, 2000)""";
+    date-of-birth: "1858-12-22";
+    date-of-death: "1924-11-29";
+    gallery: &lt;http://localhost:8080/operamap/occurs/puccini-gallery.htm&gt; @local;
+    illustration: &lt;http://localhost:8080/operamap/occurs/composer/puccini.gif&gt; @local;
+    sound-clip: &lt;http://www.puccini.it/files/vocepucc.wav&gt; @italian, puccini-study-centre, web;
+    webpage: &lt;http://www.operone.de/komponist/puccini.html&gt; @web;
+    webpage: &lt;http://localhost:8080/operamap/occurs/hnh-puccini.htm&gt; @local, naxos;
+    webpage: &lt;http://www.naxos.com/composer/btm.asp?fullname=Puccini, Giacomo&gt; @naxos, web;
+    webpage: &lt;http://www.r-ds.com/opera/pucciniana/gallery.htm&gt; @r-ds, web;
+    website: &lt;http://www.landofpuccini.com&gt;;
+    website: &lt;http://www.puccini.it&gt; @italian, puccini-study-centre, web;
+    &lt;ontopedia:Puccini&gt;.</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">A CTM snippet of the composer Puccini with template detection</div>
+<div class="content">
+<pre><tt>puccini
+        template-topic-composer("1924-11-29","1858-12-22",&lt;http://en.wikipedia.org/wiki/Giacomo_Puccini&gt;,
+                                                        &lt;http://localhost:8080/operamap/occurs/composer/puccini.gif&gt;,
+                                                        &lt;http://www.r-ds.com/opera/pucciniana/gallery.htm&gt;,"Giacomo Puccini","Giacomo Puccini","Puccini");
+         isa composer;
+         -  "Puccini, Giacomo";
+         sound-clip :  &lt;http://www.puccini.it/files/vocepucc.wav&gt; @puccini-study-centre,  italian,  web;
+         article :  &lt;http://www.ontopia.net/topicmaps/examples/opera/occurs/snl/puccini.htm&gt; @snl,  web;
+         webpage :  &lt;http://www.naxos.com/composer/btm.asp?fullname=Puccini, Giacomo&gt; @web,  naxos;
+         website :  &lt;http://www.puccini.it&gt; @puccini-study-centre,  italian,  web;
+         bibref :  "Sadie, Stanley (ed): 'Puccini and His Operas', Macmillan (London, 2000)";
+         bibref :  "Budden, Julian: 'Puccini: His Life and Works', Oxford University Press (Oxford, 2002)";
+         webpage :  &lt;http://localhost:8080/operamap/occurs/hnh-puccini.htm&gt; @local,  naxos;
+         website :  &lt;http://www.landofpuccini.com&gt;;
+         gallery :  &lt;http://localhost:8080/operamap/occurs/puccini-gallery.htm&gt; @local;
+         webpage :  &lt;http://www.operone.de/komponist/puccini.html&gt; @web;
+         &lt;ontopedia:Puccini&gt;.</tt></pre>
+</div></div>
+<h4 id="_ontology_intersection_in_topic_blocks">3.4.1. ontology intersection in topic blocks</h4>
+<div class="paragraph"><p>Two name definitions are overlapping only if their type, their scope and their variants are equal. The value has no relevance.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>topicA &lt;o:topic_a&gt;
+        - "Topic A" @theme.
+
+topicB &lt;o:topic_b&gt;
+        - "Topic B" @theme.</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>These name definitions are equal because the have the same type, in this case the default-name-type of the TMDM. They also have the same scope defined by the "theme" topic and they havn&#8217;t any variants, so the two name definitions are overlapping.</p></div>
+</div></div>
+<div class="paragraph"><p>Two occurrence definitions are overlapping only if their type, data-type and their scope are equal. The value has no relevance.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>topicA &lt;o:topic_a&gt;
+        - age: "10"^^xsd:integer @theme.
+
+topicB &lt;o:topic_b&gt;
+        - age: "11"^^xsd:integer @theme.</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>These occurrence definitions are equal because the have the same type ( the age topic ) and the same data-type ( xsd:integer ). They also have the same scope defined by the "theme" topic, so the two occurrence definitions are overlapping.</p></div>
+</div></div>
+<div class="paragraph"><p>Two super-type-relations are overlapping only if the use the same topic as type;</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>topicA &lt;o:topic_a&gt;
+        ako topic.
+
+topicB &lt;o:topic_b&gt;
+        ako topic.</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>These super-type-relations are equal because the use the same type.</p></div>
+</div></div>
+<div class="paragraph"><p>Two instance-relations are overlapping only if the use the same topic as type;</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>topicA &lt;o:topic_a&gt;
+        isa topic.
+
+topicB &lt;o:topic_b&gt;
+        isa topic.</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>These instance-relations are equal because the use the same type.</p></div>
+</div></div>
+<div class="paragraph"><p>Over all the processor creates a set of template candidates which are ordered by the number of contained definitions, so the candidate with the most contained definitions will be preferred. Each candidate will be checked against the relevance threshold defined by the property <strong>writer.features.templateDetection.relevanceThreshold</strong>. The relevance of a candidate will be calculate by the number of potential and adaptive topic items.</p></div>
+<h4 id="_ontology_intersection_in_association_blocks">3.4.2. ontology intersection in association blocks</h4>
+<div class="paragraph"><p>Two association definitions are equal only if they have the same type and contains the same role-types. The player have to relevance.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>associationA ( roleA : playerA , roleB : playerB )
+
+associationA ( roleA : playerC , roleB : playerD )</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>These association definitions have the same type, in this case "associationA", and also contains the two role type "roleA" and "roleB". Because of that the association definitions are overlapping and can be marked as template candidate.</p></div>
+</div></div>
+<h3 id="_automatic_template_merging">3.5. Automatic template merging</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The template merging algorithm is a powerful tool, which provides the functionality of detect overlapping templates. In this case the algorithm use the same ontology interpretation algorithm like the template detection algorithm.</p></div>
+<div class="paragraph"><p>At the first step the algorithm tries to detect the intersection between defined templates and mark them as potential merging candidates. After all the marked candidates will be checked against the minimum count of overlapping templates defined by the property <strong>writer.features.templateMerger.threshold</strong>. The detected candidates will be extract as a template definition and the dependent content of the template definitions will be replaced by a template-invocation.</p></div>
+<div class="listingblock">
+<div class="title">A template definition of composer without template merging</div>
+<div class="content">
+<pre><tt>def template-topic-composer ($topic,  $date-of-death,  $date-of-birth,  $article,  $illustration,  $webpage,  $name,  $name2,  $name3)
+         $topic
+                 isa composer;
+                 date-of-death :  $date-of-death;
+                 date-of-birth :  $date-of-birth;
+                 article :  $article;
+                 illustration :  $illustration @local;
+                 webpage :  $webpage;
+                 -  $name @normal;
+                 -  $name2;
+                 -  $name3 @short-name.
+end</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">A template definition of composer with template merging</div>
+<div class="content">
+<pre><tt>def template-topic-composer ($topic,  $date-of-death,  $date-of-birth,  $article,  $illustration,  $webpage,  $name,  $name2,  $name3)
+         $topic
+                 isa composer;
+                 article :  $article;
+                 illustration :  $illustration @local;
+                 webpage :  $webpage;
+                 template-topic-composer-invoc($topic,  $date-of-death,  $date-of-birth, $name,  $name2,  $name3).
+end</tt></pre>
+</div></div>
+<h3 id="_automatic_prefix_detection">3.6. Automatic prefix detection</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The prefix detection algorithm is a powerful tool which extract frequently used prefixes of IRIs. The algorithm extract all IRIs used as item-identifiers, subject-identifiers or subject-locators. For each IRI the algorithm extracts every possible prefix and store them as candidates and count the matching IRIs. The candidates will be ordered by length, so the longer prefixes will be prefered. As last step the prefix detection algorithm will be generate a QName for detected prefixes, because of that it extract some part information of the prefix IRI, like the second level domain or the path information. If there is a name collision, a number will be attached. During the serialization process the stored and user-defined prefixes will be used to transform every matching IRI to relative IRIs.</p></div>
+<div class="listingblock">
+<div class="title">A template snippet containing a topic block without prefix detection</div>
+<div class="content">
+<pre><tt>antioch
+         isa city;
+         -  "Antioch";
+         &lt;http://psi.ontopedia.net/Antioch&gt;.</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">A template snippet containing a topic block with prefix detection</div>
+<div class="content">
+<pre><tt>%prefix ontopedia  &lt;http://psi.ontopedia.net/&gt;
+
+antioch
+         isa city;
+         -  "Antioch";
+         &lt;ontopedia:Antioch&gt;.</tt></pre>
+</div></div>
+</div>
+<h2 id="_feature_string">4. Feature String</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The writer provides some additional features represent by special string patterns called features strings.</p></div>
+<h3 id="_writer_identity_engineprefix">4.1. writer.identity.engineprefix</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The property <strong>writer.identity.engineprefix</strong> defines the prefix of identifier generated by the topic map engine. This prefix will be used to detect generated identifiers used as item-identifiers or subject-identifiers to exclude them from the export process.</p></div>
+<div class="paragraph"><p>The value of this property should be a string representing the QName or baseURI of the used topic maps engine. In case of using the tinyTiM Engine or the Ontopia engine the value should be <strong>urn</strong>.</p></div>
+<h3 id="_writer_features_export_itemidentifier">4.2. writer.features.export.itemidentifier</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The boolean property <strong>writer.features.export.itemidentifier</strong> enables or disables the export of item-identifiers. This feature can be necessary if the used CTM reader does not support item-identifiers. The value of this property should be <strong>true</strong> or <strong>false</strong>, default is <strong>false</strong>.</p></div>
+<h3 id="_writer_features_prefixdetection_enabled">4.3. writer.features.prefixDetection.enabled</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The boolean property <strong>writer.features.prefixDetection.enabled</strong> enables or disables the automatic prefix detection algorithm. If this feature is enabled, the writer tries to detect prefixes automatically. The default value is <strong>true</strong>.</p></div>
+<h3 id="_writer_features_templatedetection_enabled">4.4. writer.features.templateDetection.enabled</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The boolean property <strong>writer.features.templateDetection.enabled</strong> enables or disables the template detection algorithm. If this property is enabled the writer try to detect templates by extracting the ontology knowledge of given topic items and association items. The default value is <strong>false</strong>.</p></div>
+<h3 id="_writer_features_templatedetection_topictemplates">4.5. writer.features.templateDetection.topicTemplates</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The boolean property <strong>writer.features.templateDetection.topicTemplates</strong> enables or disables the template detection algorithm. If this property is enabled the writer try to detect templates for topic items by extracting the ontology knowledge of given topic items. The default value is <strong>false</strong>.</p></div>
+<h3 id="_writer_features_templatedetection_associationtemplates">4.6. writer.features.templateDetection.associationTemplates</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The boolean property <strong>writer.features.templateDetection.associationTemplates</strong> enables or disables the template detection algorithm. If this property is enabled the writer try to detect templates for association items by extracting the ontology knowledge of given association items. The default values is <strong>false</strong>.</p></div>
+<h3 id="_writer_features_templatedetection_relevancethreshold">4.7. writer.features.templateDetection.relevanceThreshold</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The property <strong>writer.features.templateDetection.relevanceThreshold</strong> represents the threshold used in the context of the template detection algorithm. This threshold defines the minimum percentage of topic items which have to match to the detected template candidate. The default value is <strong>0.8</strong> or <strong>80%</strong>.</p></div>
+<h3 id="_writer_features_templatemerger_enabled">4.8. writer.features.templateMerger.enabled</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The boolean property "writer.features.templateMerger.enabled* enables or disables the template merging algorithm. The algorithm tries to detect intersections between template and try to extract them by using template-invocations.  The default value is <strong>false</strong>.</p></div>
+<h3 id="_writer_features_templatemerger_threshold">4.9. writer.features.templateMerger.threshold</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The property <strong>writer.features.templateMerger.threshold</strong> define the minimum number of templates as a part of the intersection. The default value is <strong>false</strong>.</p></div>
+</div>
+<h2 id="_tutorial">5. Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This section will provide an overview about the usage of the described functionality and the writer itselfs.</p></div>
+<h3 id="create-writer">5.1. Creating a new CTM writer</h3><div style="clear:left"></div>
+<div class="paragraph"><p>At the first step we have to create a new instance of the writer. The constructor of the writer needs two parameters.</p></div>
+<div class="paragraph"><p>The first parameter specifies the output stream as a target for the serialized topic map. The writer supports every instance of output streams like a file output stream, a socket output stream or a string stream. In the following example we use a file to export the CTM string.</p></div>
+<div class="paragraph"><p>The second parameter is a string representing a base URI. The given base URI is used in the worst case, if a topic has no item-identifier, no subject-identifier and no subject-locator, in this case the engine will be generate a new identifier based on the given URI and the internal id of the topic map engine.</p></div>
+<div class="paragraph"><p>The third optional parameter is a string representing a feature line, containing a list of feature-strings and their values. For more information see chapter &lt;&lt;&gt;&gt;</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      /*
+2:       * create a new file
+3:       */
+4:      final File file = new File("./output.ctm");
+5:      if ( file.exists()){
+6:              file.createNewFile();
+7:      }
+8:      /*
+9:       * create file output stream
+10:      */
+11:     final FileOutputStream outputStream = new FileOutputStream(file);
+12:     /*
+13:      * create ctm writer
+14:      */
+15:     final String baseURI = "http://tutorials.topicmapslab.de/ctm";
+16:     final CTMTopicMapWriter writer = new CTMTopicMapWriter(outputStream, baseURI);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>In the 4. line we create a new file, which should be used for the file output stream defined in line 11. If the file does not exists, it will be created in line 6. In the 15. line we define the base locator which will be used in the described case. After all we create a new instance of the CTM topic map writer in source line 16.</p></div>
+</div></div>
+<h3 id="_use_additional_features">5.2. Use additional features</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The writer provides some additional features which can be used for a specific serialization process. The additional features are controlled by used special properties used "features string".</p></div>
+<div class="paragraph"><p>There are three different possibilities to set or change feature strings, the property file, the property parameter and the property class.</p></div>
+<h4 id="_the_properties_file">5.2.1. the properties file</h4>
+<div class="paragraph"><p>During the process of initialization the writer load the current properties from the property file. The property file will be searched at the current class path. If the property file can not be found, default values will be used.</p></div>
+<div class="listingblock">
+<div class="title">the default property file</div>
+<div class="content">
+<pre><tt>writer.identity.engineprefix = urn
+writer.features.export.itemidentifier = false
+writer.features.prefixDetection.enabled = true
+writer.features.templateDetection.enabled = true
+writer.features.templateDetection.topicTemplates = true
+writer.features.templateDetection.associationTemplates = true
+writer.features.templateDetection.relevanceThreshold = 0.8
+writer.features.templateMerger.enabled = true
+writer.features.templateMerger.threshold = 2</tt></pre>
+</div></div>
+<h4 id="_the_property_parameter">5.2.2. the property parameter</h4>
+<div class="paragraph"><p>The second possibility to change properties is to use the third parameter of the constructor of the topic map CTM writer. This optional parameter represents a comma separated list of key-value-pairs, similar to the shown property file.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:  final File file = new File("./output.ctm");
+2:  if ( file.exists()){
+3:              file.createNewFile();
+4:  }
+5:  final FileOutputStream outputStream = new FileOutputStream(file);
+6:  final String baseURI = "http://tutorials.topicmapslab.de/ctm";
+7:  final String line = "writer.features.export.itemidentifier = false, "
+8:              + "writer.features.prefixDetection.enabled = true, "
+9:              + "writer.features.templateDetection.enabled = true, "
+10:             + "writer.features.templateDetection.topicTemplates = true , "
+11:             + "writer.features.templateDetection.associationTemplates = true, "
+12:             + "writer.features.templateMerger.enabled = false";
+13: final CTMTopicMapWriter writer = new CTMTopicMapWriter(outputStream, baseURI, line);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>This code snippet looks like the last one except form the third parameter given to the constructor in line 13. As you can see, the parameter only contains a key-value-list separated by commas.</p></div>
+</div></div>
+<h4 id="_the_property_class">5.2.3. the property class</h4>
+<div class="paragraph"><p>The internal representation of feature strings are realized by a property class, which provides methods to manipulate the properties. The class provides a method for each supported property and one method to parse a key-value-list from a given string, similar to the property parameter.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:  final String line = "writer.features.export.itemidentifier = false, "
+2:              + "writer.features.prefixDetection.enabled = true, "
+3:              + "writer.features.templateDetection.enabled = true, "
+4:              + "writer.features.templateDetection.topicTemplates = true , "
+5:              + "writer.features.templateDetection.associationTemplates = true, "
+6:              + "writer.features.templateMerger.enabled = false";
+7:
+8:      CTMTopicMapWriter writer = new CTMTopicMapWriter( new FileOutputStream(file), "www.topicmapslab.de", line);
+9:      writer.setProperty(CTMTopicMapWriterProperties.IDENTITY_ENGINEPREFIX,"urn:ontopia");</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>The line 1 until line 6 we define a property string, which contains a comma separated list of key-value-pairs. In the 9. line we try to set the property describing the engine prefix to "urn:ontopia".</p></div>
+</div></div>
+<h3 id="_define_prefixes">5.3. define prefixes</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Now we want to define our own prefixes and want to add them to the internal prefix store of the CTM writer. Of course we can also use the automatic prefix detection algorithm, but sometimes the generate QNames are not equal to our interest or there are a prefix which will not be detected.</p></div>
+<div class="paragraph"><p>We will need two information for each prefix to define it. The first parameter <em>namespace</em> represents the prefix and will be used for transformation of the absolute IRI to a relative IRI. The second information are the prefix itself, which has to be a valid absolute IRI in context of the RFC 3987.</p></div>
+<div class="paragraph"><p>The prefixes are stored in a internal Map and will be handled by a special class called <em>PrefixHandler</em>. An instance of the handler can not access directly because it will be encapsulated by the CTM topic map writer instance.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      final String namespace = "tml";
+2:      final String iri = "http://www.topicmapslab.de/";
+3:      CTMTopicMapWriter writer = new CTMTopicMapWriter( new FileOutputStream(file), "www.topicmapslab.de", line);
+4:      writer.setPrefix(namespace, iri);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>As we describe, we have to define our two parameters at first. In line 1 we define the QName value and set them to the value "tml". In the second line we define the real IRI of our prefix and set them to "http://www.topicmapslab.de/". The last slash can be removed, because it will be added automatically if no slash or hex is postponed. The last operation to do is to call the <em>setPrefix</em> method of the CTM topic map writer instance to add the prefix definition, as you can see in line 4.</p></div>
+</div></div>
+<h3 id="_define_templates">5.4. define templates</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The next step will be more complicated than the last one. We want to define our own template definitions, which should be used during the exporting process. There are two possibilities to define templates - <strong>define by entries</strong> and <strong>define by CTM</strong>.</p></div>
+<h4 id="_define_by_entries">5.4.1. define by entries</h4>
+<div class="paragraph"><p>One possibility defining templates is to create a new Template instance and add some entries representing the content of the template, as we will see in the next chapters. At first we have to create a new instance of a template with a given name.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      /*
+2:       * create template with the name "myTemplate"
+3:       */
+4:      final String templateName = "myTemplate";
+5:      Template template = new Template(templateName);
+6:      /*
+7:       * add template to CTM writer
+8:       */
+9:      writer.addTemplate(template);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>Because of the clear arrangement, we split the name definition and the template definition, but of course it will be possible to do in one step. In line 4 we create a new string and set them to the value "myTemplate". In the 5th line we use the string variable to create a new template instance and add them to the CTM writer in line 9. The given name will be used in the CTM file.</p></div>
+</div></div>
+<div class="paragraph"><p>The code snippet looks very simple, because it only creates an empty template and add them to the CTM writer, but let us see the generated CTM content.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      def myTemplate ()
+2:              # empty
+3:      end</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>As you can see in the first line, the given name are used as a template identification and because of missing entries the template is empty.</p></div>
+</div></div>
+<div class="paragraph"><p>The possible entries are distinguish from each other by their representing ontology and can contain variables or constants as a value.</p></div>
+<h5 id="_define_a_type_entry">define a type entry</h5>
+<div class="paragraph"><p>Type entries representing the <strong>type-instance-association</strong> of the TMDM. The value of this template has to be an identifier of specific topic type or a variable.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      /*
+2:       * read the topic type from the topic map
+3:       */
+4:      Locator locator = topicMap.createLocator("http://psi.ontopedia.net/Composer");
+5:      Topic type = topicMap.getTopicBySubjectIdentifier(locator);
+6:      /*
+7:       * create type entry with the specific type
+8:       */
+9:      IsInstanceOfEntry entry = new IsInstanceOfEntry(type);
+10:     /*
+11:      * add entry to template
+12:      */
+13:     template.add(entry);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>At first we will have to extract the topic type from our topic map as the essential parameter of the entry. In line 4 and 5 we use method of the TMAPI to extract a topic representing our type information. In line 9 we create a new instance of <strong>IsInstanceOfEntry</strong> which represent the type entry and. At last step we add the new entry to our template, as you can see in line 13.</p></div>
+</div></div>
+<div class="paragraph"><p>After defining the new entry we want to check the CTM output.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      def myTemplate ($topic)
+2:               $topic
+3:                       isa composer.
+4:      end</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>As you can see in line 1 and 2 the template processor create a new variable <strong>$topic</strong> representing the topic using our template by invocation. In line 3 we can see the output of our new entry. The keyword <strong>isa</strong> symbolize a type-instance-association and the identifier <strong>composer</strong> was generated by internal processor to represent the given type <strong>http://psi.ontopedia.net/Composer</strong>.</p></div>
+</div></div>
+<h5 id="_define_a_super_type_entry">define a super-type entry</h5>
+<div class="paragraph"><p>Super-type entries representing the <strong>supertype-subtype-association</strong> of the TMDM. The value of this template has to be an identifier of specific topic supertype or a variable.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      /*
+2:       * read the topic type from the topic map
+3:       */
+4:      Locator locator = topicMap.createLocator("http://psi.ontopedia.net/Musician");
+5:      Topic supertype = topicMap.getTopicBySubjectIdentifier(locator);
+6:      /*
+7:       * create type entry with the specific supertype
+8:       */
+9:      AKindOfEntry entry = new AKindOfEntry(supertype);
+10:     /*
+11:      * add entry to template
+12:      */
+13:     template.add(entry);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>At first we will have to extract the topic type from our topic map as the essential parameter of the entry. We use the the TMAPI methods to find the desired topic type representing the supertype, as you can see in line 4 and 5. In line 9 we create a new instance of <strong>AKindOfEntry</strong> which represent the type entry and. At last step we add the new entry to our template.</p></div>
+</div></div>
+<div class="paragraph"><p>After defining the new entry we want to check the CTM output.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      def myTemplate ($topic)
+2:               $topic
+3:                       ako musician.
+4:      end</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>As you can see in line 1 and 2 the template processor create a new variable <strong>$topic</strong> representing the topic using our template by invocation. In line 3 we can see the output of our new entry. The keyword <strong>ako</strong> symbolize a supertype-subtype-association and the identifier <strong>musician</strong> was generated by internal processor to represent the given type <strong>http://psi.ontopedia.net/Musician</strong>.</p></div>
+</div></div>
+<h5 id="name_entry">define a name entry</h5>
+<div class="paragraph"><p>A name entry only represent a name item of a topic item. Name entries are more complex than type or supertype entries, because the number of arguments are higher, but most of them are optional and can be let out. The only non-optional parameter is the identifier information given by a variable name or a string. Name entries also can specify the type of the name, which will be represented by a topic type, as default the <strong>default-name-type</strong> of the TMDM will be used. The last parameter can be used to define some scoping information by a number of given themes or variables.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      /*
+2:       * read the topic type of scope entry from the topic map
+3:       */
+4:      Locator locator = topicMap.createLocator("http://psi.ontopedia.net/short_name");
+5:      Topic shortName = topicMap.getTopicBySubjectIdentifier(locator);
+6:      /*
+7:       * create new scope entry
+8:       */
+9:      ScopeEntry scopeEntry = new ScopeEntry(shortName);
+10:     /*
+11:      * create new name entry
+12:      */
+13:     final String variable = "$name";
+14:     NameEntry entry = new NameEntry(variable,scopeEntry);
+15:     /*
+16:      * add entry to template
+17:      */
+18:     template.add(entry);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>The code snippet show a small and simple example, how to create a name entry. In the first lines ( 4 and 5 ) the TMAPI methods are used to extract a theme represented by a topic item form the topic map. The extracted theme are used in line 9 to create a new instance of <strong>ScopeEntry</strong> which represents the scope information of our name entry. The real name entry are instantiated in line 14 with the value information specified by the variable <strong>$name</strong>. Like all entries the last necessary step is adding the entry to a template.</p></div>
+</div></div>
+<div class="paragraph"><p>After serialization let us take a look at the serialized CTM pattern.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      def myTemplate ($topic,  $name)
+2:               $topic
+3:                       -  $name @short-name.
+4:      end</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>Line 3 contains the exported name entry symbolized by the hyphen at the beginning. The scope information are symbolized by <strong>@</strong> and a list of themes identified by there topic identity.</p></div>
+</div></div>
+<h5 id="_define_an_occurrence_entry">define an occurrence entry</h5>
+<div class="paragraph"><p>The TMDM differs between names and occurrences as characteristic informations of a topic, because of that CTM also support two different patterns to define this, so we take a look at occurrence entries. The definition of occurrence entries are similar to name entries. The supported parameters are nearly the same, like the identifier or value parameter, the type parameter and the scope parameter, but occurrence entries additionally supporting some datatype information representing the datatype of the given value. Most of the parameters are optional two except the type and the value or identifier parameter.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      /*
+2:       * read the topic type of scope entry from the topic map
+3:       */
+4:      Locator locator = topicMap.createLocator("http://psi.ontopedia.net/Web");
+5:      Topic web = topicMap.getTopicBySubjectIdentifier(locator);
+6:      /*
+7:       * create new scope entry
+8:       */
+9:      ScopeEntry scopeEntry = new ScopeEntry(web);
+10:     /*
+11:      * read the topic type of occurrence entry from the topic map
+12:      */
+13:     locator = topicMap.createLocator("http://psi.ontopedia.net/webpage");
+14:     Topic type = topicMap.getTopicBySubjectIdentifier(locator);
+15:     /*
+16:      * create new occurrence entry
+17:      */
+18:     final String variable = "$webpage";
+19:     OccurrenceEntry entry = new OccurrenceEntry(variable,type,scopeEntry);
+20:     /*
+21:      * add entry to template
+22:      */
+23:     template.add(entry);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>In the code snippet we show a easy way to define our own template with exactly one occurrence entry. In line 4 and 5 we use TMAPI methods to get the topic type of our theme using in context of scoping information in line 9. In the lines 13 and 14 we use TMAPI against to get the topic type of our new occurrence. Now we can create the occurrence entry, as you can see in line 19 using the scope entry of line 9, the type of line 14 and the variable name of line 18. After all we have to add the entry to the template.</p></div>
+</div></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      def myTemplate ($topic,  $webpage)
+2:               $topic
+3:                       webpage :  $webpage @web.
+4:      end</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>The 3. line containing our new occurrence entry. The pattern starts with the topic identity of the occurrence type followed by the colon. The scope information are symbolized by <strong>@</strong> and a list of themes identified by there topic identity.</p></div>
+</div></div>
+<h5 id="_define_an_association_entry">define an association entry</h5>
+<div class="paragraph"><p>One of the core features and benefits of a topic map are associations to model relations between topic items. Templates also support the modeling of association constraints as association entries. The TMDM required that an Association is typed, because of that we have to define a topic type as the type of association item representing by the association entry. The second parameter an entry is needed are a set of role entries defining a set of parameterized role constraints. Each role constraint has to define a topic type as the type of the role and a player, which can be variable or a constant topic playing this role.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      /*
+2:       * create role entry for role-type composer
+3:       */
+4:      Locator locatorRTA = topicMap.createLocator("http://psi.ontopedia.net/Composer");
+5:      Topic typeRTA = topicMap.getTopicBySubjectIdentifier(locatorRTA);
+6:      RoleEntry roleEntryA = new RoleEntry(typeRTA, "$composer");
+7:      /*
+8:       * create role entry for role-type work
+9:       */
+10:     Locator locatorRTB = topicMap.createLocator("http://psi.ontopedia.net/Work");
+11:     Topic typeRTB = topicMap.getTopicBySubjectIdentifier(locatorRTB);
+12:     RoleEntry roleEntryB = new RoleEntry(typeRTB, "$work");
+13:     /*
+14:      * create association entry by type and role entries
+15:      */
+16:     Locator locator = topicMap.createLocator("http://psi.ontopedia.net/composed_by");
+17:     Topic type = topicMap.getTopicBySubjectIdentifier(locator);
+18:     AssociationEntry entry = new AssociationEntry(type,roleEntryA, roleEntryB);
+19:     /*
+20:      * add to template
+21:      */
+22:     template.add(entry);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>The code snippet first defines two role entries between line 4 and 12. At first we have to extract the role type by using TMAPI methods. The extracted type is used to create a new instance of <strong>RoleEntry</strong> in line 6 or 12. After the instantiation of all role entries, we can create our new association entry. As described we have to extract the topic type as type information of our association item, so we use TMAPI in line 16ff. After all we have to add the new entry to our template.</p></div>
+<div class="paragraph"><p><strong>Note:</strong> If you use association entries and topic entries in the same template, that could be problematic.</p></div>
+</div></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      def myTemplate ($composer,  $work)
+2:              composed-by (
+3:                       work : $work,
+4:                       composer : $composer
+5:              )
+6:      end</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>This output are generated by our template definition. In line 2 we see the association type represented by its topic identity. The round brackets symbolize the definition of an association and containing a comma separated list of role-player-constraints. Each role-player constraint are symbolized by one role entry and we can see the result of our two entries in line 3 and 4. Please note that in this case no default variable <strong>$topic</strong> will be created, because the template only containing association entries.</p></div>
+</div></div>
+<h5 id="_define_a_template_invocation_entry">define a template-invocation entry</h5>
+<div class="paragraph"><p>The last possible entry type are template entries. Template entries realize the modeling of template-invocation as a part of templates. Of course we have to define the template, which should be called by the invocation as a parameter of the new entry.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      /*
+2:       * create internal template
+3:       */
+4:      Template invoc = new Template("template-invoc");
+5:      /*
+6:       * add entries to internal template
+7:       */
+8:      NameEntry entry = new NameEntry("$name");
+9:      invoc.add(entry);
+10:     /*
+11:      * create template entry
+12:      */
+13:     TemplateEntry templateEntry = new TemplateEntry(template, entry.getValueOrVariable());
+14:     /*
+15:      * add to template
+16:      */
+17:     template.add(templateEntry);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>In code snippet replacing the definition of a name entry by using a template-invocation. In line 4 we create a template instance representing the template we called by invocation. In line 8 and 9 we create a name entry in the same way we see in the example <a href="#name_entry">[name_entry]</a>.
+The new template is used to create a new template entry in line 13. The second argument of the constructor is a list of all containing variables. After all we have to add the entry to the template.</p></div>
+</div></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      def myTemplate ($topic,  $name)
+2:              template-invoc($topic, $name)
+3:      end</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>Instead of containing a name entry the exported CTM pattern make use of invocations to swap out the name entry for reuse by other templates. In line 3 we see the template-invocation pattern containing the tempalte name <strong>template-invoc</strong> and a list of arguments represented by the template variables. As we can see the default variable <strong>$topic</strong> pass to the template invocation.</p></div>
+</div></div>
+<h4 id="_define_by_ctm">5.4.2. define by CTM</h4>
+<div class="paragraph"><p>A more comfortable way to create a template by importing a CTM file containing the CTM template definition. The template definitions look like the exported templates of the CTM writer. The drawback of this alternative is the missing possibility to control the definition process.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      /*
+2:       * the file containing template definitions
+3:       */
+4:      final File file = new File("template.ctm");
+5:      /*
+6:       * read all templates from file
+7:       */
+8:      Set&lt;Template&gt; templates = Template.fromCTM(file);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>In line 4 we create a new file instance pointing to the file containing the CTM template definitions. The next step is to call the static method of the <strong>Template</strong> class to parse the CTM file and extract the containing template definitions. Because of the fact that each CTM file can contain more than one template, a set of templates will be returned.</p></div>
+</div></div>
+<h3 id="_serialize_the_topic_map">5.5. serialize the topic map</h3><div style="clear:left"></div>
+<div class="paragraph"><p>After defining additional content like prefixes or templates, the last step to do is to call the <strong>write()</strong> method of the CTM writer to serialize the topic map instance to the given file. Please note that all user defined templates and prefixes have to add before calling the serializing method.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>1:      /*
+2:       * create a new file
+3:       */
+4:      final File file = new File("./output.ctm");
+5:      if (file.exists()) {
+6:              file.createNewFile();
+7:      }
+8:      /*
+9:       * create file output stream
+10:      */
+11:     final FileOutputStream outputStream = new FileOutputStream(file);
+12:     /*
+13:      * create CTM writer
+14:      */
+15:     final String baseURI = "http://tutorials.topicmapslab.de/ctm";
+16:     final String line = "writer.features.export.itemidentifier = false, "
+17:                             + "writer.features.prefixDetection.enabled = true, "
+18:                             + "writer.features.templateDetection.enabled = true, "
+19:                             + "writer.features.templateDetection.topicTemplates = true , "
+20:                             + "writer.features.templateDetection.associationTemplates = true, "
+21:                             + "writer.features.templateMerger.enabled = false";
+22:     final CTMTopicMapWriter writer = new CTMTopicMapWriter(outputStream, baseURI, line);
+23:     /*
+24:      * serialization of the topic map
+25:      */
+26:     writer.write(topicMap);</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="exampleblock-content">
+<div class="paragraph"><p>This example is similar to the first one in chapter <a href="#create-writer">[create-writer]</a> except of the command line defining the additional features. But the interesting line is number 16, we call the write method with one argument - the topic map to serialize - and export the topic map to CTM.</p></div>
+</div></div>
+<div>
+ <a href="http://www.topicmapslab.de/"><span style="position: fixed; right: 0px; bottom: 50px; display: block; background: url('http://projects.topicmapslab.de/images/sidelabel_right.png') no-repeat scroll; text-indent: 40000px; width: 24px; height: 181px; z-index: 100001;"> topicmapslab.de </span></a>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2010-03-12 13:39:32 Westeuropäische Sommerzeit
+</div>
+</div>
+</body>
+</html>

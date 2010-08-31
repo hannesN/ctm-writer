@@ -1,0 +1,68 @@
+=== Use additional features ===
+
+The writer provides some additional features which can be used for a specific serialization process. The additional features are controlled by used special properties used "features string".
+
+There are three different possibilities to set or change feature strings, the property file, the property parameter and the property class.
+
+==== the properties file ====
+
+During the process of initialization the writer load the current properties from the property file. The property file will be searched at the current class path. If the property file can not be found, default values will be used.
+
+.the default property file
+-------------------------------------
+writer.identity.engineprefix = urn
+writer.features.export.itemidentifier = false
+writer.features.prefixDetection.enabled = true
+writer.features.templateDetection.enabled = true
+writer.features.templateDetection.topicTemplates = true
+writer.features.templateDetection.associationTemplates = true
+writer.features.templateDetection.relevanceThreshold = 0.8
+writer.features.templateMerger.enabled = true
+writer.features.templateMerger.threshold = 2
+-------------------------------------
+
+==== the property parameter ====
+
+The second possibility to change properties is to use the third parameter of the constructor of the topic map CTM writer. This optional parameter represents a comma separated list of key-value-pairs, similar to the shown property file.
+
+-------------------------------------
+1:  final File file = new File("./output.ctm");
+2:  if ( file.exists()){
+3: 	 	file.createNewFile();
+4:  } 
+5:  final FileOutputStream outputStream = new FileOutputStream(file);
+6:  final String baseURI = "http://tutorials.topicmapslab.de/ctm";
+7:  final String line = "writer.features.export.itemidentifier = false, "
+8: 		+ "writer.features.prefixDetection.enabled = true, "
+9:		+ "writer.features.templateDetection.enabled = true, "
+10:		+ "writer.features.templateDetection.topicTemplates = true , "
+11:		+ "writer.features.templateDetection.associationTemplates = true, "
+12:		+ "writer.features.templateMerger.enabled = false";
+13: final CTMTopicMapWriter writer = new CTMTopicMapWriter(outputStream, baseURI, line);
+-------------------------------------
+
+=======================================
+
+This code snippet looks like the last one except form the third parameter given to the constructor in line 13. As you can see, the parameter only contains a key-value-list separated by commas.
+
+=======================================
+
+==== the property class ====
+
+The internal representation of feature strings are realized by a property class, which provides methods to manipulate the properties. The class provides a method for each supported property and one method to parse a key-value-list from a given string, similar to the property parameter. 
+
+----------------------------------------
+1:  final String line = "writer.features.export.itemidentifier = false, "
+2:		+ "writer.features.prefixDetection.enabled = true, "
+3:		+ "writer.features.templateDetection.enabled = true, "
+4:		+ "writer.features.templateDetection.topicTemplates = true , "
+5:		+ "writer.features.templateDetection.associationTemplates = true, "
+6:		+ "writer.features.templateMerger.enabled = false";
+7:			
+8:	CTMTopicMapWriter writer = new CTMTopicMapWriter( new FileOutputStream(file), "www.topicmapslab.de", line);
+9:	writer.setProperty(CTMTopicMapWriterProperties.IDENTITY_ENGINEPREFIX,"urn:ontopia");
+----------------------------------------
+
+=======================================
+The line 1 until line 6 we define a property string, which contains a comma separated list of key-value-pairs. In the 9. line we try to set the property describing the engine prefix to "urn:ontopia".
+=======================================
