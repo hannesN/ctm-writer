@@ -12,6 +12,7 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.COMMA;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.SCOPE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +26,7 @@ import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class representing a template-entry definition of an role-entry.
@@ -75,7 +76,7 @@ public class ScopeEntry {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public void serialize(CTMBuffer buffer) throws SerializerException {
+	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
 		boolean first = true;
 		for (IEntryParam param : params) {
 			if (first) {

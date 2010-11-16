@@ -12,12 +12,14 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.COMMA;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.SCOPE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
+import java.io.IOException;
+
 import org.tmapi.core.Scoped;
 import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -48,7 +50,7 @@ public class ScopedSerializer implements ISerializer<Scoped> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, Scoped scoped,
-			CTMBuffer buffer) throws SerializerException {
+			CTMStreamWriter buffer) throws SerializerException, IOException {
 		if (!scoped.getScope().isEmpty()) {
 			boolean first = true;
 			for (Topic theme : scoped.getScope()) {

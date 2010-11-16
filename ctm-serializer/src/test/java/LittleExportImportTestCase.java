@@ -1,10 +1,7 @@
 import java.io.File;
 import java.io.FileOutputStream;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
-import net.ontopia.topicmaps.core.TopicMapIF;
-import net.ontopia.topicmaps.utils.ctm.CTMTopicMapReader;
 
 import org.tmapi.core.Association;
 import org.tmapi.core.Locator;
@@ -15,6 +12,7 @@ import org.tmapi.core.TopicMap;
 import org.tmapi.core.TopicMapSystem;
 import org.tmapi.core.TopicMapSystemFactory;
 import org.tmapi.core.Variant;
+import org.tmapix.io.CTMTopicMapReader;
 
 import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
@@ -163,7 +161,8 @@ public class LittleExportImportTestCase extends TestCase {
 		if (!file2.exists()) {
 			file2.createNewFile();
 		}
-		CTMTopicMapReader reader = new CTMTopicMapReader(file);
+		TopicMap tm = topicMapSystem.createTopicMap("http://testExportImport");
+		CTMTopicMapReader reader = new CTMTopicMapReader(tm, file);
 		reader.read();
 
 	}
@@ -223,8 +222,7 @@ public class LittleExportImportTestCase extends TestCase {
 		TopicMap tm = TopicMapSystemFactory.newInstance().newTopicMapSystem()
 				.createTopicMap("http://de.topicmapslab/tmql4j/blablub");
 
-		org.tmapix.io.CTMTopicMapReader reader = new org.tmapix.io.CTMTopicMapReader(
-				tm, file);
+		CTMTopicMapReader reader = new CTMTopicMapReader(tm,file);
 		reader.read();
 
 	}

@@ -12,6 +12,7 @@ package de.topicmapslab.ctm.writer.core.serializer;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.AKO;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 
+import java.io.IOException;
 import java.util.Set;
 
 import org.tmapi.core.ModelConstraintException;
@@ -19,7 +20,7 @@ import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 import de.topicmapslab.ctm.writer.utility.TypeHierarchyUtils;
 
 /**
@@ -27,8 +28,7 @@ import de.topicmapslab.ctm.writer.utility.TypeHierarchyUtils;
  * <br />
  * <code>kind-of	::=	'ako' topic-ref</code> <br />
  * <br />
- * The serialized CTM string represents the super-type-relation of a topic
- * within the topic block.
+ * The serialized CTM string represents the super-type-relation of a topic within the topic block.
  * 
  * @author Sven Krosse
  * @email krosse@informatik.uni-leipzig.de
@@ -37,8 +37,8 @@ import de.topicmapslab.ctm.writer.utility.TypeHierarchyUtils;
 public class AKindOfSerializer implements ISerializer<Topic> {
 
 	/**
-	 * Method to convert the given construct to its specific CTM string. The
-	 * result should be written to the given output buffer.
+	 * Method to convert the given construct to its specific CTM string. The result should be written to the given
+	 * output buffer.
 	 * 
 	 * @param writer
 	 *            the CTM writer
@@ -48,16 +48,19 @@ public class AKindOfSerializer implements ISerializer<Topic> {
 	 *            the subtype to serialize
 	 * @param buffer
 	 *            the output buffer
-	 * @return <code>true</code> if new content was written into buffer,
-	 *         <code>false</code> otherwise
+	 * @param newLine
+	 *            indicates if the writer has to add a new line before firsr isa statement
+	 * @return <code>true</code> if new content was written into buffer, <code>false</code> otherwise
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(CTMTopicMapWriter writer,
-			Set<Object> affectedConstructs, Topic subtype, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer, Set<Object> affectedConstructs, Topic subtype,
+			CTMStreamWriter buffer, boolean newLine) throws SerializerException, IOException {
 		try {
-			boolean result = false;
+			/*
+			 * iterate over all types given known about getTypes
+			 */
+			boolean addTail = false;
 			/*
 			 * extract all super-types
 			 */
@@ -67,14 +70,23 @@ public class AKindOfSerializer implements ISerializer<Topic> {
 				 * add super-type-definition
 				 */
 				if (!affectedConstructs.contains(supertype)) {
-					buffer.appendTailLine(true, TABULATOR, AKO, writer
-							.getCtmIdentity().getMainIdentifier(
-									writer.getProperties(), supertype)
-							.toString());
-					result = true;
+					/*
+					 * adding a new line after main identity
+					 */
+					if (newLine) {
+						buffer.appendLine();
+						newLine = false;
+					}
+					if (addTail) {
+						buffer.appendTailLine();
+						addTail = false;
+					}
+					buffer.append(true, TABULATOR, AKO,
+							writer.getCtmIdentity().getMainIdentifier(writer.getProperties(), supertype).toString());
+					addTail = true;
 				}
 			}
-			return result;
+			return addTail;
 		} catch (ModelConstraintException e) {
 			throw new SerializerException(e);
 		}

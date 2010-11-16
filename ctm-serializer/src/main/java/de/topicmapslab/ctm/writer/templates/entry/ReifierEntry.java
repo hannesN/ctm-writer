@@ -10,6 +10,8 @@ package de.topicmapslab.ctm.writer.templates.entry;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.REIFIER;
 
+import java.io.IOException;
+
 import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
@@ -18,7 +20,7 @@ import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class representing a template-entry definition of an reifier-entry.
@@ -61,7 +63,7 @@ public class ReifierEntry {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public void serialize(CTMBuffer buffer) throws SerializerException {
+	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
 		if (reifier instanceof TopicTypeParam) {
 			buffer.append(REIFIER, writer.getCtmIdentity().getMainIdentifier(
 					writer.getProperties(),

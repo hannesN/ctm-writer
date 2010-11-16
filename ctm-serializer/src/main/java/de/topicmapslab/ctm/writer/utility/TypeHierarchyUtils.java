@@ -83,7 +83,7 @@ public class TypeHierarchyUtils {
 			/*
 			 * iterate over all association items
 			 */
-			for (Role role : kindOf.getRolesPlayed(subtypeRole)) {
+			for (Role role : subtype.getRolesPlayed(subtypeRole)) {
 				Set<Role> supertypePlayers = role.getParent()
 						.getRoles(supertypeRole);
 				if (supertypePlayers.size() != 1) {

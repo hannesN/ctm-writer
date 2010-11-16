@@ -15,21 +15,22 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TRIPPLEQUOTE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
+import java.io.IOException;
+
 import org.tmapi.core.Name;
 import org.tmapi.core.Variant;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
  * <br />
  * <code>name ::= '-'  (type ':')?  string scope?  reifier?  variant* </code><br />
  * <br />
- * The serialized CTM string represents the name of a topic within the topic
- * block.
+ * The serialized CTM string represents the name of a topic within the topic block.
  * 
  * @author Sven Krosse
  * @email krosse@informatik.uni-leipzig.de
@@ -38,8 +39,8 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class NameSerializer implements ISerializer<Name> {
 
 	/**
-	 * Method to convert the given construct to its specific CTM string. The
-	 * result should be written to the given output buffer.
+	 * Method to convert the given construct to its specific CTM string. The result should be written to the given
+	 * output buffer.
 	 * 
 	 * @param writer
 	 *            the CTM writer
@@ -47,13 +48,12 @@ public class NameSerializer implements ISerializer<Name> {
 	 *            the name to serialize
 	 * @param buffer
 	 *            the output buffer
-	 * @return <code>true</code> if new content was written into buffer,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if new content was written into buffer, <code>false</code> otherwise
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(CTMTopicMapWriter writer, Name name,
-			CTMBuffer buffer) throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer, Name name, CTMStreamWriter buffer)
+			throws SerializerException, IOException {
 
 		/*
 		 * begin name definition
@@ -63,9 +63,8 @@ public class NameSerializer implements ISerializer<Name> {
 			/*
 			 * add type if it is not default name type of TMDM
 			 */
-			buffer.append(false, writer.getCtmIdentity().getMainIdentifier(
-					writer.getProperties(), name.getType()).toString(),
-					WHITESPACE, COLON, WHITESPACE);
+			buffer.append(false, writer.getCtmIdentity().getMainIdentifier(writer.getProperties(), name.getType())
+					.toString(), WHITESPACE, COLON, WHITESPACE);
 		} catch (NoIdentityException e) {
 			// VOID
 		}
@@ -74,44 +73,30 @@ public class NameSerializer implements ISerializer<Name> {
 		 */
 		buffer.append(false, QUOTE, name.getValue(), QUOTE);
 
-		CTMBuffer ctmBuffer = null;
-
 		/*
 		 * add scope if exists
 		 */
-		ctmBuffer = new CTMBuffer();
-		if (ScopedSerializer.serialize(writer, name, ctmBuffer)) {
+		if (ScopedSerializer.serialize(writer, name, buffer)) {
 			buffer.append(WHITESPACE);
-			buffer.append(ctmBuffer);
 		}
 
 		/*
 		 * add reifier if exists
 		 */
-		ctmBuffer = new CTMBuffer();
-		if (ReifiableSerializer.serialize(writer, name, ctmBuffer)) {
+		if (ReifiableSerializer.serialize(writer, name, buffer)) {
 			buffer.append(WHITESPACE);
-			buffer.append(ctmBuffer);
 		}
 
 		/*
 		 * add variants if exists
 		 */
 		for (Variant variant : name.getVariants()) {
-			ctmBuffer = new CTMBuffer();
 			/*
 			 * redirect to variant serializer
 			 */
-			VariantSerializer.serialize(writer, variant, ctmBuffer);
+			VariantSerializer.serialize(writer, variant, buffer);
 			buffer.append(WHITESPACE);
-			buffer.append(ctmBuffer);
 		}
-
-		/*
-		 * end topic-tail
-		 */
-		buffer.appendTailLine();
-
 		return true;
 	}
 
@@ -126,14 +111,12 @@ public class NameSerializer implements ISerializer<Name> {
 	 *            the string representation of the type of the name
 	 * @param buffer
 	 *            the buffer written to
-	 * @return <code>true</code> if new content was written into buffer,
-	 *         <code>false</code> otherwise.
+	 * @return <code>true</code> if new content was written into buffer, <code>false</code> otherwise.
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(final CTMTopicMapWriter writer,
-			final String value, final String type, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(final CTMTopicMapWriter writer, final String value, final String type,
+			CTMStreamWriter buffer) throws SerializerException, IOException {
 
 		buffer.append(true, TABULATOR, NAME, WHITESPACE);
 		if (type != null) {

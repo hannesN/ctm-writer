@@ -13,13 +13,14 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXBEGIN;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.tmapi.core.TopicMap;
 
 import de.topicmapslab.ctm.writer.core.PrefixHandler;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -50,8 +51,8 @@ public class IncludeSerializer implements ISerializer<TopicMap> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(List<String> includes,
-			PrefixHandler prefixHandler, CTMBuffer buffer)
-			throws SerializerException {
+			PrefixHandler prefixHandler, CTMStreamWriter buffer)
+			throws SerializerException, IOException {
 
 		boolean result = false;
 

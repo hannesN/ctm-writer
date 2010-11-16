@@ -10,11 +10,13 @@ package de.topicmapslab.ctm.writer.core.serializer;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.COLON;
 
+import java.io.IOException;
+
 import org.tmapi.core.Role;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -46,7 +48,7 @@ public class RoleSerializer implements ISerializer<Role> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, Role role,
-			CTMBuffer buffer) throws SerializerException {
+			CTMStreamWriter buffer) throws SerializerException, IOException {
 
 		buffer.append(true, writer.getCtmIdentity().getMainIdentifier(
 				writer.getProperties(), role.getType()).toString(), COLON,

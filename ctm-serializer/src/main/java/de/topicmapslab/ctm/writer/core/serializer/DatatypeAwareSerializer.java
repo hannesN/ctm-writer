@@ -14,6 +14,7 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.QUOTE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TRIPPLEQUOTE;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -22,7 +23,7 @@ import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 import de.topicmapslab.identifier.XmlSchemeDatatypes;
 
 /**
@@ -45,8 +46,8 @@ import de.topicmapslab.identifier.XmlSchemeDatatypes;
 public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 
 	/**
-	 * Method to convert the given construct to its specific CTM string. The
-	 * result should be written to the given output buffer.
+	 * Method to convert the given construct to its specific CTM string. The result should be written to the given
+	 * output buffer.
 	 * 
 	 * @param writer
 	 *            the CTM writer
@@ -54,48 +55,42 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 *            the datatypeAware to serialize
 	 * @param buffer
 	 *            the output buffer
-	 * @return <code>true</code> if new content was written into buffer,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if new content was written into buffer, <code>false</code> otherwise
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(CTMTopicMapWriter writer,
-			DatatypeAware datatypeAware, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer, DatatypeAware datatypeAware, CTMStreamWriter buffer)
+			throws SerializerException, IOException {
 		final String value = datatypeAware.getValue();
-		final String datatype = writer.getCtmIdentity().getPrefixedIdentity(
-				datatypeAware.getDatatype());
+		final String datatype = writer.getCtmIdentity().getPrefixedIdentity(datatypeAware.getDatatype());
 		return serialize(writer, datatype, value, buffer);
 	}
 
 	/**
-	 * Method to convert the given values to a specific CTM literal. The result
-	 * should be written to the given output buffer.
+	 * Method to convert the given values to a specific CTM literal. The result should be written to the given output
+	 * buffer.
 	 * 
 	 * @param writer
 	 *            the CTM writer
 	 * @param datatype
-	 *            the data-type of the {@link DatatypeAware} as {@link Topic} or
-	 *            as {@link String}
+	 *            the data-type of the {@link DatatypeAware} as {@link Topic} or as {@link String}
 	 * @param value_
 	 *            the value of the {@link DatatypeAware}
 	 * @param buffer
 	 *            the output buffer
-	 * @return <code>true</code> if new content was written into buffer,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if new content was written into buffer, <code>false</code> otherwise
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(CTMTopicMapWriter writer,
-			final Object datatype, final String value_, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer, final Object datatype, final String value_,
+			CTMStreamWriter buffer) throws SerializerException, IOException {
 		/*
 		 * extract reference of the data-type as string
 		 */
 		final String datatype_;
 		if (datatype instanceof Topic) {
-			datatype_ = writer.getCtmIdentity().getPrefixedIdentity(
-					writer.getProperties(), (Topic) datatype).toString();
+			datatype_ = writer.getCtmIdentity().getPrefixedIdentity(writer.getProperties(), (Topic) datatype)
+					.toString();
 		} else {
 			datatype_ = (String) datatype;
 		}
@@ -107,8 +102,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:string
 		 */
-		if (XmlSchemeDatatypes.XSD_STRING.equals(datatype_)
-				|| XmlSchemeDatatypes.XSD_QSTRING.equals(datatype_)
+		if (XmlSchemeDatatypes.XSD_STRING.equals(datatype_) || XmlSchemeDatatypes.XSD_QSTRING.equals(datatype_)
 				|| datatype_ == null) {
 			/*
 			 * string is a variable
@@ -119,18 +113,14 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 			/*
 			 * string contains tripple quotes
 			 */
-			else if (value.contains(TRIPPLEQUOTE)){
-				buffer
-				.append(false, TRIPPLEQUOTE, value.replaceAll(QUOTE, "\\\\"+QUOTE),
-						TRIPPLEQUOTE);
+			else if (value.contains(TRIPPLEQUOTE)) {
+				buffer.append(false, TRIPPLEQUOTE, value.replaceAll(QUOTE, "\\\\" + QUOTE), TRIPPLEQUOTE);
 			}
 			/*
 			 * string contains quotes
 			 */
 			else if (value.contains(QUOTE)) {
-				buffer
-						.append(false, TRIPPLEQUOTE, value,
-								TRIPPLEQUOTE);
+				buffer.append(false, TRIPPLEQUOTE, value, TRIPPLEQUOTE);
 			}
 			/*
 			 * string does not contain any quotes
@@ -142,8 +132,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:anyURI
 		 */
-		else if (XmlSchemeDatatypes.XSD_ANYURI.equals(datatype_)
-				|| XmlSchemeDatatypes.XSD_QANYURI.equals(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_ANYURI.equals(datatype_) || XmlSchemeDatatypes.XSD_QANYURI.equals(datatype_)) {
 			/*
 			 * URI is variable
 			 */
@@ -157,8 +146,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:integer
 		 */
-		else if (XmlSchemeDatatypes.XSD_INTEGER.equals(datatype_)
-				|| XmlSchemeDatatypes.XSD_QINTEGER.equals(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_INTEGER.equals(datatype_) || XmlSchemeDatatypes.XSD_QINTEGER.equals(datatype_)) {
 			buffer.append(false, value);
 		}
 		/*
@@ -178,8 +166,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	}
 
 	/**
-	 * Method is called to extract the arguments the value argument from the
-	 * given {@link DatatypeAware}. The value is convert by type.
+	 * Method is called to extract the arguments the value argument from the given {@link DatatypeAware}. The value is
+	 * convert by type.
 	 * 
 	 * @param writer
 	 *            the parent topic map writer
@@ -191,47 +179,41 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 */
 	public static String toArgument(
 
-	final CTMTopicMapWriter writer, final DatatypeAware datatypeAware)
-			throws SerializerException {
+	final CTMTopicMapWriter writer, final DatatypeAware datatypeAware) throws SerializerException {
 		final String value = datatypeAware.getValue();
-		final String datatype = writer.getCtmIdentity().getPrefixedIdentity(
-				datatypeAware.getDatatype()).toString();
+		final String datatype = writer.getCtmIdentity().getPrefixedIdentity(datatypeAware.getDatatype()).toString();
 		return toArgument(writer, datatype, value);
 	}
 
 	/**
-	 * Method is called to convert the given value to a argument. The value is
-	 * convert by type.
+	 * Method is called to convert the given value to a argument. The value is convert by type.
 	 * 
 	 * @param writer
 	 *            the parent topic map writer
 	 * @param datatype
-	 *            the data-type of the {@link DatatypeAware} as {@link Topic} or
-	 *            as {@link String}
+	 *            the data-type of the {@link DatatypeAware} as {@link Topic} or as {@link String}
 	 * @param value
 	 *            the value of the {@link DatatypeAware}
 	 * @return the converted value
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static String toArgument(final CTMTopicMapWriter writer,
-			final Object datatype, final String value)
+	public static String toArgument(final CTMTopicMapWriter writer, final Object datatype, final String value)
 			throws SerializerException {
 		/*
 		 * extract reference of the data-type as string
 		 */
 		final String datatype_;
 		if (datatype instanceof Topic) {
-			datatype_ = writer.getCtmIdentity().getPrefixedIdentity(
-					writer.getProperties(), (Topic) datatype).toString();
+			datatype_ = writer.getCtmIdentity().getPrefixedIdentity(writer.getProperties(), (Topic) datatype)
+					.toString();
 		} else {
 			datatype_ = (String) datatype;
 		}
 		/*
 		 * type is xsd:string
 		 */
-		if (XmlSchemeDatatypes.XSD_STRING.equals(datatype_)
-				|| XmlSchemeDatatypes.XSD_QSTRING.equals(datatype_)) {
+		if (XmlSchemeDatatypes.XSD_STRING.equals(datatype_) || XmlSchemeDatatypes.XSD_QSTRING.equals(datatype_)) {
 			/*
 			 * string is variable
 			 */
@@ -254,8 +236,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:anyURI
 		 */
-		else if (XmlSchemeDatatypes.XSD_ANYURI.equals(datatype_)
-				|| XmlSchemeDatatypes.XSD_QANYURI.equals(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_ANYURI.equals(datatype_) || XmlSchemeDatatypes.XSD_QANYURI.equals(datatype_)) {
 			/*
 			 * URI is variable
 			 */
@@ -267,8 +248,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 		/*
 		 * type is xsd:integer
 		 */
-		else if (XmlSchemeDatatypes.XSD_INTEGER.equals(datatype_)
-				|| XmlSchemeDatatypes.XSD_QINTEGER.equals(datatype_)) {
+		else if (XmlSchemeDatatypes.XSD_INTEGER.equals(datatype_) || XmlSchemeDatatypes.XSD_QINTEGER.equals(datatype_)) {
 			return value;
 		}
 		/*
@@ -297,8 +277,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	}
 
 	/**
-	 * Method is called to convert the given value to a argument. The method try
-	 * to detect the type of the given value.
+	 * Method is called to convert the given value to a argument. The method try to detect the type of the given value.
 	 * 
 	 * @param value
 	 *            the value of the {@link DatatypeAware}
@@ -306,8 +285,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static String toArgument(final String value)
-			throws SerializerException {
+	public static String toArgument(final String value) throws SerializerException {
 
 		if (isVariable(value)) {
 			return value;
@@ -335,8 +313,8 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 * 
 	 * @param value
 	 *            the value
-	 * @return <code>true</code> if value starts with a dollar and does not
-	 *         contain any white-spaces, <code>false</code> otherwise.
+	 * @return <code>true</code> if value starts with a dollar and does not contain any white-spaces, <code>false</code>
+	 *         otherwise.
 	 */
 	private static boolean isVariable(final String value) {
 		return value.startsWith("$") && !value.contains(" ");

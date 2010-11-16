@@ -16,7 +16,6 @@ import java.util.Set;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 
 /**
  * Class representing a CTM template defintion
@@ -46,7 +45,7 @@ public class Template {
 	 * flag indicates if the template should be serialized
 	 */
 	private boolean serialize = true;
-	
+
 	private ITemplateScanner scanner;
 
 	/**
@@ -85,9 +84,8 @@ public class Template {
 	}
 
 	/**
-	 * Adding a new entry to the internal list. After adding the entry to the
-	 * list, the variable of the entry will be extracted and added to the list
-	 * too.
+	 * Adding a new entry to the internal list. After adding the entry to the list, the variable of the entry will be
+	 * extracted and added to the list too.
 	 * 
 	 * @param entry
 	 *            the new entry
@@ -98,8 +96,8 @@ public class Template {
 	}
 
 	/**
-	 * Removing an entry from the internal list. After removing the entry, the
-	 * variables of the entry will be extracted and removed from variable list.
+	 * Removing an entry from the internal list. After removing the entry, the variables of the entry will be extracted
+	 * and removed from variable list.
 	 * 
 	 * @param entry
 	 *            the entry to remove
@@ -110,8 +108,7 @@ public class Template {
 	}
 
 	/**
-	 * Method returns all internal parameter arguments of the template
-	 * definition.
+	 * Method returns all internal parameter arguments of the template definition.
 	 * 
 	 * @return the variables a list of all parameters
 	 */
@@ -145,13 +142,12 @@ public class Template {
 	}
 
 	/**
-	 * Method checks if internal entry set only contains entries of the given
-	 * type
+	 * Method checks if internal entry set only contains entries of the given type
 	 * 
 	 * @param clazz
 	 *            the type to check
-	 * @return <code>true</code> if internal entry set only contains entries of
-	 *         the given type, <code>false</code> otherwise.
+	 * @return <code>true</code> if internal entry set only contains entries of the given type, <code>false</code>
+	 *         otherwise.
 	 */
 	public boolean containsOnlyInstanceOf(Class<? extends IEntry>... classes) {
 		List<Class<? extends IEntry>> list = Arrays.asList(classes);
@@ -163,31 +159,14 @@ public class Template {
 		return true;
 	}
 
-	/**
-	 * Redirects to {@link TemplateSerializer#serialize(CTMBuffer)} <br />
-	 * <br /> {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		CTMBuffer buffer = new CTMBuffer();
-		try {
-			TemplateSerializer.serialize(this, buffer);
-		} catch (SerializerException e) {
-			e.printStackTrace();
-		}
-		return buffer.getBuffer().toString();
-	}
-
-	public static final Set<Template> fromCTM(final File file)
-			throws SerializerException {
+	public static final Set<Template> fromCTM(final File file) throws SerializerException {
 		throw new UnsupportedOperationException("not implemented yet.");
 	}
 
 	/**
 	 * Checks if the template should be serialized
 	 * 
-	 * @return <code>true</code> if the template definition should serialize
-	 *         too, <code>false</code> otherwise.
+	 * @return <code>true</code> if the template definition should serialize too, <code>false</code> otherwise.
 	 */
 	public boolean shouldSerialize() {
 		return serialize;
@@ -204,17 +183,18 @@ public class Template {
 	}
 
 	/**
-	 * @param scanner the scanner to set
+	 * @param scanner
+	 *            the scanner to set
 	 */
 	public void setScanner(ITemplateScanner scanner) {
 		this.scanner = scanner;
 	}
-	
+
 	/**
 	 * @return the scanner
 	 */
 	public ITemplateScanner getScanner() {
 		return scanner;
 	}
-	
+
 }

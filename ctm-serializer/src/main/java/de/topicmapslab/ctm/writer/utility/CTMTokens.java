@@ -149,4 +149,9 @@ public final class CTMTokens {
 	 */
 	public static final String PREFIXEND = ">";
 
+	/**
+	 * THE UTF 8 encoding
+	 */
+	public static final String UTF_8 = "UTF-8";
+
 }

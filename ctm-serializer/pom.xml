@@ -73,17 +73,18 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>net.ontopia</groupId>
-			<artifactId>ontopia-engine</artifactId>
-			<version>5.1.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.tmapix</groupId>
 			<artifactId>tmapix-io</artifactId>
 			<version>1.0.0</version>
-			<optional>false</optional>
 			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-jdk14</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
 				<exclusion>
 					<groupId>org.tmapi</groupId>
 					<artifactId>tmapi</artifactId>
@@ -108,6 +109,19 @@
 			<version>2.0.2</version>
 			<type>pom</type>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.tmapi</groupId>
+			<artifactId>tmapi</artifactId>
+			<version>2.0.3-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.topicmapslab.majortom</groupId>
+			<artifactId>majortom-inMemory</artifactId>
+			<version>1.1.4-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<distributionManagement>

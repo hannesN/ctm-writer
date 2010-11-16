@@ -8,6 +8,7 @@
  */
 package de.topicmapslab.ctm.writer.templates.entry;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import de.topicmapslab.ctm.writer.templates.TemplateSerializer;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class representing a template-entry definition of a template-entry.
@@ -57,7 +58,7 @@ public class TemplateEntry implements IEntry {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void serialize(CTMBuffer buffer) throws SerializerException {
+	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
 		TemplateSerializer.serialize(template, buffer, valuesOrVariables);
 	}
 
