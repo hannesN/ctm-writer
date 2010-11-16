@@ -9,10 +9,13 @@
 package de.topicmapslab.ctm.writer.templates.entry;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
+
+import java.io.IOException;
+
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 
 /**
@@ -43,8 +46,8 @@ public abstract class IdentifierEntry extends EntryImpl {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void serialize(CTMBuffer buffer) throws SerializerException {
-		buffer.appendTailLine(true, TABULATOR, getPrefix(), getParameter()
+	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
+		buffer.append(true, TABULATOR, getPrefix(), getParameter()
 				.getCTMRepresentation());
 	}
 

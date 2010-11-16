@@ -12,11 +12,13 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.BRC;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.BRO;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
+import java.io.IOException;
+
 import org.tmapi.core.Variant;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -47,7 +49,7 @@ public class VariantSerializer implements ISerializer<Variant> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, Variant variant,
-			CTMBuffer buffer) throws SerializerException {
+			CTMStreamWriter buffer) throws SerializerException, IOException {
 
 		buffer.append(BRO);
 		/*
@@ -58,19 +60,15 @@ public class VariantSerializer implements ISerializer<Variant> {
 		/*
 		 * add scope if exists
 		 */
-		CTMBuffer ctmBuffer = new CTMBuffer();
-		if (ScopedSerializer.serialize(writer, variant, ctmBuffer)) {
+		if (ScopedSerializer.serialize(writer, variant, buffer)) {
 			buffer.append(WHITESPACE);
-			buffer.append(ctmBuffer);
 		}
 
 		/*
 		 * add reifier if exists
 		 */
-		ctmBuffer = new CTMBuffer();
-		if (ReifiableSerializer.serialize(writer, variant, ctmBuffer)) {
+		if (ReifiableSerializer.serialize(writer, variant, buffer)) {
 			buffer.append(WHITESPACE);
-			buffer.append(ctmBuffer);
 		}
 
 		buffer.append(BRC);
@@ -94,7 +92,7 @@ public class VariantSerializer implements ISerializer<Variant> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, String value,
-			Object datatype, CTMBuffer buffer) throws SerializerException {
+			Object datatype, CTMStreamWriter buffer) throws SerializerException, IOException {
 		/*
 		 * add value and data-type
 		 */

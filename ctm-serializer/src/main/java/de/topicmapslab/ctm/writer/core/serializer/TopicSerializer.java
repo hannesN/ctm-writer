@@ -13,6 +13,7 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.SUBJECTLOCATOR;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ import org.tmapi.core.Topic;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.TemplateMatching;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -40,41 +41,53 @@ import de.topicmapslab.ctm.writer.utility.CTMBuffer;
 public class TopicSerializer implements ISerializer<Topic> {
 
 	/**
-	 * Method to convert the given construct to its specific CTM string. The
-	 * result should be written to the given output buffer.
+	 * Method to convert the given construct to its specific CTM string. The result should be written to the given
+	 * output buffer.
 	 * 
 	 * @param writer
 	 *            the CTM writer
 	 * @param adaptiveTemplates
-	 *            the template which can be used in combination with the given
-	 *            topic
+	 *            the template which can be used in combination with the given topic
 	 * @param topic
 	 *            the topic to serialize
 	 * @param buffer
 	 *            the output buffer
-	 * @return <code>true</code> if new content was written into buffer,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if new content was written into buffer, <code>false</code> otherwise
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(CTMTopicMapWriter writer,
-			Set<TemplateMatching> matchings, Topic topic, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(CTMTopicMapWriter writer, Set<TemplateMatching> matchings, Topic topic,
+			CTMStreamWriter buffer) throws SerializerException, IOException {
 
-		final String mainIdentifier = writer.getCtmIdentity()
-				.getMainIdentifier(writer.getProperties(), topic).toString();
+		final String mainIdentifier = writer.getCtmIdentity().getMainIdentifier(writer.getProperties(), topic)
+				.toString();
 
-		buffer.appendLine(mainIdentifier, WHITESPACE);
+		buffer.append(mainIdentifier, WHITESPACE);
+		boolean addNewLine = true;
 
 		/*
-		 * add template-invocations and store affected elements of the topic
-		 * block
+		 * add template-invocations and store affected elements of the topic block
 		 */
+		boolean addTail = false;
 		Set<Object> affectedConstructs = new HashSet<Object>();
 		if (matchings != null) {
 			for (TemplateMatching matching : matchings) {
+				/*
+				 * adding a new line after main identifier
+				 */
+				if (addNewLine) {
+					buffer.appendLine();
+					addNewLine = false;
+				}
+				/*
+				 * adding a new tail symbol at stream end
+				 */
+				if (addTail) {
+					buffer.appendTailLine();
+					addTail = false;
+				}
 				buffer.append(TABULATOR);
-				affectedConstructs.addAll(matching.getAffectedConstructs());				
+				affectedConstructs.addAll(matching.getAffectedConstructs());
 				buffer.append(matching.getTemplate().getTemplateName() + "(");
 				boolean first = true;
 				for (String arg : matching.getArgumentsAsString(writer)) {
@@ -82,27 +95,51 @@ public class TopicSerializer implements ISerializer<Topic> {
 					first = false;
 				}
 				buffer.append(");");
-				buffer.appendLine();
+				addTail = true;
 			}
 		}
-
 		/*
 		 * add type-instance-associations
 		 */
-		IsInstanceOfSerializer.serialize(writer, affectedConstructs, topic,
-				buffer);
-
+		addTail = IsInstanceOfSerializer.serialize(writer, affectedConstructs, topic, buffer, addNewLine);
+		if (addTail) {
+			addNewLine = false;
+			buffer.appendTailLine();
+			addTail = false;
+		}
 		/*
 		 * add super-type-sub-type-associations
 		 */
-		AKindOfSerializer.serialize(writer, affectedConstructs, topic, buffer);
+		addTail = AKindOfSerializer.serialize(writer, affectedConstructs, topic, buffer, addNewLine);
+		/*
+		 * adding a new line after main identifier
+		 */
+		if (addTail ) {
+			addNewLine = false;
+			buffer.appendTailLine();
+			addTail = false;
+		}
 
 		/*
 		 * add name entries if not affected by template-invocations
 		 */
 		for (Name name : topic.getNames()) {
 			if (!affectedConstructs.contains(name)) {
-				NameSerializer.serialize(writer, name, buffer);
+				/*
+				 * adding a new line after main identifier
+				 */
+				if (addNewLine) {
+					buffer.appendLine();
+					addNewLine = false;
+				}
+				/*
+				 * adding a new tail symbol at stream end
+				 */
+				if (addTail) {
+					buffer.appendTailLine();
+					addTail = false;
+				}
+				addTail = NameSerializer.serialize(writer, name, buffer);
 			}
 		}
 
@@ -111,7 +148,21 @@ public class TopicSerializer implements ISerializer<Topic> {
 		 */
 		for (Occurrence occurrence : topic.getOccurrences()) {
 			if (!affectedConstructs.contains(occurrence)) {
-				OccurrenceSerializer.serialize(writer, occurrence, buffer);
+				/*
+				 * adding a new line after main identifier
+				 */
+				if (addNewLine) {
+					buffer.appendLine();
+					addNewLine = false;
+				}
+				/*
+				 * adding a new tail symbol at stream end
+				 */
+				if (addTail) {
+					buffer.appendTailLine();
+					addTail = false;
+				}
+				addTail = OccurrenceSerializer.serialize(writer, occurrence, buffer);
 			}
 		}
 
@@ -122,12 +173,25 @@ public class TopicSerializer implements ISerializer<Topic> {
 			if (affectedConstructs.contains(locator)) {
 				continue;
 			}
-			String identity = writer.getCtmIdentity().getPrefixedIdentity(
-					locator);
-			identity = writer.getCtmIdentity().getEscapedCTMIdentity(identity,
-					locator);
+			String identity = writer.getCtmIdentity().getPrefixedIdentity(locator);
+			identity = writer.getCtmIdentity().getEscapedCTMIdentity(identity, locator);
 			if (!identity.equalsIgnoreCase(mainIdentifier)) {
-				buffer.appendTailLine(true, TABULATOR, identity);
+				/*
+				 * adding a new line after main identifier
+				 */
+				if (addNewLine) {
+					buffer.appendLine();
+					addNewLine = false;
+				}
+				/*
+				 * adding a new tail symbol at stream end
+				 */
+				if (addTail) {
+					buffer.appendTailLine();
+					addTail = false;
+				}
+				buffer.append(true, TABULATOR, identity);
+				addTail = true;
 			}
 		}
 
@@ -138,14 +202,25 @@ public class TopicSerializer implements ISerializer<Topic> {
 			if (affectedConstructs.contains(locator)) {
 				continue;
 			}
-			String identity = writer.getCtmIdentity().getPrefixedIdentity(
-					locator);
-			identity = writer.getCtmIdentity().getEscapedCTMIdentity(identity,
-					locator);
+			String identity = writer.getCtmIdentity().getPrefixedIdentity(locator);
+			identity = writer.getCtmIdentity().getEscapedCTMIdentity(identity, locator);
 			if (!mainIdentifier.contains(identity)) {
-				buffer
-						.appendTailLine(true, TABULATOR, SUBJECTLOCATOR,
-								identity);
+				/*
+				 * adding a new line after main identifier
+				 */
+				if (addNewLine) {
+					buffer.appendLine();
+					addNewLine = false;
+				}
+				/*
+				 * adding a new tail symbol at stream end
+				 */
+				if (addTail) {
+					buffer.appendTailLine();
+					addTail = false;
+				}
+				buffer.append(true, TABULATOR, SUBJECTLOCATOR, identity);
+				addTail = true;
 			}
 		}
 
@@ -154,17 +229,29 @@ public class TopicSerializer implements ISerializer<Topic> {
 		 */
 		if (writer.getProperties().isExportOfItemIdentifierEnabled()) {
 			for (Locator locator : topic.getItemIdentifiers()) {
-				String identity = writer.getCtmIdentity().getPrefixedIdentity(
-						locator);
-				if (writer.getCtmIdentity().isSystemItemIdentifier(
-						writer.getProperties(), identity)
+				String identity = writer.getCtmIdentity().getPrefixedIdentity(locator);
+				if (writer.getCtmIdentity().isSystemItemIdentifier(writer.getProperties(), identity)
 						|| affectedConstructs.contains(locator)) {
 					continue;
 				}
 				if (!mainIdentifier.contains(identity)) {
-					buffer.appendTailLine(true, TABULATOR, ITEMIDENTIFIER,
-							writer.getCtmIdentity().getEscapedCTMIdentity(
-									identity, locator));
+					/*
+					 * adding a new line after main identifier
+					 */
+					if (addNewLine) {
+						buffer.appendLine();
+						addNewLine = false;
+					}
+					/*
+					 * adding a new tail symbol at stream end
+					 */
+					if (addTail) {
+						buffer.appendTailLine();
+						addTail = false;
+					}
+					buffer.appendTailLine(true, TABULATOR, ITEMIDENTIFIER, writer.getCtmIdentity()
+							.getEscapedCTMIdentity(identity, locator));
+					addTail = true;
 				}
 			}
 		}
@@ -172,7 +259,7 @@ public class TopicSerializer implements ISerializer<Topic> {
 		/*
 		 * finish topic-block
 		 */
-		buffer.clearCTMTail();
+		buffer.appendBlockEnd();
 		return true;
 	}
 

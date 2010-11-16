@@ -12,11 +12,13 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.COLON;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
+import java.io.IOException;
+
 import org.tmapi.core.Occurrence;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -48,7 +50,7 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer,
-			Occurrence occurrence, CTMBuffer buffer) throws SerializerException {
+			Occurrence occurrence, CTMStreamWriter buffer) throws SerializerException, IOException {
 
 		/*
 		 * begin occurrence-definition block
@@ -62,27 +64,20 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 		 * add value and data-type
 		 */
 		DatatypeAwareSerializer.serialize(writer, occurrence, buffer);
-
-		CTMBuffer ctmBuffer = null;
 		/*
 		 * add scope if exists
 		 */
-		ctmBuffer = new CTMBuffer();
-		if (ScopedSerializer.serialize(writer, occurrence, ctmBuffer)) {
+		if (ScopedSerializer.serialize(writer, occurrence, buffer)) {
 			buffer.append(WHITESPACE);
-			buffer.append(ctmBuffer);
 		}
 
 		/*
 		 * add reifier if exists
 		 */
-		ctmBuffer = new CTMBuffer();
-		if (ReifiableSerializer.serialize(writer, occurrence, ctmBuffer)) {
+		if (ReifiableSerializer.serialize(writer, occurrence, buffer)) {
 			buffer.append(WHITESPACE);
-			buffer.append(ctmBuffer);
 		}
 
-		buffer.appendTailLine();
 		return true;
 	}
 
@@ -106,8 +101,8 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, String value,
-			Object datatype, final String type, CTMBuffer buffer)
-			throws SerializerException {
+			Object datatype, final String type, CTMStreamWriter buffer)
+			throws SerializerException, IOException {
 
 		buffer.append(true, TABULATOR, type, COLON, WHITESPACE);
 

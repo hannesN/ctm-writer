@@ -11,6 +11,7 @@ package de.topicmapslab.ctm.writer.core.serializer;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.ISA;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ import org.tmapi.core.TopicMap;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
 /**
@@ -50,34 +51,45 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 	 *            the instance to serialize
 	 * @param buffer
 	 *            the output buffer
+	 *            @param newLine indicates if the writer has to add a new line before firsr isa statement
 	 * @return <code>true</code> if new content was written into buffer,
 	 *         <code>false</code> otherwise
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer,
-			Set<Object> affectedConstructs, Topic instance, CTMBuffer buffer)
-			throws SerializerException {
-
-		boolean returnValue = false;
-
+			Set<Object> affectedConstructs, Topic instance, CTMStreamWriter buffer, boolean newLine)
+			throws SerializerException, IOException {
 		/*
 		 * iterate over all types given known about getTypes
 		 */
-		for (Topic type : instance.getTypes()) {
+		boolean addTail = false;
+		Set<Topic> types = instance.getTypes();
+		for (Topic type : types) {
 			/*
 			 * add to buffer
 			 */
 			if (!affectedConstructs.contains(type)) {
-				buffer.appendTailLine(true, TABULATOR, ISA, writer
+				/*
+				 * adding a new line after main identity
+				 */
+				if ( newLine ){
+					buffer.appendLine();
+					newLine = false;
+				}
+				if ( addTail ){
+					buffer.appendTailLine();
+					addTail = false;
+				}
+				buffer.append(true, TABULATOR, ISA, writer
 						.getCtmIdentity().getMainIdentifier(
 								writer.getProperties(), type).toString());
-				returnValue = true;
+				addTail = true;
 			}
 		}
 
 		// storing type already written
-		Set<Topic> writtenTypes = new HashSet<Topic>(instance.getTypes());
+		Set<Topic> writtenTypes = new HashSet<Topic>(types);
 
 		/*
 		 * check additional types by extracting the TMDM association type
@@ -130,17 +142,20 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 				 */
 				Topic newType = typePlayers.iterator().next().getPlayer();
 				if (!writtenTypes.contains(newType)) {
+					if ( addTail ){
+						buffer.appendTailLine();
+						addTail = false;
+					}
 					buffer
-							.appendTailLine(true, TABULATOR, ISA, writer
+							.append(true, TABULATOR, ISA, writer
 									.getCtmIdentity().getMainIdentifier(
 											writer.getProperties(), newType)
 									.toString());
+					addTail = true;
 				}
 			}
-			returnValue = true;
 		}
-
-		return returnValue;
+		return addTail;
 	}
 
 }

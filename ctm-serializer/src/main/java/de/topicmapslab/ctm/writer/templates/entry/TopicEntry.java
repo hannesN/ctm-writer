@@ -1,5 +1,6 @@
 package de.topicmapslab.ctm.writer.templates.entry;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 import de.topicmapslab.ctm.writer.utility.CTMTokens;
 
 public class TopicEntry extends EntryImpl {
@@ -52,14 +53,17 @@ public class TopicEntry extends EntryImpl {
 	// return true;
 	// }
 
-	public void serialize(CTMBuffer buffer) throws SerializerException {
-		CTMBuffer b = new CTMBuffer();
-		b.append(getParameter().getCTMRepresentation(), CTMTokens.WHITESPACE);
+	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
+		buffer.append(getParameter().getCTMRepresentation(), CTMTokens.WHITESPACE);
+		boolean addTail = false;
 		for (IEntry entry : entries) {
-			entry.serialize(b);
+			if ( addTail ){
+				buffer.appendTailLine();
+				addTail = false;
+			}
+			entry.serialize(buffer);
 		}
-		b.clearCTMTail();
-		buffer.append(b);
+		buffer.appendBlockEnd();
 	}
 
 	public void add(IEntry entry) {

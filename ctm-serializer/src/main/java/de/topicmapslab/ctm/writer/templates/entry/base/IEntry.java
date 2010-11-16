@@ -8,12 +8,13 @@
  */
 package de.topicmapslab.ctm.writer.templates.entry.base;
 
+import java.io.IOException;
 import java.util.List;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.Template;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Interface definition of template-definition-entries, which can be used as
@@ -34,7 +35,7 @@ public interface IEntry {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public void serialize(CTMBuffer buffer) throws SerializerException;
+	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException;
 
 //	/**
 //	 * Check if entry is adaptive for given construct.

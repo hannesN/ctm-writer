@@ -40,18 +40,17 @@ public class ExportImportTestCase extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		topicMapSystem = TopicMapSystemFactory.newInstance()
-				.newTopicMapSystem();
-		topicMap = topicMapSystem
-				.createTopicMap("http://de.topicmapslab/tmql4j/tests/opera-ltm");
-//		LTMTopicMapReader reader = new LTMTopicMapReader(topicMap, new File(
-//				"src/test/resources/ItalianOpera.ltm"));
-		XTMTopicMapReader reader = new XTMTopicMapReader(topicMap, new File("src/test/resources/marc-tm-akis-example.xtm"));
+		topicMapSystem = TopicMapSystemFactory.newInstance().newTopicMapSystem();
+		topicMap = topicMapSystem.createTopicMap("http://de.topicmapslab/tmql4j/tests/opera-ltm");
+		// LTMTopicMapReader reader = new LTMTopicMapReader(topicMap, new File(
+		// "src/test/resources/ItalianOpera.ltm"));
+		XTMTopicMapReader reader = new XTMTopicMapReader(topicMap, new File(
+				"src/test/resources/marc-tm-akis-example.xtm"));
 		reader.read();
 	}
 
 	public void testExportImport() throws Exception {
-		File file = new File("src/test/resources/ctm-opera.ctm");		
+		File file = new File("src/test/resources/ctm-opera.ctm");
 		if (!file.exists()) {
 			file.createNewFile();
 		}
@@ -61,8 +60,7 @@ public class ExportImportTestCase extends TestCase {
 				+ "writer.features.templateDetection.topicTemplates = false , "
 				+ "writer.features.templateDetection.associationTemplates = false, "
 				+ "writer.features.templateMerger.enabled = false";
-		CTMTopicMapWriter writer = new CTMTopicMapWriter(new FileOutputStream(
-				file), "www.topicmapslab.de", line);
+		CTMTopicMapWriter writer = new CTMTopicMapWriter(new FileOutputStream(file), "www.topicmapslab.de", line);
 
 		final String qname = "ctm";
 		final String baseLocator = "http://www.isotopicmaps.org/ctm/";
@@ -81,16 +79,9 @@ public class ExportImportTestCase extends TestCase {
 
 		System.out.println("Import from CTM...");
 
-		CTMTopicMapReader reader = new CTMTopicMapReader(topicMap, file);
-
+		TopicMap reimport = topicMapSystem.createTopicMap("http://de.topicmapslab/tmql4j/tests/reimport");
+		CTMTopicMapReader reader = new CTMTopicMapReader(reimport,file);
 		reader.read();
-
-		TopicMap reimport = topicMapSystem
-				.createTopicMap("http://de.topicmapslab/tmql4j/tests/reimport");
-
-		org.tmapix.io.CTMTopicMapReader reader2 = new org.tmapix.io.CTMTopicMapReader(
-				reimport, file);
-		reader2.read();
 
 		System.out.println("finished");
 
@@ -109,8 +100,7 @@ public class ExportImportTestCase extends TestCase {
 				+ "writer.features.templateDetection.topicTemplates = true , "
 				+ "writer.features.templateDetection.associationTemplates = true, "
 				+ "writer.features.templateMerger.enabled = false";
-		final CTMTopicMapWriter writer = new CTMTopicMapWriter(outputStream,
-				baseURI, line);
+		final CTMTopicMapWriter writer = new CTMTopicMapWriter(outputStream, baseURI, line);
 		writer.write(topicMap);
 
 		CTMTopicMapWriterProperties properties = new CTMTopicMapWriterProperties();

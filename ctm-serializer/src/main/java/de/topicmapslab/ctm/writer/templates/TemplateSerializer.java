@@ -17,6 +17,7 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TOPICVARIABLE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
+import java.io.IOException;
 import java.util.Collection;
 
 import de.topicmapslab.ctm.writer.exception.SerializerException;
@@ -24,7 +25,7 @@ import de.topicmapslab.ctm.writer.templates.entry.AssociationEntry;
 import de.topicmapslab.ctm.writer.templates.entry.TopicEntry;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Serializer implementation for {@link Template}s.
@@ -49,8 +50,8 @@ public class TemplateSerializer {
 	 *             Thrown if serialization failed.
 	 */
 	@SuppressWarnings("unchecked")
-	public static boolean serialize(Template template, CTMBuffer buffer)
-			throws SerializerException {
+	public static boolean serialize(Template template, CTMStreamWriter buffer)
+			throws SerializerException, IOException {
 
 		/*
 		 * create template-definition-head
@@ -78,17 +79,20 @@ public class TemplateSerializer {
 		/*
 		 * create template-definition-body
 		 */
-		CTMBuffer topicDef = new CTMBuffer();
+		boolean first = true;
+		boolean addTail = false;
 		for (IEntry entry : template.getEntries()) {
 			/*
 			 * create topic-definition-entry
 			 */
 			if (entry instanceof EntryImpl && !(entry instanceof TopicEntry)) {
-				if (topicDef.getBuffer().length() == 0) {
-					topicDef.appendLine(TABULATOR, TOPICVARIABLE);
+				if (first) {
+					buffer.appendLine(TABULATOR, TOPICVARIABLE);
+					first = false;
 				}
-				topicDef.append(TABULATOR);
-				entry.serialize(topicDef);
+				buffer.append(TABULATOR);
+				entry.serialize(buffer);
+				addTail = true;
 			}
 			/*
 			 * create association-entry
@@ -97,13 +101,14 @@ public class TemplateSerializer {
 				/*
 				 * check if old topic-block is stored at the CTM buffer
 				 */
-				if (topicDef.getBuffer().length() != 0) {
+				if (!first) {
 					/*
 					 * end topic-definition block append to global buffer
 					 */
-					topicDef.clearCTMTail();
-					buffer.append(topicDef);
-					topicDef = new CTMBuffer();
+					if ( addTail ){
+						buffer.appendTailLine();
+						addTail = false;
+					}					
 				}
 				buffer.append(TABULATOR);
 				entry.serialize(buffer);
@@ -113,20 +118,18 @@ public class TemplateSerializer {
 		/*
 		 * check if old topic-block is stored at the CTM buffer
 		 */
-		if (topicDef.getBuffer().length() != 0) {
+		if (addTail) {
 			/*
 			 * end topic-definition block append to global buffer
 			 */
-			topicDef.clearCTMTail();
-			buffer.append(topicDef);
-			topicDef = new CTMBuffer();
+			buffer.appendTailLine();
+			addTail = false;
 		}
 
 		/*
 		 * create template-definition-end
 		 */
 		buffer.appendLine(END);
-
 		return true;
 	}
 
@@ -146,8 +149,8 @@ public class TemplateSerializer {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(Template template, CTMBuffer buffer,
-			Collection<String> arguments) throws SerializerException {
+	public static boolean serialize(Template template, CTMStreamWriter buffer,
+			Collection<String> arguments) throws SerializerException, IOException {
 		return serialize(template, buffer, arguments.toArray(new String[0]));
 	}
 
@@ -167,8 +170,8 @@ public class TemplateSerializer {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(Template template, CTMBuffer buffer,
-			String... arguments) throws SerializerException {
+	public static boolean serialize(Template template, CTMStreamWriter buffer,
+			String... arguments) throws SerializerException, IOException {
 		/*
 		 * generate template-invocation-begin --> write template name
 		 */

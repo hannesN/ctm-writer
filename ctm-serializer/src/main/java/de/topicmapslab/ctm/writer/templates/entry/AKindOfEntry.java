@@ -10,6 +10,9 @@ package de.topicmapslab.ctm.writer.templates.entry;
 
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.AKO;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TABULATOR;
+
+import java.io.IOException;
+
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
@@ -17,7 +20,7 @@ import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
-import de.topicmapslab.ctm.writer.utility.CTMBuffer;
+import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 
 /**
  * Class representing a template-entry definition of a kind-of-association.
@@ -55,7 +58,7 @@ public class AKindOfEntry extends EntryImpl {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void serialize(CTMBuffer buffer) throws SerializerException {
+	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
 		String value = null;
 		if (param instanceof WildcardParam || param instanceof VariableParam) {
 			value = param.getCTMRepresentation();
@@ -64,7 +67,7 @@ public class AKindOfEntry extends EntryImpl {
 					.getMainIdentifier(writer.getProperties(),
 							((TopicTypeParam) param).getTopic()).toString();
 		}
-		buffer.appendTailLine(true, TABULATOR, AKO, value);
+		buffer.append(true, TABULATOR, AKO, value);
 	}
 
 //	/**
