@@ -1,3 +1,4 @@
 syntax: glob
-/doc/build.properties
+*/doc/build.properties
+*/doc/doc
 **/target
