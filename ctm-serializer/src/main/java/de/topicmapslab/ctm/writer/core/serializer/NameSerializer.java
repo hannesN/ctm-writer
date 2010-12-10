@@ -71,7 +71,10 @@ public class NameSerializer implements ISerializer<Name> {
 		/*
 		 * append value
 		 */
-		buffer.append(false, QUOTE, name.getValue(), QUOTE);
+		if (name.getValue().contains("\""))
+			buffer.append(false, TRIPPLEQUOTE, name.getValue(), TRIPPLEQUOTE);
+		else
+			buffer.append(false, QUOTE, name.getValue(), QUOTE);
 
 		/*
 		 * add scope if exists
