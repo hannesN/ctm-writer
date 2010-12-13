@@ -54,6 +54,9 @@ public class TestNameExport extends BaseTestCase {
 			names[i] = parent.createName(type, "This is simple the number \""+i+"\" as quoted string", new Topic[0]);
 		}
 		
+		String otherNameValue = "First Flight (Arranged Ace Combat 04 \"Blockade\")";
+		Name otherName = parent.createName(otherNameValue, createTopic());
+		
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		CTMTopicMapWriter writer = new CTMTopicMapWriter(stream, base);
 		writer.write(topicMap);
@@ -62,7 +65,12 @@ public class TestNameExport extends BaseTestCase {
 			String value = name.getValue();
 			assertTrue("Writer may use tripple quotes",content.contains("\"\"\"" + value.replaceAll("\"", "\\\"") + "\"\"\""));
 			assertFalse("Writer may not replace quotes by '",content.contains("\"" + value.replaceAll("\"", "'") + "\""));
+			System.out.println(value);
 		}
+		String value = otherName.getValue();
+		assertTrue("Writer may use tripple quotes",content.contains("\"\"\"" + value.replaceAll("\"", "\\\"") + "\"\"\""));
+		assertFalse("Writer may not replace quotes by '",content.contains("\"" + value.replaceAll("\"", "'") + "\""));
+		System.out.println(value);
 	}
 	
 }
