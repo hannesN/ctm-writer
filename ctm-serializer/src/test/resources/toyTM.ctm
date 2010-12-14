@@ -1,0 +1,833 @@
+%encoding "UTF-8"
+%version 1.0
+
+# reifier of the topicmap
+~ ^<http://psi.topicmapslab.de/toytm/reifier1>
+
+# topic definitions
+<http://psi.topicmapslab.de/toytm/is_capital_of>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "is capital of";
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "is capital of"@<http://psi.topicmapslab.de/toytm/is_capital> ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "has capital"@<http://psi.topicmapslab.de/toytm/has_capital> .
+
+<http://en.wikipedia.org/wiki/Leipzig>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Leipzig"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Leipsic"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "51.333333 ; 12.383333"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+<http://en.wikipedia.org/wiki/Estimation>  
+	 isa <http://en.wikipedia.org/wiki/Certainty>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Estimation".
+
+<http://dbpedia.org/resource/Luxembourg>  
+	 isa <http://en.wikipedia.org/wiki/Grand_duchy>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Grand Duchy of Luxembourg"@<http://psi.oasis-open.org/iso/639/#eng> ("Luxembourg"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Grand-Duché de Luxembourg"@<http://psi.oasis-open.org/iso/639/#fra> ("Luxembourg"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#fra> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Groussherzogtum Lëtzebuerg"@<http://psi.oasis-open.org/iso/639/#ltz> ("Lëtzebuerg"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#ltz> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Großherzogtum Luxemburg"@<http://psi.oasis-open.org/iso/639/#deu> ("Luxemburg"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#deu> ) ;
+	 <http://en.wikipedia.org/wiki/Population> :  "439539"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "493500"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2009>,  <http://en.wikipedia.org/wiki/Estimation> ;
+	 <http://en.wikipedia.org/wiki/Luxembourg>.
+
+<http://en.wikipedia.org/wiki/Bremen_(state)>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Bremen"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Bremen"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+<http://en.wikipedia.org/wiki/2001>  
+	 isa <http://en.wikipedia.org/wiki/Year>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "2001".
+
+<http://en.wikipedia.org/wiki/Mecklenburg-Western_Pomerania>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Mecklenburg-Western Pomerania"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Mecklenburg-Vorpommern"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+<http://dbpedia.org/resource/Lithuania>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republic of Lithuania"@<http://psi.oasis-open.org/iso/639/#eng> ("Lithuania"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://en.wikipedia.org/wiki/Lithuania>.
+
+<http://en.wikipedia.org/wiki/Lower_Saxony>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Lower_Saxony"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Niedersachsen"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+<http://dbpedia.org/resource/Russia>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Russian Federation"@<http://psi.oasis-open.org/iso/639/#eng> ("Russia"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://en.wikipedia.org/wiki/Russia>.
+
+<http://en.wikipedia.org/wiki/France>  
+	 isa <http://en.wikipedia.org/wiki/Republic>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "French Republic"@<http://psi.oasis-open.org/iso/639/#eng> ("France"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "République française"@<http://psi.oasis-open.org/iso/639/#fra> ("France"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#fra> ) ;
+	 <http://en.wikipedia.org/wiki/Population> :  "65073482"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2009>,  <http://en.wikipedia.org/wiki/Estimation> ;
+	 <http://dbpedia.org/resource/France>.
+
+<http://dbpedia.org/resource/Andorra>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Principality of Andorra"@<http://psi.oasis-open.org/iso/639/#eng> ("Andorra"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://en.wikipedia.org/wiki/Andorra>.
+
+<http://en.wikipedia.org/wiki/Year>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Year".
+
+<http://en.wikipedia.org/wiki/North_Rhine-Westphalia>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "North_Rhine-Westphalia"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Nordrhein-Westfalen"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+<http://en.wikipedia.org/wiki/West_Berlin>  
+	 isa <http://en.wikipedia.org/wiki/Quarter_(country_subdivision)>;
+.
+
+<http://dbpedia.org/resource/Czech_Republic>  
+	 isa <http://en.wikipedia.org/wiki/Republic>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Česká republika"@<http://psi.oasis-open.org/iso/639/#ces> ("Česko"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#ces> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Czech Republic"@<http://psi.oasis-open.org/iso/639/#eng> ("Czechia"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://en.wikipedia.org/wiki/Population> :  "10476543"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2009>,  <http://en.wikipedia.org/wiki/Estimation> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "10230060"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ;
+	 <http://en.wikipedia.org/wiki/Czech_Republic>.
+
+<http://en.wikipedia.org/wiki/Sweden>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kingdom of Sweden"@<http://psi.oasis-open.org/iso/639/#eng> ("Sweden"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://dbpedia.org/resource/Sweden>.
+
+<http://en.wikipedia.org/wiki/Neighbouring_Country>  
+	 ako <http://en.wikipedia.org/wiki/Country>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Neighbouring country".
+
+<http://psi.oasis-open.org/iso/639/#deu>  
+	 isa <http://en.wikipedia.org/wiki/Language>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "German".
+
+<http://en.wikipedia.org/wiki/Quarter_(country_subdivision)>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Quarter".
+
+<http://en.wikipedia.org/wiki/Meta_information>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Meta information".
+
+<http://psi.oasis-open.org/iso/639/#ltz>  
+	 isa <http://en.wikipedia.org/wiki/Language>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Luxembourgish".
+
+<http://en.wikipedia.org/wiki/Warsaw>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Warszawa"@<http://psi.oasis-open.org/iso/639/#pol> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Warsaw"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "52.23 ; 21.010833"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+<http://dbpedia.org/resource/Slovakia>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Slovak Republic"@<http://psi.oasis-open.org/iso/639/#eng> ("Slovakia"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://en.wikipedia.org/wiki/Slovakia>.
+
+<http://en.wikipedia.org/wiki/Creator>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Creator".
+
+<http://psi.oasis-open.org/iso/639/#roh>  
+	 isa <http://en.wikipedia.org/wiki/Language>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Romansh".
+
+<http://psi.oasis-open.org/iso/639/#fra>  
+	 isa <http://en.wikipedia.org/wiki/Language>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "French".
+
+^<http://psi.topicmapslab.de/toytm/reifier6>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Reifier of the name 'Kopenhagen'";
+	 <http://en.wikipedia.org/wiki/Origin> :  "Viking Age".
+
+<http://en.wikipedia.org/wiki/Kingdom>  
+	 ako <http://en.wikipedia.org/wiki/Country>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kingdom".
+
+<http://en.wikipedia.org/wiki/Creation_time>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Creation time".
+
+^<http://psi.topicmapslab.de/toytm/reifier7>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Reifier of the population-occurrence of Belgium with value 10296350";
+	 <http://en.wikipedia.org/wiki/Meta_information> :  "This name should get information for this reifier".
+
+<http://dbpedia.org/resource/Netherlands>  
+	 isa <http://en.wikipedia.org/wiki/Kingdom>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kingdom of the Netherlands"@<http://psi.oasis-open.org/iso/639/#eng> ("Netherlands"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Koninkrijk der Nederlanden"@<http://psi.oasis-open.org/iso/639/#nld> ("Nederland"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#nld> ) ;
+	 <http://en.wikipedia.org/wiki/Population> :  "16500156"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2009>,  <http://en.wikipedia.org/wiki/Estimation> ;
+	 <http://en.wikipedia.org/wiki/Netherlands>.
+
+<http://en.wikipedia.org/wiki/Saxony-Anhalt>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Saxony-Anhalt"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Sachsen-Anhalt"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+^<http://psi.topicmapslab.de/toytm/reifier1>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Reifier of the Toy Topic Map";
+	 <http://en.wikipedia.org/wiki/Creator> :  "Uta Schulze";
+	 <http://en.wikipedia.org/wiki/Creation_time> :  "Thu Nov 18 11:28:06 +0100 2010"^^http://www.w3.org/2001/XMLSchema#time.
+
+<http://en.wikipedia.org/wiki/Brussels_(municipality)>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Bruxelles"@<http://psi.oasis-open.org/iso/639/#fra> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Brüssel"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Brussels"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Brussel"@<http://psi.oasis-open.org/iso/639/#nld> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "50.85 ; 4.35"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+<http://en.wikipedia.org/wiki/Republic>  
+	 ako <http://en.wikipedia.org/wiki/Country>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republic".
+
+<http://en.wikipedia.org/wiki/Present>  
+	 isa <http://en.wikipedia.org/wiki/Time_period>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Present".
+
+<http://en.wikipedia.org/wiki/Language>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Language".
+
+<http://en.wikipedia.org/wiki/Certainty>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Certainty".
+
+<http://dbpedia.org/resource/Germany>  
+	 isa <http://en.wikipedia.org/wiki/Republic>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Federal Republic of Germany"@<http://psi.oasis-open.org/iso/639/#eng> ("Germany"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Bundesrepublik Deutschland"@<http://psi.oasis-open.org/iso/639/#deu> ("Deutschland"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#deu> ) ;
+	 <http://en.wikipedia.org/wiki/Population> :  "82060000"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2008>,  <http://en.wikipedia.org/wiki/Estimation> ;
+	 <http://en.wikipedia.org/wiki/Germany>;
+	 <http://de.wikipedia.org/wiki/Deutschland>.
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Neighbours";
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "is neighbour of"@<http://en.wikipedia.org/wiki/Neighbouring_Country> .
+
+<http://en.wikipedia.org/wiki/Liechtenstein>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Principality of Liechtenstein"@<http://psi.oasis-open.org/iso/639/#eng> ("Liechtenstein"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://dbpedia.org/resource/Liechtenstein>.
+
+^<http://psi.topicmapslab.de/toytm/reifier4>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Reifier of the name 'Kingdom of Belgium'";
+	 <http://en.wikipedia.org/wiki/Origin> :  "Gallia Belgica".
+
+<http://psi.oasis-open.org/iso/639/#ita>  
+	 isa <http://en.wikipedia.org/wiki/Language>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Italian".
+
+<http://en.wikipedia.org/wiki/Belgium>  
+	 isa <http://en.wikipedia.org/wiki/Kingdom>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Royaume de Belgique"@<http://psi.oasis-open.org/iso/639/#fra> ("Belgique"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#fra> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Königreich Belgien"@<http://psi.oasis-open.org/iso/639/#deu> ("Belgien"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#deu> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Koninkrijk België"@<http://psi.oasis-open.org/iso/639/#nld> ("België"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#nld> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kingdom of Belgium"@<http://psi.oasis-open.org/iso/639/#eng> ~ ^<http://psi.topicmapslab.de/toytm/reifier4> ("Belgium"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://en.wikipedia.org/wiki/Population> :  "10665867"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2008>,  <http://en.wikipedia.org/wiki/Estimation> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "10296350"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ~ ^<http://psi.topicmapslab.de/toytm/reifier7> ;
+	 <http://dbpedia.org/resource/Belgium>.
+
+^<http://psi.topicmapslab.de/toytm/reifier2>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Reifier of the name 'Vienna'";
+	 <http://en.wikipedia.org/wiki/Origin> :  "Celtic".
+
+<http://en.wikipedia.org/wiki/East_Berlin>  
+	 isa <http://en.wikipedia.org/wiki/Quarter_(country_subdivision)>;
+.
+
+<http://en.wikipedia.org/wiki/Also_known_as>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Also known as".
+
+<http://en.wikipedia.org/wiki/Vienna>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Vienna"@<http://psi.oasis-open.org/iso/639/#eng> ~ ^<http://psi.topicmapslab.de/toytm/reifier2> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Wien"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "48.208889 ; 16.3725"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+<http://en.wikipedia.org/wiki/Saarland>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Saarland"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Saarland"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+<http://psi.oasis-open.org/iso/639/#pol>  
+	 isa <http://en.wikipedia.org/wiki/Language>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Polish".
+
+<http://psi.topicmapslab.de/toytm/is_capital>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "is capital".
+
+<http://psi.oasis-open.org/iso/639/#nld>  
+	 isa <http://en.wikipedia.org/wiki/Language>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Dutch".
+
+<http://en.wikipedia.org/wiki/Slovenia>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republic of Slovenia"@<http://psi.oasis-open.org/iso/639/#eng> ("Slovenia"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://dbpedia.org/resource/Slovenia>.
+
+<http://en.wikipedia.org/wiki/2009>  
+	 isa <http://en.wikipedia.org/wiki/Year>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "2009".
+
+<http://en.wikipedia.org/wiki/Paris>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Paris"@<http://psi.oasis-open.org/iso/639/#fra> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Paris"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Paris"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "48.856667 ; 2.350833"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+=<http://en.wikipedia.org/wiki/France>  .
+
+<http://en.wikipedia.org/wiki/Time_period>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Time period".
+
+<http://dbpedia.org/resource/East_Germany>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Deutsche Demokratische Republik"@<http://psi.oasis-open.org/iso/639/#deu> ("DDR"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#deu> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "German Democratic Republic"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 <http://en.wikipedia.org/wiki/East_Germany>;
+	 <http://de.wikipedia.org/wiki/Deutsche_Demokratische_Republik>.
+
+<http://en.wikipedia.org/wiki/Denmark>  
+	 isa <http://en.wikipedia.org/wiki/Kingdom>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kongeriget Danmark"@<http://psi.oasis-open.org/iso/639/#dan> ("Danmark"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#dan> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kingdom of Denmark"@<http://psi.oasis-open.org/iso/639/#eng> ("Denmark"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://en.wikipedia.org/wiki/Population> :  "5519441"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2009>,  <http://en.wikipedia.org/wiki/Estimation> ;
+	 <http://dbpedia.org/resource/Denmark>.
+
+<http://psi.oasis-open.org/iso/639/#eng>  
+	 isa <http://en.wikipedia.org/wiki/Language>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "English".
+
+<http://en.wikipedia.org/wiki/Grand_duchy>  
+	 ako <http://en.wikipedia.org/wiki/Country>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Grand Duchy".
+
+^<http://psi.topicmapslab.de/toytm/reifier3>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Reifier of the name 'Republic of Austria'";
+	 <http://en.wikipedia.org/wiki/Origin> :  "Old High German".
+
+<http://en.wikipedia.org/wiki/Belarus>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republic of Belarus"@<http://psi.oasis-open.org/iso/639/#eng> ("Belarus"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://dbpedia.org/resource/Belarus>.
+
+<http://en.wikipedia.org/wiki/2007>  
+	 isa <http://en.wikipedia.org/wiki/Year>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "2007".
+
+^<http://psi.topicmapslab.de/toytm/reifier8>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Reifier of the capital-association of Berlin and Germany";
+	 <http://en.wikipedia.org/wiki/Meta_information> :  "This association should get information for this reifier".
+
+^<http://psi.topicmapslab.de/toytm/reifier9>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Reifier of the role played by Germany in the capital-association together with Berlin";
+	 <http://en.wikipedia.org/wiki/Meta_information> :  "This role should get information for this reifier".
+
+<http://en.wikipedia.org/wiki/Italy>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Italian Republic"@<http://psi.oasis-open.org/iso/639/#eng> ("Italy"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Repubblica Italiana"@<http://psi.oasis-open.org/iso/639/#ita> ("Italia"@<http://psi.oasis-open.org/iso/639/#ita>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://dbpedia.org/resource/Italy>.
+
+<http://en.wikipedia.org/wiki/Origin>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Origin".
+
+<http://en.wikipedia.org/wiki/Copenhagen>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Copenhagen"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Kopenhagen"@<http://psi.oasis-open.org/iso/639/#deu> ~ ^<http://psi.topicmapslab.de/toytm/reifier6> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "København"@<http://psi.oasis-open.org/iso/639/#dan> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "55.676111 ; 12.568333"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+<http://en.wikipedia.org/wiki/Country>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Country".
+
+<http://en.wikipedia.org/wiki/History>  
+	 isa <http://en.wikipedia.org/wiki/Time_period>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "History".
+
+<http://en.wikipedia.org/wiki/Baden-W%FCrttemberg>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Baden-Württemberg"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Baden-Württemberg"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+<http://en.wikipedia.org/wiki/Switzerland>  
+	 isa <http://en.wikipedia.org/wiki/Republic>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Confédération suisse"@<http://psi.oasis-open.org/iso/639/#fra> ("la Suisse"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#fra> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Confederazione Svizzera"@<http://psi.oasis-open.org/iso/639/#ita> ("la Svizzera"@<http://psi.oasis-open.org/iso/639/#ita>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Schweizerische Eidgenossenschaft"@<http://psi.oasis-open.org/iso/639/#deu> ("die Schweiz"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#deu> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Swiss Confederation"@<http://psi.oasis-open.org/iso/639/#eng> ("Switzerland"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ~ ^<http://psi.topicmapslab.de/toytm/reifier10> ) ;
+	 <http://en.wikipedia.org/wiki/Population> :  "7739100"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2009>,  <http://en.wikipedia.org/wiki/Estimation> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "7593500"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2007>,  <http://en.wikipedia.org/wiki/Census> ;
+	 <http://dbpedia.org/resource/Switzerland>.
+
+<http://psi.topicmapslab.de/toytm/containee>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Containee".
+
+<http://en.wikipedia.org/wiki/Population>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Population".
+
+<http://en.wikipedia.org/wiki/Bavaria>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Bavaria"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Bayern"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+<http://en.wikipedia.org/wiki/Munich_(district)>  
+	 -  <http://en.wikipedia.org/wiki/Name> : "Munich"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "München"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+<http://en.wikipedia.org/wiki/Rhineland-Palatinate>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Rheinland-Pfalz"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Rhineland-Palatinate"@<http://psi.oasis-open.org/iso/639/#eng> .
+
+<http://en.wikipedia.org/wiki/Monaco>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Principality of Monaco"@<http://psi.oasis-open.org/iso/639/#eng> ("Monaco"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://dbpedia.org/resource/Monaco>.
+
+<http://en.wikipedia.org/wiki/Ukraine>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Ukraine"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 <http://dbpedia.org/resource/Ukraine>.
+
+<http://en.wikipedia.org/wiki/City>  
+	 ako <http://en.wikipedia.org/wiki/Human_settlement>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "City".
+
+^<http://psi.topicmapslab.de/toytm/reifier10>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Reifier of the variant with value Switzerland";
+	 <http://en.wikipedia.org/wiki/Meta_information> :  "This variant should get information for this reifier".
+
+<http://en.wikipedia.org/wiki/Thuringia>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Thüringen"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Thuringia"@<http://psi.oasis-open.org/iso/639/#eng> .
+
+<http://en.wikipedia.org/wiki/State_(administrative_division)>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "State".
+
+<http://en.wikipedia.org/wiki/Hungary>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republic of Hungary"@<http://psi.oasis-open.org/iso/639/#eng> ("Hungary"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://dbpedia.org/resource/Hungary>.
+
+<http://en.wikipedia.org/wiki/Luxembourg_(city)>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Luxembourg"@<http://psi.oasis-open.org/iso/639/#eng> ("Luxembourg City"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/Also_known_as> ) ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Luxemburg"@<http://psi.oasis-open.org/iso/639/#deu> ("Luxemburg Stadt"@<http://en.wikipedia.org/wiki/Also_known_as>,  <http://psi.oasis-open.org/iso/639/#deu> ) ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Lëtzebuerg"@<http://psi.oasis-open.org/iso/639/#ltz> ("Stad Lëtzebuerg"@<http://en.wikipedia.org/wiki/Also_known_as>,  <http://psi.oasis-open.org/iso/639/#ltz> ) ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "49.611667 ; 6.13"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+<http://en.wikipedia.org/wiki/Munich>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Munich"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "München"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "48.133333 ; 11.566667"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+<http://en.wikipedia.org/wiki/United_Kingdom>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "United Kingdom of Great Britain and Northern Ireland"@<http://psi.oasis-open.org/iso/639/#eng> ("Britain"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://dbpedia.org/resource/United_Kingdom>.
+
+<http://en.wikipedia.org/wiki/Berlin>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Berlin"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Berlin"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "52.500556 ; 13.398889"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+<http://en.wikipedia.org/wiki/Human_settlement>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Human settlement".
+
+<http://en.wikipedia.org/wiki/Amsterdam>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Amsterdam"@<http://psi.oasis-open.org/iso/639/#nld> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Amsterdam"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "52.373056 ; 4.892222"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+<http://dbpedia.org/resource/Austria>  
+	 isa <http://en.wikipedia.org/wiki/Republic>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republic of Austria"@<http://psi.oasis-open.org/iso/639/#eng> ~ ^<http://psi.topicmapslab.de/toytm/reifier3> ("Austria"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republik Österreich"@<http://psi.oasis-open.org/iso/639/#deu> ("Österreich"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#deu> ) ;
+	 <http://en.wikipedia.org/wiki/Website> :  <http://en.wikipedia.org/wiki/Austria>;
+	 <http://en.wikipedia.org/wiki/Population> :  "8032926"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "8356707"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2009>,  <http://en.wikipedia.org/wiki/Estimation> ;
+	 <http://en.wikipedia.org/wiki/Austria>.
+
+<http://en.wikipedia.org/wiki/Prague>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Prag"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Praha"@<http://psi.oasis-open.org/iso/639/#ces> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Prague"@<http://psi.oasis-open.org/iso/639/#eng> ~ ^<http://psi.topicmapslab.de/toytm/reifier5> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "50.083333 ; 14.416667"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+<http://psi.oasis-open.org/iso/639/#dan>  
+	 isa <http://en.wikipedia.org/wiki/Language>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Danish".
+
+^<http://psi.topicmapslab.de/toytm/reifier5>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Reifier of the name 'Prague'";
+	 <http://en.wikipedia.org/wiki/Origin> :  "Slavic".
+
+<http://en.wikipedia.org/wiki/Hamburg>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Hamburg"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Hamburg"@<http://psi.oasis-open.org/iso/639/#eng> .
+
+=<http://en.wikipedia.org/wiki/Germany>  .
+
+<http://en.wikipedia.org/wiki/Saxony>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Saxony"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Sachsen"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+<http://psi.oasis-open.org/iso/639/#ces>  
+	 isa <http://en.wikipedia.org/wiki/Language>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Czech".
+
+<http://en.wikipedia.org/wiki/short_name>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Short name".
+
+<http://dbpedia.org/resource/Spain>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kingdom of Spain"@<http://psi.oasis-open.org/iso/639/#eng> ("Spain"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://en.wikipedia.org/wiki/Spain>.
+
+<http://en.wikipedia.org/wiki/Website>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Website".
+
+<http://psi.topicmapslab.de/toytm/has_capital>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "has capital".
+
+<http://en.wikipedia.org/wiki/Census>  
+	 isa <http://en.wikipedia.org/wiki/Certainty>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Census".
+
+<http://psi.topicmapslab.de/toytm/containment>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "containment";
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "belongs to"@<http://psi.topicmapslab.de/toytm/containee> ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "contains"@<http://psi.topicmapslab.de/toytm/container> .
+
+<http://en.wikipedia.org/wiki/Schleswig-Holstein>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Schleswig-Holstein"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Schleswig-Holstein"@<http://psi.oasis-open.org/iso/639/#deu> .
+
+<http://en.wikipedia.org/wiki/Name>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Name".
+
+<http://en.wikipedia.org/wiki/Coordinate>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Coordinate".
+
+<http://en.wikipedia.org/wiki/Hesse>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Hessen"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Hesse"@<http://psi.oasis-open.org/iso/639/#eng> .
+
+<http://psi.topicmapslab.de/toytm/container>  
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Container".
+
+<http://en.wikipedia.org/wiki/2008>  
+	 isa <http://en.wikipedia.org/wiki/Year>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "2008".
+
+<http://en.wikipedia.org/wiki/Brandenburg>  
+	 isa <http://en.wikipedia.org/wiki/State_(administrative_division)>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Brandenburg"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Brandenburg"@<http://psi.oasis-open.org/iso/639/#eng> .
+
+<http://en.wikipedia.org/wiki/Poland>  
+	 isa <http://en.wikipedia.org/wiki/Republic>;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Rzeczpospolita Polska"@<http://psi.oasis-open.org/iso/639/#pol> ("Polska"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#pol> ) ;
+	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republic of Poland"@<http://psi.oasis-open.org/iso/639/#eng> ("Poland"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
+	 <http://en.wikipedia.org/wiki/Population> :  "38116000"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2007>,  <http://en.wikipedia.org/wiki/Census> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "38130302"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2009>,  <http://en.wikipedia.org/wiki/Estimation> ;
+	 <http://dbpedia.org/resource/Poland>.
+
+<http://en.wikipedia.org/wiki/Bern>  
+	 isa <http://en.wikipedia.org/wiki/City>;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Bern"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Berna"@<http://psi.oasis-open.org/iso/639/#roh> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Berna"@<http://psi.oasis-open.org/iso/639/#ita> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Bern"@<http://psi.oasis-open.org/iso/639/#deu> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Berne"@<http://psi.oasis-open.org/iso/639/#fra> ;
+	 -  <http://en.wikipedia.org/wiki/Name> : "Berne"@<http://psi.oasis-open.org/iso/639/#eng> ;
+	 <http://en.wikipedia.org/wiki/Coordinate> :  "46.95 ; 7.45"^^http://en.wikipedia.org/wiki/World_Geodetic_System_1984.
+
+# association definitions
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Berlin>,
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://dbpedia.org/resource/Germany>~ ^<http://psi.topicmapslab.de/toytm/reifier9>
+)
+@<http://en.wikipedia.org/wiki/History>,  <http://en.wikipedia.org/wiki/Present>
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Spain>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/France>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Czech_Republic>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Germany>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Andorra>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/France>
+)
+
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Amsterdam>,
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://dbpedia.org/resource/Netherlands>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Czech_Republic>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Slovakia>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/France>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Italy>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Czech_Republic>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/East_Germany>
+)
+@<http://en.wikipedia.org/wiki/History>
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/East_Germany>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Poland>
+)
+@<http://en.wikipedia.org/wiki/History>
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Ukraine>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Poland>
+)
+
+<http://psi.topicmapslab.de/toytm/containment> (
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Hamburg>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Rhineland-Palatinate>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Baden-W%FCrttemberg>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Brandenburg>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Hesse>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Bavaria>,
+	<http://psi.topicmapslab.de/toytm/container> : <http://dbpedia.org/resource/Germany>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Schleswig-Holstein>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Saxony-Anhalt>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Saxony>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Thuringia>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Bremen_(state)>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Lower_Saxony>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/North_Rhine-Westphalia>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Mecklenburg-Western_Pomerania>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Saarland>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/Berlin>
+)
+@<http://en.wikipedia.org/wiki/Present>
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Hungary>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Austria>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/France>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Monaco>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Lithuania>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Poland>
+)
+
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://en.wikipedia.org/wiki/Poland>,
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Warsaw>
+)
+
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Copenhagen>,
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://en.wikipedia.org/wiki/Denmark>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Luxembourg>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/France>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Czech_Republic>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Poland>
+)
+
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://en.wikipedia.org/wiki/France>,
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Paris>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Germany>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Netherlands>
+)
+
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://dbpedia.org/resource/Czech_Republic>,
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Prague>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/France>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Switzerland>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Austria>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Slovakia>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Germany>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/East_Germany>
+)
+@<http://en.wikipedia.org/wiki/History>
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Netherlands>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Belgium>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Belgium>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Luxembourg>
+)
+
+<http://psi.topicmapslab.de/toytm/containment> (
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/West_Berlin>,
+	<http://psi.topicmapslab.de/toytm/container> : <http://en.wikipedia.org/wiki/Berlin>
+)
+@<http://en.wikipedia.org/wiki/History>
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Poland>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Russia>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/France>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/United_Kingdom>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Austria>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Germany>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Denmark>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Sweden>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Poland>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Slovakia>
+)
+
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Berlin>,
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://dbpedia.org/resource/East_Germany>
+)
+@<http://en.wikipedia.org/wiki/History>
+~ ^<http://psi.topicmapslab.de/toytm/reifier8>
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Germany>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Switzerland>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Switzerland>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Liechtenstein>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Belgium>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Germany>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/France>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Germany>
+)
+
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://dbpedia.org/resource/Luxembourg>,
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Luxembourg_(city)>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Belgium>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/France>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/East_Germany>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Denmark>
+)
+@<http://en.wikipedia.org/wiki/History>
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Belarus>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Poland>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Austria>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Switzerland>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Austria>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Slovenia>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Austria>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Liechtenstein>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Czech_Republic>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Austria>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Poland>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Germany>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Denmark>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Germany>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Austria>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://en.wikipedia.org/wiki/Italy>
+)
+
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Brussels_(municipality)>,
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://en.wikipedia.org/wiki/Belgium>
+)
+
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Vienna>,
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://dbpedia.org/resource/Austria>
+)
+
+<http://psi.topicmapslab.de/toytm/containment> (
+	<http://psi.topicmapslab.de/toytm/container> : <http://en.wikipedia.org/wiki/Berlin>,
+	<http://psi.topicmapslab.de/toytm/containee> : <http://en.wikipedia.org/wiki/East_Berlin>
+)
+@<http://en.wikipedia.org/wiki/History>
+
+<http://psi.topicmapslab.de/toytm/is_capital_of> (
+	<http://psi.topicmapslab.de/toytm/has_capital> : <http://en.wikipedia.org/wiki/Switzerland>,
+	<http://psi.topicmapslab.de/toytm/is_capital> : <http://en.wikipedia.org/wiki/Bern>
+)
+
+<http://en.wikipedia.org/wiki/Neighbouring_Countries> (
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Luxembourg>,
+	<http://en.wikipedia.org/wiki/Neighbouring_Country> : <http://dbpedia.org/resource/Germany>
+)
+
+# Generated by the CTM Topic Map Writer.
