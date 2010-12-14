@@ -13,6 +13,7 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXBEGIN;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.PREFIXEND;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.QUOTE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TRIPPLEQUOTE;
+import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -160,8 +161,9 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 			} else {
 				buffer.append(false, QUOTE, value, QUOTE);
 			}
-			buffer.append(false, DATATYPE, datatype_);
+			buffer.append(false, DATATYPE, PREFIXBEGIN + datatype_ + PREFIXEND);
 		}
+		buffer.append(WHITESPACE);
 		return true;
 	}
 

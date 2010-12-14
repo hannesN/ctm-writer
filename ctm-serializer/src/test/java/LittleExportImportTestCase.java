@@ -226,4 +226,15 @@ public class LittleExportImportTestCase extends TestCase {
 		reader.read();
 
 	}
+	
+	
+	public void testToyImport() throws Exception {
+		File file = new File("src/test/resources/toyTM.ctm");
+
+		TopicMap tm = TopicMapSystemFactory.newInstance().newTopicMapSystem()
+				.createTopicMap("http://www.topicmapslab.de/tmql4j/import-toy-tm");
+
+		CTMTopicMapReader reader = new CTMTopicMapReader(tm,file);
+		reader.read();
+	}
 }
