@@ -51,6 +51,10 @@
 			<id>Semagia releases</id>
 			<name>Semagia Releases</name>
 			<url>http://repository.semagia.com/releases/</url>
+		</repository>	
+		<repository>
+			<id>org.tmapi.snapshot</id>
+			<url>http://www.tmapi.org/maven-repository/snapshots/</url>
 		</repository>
 	</repositories>
 	<dependencies>
@@ -102,13 +106,6 @@
 					<artifactId>tmapi</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.tmapi</groupId>
-			<artifactId>tmapi</artifactId>
-			<version>2.0.2</version>
-			<type>pom</type>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.tmapi</groupId>
