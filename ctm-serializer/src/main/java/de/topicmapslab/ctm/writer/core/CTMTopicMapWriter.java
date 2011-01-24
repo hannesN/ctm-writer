@@ -30,6 +30,7 @@ import de.topicmapslab.ctm.writer.templates.Template;
 import de.topicmapslab.ctm.writer.templates.TemplateFactory;
 import de.topicmapslab.ctm.writer.utility.CTMIdentity;
 import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Implementation of {@link TopicMapWriter} interface to provide a CTM topic map writer.
@@ -170,7 +171,8 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 */
 	public void write(TopicMap topicMap) throws IOException {
 
-		CTMStreamWriter writer = new CTMStreamWriter(stream);
+		 ICTMWriter writer = new CTMStreamWriter(stream);
+		
 		// open index if not opened
 		TypeInstanceIndex idx = topicMap.getIndex(TypeInstanceIndex.class);
 		if (!idx.isOpen()) {
@@ -269,7 +271,7 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 	 *             thrown if serialization failed.
 	 */
 	public void write(Collection<Construct> constructs) throws IOException {
-		CTMStreamWriter writer = new CTMStreamWriter(stream);
+		ICTMWriter writer = new CTMStreamWriter(stream);
 		try {
 			serializer.serialize(constructs, writer);
 		} catch (SerializerException e) {
@@ -340,13 +342,20 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 		return includes;
 	}
 
+	/**
+	 * Adds XTM map to merge
+	 * @param iri the url for the xtm
+	 */
 	public void addMergeXTMMap(String iri) {
 		if (mergeMaps == null)
 			mergeMaps = new HashMap<String, String>();
 
 		mergeMaps.put(iri, "XTM");
 	}
-
+	/**
+	 * Adds CTM map to merge
+	 * @param iri the url for the ctm
+	 */
 	public void addMergeCTMMap(String iri) {
 		if (mergeMaps == null)
 			mergeMaps = new HashMap<String, String>();
@@ -354,11 +363,19 @@ public class CTMTopicMapWriter implements TopicMapWriter {
 		mergeMaps.put(iri, "CTM");
 	}
 
+	/**
+	 * Removes the map to merge with the given url
+	 * @param iri
+	 */
 	public void removeMergeMap(String iri) {
 		if (mergeMaps != null)
 			mergeMaps.remove(iri);
 	}
 
+	/**
+	 * Returns the map of maps to merge
+	 * @return a map with the maps (Map<IRI, FORMAT>) 
+	 */
 	public Map<String, String> getMergeMaps() {
 		if (mergeMaps == null)
 			mergeMaps = new HashMap<String, String>();

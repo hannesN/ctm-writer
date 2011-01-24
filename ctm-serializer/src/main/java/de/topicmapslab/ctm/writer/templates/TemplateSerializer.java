@@ -25,7 +25,7 @@ import de.topicmapslab.ctm.writer.templates.entry.AssociationEntry;
 import de.topicmapslab.ctm.writer.templates.entry.TopicEntry;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Serializer implementation for {@link Template}s.
@@ -50,7 +50,7 @@ public class TemplateSerializer {
 	 *             Thrown if serialization failed.
 	 */
 	@SuppressWarnings("unchecked")
-	public static boolean serialize(Template template, CTMStreamWriter buffer)
+	public static boolean serialize(Template template, ICTMWriter buffer)
 			throws SerializerException, IOException {
 
 		/*
@@ -149,7 +149,7 @@ public class TemplateSerializer {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(Template template, CTMStreamWriter buffer,
+	public static boolean serialize(Template template, ICTMWriter buffer,
 			Collection<String> arguments) throws SerializerException, IOException {
 		return serialize(template, buffer, arguments.toArray(new String[0]));
 	}
@@ -170,7 +170,7 @@ public class TemplateSerializer {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(Template template, CTMStreamWriter buffer,
+	public static boolean serialize(Template template, ICTMWriter buffer,
 			String... arguments) throws SerializerException, IOException {
 		/*
 		 * generate template-invocation-begin --> write template name

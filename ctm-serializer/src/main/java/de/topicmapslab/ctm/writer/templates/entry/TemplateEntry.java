@@ -18,7 +18,7 @@ import de.topicmapslab.ctm.writer.templates.TemplateSerializer;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class representing a template-entry definition of a template-entry.
@@ -58,7 +58,7 @@ public class TemplateEntry implements IEntry {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
+	public void serialize(ICTMWriter buffer) throws SerializerException, IOException {
 		TemplateSerializer.serialize(template, buffer, valuesOrVariables);
 	}
 

@@ -23,7 +23,7 @@ import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.ScopedEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class representing a template-entry definition of a variant-entry.
@@ -76,7 +76,7 @@ public class VariantEntry extends ScopedEntry {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
+	public void serialize(ICTMWriter buffer) throws SerializerException, IOException {
 		VariantSerializer.serialize(writer, getParameter()
 				.getCTMRepresentation(), datatypeAsTopicOrString, buffer);
 		if (getScopeEntry() != null) {

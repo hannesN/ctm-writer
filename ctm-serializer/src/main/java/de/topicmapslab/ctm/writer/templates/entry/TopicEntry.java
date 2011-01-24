@@ -8,8 +8,8 @@ import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
 import de.topicmapslab.ctm.writer.templates.entry.base.IEntry;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 import de.topicmapslab.ctm.writer.utility.CTMTokens;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 public class TopicEntry extends EntryImpl {
 
@@ -53,7 +53,7 @@ public class TopicEntry extends EntryImpl {
 	// return true;
 	// }
 
-	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
+	public void serialize(ICTMWriter buffer) throws SerializerException, IOException {
 		buffer.append(getParameter().getCTMRepresentation(), CTMTokens.WHITESPACE);
 		boolean addTail = false;
 		for (IEntry entry : entries) {

@@ -18,7 +18,7 @@ import org.tmapi.core.Occurrence;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -50,15 +50,15 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer,
-			Occurrence occurrence, CTMStreamWriter buffer) throws SerializerException, IOException {
+			Occurrence occurrence, ICTMWriter buffer) throws SerializerException, IOException {
 
 		/*
 		 * begin occurrence-definition block
 		 */
-		buffer.append(true, TABULATOR,
+		buffer.append(false, TABULATOR, 
 				writer.getCtmIdentity().getMainIdentifier(
 						writer.getProperties(), occurrence.getType())
-						.toString(), COLON, WHITESPACE);
+						.toString(), WHITESPACE, COLON, WHITESPACE);
 
 		/*
 		 * add value and data-type
@@ -101,7 +101,7 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, String value,
-			Object datatype, final String type, CTMStreamWriter buffer)
+			Object datatype, final String type, ICTMWriter buffer)
 			throws SerializerException, IOException {
 
 		buffer.append(true, TABULATOR, type, COLON, WHITESPACE);

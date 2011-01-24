@@ -15,8 +15,8 @@ import java.io.IOException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.entry.base.EntryImpl;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
 import de.topicmapslab.ctm.writer.utility.CTMIdentity;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Abstract class representing a template-entry definition of identifier-entry.
@@ -46,7 +46,7 @@ public abstract class IdentifierEntry extends EntryImpl {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
+	public void serialize(ICTMWriter buffer) throws SerializerException, IOException {
 		buffer.append(true, TABULATOR, getPrefix(), getParameter()
 				.getCTMRepresentation());
 	}

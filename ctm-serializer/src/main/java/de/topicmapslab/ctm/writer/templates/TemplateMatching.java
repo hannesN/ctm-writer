@@ -31,6 +31,11 @@ public class TemplateMatching {
 	private Construct context;
 	private Template template;
 
+	/**
+	 * Returns a list of arguments
+	 * @param writer the writer 
+	 * @return a list of ctm escaped string arguments
+	 */
 	public List<String> getArgumentsAsString(CTMTopicMapWriter writer) {
 		List<String> arguments = new LinkedList<String>();
 		for (Object obj : this.arguments) {

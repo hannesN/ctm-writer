@@ -22,7 +22,7 @@ import org.tmapi.core.TopicMap;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
 /**
@@ -58,7 +58,7 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer,
-			Set<Object> affectedConstructs, Topic instance, CTMStreamWriter buffer, boolean newLine)
+			Set<Object> affectedConstructs, Topic instance, ICTMWriter buffer, boolean newLine)
 			throws SerializerException, IOException {
 		/*
 		 * iterate over all types given known about getTypes
@@ -81,7 +81,9 @@ public class IsInstanceOfSerializer implements ISerializer<Topic> {
 					buffer.appendTailLine();
 					addTail = false;
 				}
-				buffer.append(true, TABULATOR, ISA, writer
+				// write the tabs before the rest to omit whitespace between tabs and "isa"
+				buffer.append(TABULATOR);
+				buffer.append(true, ISA, writer
 						.getCtmIdentity().getMainIdentifier(
 								writer.getProperties(), type).toString());
 				addTail = true;

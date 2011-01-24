@@ -22,7 +22,7 @@ import org.tmapi.core.Role;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.Template;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -55,7 +55,7 @@ public class AssociationSerializer implements ISerializer<Association> {
 	 *             Thrown if serialization failed.
 	 */
 	public static Set<Object> serialize(CTMTopicMapWriter writer, Set<Template> adaptiveTemplates,
-			Association association, CTMStreamWriter buffer) throws SerializerException, IOException {
+			Association association, ICTMWriter buffer) throws SerializerException, IOException {
 
 		Set<Object> affectedConstructs = new HashSet<Object>();
 

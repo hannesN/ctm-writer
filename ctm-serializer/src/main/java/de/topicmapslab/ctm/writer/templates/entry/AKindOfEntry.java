@@ -20,7 +20,7 @@ import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class representing a template-entry definition of a kind-of-association.
@@ -58,7 +58,7 @@ public class AKindOfEntry extends EntryImpl {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
+	public void serialize(ICTMWriter buffer) throws SerializerException, IOException {
 		String value = null;
 		if (param instanceof WildcardParam || param instanceof VariableParam) {
 			value = param.getCTMRepresentation();

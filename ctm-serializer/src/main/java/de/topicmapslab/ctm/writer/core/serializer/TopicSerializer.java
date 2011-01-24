@@ -25,7 +25,7 @@ import org.tmapi.core.Topic;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.TemplateMatching;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -57,7 +57,7 @@ public class TopicSerializer implements ISerializer<Topic> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, Set<TemplateMatching> matchings, Topic topic,
-			CTMStreamWriter buffer) throws SerializerException, IOException {
+			ICTMWriter buffer) throws SerializerException, IOException {
 
 		final String mainIdentifier = writer.getCtmIdentity().getMainIdentifier(writer.getProperties(), topic)
 				.toString();
@@ -95,7 +95,7 @@ public class TopicSerializer implements ISerializer<Topic> {
 					first = false;
 				}
 				buffer.append(");");
-				addTail = true;
+				addNewLine = true;
 			}
 		}
 		/*

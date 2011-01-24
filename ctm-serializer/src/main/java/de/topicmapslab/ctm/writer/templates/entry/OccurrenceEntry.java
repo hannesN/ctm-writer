@@ -26,7 +26,7 @@ import de.topicmapslab.ctm.writer.templates.entry.param.ParamFactory;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class representing a template-entry definition of an occurrence-entry.
@@ -89,7 +89,7 @@ public class OccurrenceEntry extends ScopedEntry {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
+	public void serialize(ICTMWriter buffer) throws SerializerException, IOException {
 
 		String identifier = null;
 		if (type instanceof TopicTypeParam) {

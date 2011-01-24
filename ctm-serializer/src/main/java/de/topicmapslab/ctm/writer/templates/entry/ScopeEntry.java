@@ -26,7 +26,7 @@ import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.TopicTypeParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.VariableParam;
 import de.topicmapslab.ctm.writer.templates.entry.param.WildcardParam;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class representing a template-entry definition of an role-entry.
@@ -76,7 +76,7 @@ public class ScopeEntry {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException {
+	public void serialize(ICTMWriter buffer) throws SerializerException, IOException {
 		boolean first = true;
 		for (IEntryParam param : params) {
 			if (first) {

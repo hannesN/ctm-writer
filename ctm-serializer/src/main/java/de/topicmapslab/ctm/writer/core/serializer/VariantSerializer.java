@@ -18,7 +18,7 @@ import org.tmapi.core.Variant;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -49,7 +49,7 @@ public class VariantSerializer implements ISerializer<Variant> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, Variant variant,
-			CTMStreamWriter buffer) throws SerializerException, IOException {
+			ICTMWriter buffer) throws SerializerException, IOException {
 
 		buffer.append(BRO);
 		/*
@@ -92,7 +92,7 @@ public class VariantSerializer implements ISerializer<Variant> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, String value,
-			Object datatype, CTMStreamWriter buffer) throws SerializerException, IOException {
+			Object datatype, ICTMWriter buffer) throws SerializerException, IOException {
 		/*
 		 * add value and data-type
 		 */

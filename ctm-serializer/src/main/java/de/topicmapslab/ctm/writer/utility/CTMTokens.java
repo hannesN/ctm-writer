@@ -135,7 +135,7 @@ public final class CTMTokens {
 	/**
 	 * CTM new line and carriage return
 	 */
-	public static final String NEWLINE = "\r\n";
+	public static final String NEWLINE = System.getProperty("line.separator");
 	/**
 	 * CTM topic variable <code>$topic</code>
 	 */

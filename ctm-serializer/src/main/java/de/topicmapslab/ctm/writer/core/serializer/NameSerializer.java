@@ -23,7 +23,8 @@ import org.tmapi.core.Variant;
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.NoIdentityException;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.CTMMainIdentifier;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -38,6 +39,8 @@ import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
  */
 public class NameSerializer implements ISerializer<Name> {
 
+	private static final String defaultNameIdentifier = "http://psi.topicmaps.org/iso13250/model/topic-name";
+	
 	/**
 	 * Method to convert the given construct to its specific CTM string. The result should be written to the given
 	 * output buffer.
@@ -52,19 +55,23 @@ public class NameSerializer implements ISerializer<Name> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(CTMTopicMapWriter writer, Name name, CTMStreamWriter buffer)
+	public static boolean serialize(CTMTopicMapWriter writer, Name name, ICTMWriter buffer)
 			throws SerializerException, IOException {
 
 		/*
 		 * begin name definition
 		 */
-		buffer.append(true, TABULATOR, NAME, WHITESPACE);
+		// write the tabs before the rest to omit whitespace between tabs and "-"
+		buffer.append(TABULATOR);
+		buffer.append(false, NAME, WHITESPACE);
 		try {
 			/*
 			 * add type if it is not default name type of TMDM
 			 */
-			buffer.append(false, writer.getCtmIdentity().getMainIdentifier(writer.getProperties(), name.getType())
-					.toString(), WHITESPACE, COLON, WHITESPACE);
+			CTMMainIdentifier mainIdentifier = writer.getCtmIdentity().getMainIdentifier(writer.getProperties(), name.getType());
+			if ((!mainIdentifier.getIdentifier().equals(defaultNameIdentifier)) && (!"tmdm:topic-name".equals(mainIdentifier.getIdentifier()))) {
+				buffer.append(false, mainIdentifier.toString(), WHITESPACE, COLON, WHITESPACE);
+			}
 		} catch (NoIdentityException e) {
 			// VOID
 		}
@@ -119,7 +126,7 @@ public class NameSerializer implements ISerializer<Name> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(final CTMTopicMapWriter writer, final String value, final String type,
-			CTMStreamWriter buffer) throws SerializerException, IOException {
+			ICTMWriter buffer) throws SerializerException, IOException {
 
 		buffer.append(true, TABULATOR, NAME, WHITESPACE);
 		if (type != null) {

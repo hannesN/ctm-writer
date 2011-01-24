@@ -26,7 +26,7 @@ import java.io.OutputStream;
  * @email krosse@informatik.uni-leipzig.de
  * 
  */
-public class CTMStreamWriter {
+public class CTMStreamWriter implements ICTMWriter {
 
 	private final OutputStream stream;
 
@@ -56,69 +56,53 @@ public class CTMStreamWriter {
 		}
 	}
 
-	/**
-	 * Appends a new line to stream, by adding a new-line-command.
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendLine() throws IOException {
 		this.stream.write(NEWLINE.getBytes(UTF_8));
 	}
 
-	/**
-	 * Appends a new line to stream after the given elements. Method is calling
-	 * {@link CTMstream#appendLine(boolean, String...)} with default parameter <code>true</code>.
-	 * 
-	 * @param elements
-	 *            the elements to add.
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendLine(final String... elements) throws IOException {
 		appendLine(true, elements);
 	}
 
-	/**
-	 * Appends a new line to stream after the given elements. The elements are added to stream divided by white-spaces
-	 * if the flag is <code>true</code>.
-	 * 
-	 * @param withWhitespaces
-	 *            divide new elements with white-spaces
-	 * @param elements
-	 *            the elements to add
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendLine(final boolean withWhitespaces, final String... elements) throws IOException {
 		appendElements(withWhitespaces, elements);
 		this.stream.write(NEWLINE.getBytes(UTF_8));
 	}
 
-	/**
-	 * Appends a new line to stream after adding the given line.
-	 * 
-	 * @param line
-	 *            the line to add
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendLine(final String line) throws IOException {
 		this.stream.write(line.trim().getBytes(UTF_8));
 		this.stream.write(NEWLINE.getBytes(UTF_8));
 	}
 
-	/**
-	 * Appends a new CTM tail-line by adding a semicolon and new-line-command at the end of line.
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendTailLine() throws IOException {
 		this.stream.write(TAIL.getBytes(UTF_8));
 		this.stream.write(NEWLINE.getBytes(UTF_8));
 	}
 
-	/**
-	 * Appends a CTM tail-symbol to the stream.
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendTail() throws IOException {
 		this.stream.write(TAIL.getBytes(UTF_8));
 	}
 
-	/**
-	 * Appends the given line and a CTM tail-line-command to the stream.
-	 * 
-	 * @param elements
-	 *            the elements to add
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendTailLine(final String... elements) throws IOException {
 		appendElements(true, elements);
@@ -126,11 +110,8 @@ public class CTMStreamWriter {
 		this.stream.write(NEWLINE.getBytes(UTF_8));
 	}
 
-	/**
-	 * Appends the given line and a CTM tail-line-command to the stream.
-	 * 
-	 * @param line
-	 *            the line to add
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendTailLine(final String line) throws IOException {
 		this.stream.write(line.getBytes(UTF_8));
@@ -138,23 +119,16 @@ public class CTMStreamWriter {
 		this.stream.write(NEWLINE.getBytes(UTF_8));
 	}
 
-	/**
-	 * Appends the given line and a CTM block-end-command to the stream.
-	 * 
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendBlockEnd() throws IOException {
 		this.stream.write(DOT.getBytes(UTF_8));
 		this.stream.write(NEWLINE.getBytes(UTF_8));
 	}
 
-	/**
-	 * Appends the given elements and a CTM tail-line-command to the stream. The given elements are added to the stream
-	 * divided by white-spaces if flag is <code>true</code>.
-	 * 
-	 * @param withWhitespaces
-	 *            divide new elements with white-spaces
-	 * @param elements
-	 *            the elements to add
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendTailLine(final boolean withWhitespaces, final String... elements) throws IOException {
 		appendElements(withWhitespaces, elements);
@@ -162,44 +136,29 @@ public class CTMStreamWriter {
 		this.stream.write(NEWLINE.getBytes(UTF_8));
 	}
 
-	/**
-	 * Appends a new string to the stream.
-	 * 
-	 * @param str
-	 *            the string to add
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void append(final String str) throws IOException {
 		this.stream.write(str.getBytes(UTF_8));
 	}
 
-	/**
-	 * Appends a number of elements to the stream divided by white-spaces. Method is calling
-	 * {@link CTMstream#append(boolean, String...)} with default parameter <code>true</code>.
-	 * 
-	 * @param elements
-	 *            the elements to add
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void append(final String... elements) throws IOException {
 		appendElements(true, elements);
 	}
 
-	/**
-	 * Appends a number of elements to the stream divided by white-spaces if the flag is <code>true</code>.
-	 * 
-	 * @param withWhitespaces
-	 *            divide new elements with white-spaces
-	 * @param elements
-	 *            the elements to add
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void append(final boolean withWhitespaces, final String... elements) throws IOException {
 		appendElements(withWhitespaces, elements);
 	}
 
-	/**
-	 * Appends a CTM comment to the stream by adding a hex, the comment and a new-line-command
-	 * 
-	 * @param comment
-	 *            the comment to add
+	/** 
+	 * {@inheritDoc}
 	 */
 	public void appendCommentLine(final String comment) throws IOException {
 		appendLine(COMMENT, comment);

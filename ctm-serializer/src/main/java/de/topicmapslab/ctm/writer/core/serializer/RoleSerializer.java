@@ -16,7 +16,7 @@ import org.tmapi.core.Role;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -48,7 +48,7 @@ public class RoleSerializer implements ISerializer<Role> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, Role role,
-			CTMStreamWriter buffer) throws SerializerException, IOException {
+			ICTMWriter buffer) throws SerializerException, IOException {
 
 		buffer.append(true, writer.getCtmIdentity().getMainIdentifier(
 				writer.getProperties(), role.getType()).toString(), COLON,
