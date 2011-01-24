@@ -37,7 +37,7 @@ import de.topicmapslab.ctm.writer.templates.TemplateMatching;
 import de.topicmapslab.ctm.writer.templates.TemplateMerger;
 import de.topicmapslab.ctm.writer.templates.TemplateSerializer;
 import de.topicmapslab.ctm.writer.templates.autodetection.TemplateDetection;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 import de.topicmapslab.identifier.TmdmSubjectIdentifier;
 
 /**
@@ -80,6 +80,12 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	private final Map<Construct, Set<TemplateMatching>> constructMatchings = new HashMap<Construct, Set<TemplateMatching>>();
 	private final Set<Construct> ignoredConstructs = new HashSet<Construct>();
 
+	/**
+	 * Constructor 
+	 * 
+	 * @param writer the topic map writer to use
+	 * @param prefixHandler a prefix handler
+	 */
 	public TopicMapSerializer(CTMTopicMapWriter writer, PrefixHandler prefixHandler) {
 		this.prefixHandler = prefixHandler;
 		this.writer = writer;
@@ -99,7 +105,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public boolean serialize(TopicMap topicMap, CTMStreamWriter buffer) throws SerializerException, IOException {
+	public boolean serialize(TopicMap topicMap, ICTMWriter buffer) throws SerializerException, IOException {
 
 		/*
 		 * add encoding
@@ -294,7 +300,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public boolean serialize(Collection<Construct> constructs, CTMStreamWriter buffer) throws SerializerException,
+	public boolean serialize(Collection<Construct> constructs, ICTMWriter buffer) throws SerializerException,
 			IOException {
 
 		/*
@@ -373,7 +379,7 @@ public class TopicMapSerializer implements ISerializer<TopicMap> {
 	 * @throws SerializerException
 	 *             thrown if serialization failed
 	 */
-	private final boolean serializeTopicToCTM(final Topic topic, final CTMStreamWriter buffer)
+	private final boolean serializeTopicToCTM(final Topic topic, final ICTMWriter buffer)
 			throws SerializerException, IOException {
 		try {
 			/*

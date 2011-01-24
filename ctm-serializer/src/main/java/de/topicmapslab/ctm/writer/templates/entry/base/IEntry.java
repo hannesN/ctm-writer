@@ -14,7 +14,7 @@ import java.util.List;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
 import de.topicmapslab.ctm.writer.templates.Template;
 import de.topicmapslab.ctm.writer.templates.entry.param.IEntryParam;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Interface definition of template-definition-entries, which can be used as
@@ -35,7 +35,7 @@ public interface IEntry {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public void serialize(CTMStreamWriter buffer) throws SerializerException, IOException;
+	public void serialize(ICTMWriter buffer) throws SerializerException, IOException;
 
 //	/**
 //	 * Check if entry is adaptive for given construct.

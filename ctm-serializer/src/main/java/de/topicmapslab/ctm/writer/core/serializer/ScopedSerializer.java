@@ -19,7 +19,7 @@ import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -50,7 +50,7 @@ public class ScopedSerializer implements ISerializer<Scoped> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, Scoped scoped,
-			CTMStreamWriter buffer) throws SerializerException, IOException {
+			ICTMWriter buffer) throws SerializerException, IOException {
 		if (!scoped.getScope().isEmpty()) {
 			boolean first = true;
 			for (Topic theme : scoped.getScope()) {

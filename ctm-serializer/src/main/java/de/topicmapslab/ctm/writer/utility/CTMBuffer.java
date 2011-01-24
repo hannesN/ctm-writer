@@ -15,6 +15,8 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.NEWLINE;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.TAIL;
 import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
 
+import java.io.IOException;
+
 /**
  * Buffer class for CTM content.
  * 
@@ -22,7 +24,7 @@ import static de.topicmapslab.ctm.writer.utility.CTMTokens.WHITESPACE;
  * @email krosse@informatik.uni-leipzig.de
  * 
  */
-public class CTMBuffer {
+public class CTMBuffer implements ICTMWriter {
 
 	/**
 	 * the internal buffer
@@ -255,6 +257,15 @@ public class CTMBuffer {
 	 */
 	public void appendCommentLine(final String comment) {
 		appendLine(COMMENT, comment);
+	}
+
+	/** 
+	 * {@inheritDoc}
+	 */
+	public void appendBlockEnd() throws IOException {
+		buffer.append(DOT);
+		buffer.append(NEWLINE);
+		
 	}
 
 }

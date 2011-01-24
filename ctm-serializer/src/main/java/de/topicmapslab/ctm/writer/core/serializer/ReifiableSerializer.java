@@ -16,7 +16,7 @@ import org.tmapi.core.Reifiable;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -47,7 +47,7 @@ public class ReifiableSerializer implements ISerializer<Reifiable> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer,
-			Reifiable reifiable, CTMStreamWriter buffer) throws SerializerException, IOException {
+			Reifiable reifiable, ICTMWriter buffer) throws SerializerException, IOException {
 
 		if (reifiable.getReifier() != null) {
 			buffer.append(true, REIFIER, writer.getCtmIdentity()

@@ -24,7 +24,7 @@ import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 import de.topicmapslab.identifier.XmlSchemeDatatypes;
 
 /**
@@ -60,7 +60,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 * @throws SerializerException
 	 *             Thrown if serialization failed.
 	 */
-	public static boolean serialize(CTMTopicMapWriter writer, DatatypeAware datatypeAware, CTMStreamWriter buffer)
+	public static boolean serialize(CTMTopicMapWriter writer, DatatypeAware datatypeAware, ICTMWriter buffer)
 			throws SerializerException, IOException {
 		final String value = datatypeAware.getValue();
 		final String datatype = writer.getCtmIdentity().getPrefixedIdentity(datatypeAware.getDatatype());
@@ -84,7 +84,7 @@ public class DatatypeAwareSerializer implements ISerializer<DatatypeAware> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, final Object datatype, final String value_,
-			CTMStreamWriter buffer) throws SerializerException, IOException {
+			ICTMWriter buffer) throws SerializerException, IOException {
 		/*
 		 * extract reference of the data-type as string
 		 */

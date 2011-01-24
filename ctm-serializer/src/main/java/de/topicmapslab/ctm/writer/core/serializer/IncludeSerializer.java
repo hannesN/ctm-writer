@@ -20,7 +20,7 @@ import org.tmapi.core.TopicMap;
 
 import de.topicmapslab.ctm.writer.core.PrefixHandler;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -51,7 +51,7 @@ public class IncludeSerializer implements ISerializer<TopicMap> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(List<String> includes,
-			PrefixHandler prefixHandler, CTMStreamWriter buffer)
+			PrefixHandler prefixHandler, ICTMWriter buffer)
 			throws SerializerException, IOException {
 
 		boolean result = false;

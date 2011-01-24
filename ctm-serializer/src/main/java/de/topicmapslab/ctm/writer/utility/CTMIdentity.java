@@ -81,6 +81,12 @@ public class CTMIdentity {
 		return prefixedIdentity;
 	}
 
+	/**
+	 * Returns the escaped version of the given identity
+	 * @param identity 
+	 * @param locator
+	 * @return
+	 */
 	public final String getEscapedCTMIdentity(final String identity,
 			final Locator locator) {
 

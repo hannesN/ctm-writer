@@ -20,7 +20,7 @@ import org.tmapi.core.Topic;
 
 import de.topicmapslab.ctm.writer.core.CTMTopicMapWriter;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 import de.topicmapslab.ctm.writer.utility.TypeHierarchyUtils;
 
 /**
@@ -55,7 +55,7 @@ public class AKindOfSerializer implements ISerializer<Topic> {
 	 *             Thrown if serialization failed.
 	 */
 	public static boolean serialize(CTMTopicMapWriter writer, Set<Object> affectedConstructs, Topic subtype,
-			CTMStreamWriter buffer, boolean newLine) throws SerializerException, IOException {
+			ICTMWriter buffer, boolean newLine) throws SerializerException, IOException {
 		try {
 			/*
 			 * iterate over all types given known about getTypes
@@ -81,7 +81,9 @@ public class AKindOfSerializer implements ISerializer<Topic> {
 						buffer.appendTailLine();
 						addTail = false;
 					}
-					buffer.append(true, TABULATOR, AKO,
+					// write the tabs before the rest to omit whitespace between tabs and "ako"
+					buffer.append(TABULATOR);
+					buffer.append(true, AKO,
 							writer.getCtmIdentity().getMainIdentifier(writer.getProperties(), supertype).toString());
 					addTail = true;
 				}

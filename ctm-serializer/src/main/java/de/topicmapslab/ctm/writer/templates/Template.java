@@ -159,6 +159,14 @@ public class Template {
 		return true;
 	}
 
+	/**
+	 * Reads a template file and inports the template definitions
+	 * 
+	 * @param file
+	 * @return
+	 * @throws SerializerException
+	 * @throws UnsupportedOperationException - not implemented yet
+	 */
 	public static final Set<Template> fromCTM(final File file) throws SerializerException {
 		throw new UnsupportedOperationException("not implemented yet.");
 	}

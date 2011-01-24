@@ -21,7 +21,7 @@ import org.tmapi.core.TopicMap;
 
 import de.topicmapslab.ctm.writer.core.PrefixHandler;
 import de.topicmapslab.ctm.writer.exception.SerializerException;
-import de.topicmapslab.ctm.writer.utility.CTMStreamWriter;
+import de.topicmapslab.ctm.writer.utility.ICTMWriter;
 
 /**
  * Class to realize the serialization of the following CTM grammar rule. <br />
@@ -52,7 +52,7 @@ public class MergeMapSerializer implements ISerializer<TopicMap> {
 	 *             thrown if serialization failed
 	 */
 	public static boolean serialize(Map<String, String> mergeMap,
-			PrefixHandler prefixHandler, CTMStreamWriter buffer)
+			PrefixHandler prefixHandler, ICTMWriter buffer)
 			throws SerializerException, IOException {
 
 		boolean result = false;
