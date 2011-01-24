@@ -190,7 +190,8 @@ public class TopicSerializer implements ISerializer<Topic> {
 					buffer.appendTailLine();
 					addTail = false;
 				}
-				buffer.append(true, TABULATOR, identity);
+				buffer.append(false, TABULATOR);
+				buffer.append(false, identity);
 				addTail = true;
 			}
 		}
@@ -219,7 +220,8 @@ public class TopicSerializer implements ISerializer<Topic> {
 					buffer.appendTailLine();
 					addTail = false;
 				}
-				buffer.append(true, TABULATOR, SUBJECTLOCATOR, identity);
+				buffer.append(false, TABULATOR);
+				buffer.append(true, SUBJECTLOCATOR, identity);
 				addTail = true;
 			}
 		}
@@ -249,7 +251,8 @@ public class TopicSerializer implements ISerializer<Topic> {
 						buffer.appendTailLine();
 						addTail = false;
 					}
-					buffer.appendTailLine(true, TABULATOR, ITEMIDENTIFIER, writer.getCtmIdentity()
+					buffer.append(false, TABULATOR);
+					buffer.appendTailLine(true, ITEMIDENTIFIER, writer.getCtmIdentity()
 							.getEscapedCTMIdentity(identity, locator));
 					addTail = true;
 				}
