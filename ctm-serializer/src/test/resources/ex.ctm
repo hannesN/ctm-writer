@@ -12,8 +12,8 @@
 	 isa <http://en.wikipedia.org/wiki/Republic>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republik Österreich"@<http://psi.oasis-open.org/iso/639/#deu> ("Österreich"@<http://psi.oasis-open.org/iso/639/#deu>,  <http://en.wikipedia.org/wiki/short_name> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republic of Austria"@<http://psi.oasis-open.org/iso/639/#eng> ~ ^<http://psi.topicmapslab.de/toytm/reifier3> ("Austria"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
-	 <http://en.wikipedia.org/wiki/Population> :  "8032926"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ;
-	 <http://en.wikipedia.org/wiki/Population> :  "8356707"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "8032926"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "8356707"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
 	 <http://en.wikipedia.org/wiki/Website> :  <http://en.wikipedia.org/wiki/Austria>;
 	 <http://en.wikipedia.org/wiki/Austria>.
 
@@ -76,8 +76,8 @@
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Confédération suisse"@<http://psi.oasis-open.org/iso/639/#fra> ("la Suisse"@<http://psi.oasis-open.org/iso/639/#fra>,  <http://en.wikipedia.org/wiki/short_name> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Swiss Confederation"@<http://psi.oasis-open.org/iso/639/#eng> ("Switzerland"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ~ ^<http://psi.topicmapslab.de/toytm/reifier10> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Schweizerische Eidgenossenschaft"@<http://psi.oasis-open.org/iso/639/#deu> ("die Schweiz"@<http://psi.oasis-open.org/iso/639/#deu>,  <http://en.wikipedia.org/wiki/short_name> ) ;
-	 <http://en.wikipedia.org/wiki/Population> :  "7739100"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
-	 <http://en.wikipedia.org/wiki/Population> :  "7593500"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Census>,  <http://en.wikipedia.org/wiki/2007> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "7739100"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "7593500"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Census>,  <http://en.wikipedia.org/wiki/2007> ;
 	 <http://dbpedia.org/resource/Switzerland>.
 
 <http://en.wikipedia.org/wiki/Monaco>  
@@ -121,7 +121,7 @@
 	 isa <http://en.wikipedia.org/wiki/Republic>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Federal Republic of Germany"@<http://psi.oasis-open.org/iso/639/#eng> ("Germany"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Bundesrepublik Deutschland"@<http://psi.oasis-open.org/iso/639/#deu> ("Deutschland"@<http://psi.oasis-open.org/iso/639/#deu>,  <http://en.wikipedia.org/wiki/short_name> ) ;
-	 <http://en.wikipedia.org/wiki/Population> :  "82060000"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2008> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "82060000"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2008> ;
 	 <http://en.wikipedia.org/wiki/Germany>;
 	 <http://de.wikipedia.org/wiki/Deutschland>.
 
@@ -198,8 +198,8 @@
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kingdom of Belgium"@<http://psi.oasis-open.org/iso/639/#eng> ~ ^<http://psi.topicmapslab.de/toytm/reifier4> ("Belgium"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Koninkrijk België"@<http://psi.oasis-open.org/iso/639/#nld> ("België"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#nld> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Königreich Belgien"@<http://psi.oasis-open.org/iso/639/#deu> ("Belgien"@<http://psi.oasis-open.org/iso/639/#deu>,  <http://en.wikipedia.org/wiki/short_name> ) ;
-	 <http://en.wikipedia.org/wiki/Population> :  "10296350"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ~ ^<http://psi.topicmapslab.de/toytm/reifier7> ;
-	 <http://en.wikipedia.org/wiki/Population> :  "10665867"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2008> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "10296350"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ~ ^<http://psi.topicmapslab.de/toytm/reifier7> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "10665867"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2008> ;
 	 <http://dbpedia.org/resource/Belgium>.
 
 <http://dbpedia.org/resource/East_Germany>  
@@ -256,7 +256,7 @@
 	 isa <http://en.wikipedia.org/wiki/Kingdom>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Koninkrijk der Nederlanden"@<http://psi.oasis-open.org/iso/639/#nld> ("Nederland"@<http://en.wikipedia.org/wiki/short_name>,  <http://psi.oasis-open.org/iso/639/#nld> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kingdom of the Netherlands"@<http://psi.oasis-open.org/iso/639/#eng> ("Netherlands"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
-	 <http://en.wikipedia.org/wiki/Population> :  "16500156"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "16500156"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
 	 <http://en.wikipedia.org/wiki/Netherlands>.
 
 <http://en.wikipedia.org/wiki/Bavaria>  
@@ -370,7 +370,7 @@
 	 isa <http://en.wikipedia.org/wiki/Kingdom>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kongeriget Danmark"@<http://psi.oasis-open.org/iso/639/#dan> ("Danmark"@<http://psi.oasis-open.org/iso/639/#dan>,  <http://en.wikipedia.org/wiki/short_name> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Kingdom of Denmark"@<http://psi.oasis-open.org/iso/639/#eng> ("Denmark"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
-	 <http://en.wikipedia.org/wiki/Population> :  "5519441"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "5519441"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
 	 <http://dbpedia.org/resource/Denmark>.
 
 <http://en.wikipedia.org/wiki/Slovenia>  
@@ -414,8 +414,8 @@
 	 isa <http://en.wikipedia.org/wiki/Republic>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Republic of Poland"@<http://psi.oasis-open.org/iso/639/#eng> ("Poland"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Rzeczpospolita Polska"@<http://psi.oasis-open.org/iso/639/#pol> ("Polska"@<http://psi.oasis-open.org/iso/639/#pol>,  <http://en.wikipedia.org/wiki/short_name> ) ;
-	 <http://en.wikipedia.org/wiki/Population> :  "38116000"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Census>,  <http://en.wikipedia.org/wiki/2007> ;
-	 <http://en.wikipedia.org/wiki/Population> :  "38130302"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "38116000"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Census>,  <http://en.wikipedia.org/wiki/2007> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "38130302"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
 	 <http://dbpedia.org/resource/Poland>.
 
 ^<http://psi.topicmapslab.de/toytm/reifier10>  
@@ -428,8 +428,8 @@
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Groussherzogtum Lëtzebuerg"@<http://psi.oasis-open.org/iso/639/#ltz> ("Lëtzebuerg"@<http://psi.oasis-open.org/iso/639/#ltz>,  <http://en.wikipedia.org/wiki/short_name> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Großherzogtum Luxemburg"@<http://psi.oasis-open.org/iso/639/#deu> ("Luxemburg"@<http://psi.oasis-open.org/iso/639/#deu>,  <http://en.wikipedia.org/wiki/short_name> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Grand-Duché de Luxembourg"@<http://psi.oasis-open.org/iso/639/#fra> ("Luxembourg"@<http://psi.oasis-open.org/iso/639/#fra>,  <http://en.wikipedia.org/wiki/short_name> ) ;
-	 <http://en.wikipedia.org/wiki/Population> :  "493500"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
-	 <http://en.wikipedia.org/wiki/Population> :  "439539"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "493500"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "439539"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ;
 	 <http://en.wikipedia.org/wiki/Luxembourg>.
 
 ^<http://psi.topicmapslab.de/toytm/reifier6>  
@@ -486,8 +486,8 @@
 	 isa <http://en.wikipedia.org/wiki/Republic>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Czech Republic"@<http://psi.oasis-open.org/iso/639/#eng> ("Czechia"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "Česká republika"@<http://psi.oasis-open.org/iso/639/#ces> ("Česko"@<http://psi.oasis-open.org/iso/639/#ces>,  <http://en.wikipedia.org/wiki/short_name> ) ;
-	 <http://en.wikipedia.org/wiki/Population> :  "10230060"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ;
-	 <http://en.wikipedia.org/wiki/Population> :  "10476543"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "10230060"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/2001>,  <http://en.wikipedia.org/wiki/Census> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "10476543"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
 	 <http://en.wikipedia.org/wiki/Czech_Republic>.
 
 <http://psi.topicmapslab.de/toytm/container>  
@@ -518,7 +518,7 @@
 	 isa <http://en.wikipedia.org/wiki/Republic>;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "French Republic"@<http://psi.oasis-open.org/iso/639/#eng> ("France"@<http://psi.oasis-open.org/iso/639/#eng>,  <http://en.wikipedia.org/wiki/short_name> ) ;
 	 -  <http://psi.topicmaps.org/iso13250/model/topic-name> : "République française"@<http://psi.oasis-open.org/iso/639/#fra> ("France"@<http://psi.oasis-open.org/iso/639/#fra>,  <http://en.wikipedia.org/wiki/short_name> ) ;
-	 <http://en.wikipedia.org/wiki/Population> :  "65073482"^^http://www.w3.org/2001/XMLSchema#long@<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
+	 <http://en.wikipedia.org/wiki/Population> :  "65073482"^^http://www.w3.org/2001/XMLSchema#long @<http://en.wikipedia.org/wiki/Estimation>,  <http://en.wikipedia.org/wiki/2009> ;
 	 <http://dbpedia.org/resource/France>.
 
 <http://en.wikipedia.org/wiki/2001>  

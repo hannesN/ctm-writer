@@ -58,7 +58,7 @@ public class ScopedSerializer implements ISerializer<Scoped> {
 					buffer.append(SCOPE);
 					first = false;
 				} else {
-					buffer.append(true, COMMA, WHITESPACE);
+					buffer.append(false, COMMA, WHITESPACE);
 				}
 				buffer.append(writer.getCtmIdentity().getMainIdentifier(
 						writer.getProperties(), theme).toString());

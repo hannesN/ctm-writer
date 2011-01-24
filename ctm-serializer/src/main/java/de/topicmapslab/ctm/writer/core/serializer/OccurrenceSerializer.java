@@ -64,6 +64,7 @@ public class OccurrenceSerializer implements ISerializer<Occurrence> {
 		 * add value and data-type
 		 */
 		DatatypeAwareSerializer.serialize(writer, occurrence, buffer);
+		
 		/*
 		 * add scope if exists
 		 */
