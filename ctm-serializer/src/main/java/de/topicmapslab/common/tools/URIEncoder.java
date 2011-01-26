@@ -20,13 +20,15 @@ public class URIEncoder {
 	private static Map<Character, String> parameterPartEscapeSequences = new HashMap<Character, String>();
 
 	static {
-		escapeSequences.put('Ä', "%C4");
-		escapeSequences.put('Ü', "%DC");
-		escapeSequences.put('Ö', "%D6");
-		escapeSequences.put('ä', "%E4");
-		escapeSequences.put('ü', "%FC");
-		escapeSequences.put('ö', "%F6");
-		escapeSequences.put('ß', "%DF");
+		// escaping german umlauts
+		escapeSequences.put('\u00c4', "%C4"); 
+		escapeSequences.put('\u00dc', "%DC");
+		escapeSequences.put('\u00d6', "%D6");
+		escapeSequences.put('\u00e4', "%E4");
+		escapeSequences.put('\u00fc', "%FC");
+		escapeSequences.put('\u00f6', "%F6");
+		escapeSequences.put('\u00df', "%DF");
+		
 		escapeSequences.put(' ', "%20");
 		escapeSequences.put(';', "%3B");
 		escapeSequences.put('"', "%22");
