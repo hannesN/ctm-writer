@@ -2,3 +2,4 @@ syntax: glob
 */doc/build.properties
 */doc/doc
 **/target
+MANIFEST.MF
